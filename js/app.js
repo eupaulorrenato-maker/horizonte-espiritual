@@ -11,17 +11,39 @@
 
   var state = {
     activeSection: "inicio",
+    drawerMenuOpen: false,
     selectedTraditionId: "catolica",
     selectedFeeling: "ansiedade",
     rememberTradition: true,
     theme: "light",
     readerFontSizePx: 19,
+
+    // Orações Fortes (Paginated directory + dedicated single-prayer page)
     prayerCategory: "todas",
     prayerSearchQuery: "",
+    prayerPage: 1,
+    prayersPerPage: 6,
+    activePrayerId: null,
+
+    // Vela Virtual (Separate sub-pages: "form" vs "wall")
+    candleSubPage: "form",
     candleFilter: "all",
+    candleWallPage: 1,
+    candlesPerPage: 4,
     flamePaused: false,
+
+    // Biblioteca Sagrada (Complete works + full 66-book / 1189-chapter Bible loader + dedicated reader sub-page)
     libraryTraditionId: "catolica",
+    librarySubPage: "reader",
+    libraryMode: "curated", // "curated" or "full-bible"
     libraryChapterIndex: 0,
+    bibleBookIndex: 18, // Salmos by default
+    bibleChapterNumber: 23,
+    bibleFetchedTitle: "",
+    bibleFetchedVerses: null,
+    bibleLoading: false,
+
+    // Alento, Quiz & Blog
     activeComfortTopicId: "luto-saudade",
     quizIndex: 0,
     quizScore: 0,
@@ -42,9 +64,7 @@
   function safeStorageSet(key, value) {
     try {
       window.localStorage.setItem(key, value);
-    } catch (e) {
-      // Ignore quota or security errors in restricted webviews.
-    }
+    } catch (e) {}
   }
 
   function safeStorageRemove(key) {
@@ -105,6 +125,23 @@
     }
   }
 
+  function toggleDrawerMenu(forceOpen) {
+    var drawer = document.getElementById("full-site-drawer");
+    var triggerBtns = document.querySelectorAll("[data-action='toggle-drawer-menu']");
+    if (!drawer) return;
+
+    state.drawerMenuOpen = typeof forceOpen === "boolean" ? forceOpen : !state.drawerMenuOpen;
+    if (state.drawerMenuOpen) {
+      drawer.classList.remove("hidden");
+    } else {
+      drawer.classList.add("hidden");
+    }
+
+    for (var i = 0; i < triggerBtns.length; i++) {
+      triggerBtns[i].setAttribute("aria-expanded", state.drawerMenuOpen ? "true" : "false");
+    }
+  }
+
   function stopSpeech() {
     if ("speechSynthesis" in window) {
       try {
@@ -155,7 +192,7 @@
       state.speakingId = id;
       updateSpeechButtons();
       if (statusEl) {
-        statusEl.textContent = "Leitura em voz calma iniciada. Toque novamente no botão de áudio se desejar pausar.";
+        statusEl.textContent = "Leitura em voz calma iniciada. Toque novamente no botão de áudio se desejar parar.";
         statusEl.classList.remove("hidden");
       }
       window.speechSynthesis.speak(utterance);
@@ -194,6 +231,15 @@
     if (!targetFound) return;
 
     state.activeSection = sectionId;
+    toggleDrawerMenu(false);
+
+    if (sectionId === "oracoes") {
+      state.activePrayerId = null;
+      renderPrayersView();
+    } else if (sectionId === "blog") {
+      state.activeBlogPostId = null;
+      renderBlogList();
+    }
 
     var navButtons = document.querySelectorAll("[data-nav-target]");
     for (var j = 0; j < navButtons.length; j++) {
@@ -213,38 +259,43 @@
     }
   }
 
-  function renderTraditionOnboardingGrid() {
-    var container = document.getElementById("traditions-grid-container");
-    if (!container) return;
-
-    var traditions = getTraditions();
-    var html = "";
-    for (var i = 0; i < traditions.length; i++) {
-      var t = traditions[i];
-      var isSelected = t.id === state.selectedTraditionId;
-      html +=
-        '<button type="button" class="tradition-card" data-select-tradition="' +
-        escapeHtml(t.id) +
-        '" aria-pressed="' +
-        (isSelected ? "true" : "false") +
-        '">' +
-        '<span class="inline-flex items-center justify-center w-11 h-11 rounded-lg text-xl font-bold shrink-0" style="background-color: var(--bg-subtle); color: var(--accent-wine);" aria-hidden="true">' +
-        escapeHtml(t.symbol) +
-        "</span>" +
-        '<span class="flex flex-col min-w-0">' +
-        '<span class="font-semibold text-base leading-snug" style="color: var(--text-main);">' +
-        escapeHtml(t.name) +
-        "</span>" +
-        '<span class="text-xs leading-tight mt-0.5" style="color: var(--text-muted);">' +
-        escapeHtml(t.tag) +
-        "</span>" +
-        "</span>" +
-        "</button>";
+  function populateHomeSelectors() {
+    var tradSelect = document.getElementById("home-tradition-select");
+    if (tradSelect && tradSelect.options.length === 0) {
+      var traditions = getTraditions();
+      var tHtml = "";
+      for (var i = 0; i < traditions.length; i++) {
+        var t = traditions[i];
+        tHtml +=
+          '<option value="' +
+          escapeHtml(t.id) +
+          '">' +
+          escapeHtml(t.symbol + " " + t.name + " (" + t.canonicalWorkTitle + ")") +
+          "</option>";
+      }
+      tradSelect.innerHTML = tHtml;
     }
-    container.innerHTML = html;
+    if (tradSelect) {
+      tradSelect.value = state.selectedTraditionId;
+    }
+
+    var feelSelect = document.getElementById("home-feeling-select");
+    if (feelSelect && feelSelect.options.length === 0) {
+      var feelings = window.FEELINGS_LIST || [];
+      var fHtml = "";
+      for (var j = 0; j < feelings.length; j++) {
+        var f = feelings[j];
+        fHtml += '<option value="' + escapeHtml(f.id) + '">' + escapeHtml(f.label) + "</option>";
+      }
+      feelSelect.innerHTML = fHtml;
+    }
+    if (feelSelect) {
+      feelSelect.value = state.selectedFeeling;
+    }
   }
 
   function renderDailyPanel() {
+    populateHomeSelectors();
     var tradition = findTradition(state.selectedTraditionId);
     if (!tradition) return;
 
@@ -260,7 +311,7 @@
 
     var sourceEl = document.getElementById("daily-canonical-work");
     if (sourceEl) {
-      sourceEl.textContent = "Fonte Sagrada: " + tradition.canonicalWorkTitle;
+      sourceEl.textContent = tradition.canonicalWorkTitle;
     }
 
     var passageObj =
@@ -276,12 +327,6 @@
       if (refEl) refEl.textContent = passageObj.reference;
       if (reflEl) reflEl.textContent = passageObj.reflection;
     }
-
-    var feelingButtons = document.querySelectorAll("[data-feeling-id]");
-    for (var i = 0; i < feelingButtons.length; i++) {
-      var fId = feelingButtons[i].getAttribute("data-feeling-id");
-      feelingButtons[i].setAttribute("aria-pressed", fId === state.selectedFeeling ? "true" : "false");
-    }
   }
 
   function selectTradition(traditionId, syncLibrary) {
@@ -292,23 +337,32 @@
     if (syncLibrary !== false) {
       state.libraryTraditionId = found.id;
       state.libraryChapterIndex = 0;
+      state.libraryMode = "curated";
     }
 
     if (state.rememberTradition) {
       safeStorageSet(STORAGE_KEYS.tradition, found.id);
     }
 
-    renderTraditionOnboardingGrid();
     renderDailyPanel();
     renderSacredLibrary();
-     populateCandleTraditionSelect();
+    populateCandleTraditionSelect();
   }
 
-  function renderPrayersList() {
-    var container = document.getElementById("prayers-list-container");
-    var countEl = document.getElementById("prayers-count-label");
-    if (!container) return;
+  function populatePrayerCategorySelect() {
+    var selectEl = document.getElementById("prayer-category-select");
+    if (!selectEl || selectEl.options.length > 0) return;
 
+    var traditions = getTraditions();
+    var html = '<option value="todas">Todas as 16 Tradições Religiosas</option>';
+    for (var i = 0; i < traditions.length; i++) {
+      var t = traditions[i];
+      html += '<option value="' + escapeHtml(t.id) + '">' + escapeHtml(t.symbol + " " + t.name) + "</option>";
+    }
+    selectEl.innerHTML = html;
+  }
+
+  function getFilteredPrayers() {
     var allPrayers = window.STRONG_PRAYERS || [];
     var query = state.prayerSearchQuery.trim().toLowerCase();
     var filtered = [];
@@ -327,83 +381,178 @@
         filtered.push(p);
       }
     }
+    return filtered;
+  }
 
-    if (countEl) {
-      countEl.textContent = filtered.length + (filtered.length === 1 ? " oração encontrada" : " orações disponíveis");
+  function renderPrayersView() {
+    populatePrayerCategorySelect();
+
+    var dirView = document.getElementById("prayers-directory-view");
+    var singleView = document.getElementById("prayer-single-page-view");
+    var listContainer = document.getElementById("prayers-list-container");
+    var paginationContainer = document.getElementById("prayers-pagination-controls");
+    var countEl = document.getElementById("prayers-count-label");
+    var catSelect = document.getElementById("prayer-category-select");
+
+    if (catSelect) {
+      catSelect.value = state.prayerCategory;
     }
 
-    var catButtons = document.querySelectorAll("[data-prayer-cat]");
-    for (var c = 0; c < catButtons.length; c++) {
-      var cat = catButtons[c].getAttribute("data-prayer-cat");
-      catButtons[c].setAttribute("aria-pressed", cat === state.prayerCategory ? "true" : "false");
+    if (!dirView || !singleView || !listContainer) return;
+
+    var allPrayers = window.STRONG_PRAYERS || [];
+
+    // Dedicated single-prayer page view
+    if (state.activePrayerId) {
+      var foundIndex = -1;
+      for (var idx = 0; idx < allPrayers.length; idx++) {
+        if (allPrayers[idx].id === state.activePrayerId) {
+          foundIndex = idx;
+          break;
+        }
+      }
+
+      if (foundIndex !== -1) {
+        var prayer = allPrayers[foundIndex];
+        var nextPrayer = allPrayers[(foundIndex + 1) % allPrayers.length];
+        var paragraphs = prayer.text.split("\n\n");
+        var bodyHtml = "";
+        for (var k = 0; k < paragraphs.length; k++) {
+          bodyHtml +=
+            '<p class="mb-4 leading-relaxed">' +
+            escapeHtml(paragraphs[k]).replace(/\n/g, "<br>") +
+            "</p>";
+        }
+
+        var speechId = "prayer-" + prayer.id;
+        dirView.classList.add("hidden");
+        singleView.classList.remove("hidden");
+
+        singleView.innerHTML =
+          '<article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">' +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="back-to-prayers-list">← Voltar para a lista de orações</button>' +
+          '<span class="inline-block px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wider" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+          escapeHtml(prayer.categoryLabel) +
+          "</span>" +
+          "</div>" +
+          '<p class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: var(--text-muted);">' +
+          escapeHtml(prayer.salutation) +
+          "</p>" +
+          '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2" style="color: var(--text-main);">' +
+          escapeHtml(prayer.title) +
+          "</h3>" +
+          '<p class="text-base mb-6" style="color: var(--text-secondary);">' +
+          escapeHtml(prayer.subtitle) +
+          "</p>" +
+          '<div class="font-serif-sacred text-body-sacred p-6 sm:p-8 rounded-2xl mb-6" style="background-color: var(--bg-amber-soft); color: var(--text-main); border: 1px solid var(--border-strong);">' +
+          bodyHtml +
+          "</div>" +
+          '<p class="text-sm italic mb-6" style="color: var(--text-muted);">' +
+          escapeHtml(prayer.usageNote) +
+          "</p>" +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pt-5 border-t" style="border-color: var(--border-color);">' +
+          '<div class="flex flex-wrap gap-3">' +
+          '<button type="button" class="btn-primary inline-flex items-center gap-2" data-speech-id="' +
+          escapeHtml(speechId) +
+          '" data-speech-prayer="' +
+          escapeHtml(prayer.id) +
+          '" data-default-label="Ouvir oração em voz calma" aria-pressed="false">' +
+          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir oração em voz calma</span>' +
+          "</button>" +
+          '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-share-prayer="' +
+          escapeHtml(prayer.id) +
+          '">' +
+          '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+          "</button>" +
+          "</div>" +
+          '<button type="button" class="btn-secondary text-sm" data-open-prayer="' +
+          escapeHtml(nextPrayer.id) +
+          '">Próxima Oração →</button>' +
+          "</div>" +
+          "</article>";
+
+        updateSpeechButtons();
+        return;
+      }
+    }
+
+    singleView.classList.add("hidden");
+    dirView.classList.remove("hidden");
+
+    var filtered = getFilteredPrayers();
+    var totalPages = Math.max(1, Math.ceil(filtered.length / state.prayersPerPage));
+    if (state.prayerPage > totalPages) state.prayerPage = totalPages;
+    if (state.prayerPage < 1) state.prayerPage = 1;
+
+    if (countEl) {
+      countEl.textContent =
+        filtered.length +
+        (filtered.length === 1 ? " oração disponível" : " orações disponíveis") +
+        " • Página " +
+        state.prayerPage +
+        " de " +
+        totalPages;
     }
 
     if (filtered.length === 0) {
-      container.innerHTML =
-        '<div class="surface-card p-6 text-center">' +
-        '<p class="font-semibold text-lg mb-2">Nenhuma oração encontrada com esse termo.</p>' +
-        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Experimente limpar o campo de busca ou selecionar a categoria "Todas as Tradições".</p>' +
+      listContainer.innerHTML =
+        '<div class="surface-card p-6 text-center col-span-full">' +
+        '<p class="font-semibold text-lg mb-2">Nenhuma oração encontrada com esse filtro.</p>' +
+        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Toque abaixo para mostrar novamente as orações de todas as 16 tradições.</p>' +
         '<button type="button" class="btn-secondary" data-action="reset-prayer-filters">Mostrar todas as orações</button>' +
         "</div>";
+      if (paginationContainer) paginationContainer.innerHTML = "";
       return;
     }
 
-    var html = "";
-    for (var j = 0; j < filtered.length; j++) {
-      var item = filtered[j];
-      var paragraphs = item.text.split("\n\n");
-      var bodyHtml = "";
-      for (var k = 0; k < paragraphs.length; k++) {
-        bodyHtml +=
-          '<p class="mb-3 leading-relaxed">' +
-          escapeHtml(paragraphs[k]).replace(/\n/g, "<br>") +
-          "</p>";
-      }
+    var startIdx = (state.prayerPage - 1) * state.prayersPerPage;
+    var pageItems = filtered.slice(startIdx, startIdx + state.prayersPerPage);
 
-      var speechId = "prayer-" + item.id;
+    var html = "";
+    for (var j = 0; j < pageItems.length; j++) {
+      var item = pageItems[j];
       html +=
-        '<article class="surface-card p-5 sm:p-6 flex flex-col justify-between">' +
+        '<article class="surface-card p-5 flex flex-col justify-between">' +
         "<div>" +
-        '<div class="flex flex-wrap items-center justify-between gap-2 mb-2">' +
-        '<span class="inline-block px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wider" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+        '<span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
         escapeHtml(item.categoryLabel) +
         "</span>" +
-        '<span class="text-xs font-medium" style="color: var(--text-muted);">' +
-        escapeHtml(item.salutation) +
-        "</span>" +
-        "</div>" +
-        '<h3 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">' +
+        '<h3 class="font-serif-sacred font-bold text-lg mb-1" style="color: var(--text-main);">' +
         escapeHtml(item.title) +
         "</h3>" +
         '<p class="text-sm mb-4" style="color: var(--text-secondary);">' +
         escapeHtml(item.subtitle) +
         "</p>" +
-        '<div class="font-serif-sacred text-body-sacred p-4 rounded-xl mb-4" style="background-color: var(--bg-subtle); color: var(--text-main);">' +
-        bodyHtml +
         "</div>" +
-        '<p class="text-xs italic mb-4" style="color: var(--text-muted);">' +
-        escapeHtml(item.usageNote) +
-        "</p>" +
-        "</div>" +
-        '<div class="flex flex-wrap items-center gap-3 pt-2 border-t" style="border-color: var(--border-color);">' +
-        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-speech-id="' +
-        escapeHtml(speechId) +
-        '" data-speech-prayer="' +
+        '<button type="button" class="btn-secondary w-full justify-center text-sm" data-open-prayer="' +
         escapeHtml(item.id) +
-        '" data-default-label="Ouvir oração" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir oração</span>' +
-        "</button>" +
-        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-share-prayer="' +
-        escapeHtml(item.id) +
-        '">' +
-        '<span aria-hidden="true">📲</span> Compartilhar no WhatsApp' +
-        "</button>" +
-        "</div>" +
+        '">Abrir Página da Oração →</button>' +
         "</article>";
     }
 
-    container.innerHTML = html;
-    updateSpeechButtons();
+    listContainer.innerHTML = html;
+
+    if (paginationContainer) {
+      if (totalPages <= 1) {
+        paginationContainer.innerHTML = "";
+      } else {
+        paginationContainer.innerHTML =
+          '<div class="flex flex-wrap items-center justify-between gap-3 surface-card p-4">' +
+          '<button type="button" class="btn-secondary" data-action="prayer-prev-page" ' +
+          (state.prayerPage <= 1 ? 'disabled="disabled"' : "") +
+          ">← Página Anterior</button>" +
+          '<span class="text-sm font-semibold" style="color: var(--text-secondary);">Página ' +
+          state.prayerPage +
+          " de " +
+          totalPages +
+          "</span>" +
+          '<button type="button" class="btn-secondary" data-action="prayer-next-page" ' +
+          (state.prayerPage >= totalPages ? 'disabled="disabled"' : "") +
+          ">Próxima Página →</button>" +
+          "</div>";
+      }
+    }
   }
 
   function getUserCandles() {
@@ -435,9 +584,33 @@
     selectEl.innerHTML = html;
   }
 
+  function renderCandleSubPages() {
+    var formSubPage = document.getElementById("candle-subpage-form");
+    var wallSubPage = document.getElementById("candle-subpage-wall");
+    var subPageBtns = document.querySelectorAll("[data-candle-subpage]");
+
+    for (var i = 0; i < subPageBtns.length; i++) {
+      var sp = subPageBtns[i].getAttribute("data-candle-subpage");
+      subPageBtns[i].setAttribute("aria-pressed", sp === state.candleSubPage ? "true" : "false");
+    }
+
+    if (formSubPage && wallSubPage) {
+      if (state.candleSubPage === "wall") {
+        formSubPage.classList.add("hidden");
+        wallSubPage.classList.remove("hidden");
+      } else {
+        wallSubPage.classList.add("hidden");
+        formSubPage.classList.remove("hidden");
+      }
+    }
+
+    renderCandlesWall();
+  }
+
   function renderCandlesWall() {
     var container = document.getElementById("candles-wall-container");
     var counterEl = document.getElementById("candles-active-counter");
+    var wallPagination = document.getElementById("candles-pagination-controls");
     if (!container) return;
 
     var userCandles = getUserCandles();
@@ -459,17 +632,25 @@
       container.innerHTML =
         '<div class="surface-card p-6 text-center col-span-full">' +
         '<p class="font-serif-sacred font-bold text-lg mb-2">Você ainda não acendeu uma vela neste aparelho.</p>' +
-        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Preencha o nome de quem deseja abençoar no formulário acima e toque em "Acender Vela de 7 Dias".</p>' +
-        '<button type="button" class="btn-secondary" data-candle-filter="all">Ver mural comunitário de velas</button>' +
+        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Toque abaixo para abrir a página de acendimento gratuito da Vela de 7 Dias.</p>' +
+        '<button type="button" class="btn-primary" data-candle-subpage="form">Ir para Acender Minha Vela</button>' +
         "</div>";
+      if (wallPagination) wallPagination.innerHTML = "";
       return;
     }
+
+    var totalPages = Math.max(1, Math.ceil(combined.length / state.candlesPerPage));
+    if (state.candleWallPage > totalPages) state.candleWallPage = totalPages;
+    if (state.candleWallPage < 1) state.candleWallPage = 1;
+
+    var startIdx = (state.candleWallPage - 1) * state.candlesPerPage;
+    var pageItems = combined.slice(startIdx, startIdx + state.candlesPerPage);
 
     var flameClass = state.flamePaused ? "candle-flame paused" : "candle-flame";
     var html = "";
 
-    for (var i = 0; i < combined.length; i++) {
-      var c = combined[i];
+    for (var i = 0; i < pageItems.length; i++) {
+      var c = pageItems[i];
       html +=
         '<article class="surface-card p-5 flex flex-col justify-between">' +
         "<div>" +
@@ -510,6 +691,27 @@
     }
 
     container.innerHTML = html;
+
+    if (wallPagination) {
+      if (totalPages <= 1) {
+        wallPagination.innerHTML = "";
+      } else {
+        wallPagination.innerHTML =
+          '<div class="flex flex-wrap items-center justify-between gap-3 surface-card p-4 mt-4">' +
+          '<button type="button" class="btn-secondary" data-action="candle-prev-page" ' +
+          (state.candleWallPage <= 1 ? 'disabled="disabled"' : "") +
+          ">← Página Anterior</button>" +
+          '<span class="text-sm font-semibold" style="color: var(--text-secondary);">Página ' +
+          state.candleWallPage +
+          " de " +
+          totalPages +
+          "</span>" +
+          '<button type="button" class="btn-secondary" data-action="candle-next-page" ' +
+          (state.candleWallPage >= totalPages ? 'disabled="disabled"' : "") +
+          ">Próxima Página →</button>" +
+          "</div>";
+      }
+    }
   }
 
   function handleLightCandleSubmit(event) {
@@ -553,7 +755,10 @@
     intentionInput.value = "";
     if (cityInput) cityInput.value = "";
 
-    feedbackEl.textContent = "Sua Vela Virtual de 7 dias foi acesa com sucesso para " + honoree + ". Que a paz ilumine esta intenção!";
+    feedbackEl.innerHTML =
+      '✓ Sua Vela Virtual de 7 dias foi acesa com sucesso para <strong>' +
+      escapeHtml(honoree) +
+      '</strong>! <button type="button" class="underline font-bold ml-2" data-candle-subpage="wall">Ver minha vela acesa no Mural →</button>';
     feedbackEl.style.backgroundColor = "var(--bg-amber-soft)";
     feedbackEl.style.color = "var(--text-main)";
     feedbackEl.classList.remove("hidden");
@@ -561,12 +766,87 @@
     renderCandlesWall();
   }
 
+  function fetchFullBibleChapter(bookIndex, chapterNumber) {
+    var books = window.BIBLE_ALL_BOOKS_INDEX || [];
+    var bookObj = books[bookIndex] || books[18];
+    if (!bookObj) return;
+
+    state.bibleLoading = true;
+    state.libraryMode = "full-bible";
+    renderSacredLibrary();
+
+    var queryRef = encodeURIComponent(bookObj.book + " " + chapterNumber);
+    var url = "https://bible-api.com/" + queryRef + "?translation=almeida";
+
+    fetch(url)
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        state.bibleLoading = false;
+        if (data && Array.isArray(data.verses) && data.verses.length > 0) {
+          state.bibleFetchedTitle = bookObj.book + " - Capítulo " + chapterNumber + " (Texto Integral)";
+          var lines = [];
+          for (var i = 0; i < data.verses.length; i++) {
+            var v = data.verses[i];
+            lines.push(v.verse + ". " + String(v.text || "").trim());
+          }
+          state.bibleFetchedVerses = lines;
+        } else {
+          state.bibleFetchedTitle = bookObj.book + " - Capítulo " + chapterNumber;
+          state.bibleFetchedVerses = null;
+        }
+        renderSacredLibrary();
+      })
+      .catch(function () {
+        state.bibleLoading = false;
+        state.bibleFetchedTitle = "";
+        state.bibleFetchedVerses = null;
+        state.libraryMode = "curated";
+        renderSacredLibrary();
+      });
+  }
+
+  function populateBibleBookAndChapterSelectors() {
+    var bookSelect = document.getElementById("bible-full-book-select");
+    var chapSelect = document.getElementById("bible-full-chapter-select");
+    var books = window.BIBLE_ALL_BOOKS_INDEX || [];
+    if (!bookSelect || !chapSelect || books.length === 0) return;
+
+    if (bookSelect.options.length === 0) {
+      var bHtml = "";
+      for (var i = 0; i < books.length; i++) {
+        bHtml +=
+          '<option value="' +
+          i +
+          '">' +
+          escapeHtml(books[i].book + " (" + books[i].chaptersCount + " cap.)") +
+          "</option>";
+      }
+      bookSelect.innerHTML = bHtml;
+    }
+    bookSelect.value = String(state.bibleBookIndex);
+
+    var selectedBook = books[state.bibleBookIndex] || books[0];
+    var maxCh = selectedBook.chaptersCount || 1;
+    if (state.bibleChapterNumber > maxCh) state.bibleChapterNumber = 1;
+
+    var cHtml = "";
+    for (var c = 1; c <= maxCh; c++) {
+      cHtml += '<option value="' + c + '">Capítulo ' + c + "</option>";
+    }
+    chapSelect.innerHTML = cHtml;
+    chapSelect.value = String(state.bibleChapterNumber);
+  }
+
   function renderSacredLibrary() {
     var selectEl = document.getElementById("library-tradition-select");
     var workTitleEl = document.getElementById("library-canonical-title");
-    var chaptersTabsEl = document.getElementById("library-chapters-tabs");
+    var chapterSelectEl = document.getElementById("library-chapter-select");
     var chapterHeadingEl = document.getElementById("library-chapter-heading");
     var versesContainerEl = document.getElementById("library-verses-container");
+    var fullBibleBox = document.getElementById("full-bible-navigator-box");
 
     var traditions = getTraditions();
     if (selectEl && selectEl.options.length === 0) {
@@ -576,7 +856,7 @@
           '<option value="' +
           escapeHtml(traditions[i].id) +
           '">' +
-          escapeHtml(traditions[i].symbol + " " + traditions[i].name + " | " + traditions[i].canonicalWorkTitle) +
+          escapeHtml(traditions[i].symbol + " " + traditions[i].canonicalWorkTitle + " (" + traditions[i].name + ")") +
           "</option>";
       }
       selectEl.innerHTML = optsHtml;
@@ -590,7 +870,16 @@
     if (!activeTradition) return;
 
     if (workTitleEl) {
-      workTitleEl.textContent = activeTradition.canonicalWorkTitle;
+      workTitleEl.textContent = activeTradition.canonicalWorkTitle + " • " + activeTradition.name;
+    }
+
+    if (fullBibleBox) {
+      if (activeTradition.usesFullBibleIndex) {
+        fullBibleBox.classList.remove("hidden");
+        populateBibleBookAndChapterSelectors();
+      } else {
+        fullBibleBox.classList.add("hidden");
+      }
     }
 
     var chapters = activeTradition.chapters || [];
@@ -598,20 +887,44 @@
       state.libraryChapterIndex = 0;
     }
 
-    if (chaptersTabsEl) {
-      var tabsHtml = "";
+    if (chapterSelectEl) {
+      var chOpts = "";
       for (var c = 0; c < chapters.length; c++) {
-        var isCurrent = c === state.libraryChapterIndex;
-        tabsHtml +=
-          '<button type="button" class="feeling-chip" data-library-chapter="' +
-          c +
-          '" aria-pressed="' +
-          (isCurrent ? "true" : "false") +
-          '">' +
-          escapeHtml(chapters[c].title) +
-          "</button>";
+        chOpts += '<option value="' + c + '">' + escapeHtml(chapters[c].title) + "</option>";
       }
-      chaptersTabsEl.innerHTML = tabsHtml;
+      chapterSelectEl.innerHTML = chOpts;
+      chapterSelectEl.value = String(state.libraryChapterIndex);
+    }
+
+    if (state.bibleLoading && versesContainerEl) {
+      if (chapterHeadingEl) {
+        chapterHeadingEl.textContent = "Carregando capítulo completo...";
+      }
+      versesContainerEl.innerHTML =
+        '<p class="text-base py-6" style="color: var(--text-secondary);">Buscando os versículos integrais da obra sagrada...</p>';
+      return;
+    }
+
+    if (
+      state.libraryMode === "full-bible" &&
+      activeTradition.usesFullBibleIndex &&
+      Array.isArray(state.bibleFetchedVerses) &&
+      state.bibleFetchedVerses.length > 0
+    ) {
+      if (chapterHeadingEl) {
+        chapterHeadingEl.textContent = state.bibleFetchedTitle;
+      }
+      if (versesContainerEl) {
+        var fbHtml = "";
+        for (var f = 0; f < state.bibleFetchedVerses.length; f++) {
+          fbHtml +=
+            '<p class="mb-4 leading-relaxed font-serif-sacred text-body-sacred">' +
+            escapeHtml(state.bibleFetchedVerses[f]) +
+            "</p>";
+        }
+        versesContainerEl.innerHTML = fbHtml;
+      }
+      return;
     }
 
     var activeChapter = chapters[state.libraryChapterIndex];
@@ -634,33 +947,36 @@
   }
 
   function renderThematicComfort() {
-    var tabsEl = document.getElementById("comfort-topics-tabs");
+    var selectEl = document.getElementById("comfort-topic-select");
     var detailEl = document.getElementById("comfort-topic-detail");
-    if (!tabsEl || !detailEl) return;
+    if (!detailEl) return;
 
     var topics = window.THEMATIC_COMFORT || [];
-    var tabsHtml = "";
     var activeTopic = topics[0];
 
-    for (var i = 0; i < topics.length; i++) {
-      var t = topics[i];
-      if (t.id === state.activeComfortTopicId) {
-        activeTopic = t;
+    if (selectEl && selectEl.options.length === 0) {
+      var sHtml = "";
+      for (var i = 0; i < topics.length; i++) {
+        sHtml +=
+          '<option value="' +
+          escapeHtml(topics[i].id) +
+          '">' +
+          escapeHtml(topics[i].icon + " " + topics[i].title) +
+          "</option>";
       }
-      var isPressed = t.id === state.activeComfortTopicId;
-      tabsHtml +=
-        '<button type="button" class="feeling-chip" data-comfort-topic="' +
-        escapeHtml(t.id) +
-        '" aria-pressed="' +
-        (isPressed ? "true" : "false") +
-        '">' +
-        '<span aria-hidden="true">' +
-        escapeHtml(t.icon) +
-        "</span> " +
-        escapeHtml(t.title) +
-        "</button>";
+      selectEl.innerHTML = sHtml;
     }
-    tabsEl.innerHTML = tabsHtml;
+
+    for (var j = 0; j < topics.length; j++) {
+      if (topics[j].id === state.activeComfortTopicId) {
+        activeTopic = topics[j];
+        break;
+      }
+    }
+
+    if (selectEl && activeTopic) {
+      selectEl.value = activeTopic.id;
+    }
 
     if (!activeTopic) return;
 
@@ -682,7 +998,7 @@
     }
 
     detailEl.innerHTML =
-      '<div class="surface-card p-6">' +
+      '<div class="surface-card p-6 max-w-3xl mx-auto">' +
       '<div class="mb-5 pb-4 border-b" style="border-color: var(--border-color);">' +
       '<h3 class="font-serif-sacred font-bold text-2xl mb-1">' +
       escapeHtml(activeTopic.icon + " " + activeTopic.title) +
@@ -710,9 +1026,9 @@
 
     if (state.quizIndex >= questions.length) {
       container.innerHTML =
-        '<div class="surface-card p-6 sm:p-8 text-center">' +
+        '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto">' +
         '<span class="inline-block text-4xl mb-3" aria-hidden="true">🕊</span>' +
-        '<h3 class="font-serif-sacred font-bold text-2xl mb-2">Jornada de Sabedoria Concluída!</h3>' +
+        '<h3 class="font-serif-sacred font-bold text-2xl mb-2">Sabedoria Concluída!</h3>' +
         '<p class="text-lg mb-4" style="color: var(--text-secondary);">Você acertou <strong>' +
         state.quizScore +
         " de " +
@@ -743,7 +1059,7 @@
     }
 
     container.innerHTML =
-      '<div class="surface-card p-6 sm:p-8">' +
+      '<div class="surface-card p-6 sm:p-8 max-w-2xl mx-auto">' +
       '<div class="flex items-center justify-between gap-2 mb-4">' +
       '<span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded" style="background-color: var(--bg-subtle); color: var(--accent-wine);">Pergunta ' +
       (state.quizIndex + 1) +
@@ -807,10 +1123,10 @@
   function renderBlogList() {
     var listEl = document.getElementById("blog-posts-grid");
     var readerEl = document.getElementById("blog-article-reader");
-    if (!listEl) return;
+    if (!listEl || !readerEl) return;
 
     var posts = window.BLOG_POSTS || [];
-    if (state.activeBlogPostId && readerEl) {
+    if (state.activeBlogPostId) {
       var activePost = null;
       for (var i = 0; i < posts.length; i++) {
         if (posts[i].id === state.activeBlogPostId) {
@@ -826,13 +1142,14 @@
             escapeHtml(activePost.content[p]) +
             "</p>";
         }
+        listEl.classList.add("hidden");
         readerEl.innerHTML =
-          '<article class="surface-card p-6 sm:p-8 mb-6">' +
+          '<article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">' +
           '<div class="flex flex-wrap items-center justify-between gap-2 mb-4">' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-blog-post">← Voltar para a lista de artigos</button>' +
           '<span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
           escapeHtml(activePost.category) +
           "</span>" +
-          '<button type="button" class="btn-secondary text-sm py-2 px-3" data-action="close-blog-post">✕ Fechar leitura (Esc)</button>' +
           "</div>" +
           '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2">' +
           escapeHtml(activePost.title) +
@@ -845,16 +1162,15 @@
           '<div class="border-t pt-5" style="border-color: var(--border-color);">' +
           paragraphsHtml +
           "</div>" +
-          '<div class="mt-6 pt-4 border-t flex justify-end" style="border-color: var(--border-color);">' +
-          '<button type="button" class="btn-secondary" data-action="close-blog-post">← Voltar para todos os artigos</button>' +
-          "</div>" +
           "</article>";
         readerEl.classList.remove("hidden");
+        return;
       }
-    } else if (readerEl) {
-      readerEl.classList.add("hidden");
-      readerEl.innerHTML = "";
     }
+
+    readerEl.classList.add("hidden");
+    readerEl.innerHTML = "";
+    listEl.classList.remove("hidden");
 
     var cardsHtml = "";
     for (var j = 0; j < posts.length; j++) {
@@ -879,7 +1195,7 @@
         "</div>" +
         '<button type="button" class="btn-secondary w-full justify-center mt-2" data-open-blog="' +
         escapeHtml(post.id) +
-        '">Ler artigo completo</button>' +
+        '">Abrir Página do Artigo →</button>' +
         "</article>";
     }
     listEl.innerHTML = cardsHtml;
@@ -936,23 +1252,12 @@
         return;
       }
 
-      var traditionBtn = target.closest("[data-select-tradition]");
-      if (traditionBtn) {
-        selectTradition(traditionBtn.getAttribute("data-select-tradition"), true);
-        return;
-      }
-
-      var feelingBtn = target.closest("[data-feeling-id]");
-      if (feelingBtn) {
-        state.selectedFeeling = feelingBtn.getAttribute("data-feeling-id");
-        renderDailyPanel();
-        return;
-      }
-
-      var prayerCatBtn = target.closest("[data-prayer-cat]");
-      if (prayerCatBtn) {
-        state.prayerCategory = prayerCatBtn.getAttribute("data-prayer-cat");
-        renderPrayersList();
+      var openPrayerBtn = target.closest("[data-open-prayer]");
+      if (openPrayerBtn) {
+        state.activePrayerId = openPrayerBtn.getAttribute("data-open-prayer");
+        renderPrayersView();
+        var mainEl = document.getElementById("main-content");
+        if (mainEl) mainEl.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 
@@ -984,9 +1289,17 @@
         return;
       }
 
+      var candleSubPageBtn = target.closest("[data-candle-subpage]");
+      if (candleSubPageBtn) {
+        state.candleSubPage = candleSubPageBtn.getAttribute("data-candle-subpage");
+        renderCandleSubPages();
+        return;
+      }
+
       var candleFilterBtn = target.closest("[data-candle-filter]");
       if (candleFilterBtn) {
         state.candleFilter = candleFilterBtn.getAttribute("data-candle-filter");
+        state.candleWallPage = 1;
         renderCandlesWall();
         return;
       }
@@ -1010,20 +1323,6 @@
         return;
       }
 
-      var chapterBtn = target.closest("[data-library-chapter]");
-      if (chapterBtn) {
-        state.libraryChapterIndex = Number(chapterBtn.getAttribute("data-library-chapter")) || 0;
-        renderSacredLibrary();
-        return;
-      }
-
-      var comfortBtn = target.closest("[data-comfort-topic]");
-      if (comfortBtn) {
-        state.activeComfortTopicId = comfortBtn.getAttribute("data-comfort-topic");
-        renderThematicComfort();
-        return;
-      }
-
       var quizOptBtn = target.closest("[data-quiz-option]");
       if (quizOptBtn) {
         handleQuizOptionClick(Number(quizOptBtn.getAttribute("data-quiz-option")));
@@ -1034,8 +1333,8 @@
       if (openBlogBtn) {
         state.activeBlogPostId = openBlogBtn.getAttribute("data-open-blog");
         renderBlogList();
-        var readerEl = document.getElementById("blog-article-reader");
-        if (readerEl) readerEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        var mainBlog = document.getElementById("main-content");
+        if (mainBlog) mainBlog.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 
@@ -1045,13 +1344,14 @@
       var action = actionBtn.getAttribute("data-action");
       if (action === "toggle-theme") {
         applyTheme(state.theme === "dark" ? "light" : "dark");
+      } else if (action === "toggle-drawer-menu") {
+        toggleDrawerMenu();
+      } else if (action === "close-drawer-menu") {
+        toggleDrawerMenu(false);
       } else if (action === "font-decrease") {
         applyReaderFontSize(state.readerFontSizePx - 2);
       } else if (action === "font-increase") {
         applyReaderFontSize(state.readerFontSizePx + 2);
-      } else if (action === "enter-faith-space") {
-        var dailyCard = document.getElementById("daily-word-anchor");
-        if (dailyCard) dailyCard.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (action === "speak-daily-passage") {
         var t = findTradition(state.selectedTraditionId);
         var p = t && t.dailyPassages && t.dailyPassages[state.selectedFeeling];
@@ -1074,12 +1374,29 @@
               "\n\nHorizonte Espiritual"
           );
         }
+      } else if (action === "back-to-prayers-list") {
+        state.activePrayerId = null;
+        stopSpeech();
+        renderPrayersView();
+      } else if (action === "prayer-prev-page") {
+        state.prayerPage = Math.max(1, state.prayerPage - 1);
+        renderPrayersView();
+      } else if (action === "prayer-next-page") {
+        state.prayerPage += 1;
+        renderPrayersView();
       } else if (action === "reset-prayer-filters") {
         state.prayerCategory = "todas";
         state.prayerSearchQuery = "";
+        state.prayerPage = 1;
         var searchInput = document.getElementById("prayer-search-input");
         if (searchInput) searchInput.value = "";
-        renderPrayersList();
+        renderPrayersView();
+      } else if (action === "candle-prev-page") {
+        state.candleWallPage = Math.max(1, state.candleWallPage - 1);
+        renderCandlesWall();
+      } else if (action === "candle-next-page") {
+        state.candleWallPage += 1;
+        renderCandlesWall();
       } else if (action === "toggle-flame-motion") {
         state.flamePaused = !state.flamePaused;
         var heroFlame = document.getElementById("hero-candle-flame");
@@ -1089,13 +1406,36 @@
         actionBtn.setAttribute("aria-pressed", state.flamePaused ? "true" : "false");
         actionBtn.textContent = state.flamePaused ? "▶ Retomar movimento da chama" : "⏸ Pausar animação da chama";
         renderCandlesWall();
+      } else if (action === "load-full-bible-chapter") {
+        var bSelect = document.getElementById("bible-full-book-select");
+        var cSelect = document.getElementById("bible-full-chapter-select");
+        if (bSelect && cSelect) {
+          state.bibleBookIndex = Number(bSelect.value) || 0;
+          state.bibleChapterNumber = Number(cSelect.value) || 1;
+          fetchFullBibleChapter(state.bibleBookIndex, state.bibleChapterNumber);
+        }
       } else if (action === "speak-library-chapter") {
         var libT = findTradition(state.libraryTraditionId);
+        if (
+          state.libraryMode === "full-bible" &&
+          Array.isArray(state.bibleFetchedVerses) &&
+          state.bibleFetchedVerses.length > 0
+        ) {
+          speakText("library-chapter", state.bibleFetchedTitle + ". " + state.bibleFetchedVerses.join(" "));
+          return;
+        }
         var ch = libT && libT.chapters && libT.chapters[state.libraryChapterIndex];
         if (ch) {
           speakText("library-chapter", ch.title + ". " + ch.verses.join(" "));
         }
       } else if (action === "prev-library-chapter") {
+        if (state.libraryMode === "full-bible") {
+          if (state.bibleChapterNumber > 1) {
+            state.bibleChapterNumber -= 1;
+            fetchFullBibleChapter(state.bibleBookIndex, state.bibleChapterNumber);
+          }
+          return;
+        }
         var curT = findTradition(state.libraryTraditionId);
         if (curT && curT.chapters && curT.chapters.length > 0) {
           state.libraryChapterIndex =
@@ -1103,6 +1443,15 @@
           renderSacredLibrary();
         }
       } else if (action === "next-library-chapter") {
+        if (state.libraryMode === "full-bible") {
+          var books = window.BIBLE_ALL_BOOKS_INDEX || [];
+          var bObj = books[state.bibleBookIndex];
+          if (bObj && state.bibleChapterNumber < bObj.chaptersCount) {
+            state.bibleChapterNumber += 1;
+            fetchFullBibleChapter(state.bibleBookIndex, state.bibleChapterNumber);
+          }
+          return;
+        }
         var nxtT = findTradition(state.libraryTraditionId);
         if (nxtT && nxtT.chapters && nxtT.chapters.length > 0) {
           state.libraryChapterIndex = (state.libraryChapterIndex + 1) % nxtT.chapters.length;
@@ -1125,6 +1474,21 @@
       }
     });
 
+    var homeTradSelect = document.getElementById("home-tradition-select");
+    if (homeTradSelect) {
+      homeTradSelect.addEventListener("change", function () {
+        selectTradition(homeTradSelect.value, true);
+      });
+    }
+
+    var homeFeelSelect = document.getElementById("home-feeling-select");
+    if (homeFeelSelect) {
+      homeFeelSelect.addEventListener("change", function () {
+        state.selectedFeeling = homeFeelSelect.value;
+        renderDailyPanel();
+      });
+    }
+
     var rememberCheckbox = document.getElementById("remember-tradition-checkbox");
     if (rememberCheckbox) {
       rememberCheckbox.addEventListener("change", function () {
@@ -1138,11 +1502,22 @@
       });
     }
 
+    var prayerCatSelect = document.getElementById("prayer-category-select");
+    if (prayerCatSelect) {
+      prayerCatSelect.addEventListener("change", function () {
+        state.prayerCategory = prayerCatSelect.value;
+        state.prayerPage = 1;
+        state.activePrayerId = null;
+        renderPrayersView();
+      });
+    }
+
     var prayerSearchInput = document.getElementById("prayer-search-input");
     if (prayerSearchInput) {
       prayerSearchInput.addEventListener("input", function () {
         state.prayerSearchQuery = prayerSearchInput.value;
-        renderPrayersList();
+        state.prayerPage = 1;
+        renderPrayersView();
       });
     }
 
@@ -1151,7 +1526,34 @@
       librarySelect.addEventListener("change", function () {
         state.libraryTraditionId = librarySelect.value;
         state.libraryChapterIndex = 0;
+        state.libraryMode = "curated";
         renderSacredLibrary();
+      });
+    }
+
+    var libraryChapterSelect = document.getElementById("library-chapter-select");
+    if (libraryChapterSelect) {
+      libraryChapterSelect.addEventListener("change", function () {
+        state.libraryChapterIndex = Number(libraryChapterSelect.value) || 0;
+        state.libraryMode = "curated";
+        renderSacredLibrary();
+      });
+    }
+
+    var bibleBookSelect = document.getElementById("bible-full-book-select");
+    if (bibleBookSelect) {
+      bibleBookSelect.addEventListener("change", function () {
+        state.bibleBookIndex = Number(bibleBookSelect.value) || 0;
+        state.bibleChapterNumber = 1;
+        populateBibleBookAndChapterSelectors();
+      });
+    }
+
+    var comfortSelect = document.getElementById("comfort-topic-select");
+    if (comfortSelect) {
+      comfortSelect.addEventListener("change", function () {
+        state.activeComfortTopicId = comfortSelect.value;
+        renderThematicComfort();
       });
     }
 
@@ -1161,9 +1563,16 @@
     }
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && state.activeBlogPostId) {
-        state.activeBlogPostId = null;
-        renderBlogList();
+      if (event.key === "Escape") {
+        if (state.drawerMenuOpen) {
+          toggleDrawerMenu(false);
+        } else if (state.activePrayerId) {
+          state.activePrayerId = null;
+          renderPrayersView();
+        } else if (state.activeBlogPostId) {
+          state.activeBlogPostId = null;
+          renderBlogList();
+        }
       }
     });
   }
@@ -1194,11 +1603,10 @@
       state.libraryTraditionId = savedTradition;
     }
 
-    renderTraditionOnboardingGrid();
     renderDailyPanel();
-    renderPrayersList();
+    renderPrayersView();
     populateCandleTraditionSelect();
-    renderCandlesWall();
+    renderCandleSubPages();
     renderSacredLibrary();
     renderThematicComfort();
     renderQuiz();
