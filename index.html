@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horizonte Espiritual | Acolhimento, Orações, Vela Virtual e Obras Sagradas</title>
+  <meta name="description" content="Portal inter-religioso gratuito de acolhimento espiritual, passagens diárias, orações tradicionais, vela virtual de 7 dias e biblioteca sagrada de 16 tradições." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 btn-primary">
+    Pular direto ao conteúdo principal
+  </a>
+
+  <!-- TOP UTILITY & NAVIGATION BAR (No user-like brand name badge here; brand title lives inside the hero banner) -->
+  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <!-- Active Tradition Pill + Reading Comfort Controls -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Sua Tradição:</span>
+        <span id="active-tradition-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+          ✝ Fé Católica
+        </span>
+      </div>
+
+      <!-- Accessibility Controls: Font Size A- / A+ & Light/Dark Theme -->
+      <div class="flex items-center gap-2">
+        <div class="inline-flex items-center rounded-lg border px-1" style="border-color: var(--border-strong); background-color: var(--bg-page);" role="group" aria-label="Tamanho da letra">
+          <button type="button" class="tap-target px-2.5 text-sm font-bold" data-action="font-decrease" aria-label="Diminuir tamanho da letra">
+            A-
+          </button>
+          <span id="font-size-indicator" class="text-xs font-semibold px-1.5" style="color: var(--text-muted);" aria-live="polite">19px</span>
+          <button type="button" class="tap-target px-2.5 text-base font-bold" data-action="font-increase" aria-label="Aumentar tamanho da letra">
+            A+
+          </button>
+        </div>
+
+        <button type="button" class="btn-secondary inline-flex items-center gap-2 text-sm py-2 px-3" data-action="toggle-theme" aria-pressed="false">
+          <span aria-hidden="true">🌓</span>
+          <span data-theme-label>Modo Noturno</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Visible Primary + Google-Compliant Institutional Navigation Tabs -->
+    <nav class="border-t overflow-x-auto" style="background-color: var(--bg-page); border-color: var(--border-color);" aria-label="Navegação Principal e Institucional">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-1.5 flex items-center gap-1.5 min-w-max">
+        <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">
+          <span aria-hidden="true">🌅</span> Início
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="oracoes">
+          <span aria-hidden="true">🙏</span> Orações Fortes
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="vela">
+          <span aria-hidden="true">🕯</span> Vela Virtual
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="escrituras">
+          <span aria-hidden="true">📖</span> Biblioteca Sagrada (16)
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="alento">
+          <span aria-hidden="true">🌿</span> Alento Temático
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="quiz">
+          <span aria-hidden="true">✨</span> Quiz Sagrado
+        </button>
+        <span class="h-5 w-px mx-1" style="background-color: var(--border-strong);" aria-hidden="true"></span>
+        <button type="button" class="nav-tab-btn" data-nav-target="blog">
+          <span aria-hidden="true">📰</span> Blog
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="quem-somos">
+          <span aria-hidden="true">🏛</span> Quem Somos
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="privacidade">
+          <span aria-hidden="true">🔒</span> Privacidade
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="apoio" style="border-color: var(--accent-amber);">
+          <span aria-hidden="true">💛</span> Apoiar (PIX)
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO BANNER WITH REALISTIC SUNRISE IMAGE & PROMINENT BRAND TITLE "HORIZONTE ESPIRITUAL" -->
+  <section class="relative overflow-hidden border-b" style="border-color: var(--border-color);">
+    <div
+      class="relative bg-cover bg-center py-10 sm:py-14 px-4 sm:px-6"
+      style="background-image: linear-gradient(to bottom, rgba(21, 18, 15, 0.62), rgba(21, 18, 15, 0.78)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');"
+    >
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <p class="inline-block px-3.5 py-1 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style="background-color: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.3);">
+          Santuário Digital de Paz, Leitura e Prece
+        </p>
+        <h1 class="font-serif-sacred font-bold text-3xl sm:text-5xl tracking-tight mb-3 text-white">
+          Horizonte Espiritual
+        </h1>
+        <p class="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed text-amber-50/95">
+          Um espaço sereno, respeitoso e com letras confortáveis onde todas as tradições espirituais encontram acolhimento diário, orações tradicionais e suas obras sagradas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIO READER FEEDBACK BANNER -->
+  <div id="audio-status-banner" class="hidden max-w-6xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite"></div>
+
+  <!-- MAIN APPLICATION CONTAINER -->
+  <main id="main-content" class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+
+    <!-- =========================================================
+         SECTION 1: INÍCIO (ONBOARDING 16 TRADIÇÕES + PAINEL DIÁRIO)
+         ========================================================= -->
+    <div data-section-view="inicio" class="space-y-10">
+
+      <!-- Step 1: Choose Tradition (16 separated with full dignity) -->
+      <section class="surface-card p-6 sm:p-8" aria-labelledby="onboarding-heading">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Passo 1 • Respeito e Identidade</span>
+            <h2 id="onboarding-heading" class="font-serif-sacred heading-section font-bold mt-1">
+              Qual tradição espiritual acolhe o seu coração hoje?
+            </h2>
+            <p class="text-sm sm:text-base mt-1" style="color: var(--text-secondary);">
+              Toque na sua fé abaixo. A Palavra do Dia e a Biblioteca Sagrada se ajustarão imediatamente às suas obras canônicas.
+            </p>
+          </div>
+          <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm font-medium select-none p-2 rounded-lg" style="background-color: var(--bg-subtle);">
+            <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#7A2629]" />
+            <span>Salvar minha escolha neste aparelho</span>
+          </label>
+        </div>
+
+        <!-- 16 Traditions Grid populated by js/app.js -->
+        <div id="traditions-grid-container" class="traditions-grid mb-6" role="region" aria-label="Lista de 16 tradições espirituais"></div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t" style="border-color: var(--border-color);">
+          <p class="text-xs sm:text-sm" style="color: var(--text-muted);">
+            Você tem liberdade total de alternar entre as 16 tradições quando desejar.
+          </p>
+          <button type="button" class="btn-primary w-full sm:w-auto" data-action="enter-faith-space">
+            Ir direto à minha Palavra do Dia ↓
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 2: Emotional Check-in + Daily Passage -->
+      <section id="daily-word-anchor" class="surface-card p-6 sm:p-8" aria-labelledby="daily-word-heading">
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Passo 2 • Acolhimento Diário</span>
+          <h2 id="daily-word-heading" class="font-serif-sacred heading-section font-bold mt-1">
+            Como o seu coração se sente neste momento?
+          </h2>
+          <p class="text-sm sm:text-base mt-1" style="color: var(--text-secondary);">
+            Escolha o sentimento abaixo e receba uma leitura de amparo dentro da tradição selecionada:
+          </p>
+        </div>
+
+        <!-- Emotional State Chips -->
+        <div class="flex flex-wrap gap-2.5 mb-6" role="group" aria-label="Estado emocional atual">
+          <button type="button" class="feeling-chip" data-feeling-id="ansiedade" aria-pressed="true">
+            🌧 Ansiedade e Inquietação
+          </button>
+          <button type="button" class="feeling-chip" data-feeling-id="luto" aria-pressed="false">
+            🕊 Luto e Saudade
+          </button>
+          <button type="button" class="feeling-chip" data-feeling-id="desanimo" aria-pressed="false">
+            🕯 Cansaço e Falta de Forças
+          </button>
+          <button type="button" class="feeling-chip" data-feeling-id="saude" aria-pressed="false">
+            🌿 Saúde Frágil
+          </button>
+          <button type="button" class="feeling-chip" data-feeling-id="gratidao" aria-pressed="false">
+            ☀️ Gratidão pela Vida
+          </button>
+        </div>
+
+        <!-- Daily Sacred Passage Box -->
+        <div class="p-6 sm:p-8 rounded-2xl border" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span id="daily-tradition-greeting" class="text-sm font-bold" style="color: var(--accent-wine);">
+              A paz de Cristo esteja no seu lar (Fé Católica)
+            </span>
+            <span id="daily-canonical-work" class="text-xs font-medium" style="color: var(--text-muted);">
+              Fonte Sagrada: Bíblia Sagrada (Domínio Público)
+            </span>
+          </div>
+
+          <blockquote id="daily-passage-text" class="font-serif-sacred text-body-sacred font-semibold mb-3" style="color: var(--text-main);">
+            “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu próprio cuidado.”
+          </blockquote>
+
+          <p id="daily-passage-reference" class="font-serif-sacred font-bold text-sm mb-4" style="color: var(--accent-wine);">
+            Evangelho de São Mateus 6:34
+          </p>
+
+          <div class="p-4 rounded-xl mb-5" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+            <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">Reflexão para o seu dia:</p>
+            <p id="daily-passage-reflection" class="text-base leading-relaxed" style="color: var(--text-main);">
+              Entregue as preocupações futuras na oração silenciosa de hoje. Deus cuida do tempo presente.
+            </p>
+          </div>
+
+          <!-- Audio + WhatsApp Actions -->
+          <div class="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              class="btn-primary inline-flex items-center gap-2"
+              data-action="speak-daily-passage"
+              data-speech-id="daily-passage"
+              data-default-label="Ouvir passagem em voz calma"
+              aria-pressed="false"
+            >
+              <span aria-hidden="true">🔊</span>
+              <span data-speech-label>Ouvir passagem em voz calma</span>
+            </button>
+            <button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="share-daily-passage">
+              <span aria-hidden="true">📲</span> Enviar no WhatsApp da Família
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Shortcut Cards to Major Portal Features -->
+      <section aria-labelledby="shortcuts-heading">
+        <h2 id="shortcuts-heading" class="font-serif-sacred heading-section font-bold mb-4">
+          Caminhos de Oração, Estudo e Devoção
+        </h2>
+        <div class="features-grid">
+          <div class="surface-card p-6 flex flex-col justify-between">
+            <div>
+              <span class="text-2xl mb-2 inline-block" aria-hidden="true">🙏</span>
+              <h3 class="font-serif-sacred font-bold text-xl mb-2">Orações Fortes e Rezas</h3>
+              <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                Salmo 91, São Bento, São Jorge, Seu Zé Pelintra, Maria Padilha, Pretos Velhos, Oxalá, Prece de Cáritas, Shemá e Al-Fatiha.
+              </p>
+            </div>
+            <button type="button" class="btn-secondary w-full justify-center" data-nav-target="oracoes">
+              Abrir Orações Fortes →
+            </button>
+          </div>
+
+          <div class="surface-card p-6 flex flex-col justify-between">
+            <div>
+              <span class="text-2xl mb-2 inline-block" aria-hidden="true">🕯</span>
+              <h3 class="font-serif-sacred font-bold text-xl mb-2">Vela Virtual de 7 Dias</h3>
+              <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                Acenda uma vela simbólica pela saúde de um familiar ou em memória de quem partiu e avise a família no WhatsApp.
+              </p>
+            </div>
+            <button type="button" class="btn-secondary w-full justify-center" data-nav-target="vela">
+              Acender Vela Virtual →
+            </button>
+          </div>
+
+          <div class="surface-card p-6 flex flex-col justify-between">
+            <div>
+              <span class="text-2xl mb-2 inline-block" aria-hidden="true">📖</span>
+              <h3 class="font-serif-sacred font-bold text-xl mb-2">Biblioteca Sagrada Completa</h3>
+              <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                Capítulos integrais em domínio público contemplando todas as 16 tradições religiosas com ajuste de letra grande.
+              </p>
+            </div>
+            <button type="button" class="btn-secondary w-full justify-center" data-nav-target="escrituras">
+              Ler Obras Sagradas →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Respectful Native Sponsor / AdSense Slot -->
+      <aside class="ad-sponsor-slot flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" aria-label="Espaço Publicitário e Apoio">
+        <div>
+          <span class="inline-block text-[11px] font-bold uppercase tracking-widest px-2 py-0.5 rounded mb-1" style="background-color: var(--bg-surface); color: var(--text-muted);">
+            Publicidade • Espaço Apoiador (AdSense / Parceiros)
+          </span>
+          <p class="text-sm font-medium" style="color: var(--text-main);">
+            Este espaço sustenta a gratuidade do portal sem interromper suas orações. Quer apoiar diretamente a manutenção do site?
+          </p>
+        </div>
+        <button type="button" class="btn-secondary text-sm shrink-0" data-nav-target="apoio">
+          Conhecer Página de Apoio PIX
+        </button>
+      </aside>
+    </div>
+
+    <!-- =========================================================
+         SECTION 2: ORAÇÕES FORTES E REZAS TRADICIONAIS
+         ========================================================= -->
+    <section data-section-view="oracoes" class="hidden space-y-6" aria-labelledby="prayers-main-heading">
+      <div class="surface-card p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Devoção e Proteção</span>
+        <h2 id="prayers-main-heading" class="font-serif-sacred heading-section font-bold mt-1 mb-2">
+          Orações Fortes, Salmos e Saudações Tradicionais
+        </h2>
+        <p class="text-sm sm:text-base mb-6" style="color: var(--text-secondary);">
+          Filtre por tradição ou busque pelo nome do santo, salmo, guia espiritual ou Orixá. Todas contam com leitura em voz calma.
+        </p>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-2 mb-5" role="group" aria-label="Filtrar orações por tradição">
+          <button type="button" class="feeling-chip" data-prayer-cat="todas" aria-pressed="true">Todas as Tradições</button>
+          <button type="button" class="feeling-chip" data-prayer-cat="umbanda" aria-pressed="false">Umbanda (Zé Pelintra, Padilha, Exu, Pretos Velhos)</button>
+          <button type="button" class="feeling-chip" data-prayer-cat="candomble" aria-pressed="false">Candomblé (Oxalá, Iemanjá, Ogum, Obaluaê)</button>
+          <button type="button" class="feeling-chip" data-prayer-cat="catolica" aria-pressed="false">Fé Católica (Salmo 91, São Bento, São Jorge)</button>
+          <button type="button" class="feeling-chip" data-prayer-cat="evangelica" aria-pressed="false">Evangélicas & Salmos (23, 121, Efésios 6)</button>
+          <button type="button" class="feeling-chip" data-prayer-cat="espirita" aria-pressed="false">Doutrina Espírita (Cáritas, Anjo Guardião)</button>
+          <button type="button" class="feeling-chip" data-prayer-cat="outras" aria-pressed="false">Judaica, Islâmica, Oriental & Indígena</button>
+        </div>
+
+        <!-- Search Input -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div class="flex-1">
+            <label for="prayer-search-input" class="sr-only">Buscar oração por nome ou tema</label>
+            <input
+              id="prayer-search-input"
+              type="search"
+              class="input-sacred"
+              placeholder="Buscar ex.: Zé Pelintra, Maria Padilha, Salmo 91, São Bento, Oxalá..."
+            />
+          </div>
+          <span id="prayers-count-label" class="text-xs font-semibold shrink-0" style="color: var(--text-muted);" aria-live="polite">
+            21 orações disponíveis
+          </span>
+        </div>
+      </div>
+
+      <!-- Prayers Cards List -->
+      <div id="prayers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: VELA VIRTUAL DE 7 DIAS
+         ========================================================= -->
+    <section data-section-view="vela" class="hidden space-y-8" aria-labelledby="candle-main-heading">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Left Column: Sanctuary Visual + Flame Control -->
+        <div class="lg:col-span-5 p-6 sm:p-8 rounded-2xl text-white flex flex-col items-center text-center" style="background-color: var(--bg-chapel);">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-300 mb-2">Capela Virtual de Intenções</span>
+          <h2 id="candle-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2 text-white">
+            Vela Virtual de 7 Dias
+          </h2>
+          <p class="text-sm text-amber-100/85 mb-6 max-w-sm">
+            Um sinal luminoso de intercessão pela saúde, pela paz familiar ou em memória eterna de quem amamos.
+          </p>
+
+          <!-- Animated Candle Showcase -->
+          <div class="my-4 flex flex-col items-center">
+            <div id="hero-candle-flame" class="candle-flame mb-1" aria-hidden="true"></div>
+            <div class="w-16 h-28 rounded-t-md border-t-4 border-amber-200 shadow-inner" style="background: linear-gradient(to bottom, #FFFDF9, #E6DEC8);"></div>
+            <div class="w-28 h-3 rounded-full mt-1" style="background-color: #8C6239;"></div>
+          </div>
+
+          <p id="candles-active-counter" class="text-sm font-semibold text-amber-200 mt-4 mb-4" aria-live="polite">
+            3 velas acesas em vigília
+          </p>
+
+          <button
+            type="button"
+            class="btn-secondary text-xs py-2 px-4"
+            data-action="toggle-flame-motion"
+            aria-pressed="false"
+          >
+            ⏸ Pausar animação da chama
+          </button>
+        </div>
+
+        <!-- Right Column: Form to Light a New Candle -->
+        <div class="lg:col-span-7 surface-card p-6 sm:p-8">
+          <h3 class="font-serif-sacred font-bold text-xl sm:text-2xl mb-1">
+            Acender uma Nova Vela Gratuita
+          </h3>
+          <p class="text-sm mb-5" style="color: var(--text-secondary);">
+            Sua intenção fica salva neste aparelho durante 7 dias simbólicos e você recebe o botão de envio direto pelo WhatsApp.
+          </p>
+
+          <form id="light-candle-form" class="space-y-4" novalidate>
+            <div>
+              <label for="candle-honoree-input" class="block text-sm font-semibold mb-1">
+                Nome da pessoa, família ou intenção homenageada *
+              </label>
+              <input
+                id="candle-honoree-input"
+                type="text"
+                required
+                class="input-sacred"
+                placeholder="Ex.: Pela saúde de Dona Aparecida / Em memória de meu pai José"
+              />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="candle-tradition-select" class="block text-sm font-semibold mb-1">
+                  Tradição espiritual da prece
+                </label>
+                <select id="candle-tradition-select" class="input-sacred"></select>
+              </div>
+              <div>
+                <label for="candle-city-input" class="block text-sm font-semibold mb-1">
+                  Sua cidade e estado (opcional)
+                </label>
+                <input
+                  id="candle-city-input"
+                  type="text"
+                  class="input-sacred"
+                  placeholder="Ex.: Recife, PE"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="candle-intention-input" class="block text-sm font-semibold mb-1">
+                Escreva sua prece ou pedido de bênção *
+              </label>
+              <textarea
+                id="candle-intention-input"
+                rows="3"
+                required
+                class="input-sacred"
+                placeholder="Escreva com calma as palavras que estão no seu coração..."
+              ></textarea>
+            </div>
+
+            <div id="candle-form-feedback" class="hidden p-4 rounded-xl text-sm font-medium" role="status" aria-live="polite"></div>
+
+            <button type="submit" class="btn-primary w-full sm:w-auto">
+              🕯 Acender Vela de 7 Dias Agora
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Community & User Lit Candles Wall -->
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h3 class="font-serif-sacred font-bold text-xl">
+            Mural de Velas Acesas e Intenções
+          </h3>
+          <div class="flex gap-2" role="group" aria-label="Filtrar mural de velas">
+            <button type="button" class="feeling-chip text-sm" data-candle-filter="all" aria-pressed="true">
+              Todas as Velas
+            </button>
+            <button type="button" class="feeling-chip text-sm" data-candle-filter="mine" aria-pressed="false">
+              Minhas Velas Acesas
+            </button>
+          </div>
+        </div>
+
+        <div id="candles-wall-container" class="features-grid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: BIBLIOTECA SAGRADA (TODAS AS 16 TRADIÇÕES)
+         ========================================================= -->
+    <section data-section-view="escrituras" class="hidden space-y-6" aria-labelledby="library-main-heading">
+      <div class="surface-card p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Obras Canônicas em Domínio Público</span>
+        <h2 id="library-main-heading" class="font-serif-sacred heading-section font-bold mt-1 mb-2">
+          Textos Integrais da Biblioteca Sagrada (16 Tradições)
+        </h2>
+        <p class="text-sm sm:text-base mb-5" style="color: var(--text-secondary);">
+          Todas as 16 religiões e caminhos espirituais do portal estão contemplados abaixo com capítulos clássicos de suas respectivas obras sagradas.
+        </p>
+
+        <!-- Tradition Selector Dropdown -->
+        <div class="mb-5">
+          <label for="library-tradition-select" class="block text-sm font-bold mb-2">
+            Selecione a Tradição e Obra Sagrada:
+          </label>
+          <select id="library-tradition-select" class="input-sacred font-medium"></select>
+        </div>
+
+        <!-- Chapter Tabs -->
+        <div class="mb-2">
+          <span class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">
+            Capítulos disponíveis nesta obra:
+          </span>
+          <div id="library-chapters-tabs" class="flex flex-wrap gap-2" role="group" aria-label="Capítulos da obra selecionada"></div>
+        </div>
+      </div>
+
+      <!-- Chapter Reader Surface -->
+      <article class="surface-card p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b" style="border-color: var(--border-color);">
+          <div>
+            <p id="library-canonical-title" class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-wine);"></p>
+            <h3 id="library-chapter-heading" class="font-serif-sacred font-bold text-2xl sm:text-3xl"></h3>
+          </div>
+          <button
+            type="button"
+            class="btn-primary inline-flex items-center gap-2"
+            data-action="speak-library-chapter"
+            data-speech-id="library-chapter"
+            data-default-label="Ouvir capítulo completo"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">🔊</span>
+            <span data-speech-label>Ouvir capítulo completo</span>
+          </button>
+        </div>
+
+        <div id="library-verses-container" class="max-w-3xl"></div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-6 mt-8 border-t" style="border-color: var(--border-color);">
+          <button type="button" class="btn-secondary" data-action="prev-library-chapter">
+            ← Capítulo Anterior
+          </button>
+          <button type="button" class="btn-secondary" data-action="next-library-chapter">
+            Próximo Capítulo →
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: ALENTO TEMÁTICO POR MOMENTO DE VIDA
+         ========================================================= -->
+    <section data-section-view="alento" class="hidden space-y-6" aria-labelledby="comfort-main-heading">
+      <div class="surface-card p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Consolo e Orientação Prática</span>
+        <h2 id="comfort-main-heading" class="font-serif-sacred heading-section font-bold mt-1 mb-2">
+          Alento Temático nas Horas Difíceis
+        </h2>
+        <p class="text-sm sm:text-base mb-5" style="color: var(--text-secondary);">
+          Selecione o tema que mais toca sua família hoje e leia passagens comparadas de consolo acompanhadas de um exercício sereno de respiração:
+        </p>
+
+        <div id="comfort-topics-tabs" class="flex flex-wrap gap-2" role="group" aria-label="Temas de alento espiritual"></div>
+      </div>
+
+      <div id="comfort-topic-detail"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 6: QUIZ EDUCATIVO DE SABEDORIA SAGRADA
+         ========================================================= -->
+    <section data-section-view="quiz" class="hidden space-y-6" aria-labelledby="quiz-main-heading">
+      <div class="surface-card p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Cultura de Paz e Conhecimento</span>
+        <h2 id="quiz-main-heading" class="font-serif-sacred heading-section font-bold mt-1 mb-2">
+          Quiz Educativo das Tradições e Escrituras
+        </h2>
+        <p class="text-sm sm:text-base" style="color: var(--text-secondary);">
+          Exercite a memória e descubra belos ensinamentos sobre os Salmos, os Orixás, a Doutrina Espírita, a Torá, o Alcorão e a sabedoria oriental.
+        </p>
+      </div>
+
+      <div id="quiz-card-container"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 7: BLOG (ARTIGOS E REFLEXÕES)
+         ========================================================= -->
+    <section data-section-view="blog" class="hidden space-y-6" aria-labelledby="blog-main-heading">
+      <div class="surface-card p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Leitura Editorial</span>
+        <h2 id="blog-main-heading" class="font-serif-sacred heading-section font-bold mt-1 mb-2">
+          Blog Horizonte Espiritual
+        </h2>
+        <p class="text-sm sm:text-base" style="color: var(--text-secondary);">
+          Artigos sobre saúde emocional após os 50 anos, convivência familiar respeitosa entre religiões e história das tradições espirituais.
+        </p>
+      </div>
+
+      <!-- Full Article Reader (Opens when clicking an article card) -->
+      <div id="blog-article-reader" class="hidden"></div>
+
+      <!-- Blog Cards Grid -->
+      <div id="blog-posts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 8: QUEM SOMOS (PADRÃO INSTITUCIONAL GOOGLE)
+         ========================================================= -->
+    <section data-section-view="quem-somos" class="hidden space-y-6" aria-labelledby="about-main-heading">
+      <article class="surface-card p-6 sm:p-10 space-y-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Institucional e Transparência</span>
+          <h2 id="about-main-heading" class="font-serif-sacred heading-section font-bold mt-1">
+            Quem Somos • Missão, Princípios Editoriais e Respeito Inter-religioso
+          </h2>
+        </div>
+
+        <p class="text-body-sacred font-serif-sacred leading-relaxed">
+          O portal <strong>Horizonte Espiritual</strong> é uma iniciativa independente de comunicação, leitura contemplativa e apoio emocional gratuito, desenvolvida no Brasil com atenção especial à acessibilidade visual, clareza tipográfica e conforto de navegação do público 50+ e de toda a família brasileira.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">1. Nossa Missão Institucional</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          Disponibilizar gratuitamente passagens diárias de consolo, orações tradicionais, ferramentas simbólicas de vigília (como a Vela Virtual de 7 Dias) e capítulos clássicos em domínio público das 16 principais tradições espirituais presentes na cultura brasileira, promovendo a paz interior, o amparo no luto e a convivência respeitosa.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">2. Autonomia e Dignidade de Todas as Matrizes Espirituais</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          Em respeito à liberdade de crença assegurada pelo Artigo 5º, inciso VI, da Constituição Federal Brasileira, o Horizonte Espiritual não mistura nem diminui nenhuma religião. A Umbanda e o Candomblé possuem espaços, saudações e textos próprios e independentes; da mesma forma, o Budismo, o Hinduísmo, a Fé Católica, a Fé Evangélica, a Doutrina Espírita, a Igreja Adventista, A Igreja de Jesus Cristo dos Santos dos Últimos Dias, as Testemunhas de Jeová, o Judaísmo, o Islamismo, a tradição Messiânica / Seicho-no-Ie, o Cristianismo Ortodoxo e a Sabedoria Indígena são tratados com integridade editorial e fidelidade às suas fontes históricas.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">3. Caráter Complementar e Cuidado com a Saúde</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          Todo o conteúdo disponibilizado neste portal possui natureza estritamente espiritual, cultural, reflexiva e educativa. As leituras e preces jamais substituem o acompanhamento médico, psicológico ou psiquiátrico profissional.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">4. Contato e Responsabilidade Editorial</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          Dúvidas institucionais, sugestões de inclusão de preces tradicionais ou comunicações administrativas são atendidas diretamente pelo canal eletrônico oficial do mantenedor: <strong>eupaulorrenato@gmail.com</strong>.
+        </p>
+      </article>
+    </section>
+
+    <!-- =========================================================
+         SECTION 9: POLÍTICA DE PRIVACIDADE, COOKIES E LGPD
+         ========================================================= -->
+    <section data-section-view="privacidade" class="hidden space-y-6" aria-labelledby="privacy-main-heading">
+      <article class="surface-card p-6 sm:p-10 space-y-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Conformidade Legal (Lei nº 13.709/2018 - LGPD)</span>
+          <h2 id="privacy-main-heading" class="font-serif-sacred heading-section font-bold mt-1">
+            Política de Privacidade, Proteção de Dados e Termos de Uso
+          </h2>
+          <p class="text-xs mt-1" style="color: var(--text-muted);">Última atualização: Novembro de 2026</p>
+        </div>
+
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          O portal <strong>Horizonte Espiritual</strong> valoriza a privacidade, a segurança e a tranquilidade de todos os seus visitantes. Esta Política de Privacidade descreve de forma transparente como tratamos informações em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD - Lei Federal nº 13.709/2018) e com as diretrizes de transparência do Google Publisher Policies / Google AdSense.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">1. Acesso Livre sem Exigência de Cadastro</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          O visitante não precisa criar conta, informar CPF, senha ou cartão de crédito para ler passagens, ouvir orações ou acender velas virtuais.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">2. Armazenamento Local no Próprio Aparelho (LocalStorage)</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          Quando você marca a opção "Salvar minha escolha neste aparelho", altera o tamanho da fonte (A- / A+), ativa o Modo Noturno ou acende uma Vela Virtual, essas preferências são gravadas exclusivamente na memória local do seu próprio navegador (tecnologia <code>localStorage</code>). Você detém controle integral e tem liberdade de apagar esses dados a qualquer momento limpando os dados de navegação ou desmarcando a caixa de salvamento na página inicial.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">3. Cookies de Publicidade e Google AdSense</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          A fim de manter o acesso 100% gratuito aos usuários, o portal reserva espaços identificados como "Publicidade / Espaço Apoiador", que utilizam serviços de terceiros como o Google AdSense. Fornecedores terceiros, incluindo o Google, utilizam cookies para exibir anúncios com base em visitas anteriores do usuário a este ou a outros sites na internet. O usuário tem a opção de desativar a publicidade personalizada acessando as <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--accent-wine);">Configurações de Anúncios do Google</a>.
+        </p>
+
+        <h3 class="font-serif-sacred font-bold text-xl pt-2">4. Direitos do Titular e Canal de Atendimento (Encarregado / DPO)</h3>
+        <p class="leading-relaxed" style="color: var(--text-secondary);">
+          Em cumprimento ao Artigo 18 da LGPD, qualquer solicitação de esclarecimento sobre privacidade ou tratamento de dados é recebida gratuitamente pelo e-mail oficial: <strong>eupaulorrenato@gmail.com</strong>.
+        </p>
+      </article>
+    </section>
+
+    <!-- =========================================================
+         SECTION 10: PÁGINA DE APOIO E DOAÇÃO ESPONTÂNEA PIX
+         ========================================================= -->
+    <section data-section-view="apoio" class="hidden space-y-6" aria-labelledby="support-main-heading">
+      <article class="surface-card p-6 sm:p-10">
+        <div class="max-w-3xl mx-auto">
+          <span class="inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-3" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+            Manutenção Colaborativa e Voluntária
+          </span>
+
+          <h2 id="support-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl mb-6 leading-tight" style="color: var(--accent-wine);">
+            FAÇA SUA DOAÇÃO: eupaulorrenato@gmail.com
+          </h2>
+
+          <!-- Large Heartfelt Explanation Requested by User -->
+          <div class="space-y-4 font-serif-sacred text-body-sacred leading-relaxed mb-8" style="color: var(--text-main);">
+            <p>
+              Este site trabalha inteiramente de graça. Todas as orações, leituras em voz calma, velas virtuais de 7 dias e os capítulos da Biblioteca Sagrada das 16 tradições espirituais estão abertos a qualquer pessoa, a qualquer hora do dia ou da noite, sem mensalidades, sem bloqueios de leitura e sem cobranças.
+            </p>
+            <p>
+              Acreditamos profundamente que uma palavra de fé, consolo no luto e serenidade na hora da angústia jamais deve ser negada a ninguém por motivos financeiros. Manter este santuário digital no ar, rápido, seguro, acessível para todas as idades e em constante atualização exige dedicação diária e custos técnicos permanentes de hospedagem e manutenção.
+            </p>
+            <p>
+              Se este espaço trouxe paz ao seu coração ou ajudou alguém da sua família, e se você quiser fazer a sua doação espontânea visando ajudar na manutenção do site, sinta-se inteiramente livre para contribuir com qualquer valor através da nossa chave PIX oficial abaixo. Toda oferta, de qualquer valor, é recebida com imensa gratidão e revertida na continuidade deste trabalho gratuito.
+            </p>
+          </div>
+
+          <!-- PIX Copy Box -->
+          <div class="p-6 sm:p-8 rounded-2xl border-2 text-center" style="background-color: var(--bg-amber-soft); border-color: var(--accent-amber);">
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--text-secondary);">
+              Chave PIX Oficial (E-mail)
+            </p>
+            <p class="font-mono font-bold text-xl sm:text-2xl break-all mb-5 select-all" style="color: var(--text-main);">
+              eupaulorrenato@gmail.com
+            </p>
+
+            <button type="button" class="btn-primary inline-flex items-center gap-2 text-base px-6" data-action="copy-pix-key">
+              <span aria-hidden="true">📋</span> Copiar Chave PIX: eupaulorrenato@gmail.com
+            </button>
+
+            <p id="pix-copy-feedback" class="hidden mt-4 text-sm font-bold p-3 rounded-lg" style="background-color: var(--bg-surface); color: var(--accent-green);" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- FOOTER WITH VISIBLE INSTITUTIONAL LINKS & SMALL DISCREET FREE-ACCESS NOTICE -->
+  <footer class="border-t mt-12 py-8 px-4 sm:px-6" style="background-color: var(--bg-subtle); border-color: var(--border-color);">
+    <div class="max-w-6xl mx-auto flex flex-col gap-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <p class="font-serif-sacred font-bold text-lg" style="color: var(--text-main);">
+            Horizonte Espiritual
+          </p>
+          <p class="text-xs" style="color: var(--text-secondary);">
+            Respeito, acolhimento e obras sagradas em domínio público das 16 tradições espirituais.
+          </p>
+        </div>
+
+        <!-- Visible Google-Compliant Footer Navigation -->
+        <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
+          <button type="button" class="underline py-1 px-2" data-nav-target="inicio">Início</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="oracoes">Orações</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="escrituras">Biblioteca Sagrada</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="blog">Blog</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="quem-somos">Quem Somos</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="privacidade">Privacidade & LGPD</button>
+          <button type="button" class="underline font-bold py-1 px-2" style="color: var(--accent-wine);" data-nav-target="apoio">
+            Faça sua Doação (PIX)
+          </button>
+        </div>
+      </div>
+
+      <!-- Discreet small footer note affirming zero cost to access -->
+      <div class="pt-4 border-t text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-2" style="border-color: var(--border-color);">
+        <p class="text-xs" style="color: var(--text-muted);">
+          Nota de Gratuidade: Não cobramos absolutamente nada para você acessar, ler ou ouvir qualquer conteúdo deste site. Apoio espontâneo opcional via PIX: eupaulorrenato@gmail.com.
+        </p>
+        <p class="text-xs shrink-0" style="color: var(--text-muted);">
+          © 2026 Horizonte Espiritual • Todos os direitos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE STICKY BOTTOM BAR (<1024px) -->
+  <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 border-t grid grid-cols-5 px-1 py-1" style="background-color: var(--bg-surface); border-color: var(--border-strong); padding-bottom: calc(0.25rem + env(safe-area-inset-bottom, 0px));" aria-label="Acesso rápido móvel">
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="inicio" aria-current="page">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">🌅</span>
+      <span>Início</span>
+    </button>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="oracoes">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">🙏</span>
+      <span>Orações</span>
+    </button>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="vela">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">🕯</span>
+      <span>Vela</span>
+    </button>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="escrituras">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">📖</span>
+      <span>Textos</span>
+    </button>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="apoio">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">💛</span>
+      <span>Apoiar</span>
+    </button>
+  </nav>
+
+  <script src="js/data-traditions.js"></script>
+  <script src="js/data-content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
