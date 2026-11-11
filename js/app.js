@@ -9,8 +9,7 @@
     candles: "he_user_candles",
     cafeHistory: "he_cafe_history_v1",
     tracksProgress: "he_tracks_progress_v1",
-    whatsappSubscriber: "he_whatsapp_subscriber_v1",
-    workTrailsProgress: "he_work_trails_v1"
+    whatsappSubscriber: "he_whatsapp_subscriber_v1"
   };
 
   var state = {
@@ -41,13 +40,10 @@
     libraryBookIndex: 0,
     libraryChapterIndex: 0,
 
-    // Retenção Diária ("Café Espiritual", "Arcanjo Miguel 21 Dias", "Trilhas", "16 Obras", "WhatsApp", "PWA")
+    // Retenção Diária ("Café Espiritual", "Arcanjo Miguel 21 Dias", "Trilhas", "WhatsApp", "PWA")
     cafeSelectedDay: new Date().getDate(),
     miguelSubTab: "prayers",
     miguelSelectedDay: 1,
-    trilhasTab: "works",
-    selectedWorkTrailId: "catolica",
-    workTrailSelectedStep: 1,
     whatsappEditing: false,
     activeTrackId: null,
     activeTrackSelectedDay: 1,
@@ -59,7 +55,8 @@
     quizScore: 0,
     quizAnswered: false,
     activeBlogPostId: null,
-    speakingId: null
+    speakingId: null,
+    speechToken: 0
   };
 
   function safeStorageGet(key) {
@@ -168,6 +165,7 @@
   }
 
   function stopSpeech() {
+    state.speechToken += 1;
     if ("speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
@@ -176,6 +174,65 @@
     state.speakingId = null;
     setAudioBanner(false);
     updateSpeechButtons();
+  }
+
+  function pickBestPortugueseVoice() {
+    if (!("speechSynthesis" in window) || typeof window.speechSynthesis.getVoices !== "function") {
+      return null;
+    }
+    var voices = window.speechSynthesis.getVoices() || [];
+    var fallbackPt = null;
+    for (var i = 0; i < voices.length; i++) {
+      var lang = String(voices[i].lang || "").toLowerCase();
+      if (lang === "pt-br" || lang.indexOf("pt-br") === 0 || lang.indexOf("pt_br") === 0) {
+        return voices[i];
+      }
+      if (!fallbackPt && lang.indexOf("pt") === 0) {
+        fallbackPt = voices[i];
+      }
+    }
+    return fallbackPt;
+  }
+
+  function splitSpeechChunks(rawText, maxLen) {
+    var cleaned = String(rawText || "")
+      .replace(/[\r\n]+/g, ". ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!cleaned) return [];
+    var limit = maxLen || 210;
+    var parts = [];
+    var sentences = cleaned.replace(/([.!?;:])\s+/g, "$1\n").split("\n");
+    var buffer = "";
+
+    for (var i = 0; i < sentences.length; i++) {
+      var seg = sentences[i].trim();
+      if (!seg) continue;
+      if (seg.length > limit) {
+        if (buffer) {
+          parts.push(buffer.trim());
+          buffer = "";
+        }
+        var words = seg.split(" ");
+        var line = "";
+        for (var w = 0; w < words.length; w++) {
+          if ((line + " " + words[w]).trim().length > limit && line) {
+            parts.push(line.trim());
+            line = words[w];
+          } else {
+            line = (line + " " + words[w]).trim();
+          }
+        }
+        if (line) parts.push(line.trim());
+      } else if ((buffer + " " + seg).trim().length > limit && buffer) {
+        parts.push(buffer.trim());
+        buffer = seg;
+      } else {
+        buffer = (buffer + " " + seg).trim();
+      }
+    }
+    if (buffer) parts.push(buffer.trim());
+    return parts;
   }
 
   function speakText(id, textToRead) {
@@ -191,33 +248,80 @@
 
     stopSpeech();
 
-    try {
-      var utterance = new SpeechSynthesisUtterance(textToRead);
-      utterance.lang = "pt-BR";
-      // Slightly slower cadence improves comprehension and calm for 50+ and senior listeners.
-      utterance.rate = 0.88;
-      utterance.pitch = 1.0;
+    var chunks = splitSpeechChunks(textToRead, 210);
+    if (chunks.length === 0) return;
 
-      utterance.onend = function () {
+    var playbackToken = state.speechToken;
+    var selectedVoice = pickBestPortugueseVoice();
+    state.speakingId = id;
+    updateSpeechButtons();
+
+    function playChunk(index) {
+      if (state.speechToken !== playbackToken || state.speakingId !== id) {
+        return;
+      }
+      if (index >= chunks.length) {
         state.speakingId = null;
         setAudioBanner(false);
         updateSpeechButtons();
-      };
+        return;
+      }
 
-      utterance.onerror = function () {
+      setAudioBanner(
+        true,
+        chunks.length > 1
+          ? "🔊 Lendo em voz calma (" + (index + 1) + " de " + chunks.length + "). Toque em Parar Áudio Agora se desejar."
+          : "🔊 Lendo em voz calma para você. Toque no botão ao lado para parar."
+      );
+
+      try {
+        var utterance = new SpeechSynthesisUtterance(chunks[index]);
+        utterance.lang = "pt-BR";
+        if (selectedVoice) utterance.voice = selectedVoice;
+        // Slightly slower cadence improves comprehension and calm for 50+ and senior listeners.
+        utterance.rate = 0.88;
+        utterance.pitch = 1.0;
+
+        utterance.onend = function () {
+          if (state.speechToken !== playbackToken) return;
+          playChunk(index + 1);
+        };
+
+        utterance.onerror = function () {
+          if (state.speechToken !== playbackToken) return;
+          state.speakingId = null;
+          setAudioBanner(false);
+          updateSpeechButtons();
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } catch (e) {
         state.speakingId = null;
         setAudioBanner(false);
         updateSpeechButtons();
-      };
+      }
+    }
 
-      state.speakingId = id;
-      updateSpeechButtons();
-      setAudioBanner(true, "🔊 Lendo em voz calma para você. Toque no botão ao lado para parar.");
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      state.speakingId = null;
-      setAudioBanner(false);
-      updateSpeechButtons();
+    playChunk(0);
+  }
+
+  function speakElementContent(speechId, elementId) {
+    var rootEl = document.getElementById(elementId);
+    if (!rootEl) return;
+    var nodes = rootEl.querySelectorAll("h2, h3, h4, p, blockquote, li");
+    var collected = [];
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (node.closest("button") || node.classList.contains("hidden") || node.getAttribute("aria-hidden") === "true") {
+        continue;
+      }
+      var txt = (node.textContent || "").replace(/\s+/g, " ").trim();
+      if (txt && collected.indexOf(txt) === -1) {
+        collected.push(txt);
+      }
+    }
+    if (collected.length > 0) {
+      speakText(speechId, collected.join(". "));
     }
   }
 
@@ -728,10 +832,6 @@
       }
       versesContainerEl.innerHTML = vHtml;
     }
-
-    if (typeof renderLibraryWorkTrailFooter === "function") {
-      renderLibraryWorkTrailFooter(state.libraryTraditionId, activeBook.bookTitle, state.libraryChapterIndex);
-    }
   }
 
   function populatePrayerCategorySelect() {
@@ -936,13 +1036,23 @@
         escapeHtml(item.subtitle) +
         "</p>" +
         "</div>" +
-        '<button type="button" class="btn-secondary w-full justify-center text-sm" data-open-prayer="' +
+        '<div class="flex flex-wrap gap-2 mt-2">' +
+        '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-prayer="' +
         escapeHtml(item.id) +
-        '">Abrir Página da Oração →</button>' +
+        '">Abrir Oração →</button>' +
+        '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="prayer-' +
+        escapeHtml(item.id) +
+        '" data-speech-prayer="' +
+        escapeHtml(item.id) +
+        '" data-default-label="Ouvir" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        "</button>" +
+        "</div>" +
         "</article>";
     }
 
     listContainer.innerHTML = html;
+    updateSpeechButtons();
 
     if (paginationContainer) {
       if (totalPages <= 1) {
@@ -1093,15 +1203,23 @@
         escapeHtml(c.intention) +
         "”</p>" +
         "</div>" +
-        '<div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: var(--border-color);">' +
+        '<div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t" style="border-color: var(--border-color);">' +
+        '<button type="button" class="btn-primary text-xs py-2 px-3 inline-flex items-center gap-1.5" data-speech-id="candle-' +
+        escapeHtml(c.id) +
+        '" data-speak-candle="' +
+        escapeHtml(c.id) +
+        '" data-default-label="Ouvir prece" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir prece</span>' +
+        "</button>" +
         '<button type="button" class="btn-secondary text-xs py-2 px-3" data-share-candle="' +
         escapeHtml(c.id) +
-        '">📲 Enviar aviso de prece no WhatsApp</button>' +
+        '">📲 Enviar no WhatsApp</button>' +
         "</div>" +
         "</article>";
     }
 
     container.innerHTML = html;
+    updateSpeechButtons();
 
     if (wallPagination) {
       if (totalPages <= 1) {
@@ -1215,12 +1333,22 @@
     var readingsHtml = "";
     for (var r = 0; r < activeTopic.readings.length; r++) {
       var item = activeTopic.readings[r];
+      var readingSpeechId = "comfort-item-" + activeTopic.id + "-" + r;
       readingsHtml +=
-        '<div class="surface-subtle p-5 rounded-xl">' +
-        '<span class="inline-block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--accent-wine);">' +
+        '<div class="surface-subtle p-5 rounded-xl space-y-3">' +
+        '<div class="flex flex-wrap items-center justify-between gap-2">' +
+        '<span class="inline-block text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">' +
         escapeHtml(item.tradition) +
         "</span>" +
-        '<blockquote class="font-serif-sacred text-body-sacred font-medium mb-3" style="color: var(--text-main);">“' +
+        '<button type="button" class="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1.5" data-speech-id="' +
+        escapeHtml(readingSpeechId) +
+        '" data-speak-comfort-index="' +
+        r +
+        '" data-default-label="Ouvir leitura" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir leitura</span>' +
+        "</button>" +
+        "</div>" +
+        '<blockquote class="font-serif-sacred text-body-sacred font-medium" style="color: var(--text-main);">“' +
         escapeHtml(item.quote) +
         "”</blockquote>" +
         '<p class="text-sm" style="color: var(--text-secondary);"><strong>Aplicação prática:</strong> ' +
@@ -1231,13 +1359,24 @@
 
     detailEl.innerHTML =
       '<div class="surface-card p-6 max-w-3xl mx-auto">' +
-      '<div class="mb-5 pb-4 border-b" style="border-color: var(--border-color);">' +
+      '<div class="mb-5 pb-4 border-b space-y-3" style="border-color: var(--border-color);">' +
+      '<div class="flex flex-wrap items-start justify-between gap-3">' +
+      '<div>' +
       '<h3 class="font-serif-sacred font-bold text-2xl mb-1">' +
       escapeHtml(activeTopic.icon + " " + activeTopic.title) +
       "</h3>" +
-      '<p class="text-base mb-3" style="color: var(--text-secondary);">' +
+      '<p class="text-base" style="color: var(--text-secondary);">' +
       escapeHtml(activeTopic.summary) +
       "</p>" +
+      "</div>" +
+      '<button type="button" class="btn-primary text-sm inline-flex items-center gap-2 shrink-0" data-speech-id="comfort-topic-' +
+      escapeHtml(activeTopic.id) +
+      '" data-speak-comfort-topic="' +
+      escapeHtml(activeTopic.id) +
+      '" data-default-label="Ouvir reflexão completa" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir reflexão completa</span>' +
+      "</button>" +
+      "</div>" +
       '<div class="p-4 rounded-xl text-sm" style="background-color: var(--bg-amber-soft); color: var(--text-main);">' +
       "<strong>Exercício de serenidade:</strong> " +
       escapeHtml(activeTopic.breathGuide) +
@@ -1247,6 +1386,8 @@
       readingsHtml +
       "</div>" +
       "</div>";
+
+    updateSpeechButtons();
   }
 
   function renderQuiz() {
@@ -1267,8 +1408,14 @@
         questions.length +
         "</strong> perguntas sobre as tradições espirituais e escrituras sagradas.</p>" +
         '<p class="text-sm mb-6" style="color: var(--text-muted);">Conhecer a história e os livros sagrados fortalece a nossa cultura de paz e respeito mútuo.</p>' +
+        '<div class="flex flex-wrap items-center justify-center gap-3">' +
         '<button type="button" class="btn-primary" data-action="restart-quiz">Jogar Novamente</button>' +
+        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="speak-quiz-result" data-speech-id="quiz-result" data-default-label="Ouvir resultado" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir resultado</span>' +
+        "</button>" +
+        "</div>" +
         "</div>";
+      updateSpeechButtons();
       return;
     }
 
@@ -1292,15 +1439,22 @@
 
     container.innerHTML =
       '<div class="surface-card p-6 sm:p-8 max-w-2xl mx-auto">' +
-      '<div class="flex items-center justify-between gap-2 mb-4">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2 mb-4">' +
       '<span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded" style="background-color: var(--bg-subtle); color: var(--accent-wine);">Pergunta ' +
       (state.quizIndex + 1) +
       " de " +
       questions.length +
       "</span>" +
+      '<div class="flex items-center gap-3">' +
       '<span class="text-sm font-semibold" style="color: var(--text-secondary);">Pontuação: ' +
       state.quizScore +
       "</span>" +
+      '<button type="button" class="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1.5" data-action="speak-quiz-question" data-speech-id="quiz-q-' +
+      state.quizIndex +
+      '" data-default-label="Ouvir pergunta" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir pergunta</span>' +
+      "</button>" +
+      "</div>" +
       "</div>" +
       '<h3 class="font-serif-sacred font-bold text-xl sm:text-2xl mb-5 leading-snug">' +
       escapeHtml(q.question) +
@@ -1310,6 +1464,7 @@
       "</div>" +
       '<div id="quiz-feedback-box" class="hidden p-4 rounded-xl mt-4"></div>' +
       "</div>";
+    updateSpeechButtons();
   }
 
   function handleQuizOptionClick(optionIndex) {
@@ -1345,10 +1500,18 @@
         '<p class="text-sm mb-4" style="color: var(--text-main);">' +
         escapeHtml(q.explanation) +
         "</p>" +
+        '<div class="flex flex-wrap gap-2">' +
         '<button type="button" class="btn-primary" data-action="next-quiz-question">' +
         (state.quizIndex + 1 < questions.length ? "Próxima Pergunta →" : "Ver Resultado Final") +
-        "</button>";
+        "</button>" +
+        '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-1.5" data-action="speak-quiz-explanation" data-speech-id="quiz-exp-' +
+        state.quizIndex +
+        '" data-default-label="Ouvir explicação" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir explicação</span>' +
+        "</button>" +
+        "</div>";
       feedbackBox.classList.remove("hidden");
+      updateSpeechButtons();
     }
   }
 
@@ -1379,10 +1542,17 @@
           '<article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">' +
           '<div class="flex flex-wrap items-center justify-between gap-2 mb-4">' +
           '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-blog-post">← Voltar para a lista de artigos</button>' +
-          '<span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+          '<button type="button" class="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2" data-speech-id="blog-full-' +
+          escapeHtml(activePost.id) +
+          '" data-speak-blog-post="' +
+          escapeHtml(activePost.id) +
+          '" data-default-label="Ouvir artigo completo" aria-pressed="false">' +
+          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir artigo completo</span>' +
+          "</button>" +
+          "</div>" +
+          '<span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded mb-2" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
           escapeHtml(activePost.category) +
           "</span>" +
-          "</div>" +
           '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2">' +
           escapeHtml(activePost.title) +
           "</h3>" +
@@ -1396,6 +1566,7 @@
           "</div>" +
           "</article>";
         readerEl.classList.remove("hidden");
+        updateSpeechButtons();
         return;
       }
     }
@@ -1425,12 +1596,22 @@
         escapeHtml(post.excerpt) +
         "</p>" +
         "</div>" +
-        '<button type="button" class="btn-secondary w-full justify-center mt-2" data-open-blog="' +
+        '<div class="flex flex-wrap gap-2 mt-2">' +
+        '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-blog="' +
         escapeHtml(post.id) +
-        '">Abrir Página do Artigo →</button>' +
+        '">Abrir Artigo →</button>' +
+        '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="blog-card-' +
+        escapeHtml(post.id) +
+        '" data-speak-blog-excerpt="' +
+        escapeHtml(post.id) +
+        '" data-default-label="Ouvir" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        "</button>" +
+        "</div>" +
         "</article>";
     }
     listEl.innerHTML = cardsHtml;
+    updateSpeechButtons();
   }
 
   /* =====================================================================
@@ -1598,193 +1779,6 @@
   }
 
   /* =========================================================
-     TRILHAS DE CONTEÚDO DAS 16 OBRAS SAGRADAS
-     ========================================================= */
-
-  function getAllSacredWorkTrails() {
-    return window.SACRED_WORK_TRAILS || [];
-  }
-
-  function findSacredWorkTrail(traditionId) {
-    var list = getAllSacredWorkTrails();
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].traditionId === traditionId) return list[i];
-    }
-    return list[0] || null;
-  }
-
-  function getWorkTrailsProgressMap() {
-    var raw = safeStorageGet(STORAGE_KEYS.workTrailsProgress);
-    if (!raw) return {};
-    try {
-      var obj = JSON.parse(raw);
-      return obj && typeof obj === "object" ? obj : {};
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function getWorkTrailCompletedSteps(traditionId) {
-    var map = getWorkTrailsProgressMap();
-    var entry = map[traditionId];
-    return entry && Array.isArray(entry.completedSteps) ? entry.completedSteps : [];
-  }
-
-  function getNextPendingWorkStep(trail) {
-    if (!trail || !trail.steps || trail.steps.length === 0) return 1;
-    var done = getWorkTrailCompletedSteps(trail.traditionId);
-    for (var i = 0; i < trail.steps.length; i++) {
-      if (done.indexOf(trail.steps[i].step) === -1) {
-        return trail.steps[i].step;
-      }
-    }
-    return trail.steps[trail.steps.length - 1].step;
-  }
-
-  function toggleWorkTrailStepCompletion(traditionId, stepNum) {
-    var trail = findSacredWorkTrail(traditionId);
-    if (!trail) return;
-    var map = getWorkTrailsProgressMap();
-    if (!map[traditionId] || !Array.isArray(map[traditionId].completedSteps)) {
-      map[traditionId] = { completedSteps: [], lastDate: "" };
-    }
-    var list = map[traditionId].completedSteps;
-    var idx = list.indexOf(stepNum);
-    if (idx === -1) {
-      list.push(stepNum);
-      map[traditionId].lastDate = getTodayDateKey();
-      if (stepNum < trail.steps.length) {
-        state.workTrailSelectedStep = stepNum + 1;
-      }
-    } else {
-      list.splice(idx, 1);
-    }
-    safeStorageSet(STORAGE_KEYS.workTrailsProgress, JSON.stringify(map));
-
-    renderHomeRetentionWidgets();
-    renderTrilhasView();
-    renderSacredLibrary();
-  }
-
-  function openWorkTrailStepInLibrary(traditionId, stepNum) {
-    var trail = findSacredWorkTrail(traditionId);
-    if (!trail || !trail.steps || trail.steps.length === 0) return;
-    var clampedStep = Math.max(1, Math.min(trail.steps.length, Number(stepNum) || 1));
-    var stepObj = trail.steps[clampedStep - 1];
-    if (!stepObj) return;
-
-    var books = getLibraryBooksForTradition(traditionId);
-    var resolvedBookIdx = 0;
-    for (var i = 0; i < books.length; i++) {
-      if (books[i].bookTitle === stepObj.bookMatch) {
-        resolvedBookIdx = i;
-        break;
-      }
-    }
-    var targetBook = books[resolvedBookIdx] || books[0];
-    var chapLen = (targetBook && targetBook.chapters && targetBook.chapters.length) || 1;
-    var resolvedChapIdx = Math.max(0, Math.min(chapLen - 1, Number(stepObj.chapterIndex) || 0));
-
-    state.selectedWorkTrailId = traditionId;
-    state.workTrailSelectedStep = clampedStep;
-    state.libraryTraditionId = traditionId;
-    state.libraryBookIndex = resolvedBookIdx;
-    state.libraryChapterIndex = resolvedChapIdx;
-
-    stopSpeech();
-    renderSacredLibrary();
-    navigateToSection("escrituras", true);
-    var readerCard = document.getElementById("library-reader-card");
-    if (readerCard) {
-      readerCard.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-
-  function renderLibraryWorkTrailFooter(traditionId, bookTitle, chapterIndex) {
-    var footerEl = document.getElementById("library-work-trail-footer");
-    if (!footerEl) return;
-
-    var trail = findSacredWorkTrail(traditionId);
-    if (!trail || trail.traditionId !== traditionId) {
-      footerEl.innerHTML = "";
-      return;
-    }
-
-    var doneSteps = getWorkTrailCompletedSteps(traditionId);
-    var matchedStep = null;
-    for (var i = 0; i < trail.steps.length; i++) {
-      var st = trail.steps[i];
-      if (st.bookMatch === bookTitle && st.chapterIndex === chapterIndex) {
-        matchedStep = st;
-        break;
-      }
-    }
-
-    if (matchedStep) {
-      var isDone = doneSteps.indexOf(matchedStep.step) !== -1;
-      var nextStepNum = matchedStep.step < trail.steps.length ? matchedStep.step + 1 : null;
-      footerEl.innerHTML =
-        '<div class="p-5 rounded-2xl border-2 space-y-3" style="background-color: var(--bg-amber-soft); border-color: var(--accent-amber);">' +
-        '<div class="flex flex-wrap items-center justify-between gap-2">' +
-        '<span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded" style="background-color: var(--bg-surface); color: var(--accent-wine);">' +
-        "🗓 Etapa " + matchedStep.step + " de " + trail.steps.length + " da Trilha Guiada" +
-        "</span>" +
-        '<span class="text-xs font-bold" style="color: var(--text-main);">' +
-        doneSteps.length + " de " + trail.steps.length + " etapas concluídas" +
-        "</span>" +
-        "</div>" +
-        '<p class="font-serif-sacred font-bold text-lg" style="color: var(--text-main);">' +
-        escapeHtml(matchedStep.title) +
-        "</p>" +
-        '<p class="text-sm" style="color: var(--text-secondary);">' +
-        escapeHtml(matchedStep.summary) +
-        "</p>" +
-        '<div class="flex flex-wrap items-center gap-3 pt-1">' +
-        '<button type="button" class="' +
-        (isDone ? "btn-secondary" : "btn-primary") +
-        ' text-sm" data-toggle-work-tradition="' +
-        escapeHtml(traditionId) +
-        '" data-toggle-work-step="' +
-        matchedStep.step +
-        '">' +
-        (isDone ? "✅ Etapa Lida (Toque para Desmarcar)" : "✓ Marcar Etapa " + matchedStep.step + " como Lida") +
-        "</button>" +
-        (nextStepNum
-          ? '<button type="button" class="btn-secondary text-sm" data-open-work-tradition="' +
-            escapeHtml(traditionId) +
-            '" data-open-work-step="' +
-            nextStepNum +
-            '">Avançar para Etapa ' +
-            nextStepNum +
-            " →</button>"
-          : "") +
-        '<button type="button" class="btn-secondary text-sm" data-action="open-current-work-trail">Ver Toda a Trilha</button>' +
-        "</div>" +
-        "</div>";
-      return;
-    }
-
-    var nextPending = getNextPendingWorkStep(trail);
-    footerEl.innerHTML =
-      '<div class="p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-subtle); border-color: var(--border-color);">' +
-      '<div class="text-sm" style="color: var(--text-secondary);">' +
-      "<strong>Trilha Guiada desta Obra:</strong> " +
-      doneSteps.length +
-      " de " +
-      trail.steps.length +
-      " etapas concluídas." +
-      "</div>" +
-      '<button type="button" class="btn-secondary text-sm py-2 px-4" data-open-work-tradition="' +
-      escapeHtml(traditionId) +
-      '" data-open-work-step="' +
-      nextPending +
-      '">📖 Ir para Etapa ' +
-      nextPending +
-      " da Trilha →</button>" +
-      "</div>";
-  }
-
-  /* =========================================================
      CADASTRO DO WHATSAPP PARA O CAFÉ ESPIRITUAL DIÁRIO
      ========================================================= */
 
@@ -1910,6 +1904,9 @@
         (primaryActionBtnHtml ? "btn-secondary" : "btn-primary") +
         ' inline-flex items-center gap-2" data-send-wa-self="true">☕ Receber o Café de Hoje Agora no Meu WhatsApp</button>' +
         '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-edit-whatsapp-sub="true">✏️ Trocar Número ou Horário</button>' +
+        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-speech-id="wa-widget-' +
+        escapeHtml(slotPrefix) +
+        '" data-speak-whatsapp-widget="saved" data-default-label="Ouvir instruções" aria-pressed="false"><span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir instruções</span></button>' +
         "</div>" +
         '<p class="text-xs leading-relaxed p-3 rounded-xl" style="background-color: var(--bg-surface); color: var(--text-secondary);">' +
         "Transparência: seu número fica guardado com segurança apenas neste aparelho para facilitar o envio direto do devocional ao tocar no botão acima. Para disparos automáticos diários em lista, o administrador pode conectar um Webhook ou Canal Oficial em PORTAL_WHATSAPP_CONFIG." +
@@ -1930,6 +1927,13 @@
       '<p class="text-sm sm:text-base leading-relaxed" style="color: var(--text-secondary);">' +
       "Preencha os 3 passos simples abaixo. É 100% gratuito e sem propaganda." +
       "</p>" +
+      '<div>' +
+      '<button type="button" class="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1.5" data-speech-id="wa-widget-' +
+      escapeHtml(slotPrefix) +
+      '" data-speak-whatsapp-widget="form" data-default-label="Ouvir instruções em áudio" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir instruções em áudio</span>' +
+      "</button>" +
+      "</div>" +
       "</div>" +
       '<form class="space-y-4" data-whatsapp-optin-form="true" novalidate>' +
       '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">' +
@@ -1991,6 +1995,7 @@
         el.innerHTML = buildWhatsappDailyWidgetHtml(slots[i].prefix);
       }
     }
+    updateSpeechButtons();
   }
 
   function handleWhatsappDailySubmit(formEl) {
@@ -2050,23 +2055,17 @@
     var miguelDone = miguelTrack ? getTrackCompletedDays(miguelTrack.id) : [];
     var miguelNext = miguelTrack ? getNextPendingDay(miguelTrack) : 1;
     var userCandles = getUserCandles();
-
-    var currentWorkTrail = findSacredWorkTrail(state.selectedTraditionId);
-    var workTrailDone = currentWorkTrail ? getWorkTrailCompletedSteps(currentWorkTrail.traditionId) : [];
     var waSub = getWhatsappSubscriber();
 
     var banner = document.getElementById("home-continuity-banner");
     if (banner) {
-      if (cafeHistory.completedDates.length > 0 || miguelDone.length > 0 || userCandles.length > 0 || workTrailDone.length > 0 || waSub) {
+      if (cafeHistory.completedDates.length > 0 || miguelDone.length > 0 || userCandles.length > 0 || waSub) {
         var parts = [];
         if (cafeHistory.completedDates.length > 0) {
           parts.push("☕ " + cafeHistory.completedDates.length + (cafeHistory.completedDates.length === 1 ? " manhã no Café" : " manhãs no Café"));
         }
         if (miguelDone.length > 0) {
           parts.push("⚔️ São Miguel: " + miguelDone.length + "/21 dias");
-        }
-        if (currentWorkTrail && workTrailDone.length > 0) {
-          parts.push("🗓 Trilha da Obra: " + workTrailDone.length + "/" + currentWorkTrail.steps.length);
         }
         if (userCandles.length > 0) {
           parts.push("🕯 " + userCandles.length + (userCandles.length === 1 ? " vela acesa" : " velas acesas"));
@@ -2118,22 +2117,6 @@
       } else {
         miguelTeaser.textContent = "Oração tradicional completa e caminhada guiada dos 21 dias com marcação diária no aparelho.";
       }
-    }
-
-    var workBadge = document.getElementById("home-work-trails-badge");
-    var workTeaser = document.getElementById("home-work-trails-teaser");
-    if (workBadge && currentWorkTrail) {
-      workBadge.textContent =
-        workTrailDone.length > 0
-          ? "🗓 Em andamento: " + workTrailDone.length + " de " + currentWorkTrail.steps.length + " etapas"
-          : "🗓 Passo a Passo nas 16 Obras";
-    }
-    if (workTeaser && currentWorkTrail) {
-      var nextWorkStep = getNextPendingWorkStep(currentWorkTrail);
-      workTeaser.textContent =
-        workTrailDone.length > 0
-          ? "Sua trilha atual (" + currentWorkTrail.title + ") continua na Etapa " + nextWorkStep + "."
-          : "Plano guiado em etapas para ler todas as 16 obras sagradas sem se perder.";
     }
 
     var waBadge = document.getElementById("home-whatsapp-badge");
@@ -2481,6 +2464,11 @@
         '<p class="text-base leading-relaxed" style="color: var(--text-secondary);">' +
         escapeHtml(data.introText) +
         "</p>" +
+        '<div>' +
+        '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-action="speak-miguel-intro" data-speech-id="miguel-intro" data-default-label="Ouvir apresentação de São Miguel" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir apresentação de São Miguel</span>' +
+        "</button>" +
+        "</div>" +
         prayersHtml +
         "</div>";
     }
@@ -2526,194 +2514,15 @@
     updateSpeechButtons();
   }
 
-  function buildSacredWorkTrailsPanelHtml() {
-    var workTrails = getAllSacredWorkTrails();
-    if (workTrails.length === 0) return "";
-
-    var trail = findSacredWorkTrail(state.selectedWorkTrailId || state.selectedTraditionId);
-    if (!trail) return "";
-
-    var doneList = getWorkTrailCompletedSteps(trail.traditionId);
-    var totalSteps = trail.steps.length;
-    var pct = Math.round((doneList.length / totalSteps) * 100);
-    var activeStepNum = Math.max(1, Math.min(totalSteps, Number(state.workTrailSelectedStep) || 1));
-    var stepObj = trail.steps[activeStepNum - 1];
-    var isStepDone = doneList.indexOf(stepObj.step) !== -1;
-
-    var selectOptsHtml = "";
-    for (var i = 0; i < workTrails.length; i++) {
-      var wt = workTrails[i];
-      var tradMeta = findTradition(wt.traditionId);
-      var wtDone = getWorkTrailCompletedSteps(wt.traditionId);
-      var prefix = tradMeta ? tradMeta.symbol + " " + tradMeta.name + ": " + tradMeta.canonicalWorkTitle : wt.title;
-      selectOptsHtml +=
-        '<option value="' +
-        escapeHtml(wt.traditionId) +
-        '"' +
-        (wt.traditionId === trail.traditionId ? " selected" : "") +
-        ">" +
-        escapeHtml(prefix + " (" + wtDone.length + "/" + wt.steps.length + ")") +
-        "</option>";
-    }
-
-    var stepGridHtml = "";
-    for (var s = 0; s < trail.steps.length; s++) {
-      var stItem = trail.steps[s];
-      var stDone = doneList.indexOf(stItem.step) !== -1;
-      var stActive = stItem.step === activeStepNum;
-      stepGridHtml +=
-        '<button type="button" class="day-step-btn' +
-        (stActive ? " is-active" : "") +
-        (stDone ? " is-completed" : "") +
-        '" data-select-work-step="' +
-        stItem.step +
-        '" aria-label="Etapa ' +
-        stItem.step +
-        (stDone ? ", concluída" : "") +
-        '">' +
-        (stDone ? "✓ " + stItem.step : String(stItem.step)) +
-        "</button>";
-    }
-
-    var roadmapHtml = "";
-    for (var r = 0; r < trail.steps.length; r++) {
-      var rs = trail.steps[r];
-      var rDone = doneList.indexOf(rs.step) !== -1;
-      roadmapHtml +=
-        '<div class="p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3" style="background-color: ' +
-        (rs.step === activeStepNum ? "var(--bg-amber-soft)" : "var(--bg-surface)") +
-        '; border-color: ' +
-        (rs.step === activeStepNum ? "var(--accent-wine)" : "var(--border-color)") +
-        ';">' +
-        '<div class="min-w-0 flex-1">' +
-        '<p class="text-xs font-bold uppercase tracking-wider mb-0.5" style="color: ' +
-        (rDone ? "var(--accent-green)" : "var(--accent-wine)") +
-        ';">' +
-        (rDone ? "✅ Concluída • " : "") +
-        "Etapa " +
-        rs.step +
-        " de " +
-        totalSteps +
-        " • " +
-        escapeHtml(rs.theme) +
-        "</p>" +
-        '<p class="font-serif-sacred font-bold text-lg" style="color: var(--text-main);">' +
-        escapeHtml(rs.title) +
-        "</p>" +
-        '<p class="text-sm" style="color: var(--text-secondary);">' +
-        escapeHtml(rs.summary) +
-        "</p>" +
-        "</div>" +
-        '<button type="button" class="btn-secondary text-sm py-2 px-4 shrink-0" data-open-work-tradition="' +
-        escapeHtml(trail.traditionId) +
-        '" data-open-work-step="' +
-        rs.step +
-        '">📖 Abrir Capítulo →</button>' +
-        "</div>";
-    }
-
-    return (
-      '<div class="space-y-6 max-w-3xl mx-auto">' +
-      '<div class="surface-card p-6 sm:p-8 space-y-5">' +
-      '<div class="text-center space-y-2">' +
-      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold">Trilha Guiada das 16 Obras Sagradas</h2>' +
-      '<p class="text-sm sm:text-base" style="color: var(--text-secondary);">Escolha qual obra sagrada deseja acompanhar passo a passo e toque para abrir o capítulo na hora:</p>' +
-      "</div>" +
-      '<div>' +
-      '<label for="work-trail-select" class="block text-sm font-bold mb-1.5" style="color: var(--text-main);">1º Passo: Escolha a Obra Sagrada na Lista (Todas as 16):</label>' +
-      '<select id="work-trail-select" class="input-sacred font-semibold">' +
-      selectOptsHtml +
-      "</select>" +
-      "</div>" +
-      '<div class="space-y-2 pt-2">' +
-      '<div class="flex flex-wrap items-center justify-between gap-2 text-sm font-bold">' +
-      '<span style="color: var(--text-main);">' + escapeHtml(trail.title) + "</span>" +
-      '<span style="color: var(--accent-wine);">' + doneList.length + " de " + totalSteps + " etapas (" + pct + "%)</span>" +
-      "</div>" +
-      '<div class="progress-track-bar"><div class="progress-track-fill" style="width: ' + pct + '%;"></div></div>' +
-      '<p class="text-xs" style="color: var(--text-muted);">' + escapeHtml(trail.subtitle) + " • " + escapeHtml(trail.estimatedMinutes) + "</p>" +
-      "</div>" +
-      '<div>' +
-      '<p class="text-sm font-bold mb-2" style="color: var(--text-main);">2º Passo: Toque na Etapa que Deseja Ler:</p>' +
-      '<div class="flex flex-wrap gap-2">' +
-      stepGridHtml +
-      "</div>" +
-      "</div>" +
-      '<div class="p-6 rounded-2xl border-2 space-y-4" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
-      '<div class="flex flex-wrap items-center justify-between gap-2">' +
-      '<span class="px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-surface); color: var(--accent-wine);">Etapa ' +
-      stepObj.step +
-      " de " +
-      totalSteps +
-      " • " +
-      escapeHtml(stepObj.theme) +
-      "</span>" +
-      '<span class="text-xs font-bold" style="color: var(--text-muted);">Livro: ' +
-      escapeHtml(stepObj.bookMatch) +
-      "</span>" +
-      "</div>" +
-      '<h3 class="font-serif-sacred font-bold text-2xl" style="color: var(--text-main);">' +
-      escapeHtml(stepObj.title) +
-      "</h3>" +
-      '<p class="text-base leading-relaxed" style="color: var(--text-main);">' +
-      escapeHtml(stepObj.summary) +
-      "</p>" +
-      '<div class="flex flex-wrap items-center gap-3 pt-1">' +
-      '<button type="button" class="btn-primary inline-flex items-center gap-2" data-open-work-tradition="' +
-      escapeHtml(trail.traditionId) +
-      '" data-open-work-step="' +
-      stepObj.step +
-      '">📖 Ler Este Capítulo na Biblioteca →</button>' +
-      '<button type="button" class="' +
-      (isStepDone ? "btn-secondary" : "btn-secondary") +
-      ' inline-flex items-center gap-2" data-toggle-work-tradition="' +
-      escapeHtml(trail.traditionId) +
-      '" data-toggle-work-step="' +
-      stepObj.step +
-      '">' +
-      (isStepDone ? "✅ Etapa Lida (Toque para Desmarcar)" : "✓ Marcar Etapa " + stepObj.step + " como Lida") +
-      "</button>" +
-      "</div>" +
-      "</div>" +
-      "</div>" +
-      '<div class="surface-card p-6 sm:p-8 space-y-4">' +
-      '<h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">Lista Completa das ' + totalSteps + ' Etapas desta Obra</h3>' +
-      '<div class="space-y-3">' +
-      roadmapHtml +
-      "</div>" +
-      "</div>" +
-      "</div>"
-    );
-  }
-
   function renderTrilhasView() {
     var container = document.getElementById("trilhas-container");
     if (!container) return;
-
-    var tabsBarHtml =
-      '<div class="surface-card p-4 sm:p-5 max-w-3xl mx-auto mb-6 text-center space-y-3">' +
-      '<p class="text-sm font-bold" style="color: var(--text-muted);">Escolha o Tipo de Trilha:</p>' +
-      '<div class="flex flex-wrap justify-center gap-3" role="group" aria-label="Tipo de Trilha">' +
-      '<button type="button" class="feeling-chip" data-trilhas-tab="works" aria-pressed="' +
-      (state.trilhasTab === "works" ? "true" : "false") +
-      '">📖 Trilha das 16 Obras Sagradas</button>' +
-      '<button type="button" class="feeling-chip" data-trilhas-tab="prayers" aria-pressed="' +
-      (state.trilhasTab === "prayers" ? "true" : "false") +
-      '">🙏 Trilhas de Oração (7, 9 e 21 Dias)</button>' +
-      "</div>" +
-      "</div>";
-
-    if (state.trilhasTab === "works") {
-      container.innerHTML = tabsBarHtml + buildSacredWorkTrailsPanelHtml();
-      return;
-    }
 
     var tracks = getAllPrayerTracks();
     if (state.activeTrackId) {
       var activeTrack = findPrayerTrack(state.activeTrackId);
       if (activeTrack) {
         container.innerHTML =
-          tabsBarHtml +
           '<div class="space-y-6 max-w-3xl mx-auto">' +
           '<div class="surface-card p-6 sm:p-8">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
@@ -2725,9 +2534,18 @@
           '<h2 id="trilhas-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2" style="color: var(--text-main);">' +
           escapeHtml(activeTrack.title) +
           "</h2>" +
-          '<p class="text-sm mb-6" style="color: var(--text-secondary);">' +
+          '<p class="text-sm mb-3" style="color: var(--text-secondary);">' +
           escapeHtml(activeTrack.description) +
           "</p>" +
+          '<div class="mb-6">' +
+          '<button type="button" class="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1.5" data-speech-id="track-desc-' +
+          escapeHtml(activeTrack.id) +
+          '" data-speak-track-desc="' +
+          escapeHtml(activeTrack.id) +
+          '" data-default-label="Ouvir apresentação da trilha" aria-pressed="false">' +
+          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir apresentação da trilha</span>' +
+          "</button>" +
+          "</div>" +
           buildTrackInteractiveViewHtml(activeTrack, state.activeTrackSelectedDay) +
           "</div>" +
           "</div>";
@@ -2769,27 +2587,42 @@
         pct +
         '%;"></div></div>' +
         "</div>" +
-        '<button type="button" class="btn-primary w-full text-sm" data-open-track="' +
+        '<div class="flex flex-wrap gap-2 mt-1">' +
+        '<button type="button" class="btn-primary flex-1 justify-center text-sm" data-open-track="' +
         escapeHtml(tr.id) +
         '">' +
         (done.length > 0 && done.length < tr.durationDays
           ? "Continuar no Dia " + nextD + " →"
           : "Abrir Trilha Completa →") +
         "</button>" +
+        '<button type="button" class="btn-secondary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="track-desc-' +
+        escapeHtml(tr.id) +
+        '" data-speak-track-desc="' +
+        escapeHtml(tr.id) +
+        '" data-default-label="Ouvir" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        "</button>" +
+        "</div>" +
         "</article>";
     }
 
     container.innerHTML =
-      tabsBarHtml +
       '<div class="space-y-6">' +
-      '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto">' +
-      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold mb-2">Trilhas de Oração Multi-Dias (7, 9 e 21 Dias)</h2>' +
+      '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto space-y-3">' +
+      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold">Trilhas de Oração Multi-Dias (7, 9 e 21 Dias)</h2>' +
       '<p class="text-sm" style="color: var(--text-secondary);">Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho.</p>' +
+      '<div>' +
+      '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-action="speak-trilhas-intro" data-speech-id="trilhas-intro" data-default-label="Ouvir orientações em áudio" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir orientações em áudio</span>' +
+      "</button>" +
+      "</div>" +
       "</div>" +
       '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">' +
       cardsHtml +
       "</div>" +
       "</div>";
+
+    updateSpeechButtons();
   }
 
   function triggerPwaInstall() {
@@ -3120,37 +2953,6 @@
         return;
       }
 
-      var trilhasTabBtn = target.closest("[data-trilhas-tab]");
-      if (trilhasTabBtn) {
-        state.trilhasTab = trilhasTabBtn.getAttribute("data-trilhas-tab") === "prayers" ? "prayers" : "works";
-        stopSpeech();
-        renderTrilhasView();
-        return;
-      }
-
-      var workStepBtn = target.closest("[data-select-work-step]");
-      if (workStepBtn) {
-        state.workTrailSelectedStep = Number(workStepBtn.getAttribute("data-select-work-step")) || 1;
-        renderTrilhasView();
-        return;
-      }
-
-      var openWorkStepBtn = target.closest("[data-open-work-tradition][data-open-work-step]");
-      if (openWorkStepBtn) {
-        var owTrad = openWorkStepBtn.getAttribute("data-open-work-tradition");
-        var owStep = Number(openWorkStepBtn.getAttribute("data-open-work-step")) || 1;
-        openWorkTrailStepInLibrary(owTrad, owStep);
-        return;
-      }
-
-      var toggleWorkStepBtn = target.closest("[data-toggle-work-tradition][data-toggle-work-step]");
-      if (toggleWorkStepBtn) {
-        var twTrad = toggleWorkStepBtn.getAttribute("data-toggle-work-tradition");
-        var twStep = Number(toggleWorkStepBtn.getAttribute("data-toggle-work-step")) || 1;
-        toggleWorkTrailStepCompletion(twTrad, twStep);
-        return;
-      }
-
       var waSelfBtn = target.closest("[data-send-wa-self]");
       if (waSelfBtn) {
         var waSubSelf = getWhatsappSubscriber();
@@ -3188,6 +2990,160 @@
       if (waCancelEditBtn) {
         state.whatsappEditing = false;
         renderAllWhatsappWidgets();
+        return;
+      }
+
+      var speakElBtn = target.closest("[data-speak-element]");
+      if (speakElBtn) {
+        var elTargetId = speakElBtn.getAttribute("data-speak-element");
+        var elSpeechId = speakElBtn.getAttribute("data-speech-id") || ("el-" + elTargetId);
+        speakElementContent(elSpeechId, elTargetId);
+        return;
+      }
+
+      var speakCandleBtn = target.closest("[data-speak-candle]");
+      if (speakCandleBtn) {
+        var scId = speakCandleBtn.getAttribute("data-speak-candle");
+        var candleList = getUserCandles().concat(window.INITIAL_CANDLES || []);
+        for (var ci = 0; ci < candleList.length; ci++) {
+          if (candleList[ci].id === scId) {
+            var cd = candleList[ci];
+            speakText(
+              "candle-" + scId,
+              "Vela de 7 dias em intenção de " +
+                cd.honoree +
+                ". Tradição: " +
+                (cd.traditionName || "Prece Universal") +
+                ". Prece: " +
+                cd.intention
+            );
+            break;
+          }
+        }
+        return;
+      }
+
+      var speakComfortTopicBtn = target.closest("[data-speak-comfort-topic]");
+      if (speakComfortTopicBtn) {
+        var ctId = speakComfortTopicBtn.getAttribute("data-speak-comfort-topic");
+        var topicsAll = window.THEMATIC_COMFORT || [];
+        var chosenTopic = topicsAll[0] || null;
+        for (var ct = 0; ct < topicsAll.length; ct++) {
+          if (topicsAll[ct].id === ctId) {
+            chosenTopic = topicsAll[ct];
+            break;
+          }
+        }
+        if (chosenTopic) {
+          var readingParts = [];
+          var topicReadings = chosenTopic.readings || [];
+          for (var cr = 0; cr < topicReadings.length; cr++) {
+            readingParts.push(
+              topicReadings[cr].tradition +
+                ": " +
+                topicReadings[cr].quote +
+                ". Aplicação prática: " +
+                topicReadings[cr].application
+            );
+          }
+          speakText(
+            "comfort-topic-" + chosenTopic.id,
+            chosenTopic.title +
+              ". " +
+              chosenTopic.summary +
+              ". Exercício de serenidade: " +
+              chosenTopic.breathGuide +
+              ". " +
+              readingParts.join(". ")
+          );
+        }
+        return;
+      }
+
+      var speakComfortIdxBtn = target.closest("[data-speak-comfort-index]");
+      if (speakComfortIdxBtn) {
+        var rIdx = Number(speakComfortIdxBtn.getAttribute("data-speak-comfort-index")) || 0;
+        var comfortTopics = window.THEMATIC_COMFORT || [];
+        var activeCTopic = comfortTopics[0] || null;
+        for (var cti = 0; cti < comfortTopics.length; cti++) {
+          if (comfortTopics[cti].id === state.activeComfortTopicId) {
+            activeCTopic = comfortTopics[cti];
+            break;
+          }
+        }
+        var rItem = activeCTopic && activeCTopic.readings && activeCTopic.readings[rIdx];
+        if (activeCTopic && rItem) {
+          speakText(
+            "comfort-item-" + activeCTopic.id + "-" + rIdx,
+            rItem.tradition + ". " + rItem.quote + ". Aplicação prática: " + rItem.application
+          );
+        }
+        return;
+      }
+
+      var speakBlogPostBtn = target.closest("[data-speak-blog-post]");
+      if (speakBlogPostBtn) {
+        var bpId = speakBlogPostBtn.getAttribute("data-speak-blog-post");
+        var allPosts = window.BLOG_POSTS || [];
+        for (var bi = 0; bi < allPosts.length; bi++) {
+          if (allPosts[bi].id === bpId) {
+            speakText(
+              "blog-full-" + bpId,
+              allPosts[bi].title + ". Categoria: " + allPosts[bi].category + ". " + (allPosts[bi].content || []).join(" ")
+            );
+            break;
+          }
+        }
+        return;
+      }
+
+      var speakBlogExcerptBtn = target.closest("[data-speak-blog-excerpt]");
+      if (speakBlogExcerptBtn) {
+        var beId = speakBlogExcerptBtn.getAttribute("data-speak-blog-excerpt");
+        var exPosts = window.BLOG_POSTS || [];
+        for (var bx = 0; bx < exPosts.length; bx++) {
+          if (exPosts[bx].id === beId) {
+            speakText("blog-card-" + beId, exPosts[bx].title + ". " + exPosts[bx].excerpt);
+            break;
+          }
+        }
+        return;
+      }
+
+      var speakWaBtn = target.closest("[data-speak-whatsapp-widget]");
+      if (speakWaBtn) {
+        var waSpId = speakWaBtn.getAttribute("data-speech-id") || "wa-widget-cafe";
+        var waMode = speakWaBtn.getAttribute("data-speak-whatsapp-widget");
+        var waSubCurrent = getWhatsappSubscriber();
+        if (waMode === "saved" && waSubCurrent) {
+          speakText(
+            waSpId,
+            (waSubCurrent.name ? "Olá, " + waSubCurrent.name + ". " : "") +
+              "Seu WhatsApp " +
+              waSubCurrent.formatted +
+              " está salvo neste celular para receber no horário das " +
+              waSubCurrent.preferredTime +
+              ". Toque no botão verde para receber o Café Espiritual de hoje agora no seu WhatsApp, ou em Trocar Número ou Horário se desejar atualizar."
+          );
+        } else {
+          speakText(
+            waSpId,
+            "Quer receber o Café Espiritual diário no seu WhatsApp? É gratuito e sem propaganda. Preencha os 3 passos simples. Primeiro passo: digite seu nome para o Bom Dia. Segundo passo: digite seu número de WhatsApp com DDD. Terceiro passo: escolha o melhor horário, 7 horas, 8 e meia da manhã ou 19 horas antes de dormir. Depois toque em Salvar Meu WhatsApp Agora."
+          );
+        }
+        return;
+      }
+
+      var speakTrackDescBtn = target.closest("[data-speak-track-desc]");
+      if (speakTrackDescBtn) {
+        var tdDescId = speakTrackDescBtn.getAttribute("data-speak-track-desc");
+        var tdObj = findPrayerTrack(tdDescId);
+        if (tdObj) {
+          speakText(
+            "track-desc-" + tdDescId,
+            tdObj.title + ". " + tdObj.traditionLabel + ". " + tdObj.description
+          );
+        }
         return;
       }
 
@@ -3278,7 +3234,13 @@
         var curBook = books[state.libraryBookIndex];
         var ch = curBook && curBook.chapters && curBook.chapters[state.libraryChapterIndex];
         if (ch) {
-          speakText("library-chapter", ch.title + ". " + ch.verses.slice(0, 35).join(" "));
+          speakText(
+            "library-chapter",
+            (curBook && curBook.bookTitle ? curBook.bookTitle + ". " : "") +
+              ch.title +
+              ". " +
+              (ch.verses || []).join(" ")
+          );
         }
       } else if (action === "prev-library-chapter") {
         var bListPrev = getLibraryBooksForTradition(state.libraryTraditionId);
@@ -3346,7 +3308,17 @@
         if (cDay) {
           speakText(
             "cafe-today",
-            cDay.theme + ". " + cDay.verse + ". " + cDay.message + ". Oração: " + cDay.shortPrayer
+            cDay.theme +
+              ". Palavra: " +
+              cDay.verse +
+              ". " +
+              cDay.reference +
+              ". Reflexão: " +
+              cDay.message +
+              ". Gesto prático de hoje: " +
+              cDay.dailyAction +
+              ". Oração: " +
+              cDay.shortPrayer
           );
         }
       } else if (action === "share-cafe-whatsapp") {
@@ -3380,13 +3352,92 @@
         downloadDailyReminderIcs();
       } else if (action === "stop-global-speech") {
         stopSpeech();
-      } else if (action === "open-work-trails-home") {
-        state.trilhasTab = "works";
-        state.selectedWorkTrailId = state.selectedTraditionId;
-        var wtHome = findSacredWorkTrail(state.selectedWorkTrailId);
-        if (wtHome) state.workTrailSelectedStep = getNextPendingWorkStep(wtHome);
-        renderTrilhasView();
-        navigateToSection("trilhas", true);
+      } else if (action === "speak-home-guide") {
+        var selTrad = findTradition(state.selectedTraditionId);
+        var selFeelEl = document.getElementById("home-feeling-select");
+        var selFeelLabel =
+          selFeelEl && selFeelEl.selectedOptions && selFeelEl.selectedOptions[0]
+            ? selFeelEl.selectedOptions[0].textContent
+            : "";
+        speakText(
+          "home-guide",
+          "Bem-vindo ao Horizonte Espiritual. Primeiro passo: escolha qual tradição espiritual acolhe o seu coração na primeira lista" +
+            (selTrad ? ". Tradição selecionada no momento: " + selTrad.name : "") +
+            ". Deixe a caixinha Deixar minha religião salva neste celular marcada. Segundo passo: escolha na segunda lista como o seu coração se sente neste momento" +
+            (selFeelLabel ? ". Momento selecionado: " + selFeelLabel : "") +
+            ". A Palavra de Consolo muda automaticamente logo abaixo, ou toque no botão Abrir Página da Minha Religião."
+        );
+      } else if (action === "speak-vertente-overview") {
+        var vt = findTradition(state.selectedTraditionId);
+        if (vt) {
+          var vp =
+            (vt.dailyPassages && vt.dailyPassages[state.selectedFeeling]) ||
+            (vt.dailyPassages && vt.dailyPassages.ansiedade);
+          speakText(
+            "vertente-overview",
+            vt.name +
+              ". " +
+              (vt.imageCaption ? vt.imageCaption + ". " : "") +
+              vt.greeting +
+              ". Obra principal: " +
+              vt.canonicalWorkTitle +
+              (vp ? ". Palavra de consolo: " + vp.text + ". " + vp.reference + ". Reflexão: " + vp.reflection : "")
+          );
+        }
+      } else if (action === "speak-prayers-guide") {
+        speakText(
+          "prayers-guide",
+          "Orações Fortes de Todas as 16 Tradições. Escolha a religião na lista abaixo ou pesquise pelo nome da oração. Em qualquer cartão abaixo, toque em Ouvir para escutar direto, ou em Abrir Oração para ler em letras grandes e enviar no WhatsApp."
+        );
+      } else if (action === "speak-candle-guide") {
+        speakText(
+          "candle-guide",
+          "Capela da Vela Virtual de 7 Dias. Na Página 1 você acende uma vela gratuita escrevendo o nome de quem deseja abençoar e sua prece ou pedido de bênção. Na Página 2 você visita e ouve as preces do Mural de Velas Acesas em vigília."
+        );
+      } else if (action === "speak-library-guide") {
+        speakText(
+          "library-guide",
+          "Biblioteca Sagrada Completa. Passo 1: escolha na primeira lista a obra sagrada completa. Passo 2: escolha o livro. Passo 3: escolha o capítulo ou seção. Depois toque no botão Ouvir capítulo completo logo abaixo para escutar todo o texto na íntegra."
+        );
+      } else if (action === "speak-miguel-intro") {
+        if (window.SAO_MIGUEL_ARCANJO_DATA) {
+          var migData = window.SAO_MIGUEL_ARCANJO_DATA;
+          speakText("miguel-intro", migData.title + ". " + migData.subtitle + ". " + migData.introText);
+        }
+      } else if (action === "speak-trilhas-intro") {
+        speakText(
+          "trilhas-intro",
+          "Trilhas de Oração Multi-Dias de 7, 9 e 21 Dias. Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho."
+        );
+      } else if (action === "speak-quiz-question") {
+        var qList = window.QUIZ_QUESTIONS || [];
+        var curQ = qList[state.quizIndex];
+        if (curQ) {
+          var optsVoice = "";
+          for (var oi = 0; oi < (curQ.options || []).length; oi++) {
+            optsVoice += " Alternativa " + String.fromCharCode(65 + oi) + ": " + curQ.options[oi] + ".";
+          }
+          speakText(
+            "quiz-q-" + state.quizIndex,
+            "Pergunta " + (state.quizIndex + 1) + " de " + qList.length + ": " + curQ.question + "." + optsVoice
+          );
+        }
+      } else if (action === "speak-quiz-explanation") {
+        var qListExp = window.QUIZ_QUESTIONS || [];
+        var curQExp = qListExp[state.quizIndex];
+        if (curQExp) {
+          speakText("quiz-exp-" + state.quizIndex, "Explicação histórica: " + curQExp.explanation);
+        }
+      } else if (action === "speak-quiz-result") {
+        var qListRes = window.QUIZ_QUESTIONS || [];
+        speakText(
+          "quiz-result",
+          "Sabedoria Concluída! Você acertou " +
+            state.quizScore +
+            " de " +
+            qListRes.length +
+            " perguntas sobre as tradições espirituais e escrituras sagradas."
+        );
       } else if (action === "open-whatsapp-daily-page") {
         navigateToSection("salvar-app", true);
         var waPhoneEl = document.getElementById("wa-phone-salvar");
@@ -3395,13 +3446,6 @@
             waPhoneEl.focus();
           }, 120);
         }
-      } else if (action === "open-current-work-trail") {
-        state.trilhasTab = "works";
-        state.selectedWorkTrailId = state.libraryTraditionId;
-        var wtLib = findSacredWorkTrail(state.libraryTraditionId);
-        if (wtLib) state.workTrailSelectedStep = getNextPendingWorkStep(wtLib);
-        renderTrilhasView();
-        navigateToSection("trilhas", true);
       }
     });
 
@@ -3410,11 +3454,6 @@
         state.cafeSelectedDay = Number(event.target.value) || 1;
         stopSpeech();
         renderCafeDiario();
-      } else if (event.target && event.target.id === "work-trail-select") {
-        state.selectedWorkTrailId = event.target.value;
-        var pickedWt = findSacredWorkTrail(state.selectedWorkTrailId);
-        state.workTrailSelectedStep = pickedWt ? getNextPendingWorkStep(pickedWt) : 1;
-        renderTrilhasView();
       }
     });
 
@@ -3569,12 +3608,6 @@
     if (savedTradition && findTradition(savedTradition)) {
       state.selectedTraditionId = savedTradition;
       state.libraryTraditionId = savedTradition;
-      state.selectedWorkTrailId = savedTradition;
-    }
-
-    var bootWorkTrail = findSacredWorkTrail(state.selectedWorkTrailId);
-    if (bootWorkTrail) {
-      state.workTrailSelectedStep = getNextPendingWorkStep(bootWorkTrail);
     }
 
     renderDailyPanel();

@@ -85,7 +85,7 @@
       <!-- Calm Institutional & Legal Redirect Tabs Strip (Google Compliance without Cockpit Clutter) -->
       <div class="border-t py-1 px-3 flex flex-wrap items-center justify-center gap-1 sm:gap-2" style="background-color: var(--bg-surface); border-color: var(--border-color);">
         <button type="button" class="nav-inst-btn" data-nav-target="vela">🕯 Vela 7 Dias</button>
-        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas & Obras</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas 21 Dias</button>
         <button type="button" class="nav-inst-btn" data-nav-target="blog">📰 Blog</button>
         <button type="button" class="nav-inst-btn" data-nav-target="quem-somos">🏛 Quem Somos</button>
         <button type="button" class="nav-inst-btn" data-nav-target="privacidade">🔒 Privacidade</button>
@@ -104,7 +104,7 @@
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🏠 Início (Tela Principal)</button>
           <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
           <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
-          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="trilhas">🗓 Trilhas (Oração e 16 Obras Sagradas)</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7, 9 e 21 Dias)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Religião</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (16 Tradições)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vela">🕯 Vela Virtual de 7 Dias</button>
@@ -210,9 +210,20 @@
             <select id="home-feeling-select" class="input-sacred text-center font-semibold max-w-lg mx-auto"></select>
           </div>
 
-          <div class="pt-2">
+          <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
             <button type="button" id="home-enter-tradition-btn" class="btn-primary w-full sm:w-auto px-8" data-action="open-tradition-page">
               🕊 Abrir Página da Minha Religião →
+            </button>
+            <button
+              type="button"
+              class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2"
+              data-action="speak-home-guide"
+              data-speech-id="home-guide"
+              data-default-label="Ouvir orientações em áudio"
+              aria-pressed="false"
+            >
+              <span aria-hidden="true">🔊</span>
+              <span data-speech-label>Ouvir orientações em áudio</span>
             </button>
           </div>
         </div>
@@ -319,37 +330,24 @@
             </div>
             <span class="text-sm font-bold" style="color: var(--accent-wine);">Ver como salvar →</span>
           </button>
+        </div>
 
-          <button type="button" class="door-card-btn" data-action="open-work-trails-home">
-            <div>
-              <span id="home-work-trails-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
-                🗓 Passo a Passo nas 16 Obras
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                🗓 Trilhas das 16 Obras Sagradas
-              </h3>
-              <p id="home-work-trails-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
-                Plano guiado em etapas para ler a Bíblia, O Livro dos Espíritos, Alcorão e todas as 16 obras.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Abrir trilha de leitura →</span>
-          </button>
-
-          <button type="button" class="door-card-btn" data-action="open-whatsapp-daily-page">
+        <button type="button" class="door-card-btn w-full" data-action="open-whatsapp-daily-page">
+          <div class="flex flex-wrap items-center justify-between gap-3 w-full">
             <div>
               <span id="home-whatsapp-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
                 💬 Devocional no Seu Número
               </span>
               <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                💬 Café Espiritual no WhatsApp
+                💬 Receber Café Espiritual no WhatsApp
               </h3>
               <p id="home-whatsapp-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
                 Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.
               </p>
             </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Cadastrar meu WhatsApp →</span>
-          </button>
-        </div>
+            <span class="text-sm font-bold shrink-0" style="color: var(--accent-wine);">Cadastrar meu WhatsApp →</span>
+          </div>
+        </button>
       </section>
 
       <!-- Clean Daily Passage Card on Home -->
@@ -450,6 +448,17 @@
               <button type="button" class="btn-secondary text-sm py-2 px-4" data-action="open-tradition-prayers">
                 🙏 Orações desta Vertente
               </button>
+              <button
+                type="button"
+                class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2"
+                data-action="speak-vertente-overview"
+                data-speech-id="vertente-overview"
+                data-default-label="Ouvir apresentação"
+                aria-pressed="false"
+              >
+                <span aria-hidden="true">🔊</span>
+                <span data-speech-label>Ouvir apresentação</span>
+              </button>
             </div>
           </div>
 
@@ -522,7 +531,7 @@
     </section>
 
     <!-- =========================================================
-         SECTION 1E: TRILHAS DE ORAÇÃO E TRILHAS DAS 16 OBRAS SAGRADAS
+         SECTION 1E: TRILHAS DE ORAÇÃO (JORNADAS DE 7, 9 E 21 DIAS)
          ========================================================= -->
     <section data-section-view="trilhas" class="hidden space-y-6" aria-labelledby="trilhas-main-heading">
       <div id="trilhas-container"></div>
@@ -534,7 +543,7 @@
     <section data-section-view="salvar-app" class="hidden space-y-6" aria-labelledby="salvar-app-heading">
       <div id="salvar-whatsapp-slot" class="max-w-3xl mx-auto"></div>
 
-      <article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto space-y-6">
+      <article id="salvar-app-guide-card" class="surface-card p-6 sm:p-10 max-w-3xl mx-auto space-y-6">
         <div class="text-center border-b pb-5" style="border-color: var(--border-color);">
           <span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
             Acesso Corriqueiro sem Perder o Site
@@ -545,6 +554,19 @@
           <p class="text-sm mt-2 max-w-xl mx-auto" style="color: var(--text-secondary);">
             Além de cadastrar seu WhatsApp acima, você pode criar um ícone na tela inicial ou baixar um lembrete automático na agenda.
           </p>
+          <div class="pt-3">
+            <button
+              type="button"
+              class="btn-secondary text-sm inline-flex items-center gap-2"
+              data-speak-element="salvar-app-guide-card"
+              data-speech-id="salvar-app-guide"
+              data-default-label="Ouvir todas as instruções em áudio"
+              aria-pressed="false"
+            >
+              <span aria-hidden="true">🔊</span>
+              <span data-speech-label>Ouvir todas as instruções em áudio</span>
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 gap-5">
@@ -607,9 +629,22 @@
           <h2 id="prayers-main-heading" class="font-serif-sacred heading-section font-bold mb-2">
             Orações Fortes de Todas as 16 Tradições
           </h2>
-          <p class="text-sm mb-5" style="color: var(--text-secondary);">
+          <p class="text-sm mb-4" style="color: var(--text-secondary);">
             Escolha a religião na lista abaixo e toque na oração desejada para abri-la em uma página exclusiva com imagem e áudio:
           </p>
+          <div class="mb-5">
+            <button
+              type="button"
+              class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2"
+              data-action="speak-prayers-guide"
+              data-speech-id="prayers-guide"
+              data-default-label="Ouvir orientações em áudio"
+              aria-pressed="false"
+            >
+              <span aria-hidden="true">🔊</span>
+              <span data-speech-label>Ouvir orientações em áudio</span>
+            </button>
+          </div>
 
           <div class="space-y-3 text-left max-w-lg mx-auto">
             <div>
@@ -646,8 +681,8 @@
          SECTION 3: VELA VIRTUAL DE 7 DIAS (SEPARATE SUB-PAGES: FORM VS WALL)
          ========================================================= -->
     <section data-section-view="vela" class="hidden space-y-6" aria-labelledby="candle-main-heading">
-      <div class="surface-card p-5 text-center max-w-2xl mx-auto">
-        <h2 id="candle-main-heading" class="font-serif-sacred heading-section font-bold mb-3">
+      <div class="surface-card p-5 text-center max-w-2xl mx-auto space-y-3">
+        <h2 id="candle-main-heading" class="font-serif-sacred heading-section font-bold">
           Capela da Vela Virtual de 7 Dias
         </h2>
         <div class="flex flex-wrap justify-center gap-2.5" role="group" aria-label="Páginas da Vela Virtual">
@@ -656,6 +691,19 @@
           </button>
           <button type="button" class="feeling-chip" data-candle-subpage="wall" aria-pressed="false">
             ✨ Página 2: Ver Mural de Velas Acesas
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2"
+            data-action="speak-candle-guide"
+            data-speech-id="candle-guide"
+            data-default-label="Ouvir orientações da Vela em áudio"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">🔊</span>
+            <span data-speech-label>Ouvir orientações da Vela em áudio</span>
           </button>
         </div>
       </div>
@@ -793,8 +841,16 @@
 
         <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
           <p id="library-progress-label" class="text-sm font-bold" style="color: var(--accent-wine);" aria-live="polite"></p>
-          <button type="button" class="btn-secondary text-sm py-2 px-4" data-action="open-current-work-trail">
-            🗓 Seguir Trilha Guiada desta Obra →
+          <button
+            type="button"
+            class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2"
+            data-action="speak-library-guide"
+            data-speech-id="library-guide"
+            data-default-label="Ouvir orientações da Biblioteca"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">🔊</span>
+            <span data-speech-label>Ouvir orientações da Biblioteca</span>
           </button>
         </div>
       </div>
@@ -811,16 +867,15 @@
             class="btn-primary inline-flex items-center gap-2"
             data-action="speak-library-chapter"
             data-speech-id="library-chapter"
-            data-default-label="Ouvir capítulo"
+            data-default-label="Ouvir capítulo completo"
             aria-pressed="false"
           >
             <span aria-hidden="true">🔊</span>
-            <span data-speech-label>Ouvir capítulo</span>
+            <span data-speech-label>Ouvir capítulo completo</span>
           </button>
         </div>
 
         <div id="library-verses-container"></div>
-        <div id="library-work-trail-footer" class="mt-6"></div>
 
         <div class="flex flex-wrap items-center justify-between gap-3 pt-6 mt-8 border-t" style="border-color: var(--border-color);">
           <button type="button" class="btn-secondary" data-action="prev-library-chapter">
@@ -888,12 +943,25 @@
          SECTION 8: QUEM SOMOS (PADRÃO INSTITUCIONAL GOOGLE)
          ========================================================= -->
     <section data-section-view="quem-somos" class="hidden space-y-6" aria-labelledby="about-main-heading">
-      <article class="surface-card p-6 sm:p-10 space-y-5 max-w-3xl mx-auto">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Institucional e Transparência</span>
-          <h2 id="about-main-heading" class="font-serif-sacred heading-section font-bold mt-1">
-            Quem Somos • Missão, Princípios Editoriais e Respeito Inter-religioso
-          </h2>
+      <article id="quem-somos-article" class="surface-card p-6 sm:p-10 space-y-5 max-w-3xl mx-auto">
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b pb-4" style="border-color: var(--border-color);">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Institucional e Transparência</span>
+            <h2 id="about-main-heading" class="font-serif-sacred heading-section font-bold mt-1">
+              Quem Somos • Missão, Princípios Editoriais e Respeito Inter-religioso
+            </h2>
+          </div>
+          <button
+            type="button"
+            class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2 shrink-0"
+            data-speak-element="quem-somos-article"
+            data-speech-id="quem-somos-audio"
+            data-default-label="Ouvir esta página em áudio"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">🔊</span>
+            <span data-speech-label>Ouvir esta página em áudio</span>
+          </button>
         </div>
 
         <p class="text-body-sacred font-serif-sacred leading-relaxed">
@@ -926,13 +994,26 @@
          SECTION 9: POLÍTICA DE PRIVACIDADE, COOKIES E LGPD
          ========================================================= -->
     <section data-section-view="privacidade" class="hidden space-y-6" aria-labelledby="privacy-main-heading">
-      <article class="surface-card p-6 sm:p-10 space-y-5 max-w-3xl mx-auto">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Conformidade Legal (Lei nº 13.709/2018 - LGPD)</span>
-          <h2 id="privacy-main-heading" class="font-serif-sacred heading-section font-bold mt-1">
-            Política de Privacidade, Proteção de Dados e Termos de Uso
-          </h2>
-          <p class="text-xs mt-1" style="color: var(--text-muted);">Última atualização: Novembro de 2026</p>
+      <article id="privacidade-article" class="surface-card p-6 sm:p-10 space-y-5 max-w-3xl mx-auto">
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b pb-4" style="border-color: var(--border-color);">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Conformidade Legal (Lei nº 13.709/2018 - LGPD)</span>
+            <h2 id="privacy-main-heading" class="font-serif-sacred heading-section font-bold mt-1">
+              Política de Privacidade, Proteção de Dados e Termos de Uso
+            </h2>
+            <p class="text-xs mt-1" style="color: var(--text-muted);">Última atualização: Novembro de 2026</p>
+          </div>
+          <button
+            type="button"
+            class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2 shrink-0"
+            data-speak-element="privacidade-article"
+            data-speech-id="privacidade-audio"
+            data-default-label="Ouvir esta página em áudio"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">🔊</span>
+            <span data-speech-label>Ouvir esta página em áudio</span>
+          </button>
         </div>
 
         <p class="leading-relaxed" style="color: var(--text-secondary);">
@@ -965,11 +1046,24 @@
          SECTION 10: PÁGINA DE APOIO E DOAÇÃO ESPONTÂNEA PIX
          ========================================================= -->
     <section data-section-view="apoio" class="hidden space-y-6" aria-labelledby="support-main-heading">
-      <article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">
+      <article id="apoio-article" class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">
         <div>
-          <span class="inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-3" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
-            Apoio
-          </span>
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <span class="inline-block px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+              Apoio
+            </span>
+            <button
+              type="button"
+              class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2"
+              data-speak-element="apoio-article"
+              data-speech-id="apoio-audio"
+              data-default-label="Ouvir esta página em áudio"
+              aria-pressed="false"
+            >
+              <span aria-hidden="true">🔊</span>
+              <span data-speech-label>Ouvir esta página em áudio</span>
+            </button>
+          </div>
 
           <h2 id="support-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl mb-6 leading-tight" style="color: var(--accent-wine);">
             FAÇA SUA DOAÇÃO: eupaulorrenato@gmail.com
