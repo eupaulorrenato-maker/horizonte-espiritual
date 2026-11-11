@@ -8,7 +8,9 @@
     fontSize: "he_font_size_px",
     candles: "he_user_candles",
     cafeHistory: "he_cafe_history_v1",
-    tracksProgress: "he_tracks_progress_v1"
+    tracksProgress: "he_tracks_progress_v1",
+    whatsappSubscriber: "he_whatsapp_subscriber_v1",
+    workTrailsProgress: "he_work_trails_v1"
   };
 
   var state = {
@@ -39,10 +41,14 @@
     libraryBookIndex: 0,
     libraryChapterIndex: 0,
 
-    // Retenção Diária ("Café Espiritual", "Arcanjo Miguel 21 Dias", "Trilhas", "PWA")
+    // Retenção Diária ("Café Espiritual", "Arcanjo Miguel 21 Dias", "Trilhas", "16 Obras", "WhatsApp", "PWA")
     cafeSelectedDay: new Date().getDate(),
     miguelSubTab: "prayers",
     miguelSelectedDay: 1,
+    trilhasTab: "works",
+    selectedWorkTrailId: "catolica",
+    workTrailSelectedStep: 1,
+    whatsappEditing: false,
     activeTrackId: null,
     activeTrackSelectedDay: 1,
     deferredPwaPrompt: null,
@@ -721,6 +727,10 @@
           "</p>";
       }
       versesContainerEl.innerHTML = vHtml;
+    }
+
+    if (typeof renderLibraryWorkTrailFooter === "function") {
+      renderLibraryWorkTrailFooter(state.libraryTraditionId, activeBook.bookTitle, state.libraryChapterIndex);
     }
   }
 
@@ -1587,6 +1597,448 @@
     renderTrilhasView();
   }
 
+  /* =========================================================
+     TRILHAS DE CONTEÚDO DAS 16 OBRAS SAGRADAS
+     ========================================================= */
+
+  function getAllSacredWorkTrails() {
+    return window.SACRED_WORK_TRAILS || [];
+  }
+
+  function findSacredWorkTrail(traditionId) {
+    var list = getAllSacredWorkTrails();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].traditionId === traditionId) return list[i];
+    }
+    return list[0] || null;
+  }
+
+  function getWorkTrailsProgressMap() {
+    var raw = safeStorageGet(STORAGE_KEYS.workTrailsProgress);
+    if (!raw) return {};
+    try {
+      var obj = JSON.parse(raw);
+      return obj && typeof obj === "object" ? obj : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function getWorkTrailCompletedSteps(traditionId) {
+    var map = getWorkTrailsProgressMap();
+    var entry = map[traditionId];
+    return entry && Array.isArray(entry.completedSteps) ? entry.completedSteps : [];
+  }
+
+  function getNextPendingWorkStep(trail) {
+    if (!trail || !trail.steps || trail.steps.length === 0) return 1;
+    var done = getWorkTrailCompletedSteps(trail.traditionId);
+    for (var i = 0; i < trail.steps.length; i++) {
+      if (done.indexOf(trail.steps[i].step) === -1) {
+        return trail.steps[i].step;
+      }
+    }
+    return trail.steps[trail.steps.length - 1].step;
+  }
+
+  function toggleWorkTrailStepCompletion(traditionId, stepNum) {
+    var trail = findSacredWorkTrail(traditionId);
+    if (!trail) return;
+    var map = getWorkTrailsProgressMap();
+    if (!map[traditionId] || !Array.isArray(map[traditionId].completedSteps)) {
+      map[traditionId] = { completedSteps: [], lastDate: "" };
+    }
+    var list = map[traditionId].completedSteps;
+    var idx = list.indexOf(stepNum);
+    if (idx === -1) {
+      list.push(stepNum);
+      map[traditionId].lastDate = getTodayDateKey();
+      if (stepNum < trail.steps.length) {
+        state.workTrailSelectedStep = stepNum + 1;
+      }
+    } else {
+      list.splice(idx, 1);
+    }
+    safeStorageSet(STORAGE_KEYS.workTrailsProgress, JSON.stringify(map));
+
+    renderHomeRetentionWidgets();
+    renderTrilhasView();
+    renderSacredLibrary();
+  }
+
+  function openWorkTrailStepInLibrary(traditionId, stepNum) {
+    var trail = findSacredWorkTrail(traditionId);
+    if (!trail || !trail.steps || trail.steps.length === 0) return;
+    var clampedStep = Math.max(1, Math.min(trail.steps.length, Number(stepNum) || 1));
+    var stepObj = trail.steps[clampedStep - 1];
+    if (!stepObj) return;
+
+    var books = getLibraryBooksForTradition(traditionId);
+    var resolvedBookIdx = 0;
+    for (var i = 0; i < books.length; i++) {
+      if (books[i].bookTitle === stepObj.bookMatch) {
+        resolvedBookIdx = i;
+        break;
+      }
+    }
+    var targetBook = books[resolvedBookIdx] || books[0];
+    var chapLen = (targetBook && targetBook.chapters && targetBook.chapters.length) || 1;
+    var resolvedChapIdx = Math.max(0, Math.min(chapLen - 1, Number(stepObj.chapterIndex) || 0));
+
+    state.selectedWorkTrailId = traditionId;
+    state.workTrailSelectedStep = clampedStep;
+    state.libraryTraditionId = traditionId;
+    state.libraryBookIndex = resolvedBookIdx;
+    state.libraryChapterIndex = resolvedChapIdx;
+
+    stopSpeech();
+    renderSacredLibrary();
+    navigateToSection("escrituras", true);
+    var readerCard = document.getElementById("library-reader-card");
+    if (readerCard) {
+      readerCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function renderLibraryWorkTrailFooter(traditionId, bookTitle, chapterIndex) {
+    var footerEl = document.getElementById("library-work-trail-footer");
+    if (!footerEl) return;
+
+    var trail = findSacredWorkTrail(traditionId);
+    if (!trail || trail.traditionId !== traditionId) {
+      footerEl.innerHTML = "";
+      return;
+    }
+
+    var doneSteps = getWorkTrailCompletedSteps(traditionId);
+    var matchedStep = null;
+    for (var i = 0; i < trail.steps.length; i++) {
+      var st = trail.steps[i];
+      if (st.bookMatch === bookTitle && st.chapterIndex === chapterIndex) {
+        matchedStep = st;
+        break;
+      }
+    }
+
+    if (matchedStep) {
+      var isDone = doneSteps.indexOf(matchedStep.step) !== -1;
+      var nextStepNum = matchedStep.step < trail.steps.length ? matchedStep.step + 1 : null;
+      footerEl.innerHTML =
+        '<div class="p-5 rounded-2xl border-2 space-y-3" style="background-color: var(--bg-amber-soft); border-color: var(--accent-amber);">' +
+        '<div class="flex flex-wrap items-center justify-between gap-2">' +
+        '<span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded" style="background-color: var(--bg-surface); color: var(--accent-wine);">' +
+        "🗓 Etapa " + matchedStep.step + " de " + trail.steps.length + " da Trilha Guiada" +
+        "</span>" +
+        '<span class="text-xs font-bold" style="color: var(--text-main);">' +
+        doneSteps.length + " de " + trail.steps.length + " etapas concluídas" +
+        "</span>" +
+        "</div>" +
+        '<p class="font-serif-sacred font-bold text-lg" style="color: var(--text-main);">' +
+        escapeHtml(matchedStep.title) +
+        "</p>" +
+        '<p class="text-sm" style="color: var(--text-secondary);">' +
+        escapeHtml(matchedStep.summary) +
+        "</p>" +
+        '<div class="flex flex-wrap items-center gap-3 pt-1">' +
+        '<button type="button" class="' +
+        (isDone ? "btn-secondary" : "btn-primary") +
+        ' text-sm" data-toggle-work-tradition="' +
+        escapeHtml(traditionId) +
+        '" data-toggle-work-step="' +
+        matchedStep.step +
+        '">' +
+        (isDone ? "✅ Etapa Lida (Toque para Desmarcar)" : "✓ Marcar Etapa " + matchedStep.step + " como Lida") +
+        "</button>" +
+        (nextStepNum
+          ? '<button type="button" class="btn-secondary text-sm" data-open-work-tradition="' +
+            escapeHtml(traditionId) +
+            '" data-open-work-step="' +
+            nextStepNum +
+            '">Avançar para Etapa ' +
+            nextStepNum +
+            " →</button>"
+          : "") +
+        '<button type="button" class="btn-secondary text-sm" data-action="open-current-work-trail">Ver Toda a Trilha</button>' +
+        "</div>" +
+        "</div>";
+      return;
+    }
+
+    var nextPending = getNextPendingWorkStep(trail);
+    footerEl.innerHTML =
+      '<div class="p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-subtle); border-color: var(--border-color);">' +
+      '<div class="text-sm" style="color: var(--text-secondary);">' +
+      "<strong>Trilha Guiada desta Obra:</strong> " +
+      doneSteps.length +
+      " de " +
+      trail.steps.length +
+      " etapas concluídas." +
+      "</div>" +
+      '<button type="button" class="btn-secondary text-sm py-2 px-4" data-open-work-tradition="' +
+      escapeHtml(traditionId) +
+      '" data-open-work-step="' +
+      nextPending +
+      '">📖 Ir para Etapa ' +
+      nextPending +
+      " da Trilha →</button>" +
+      "</div>";
+  }
+
+  /* =========================================================
+     CADASTRO DO WHATSAPP PARA O CAFÉ ESPIRITUAL DIÁRIO
+     ========================================================= */
+
+  function getPortalWhatsappConfig() {
+    return window.PORTAL_WHATSAPP_CONFIG || {
+      ownerWhatsappE164: "",
+      webhookUrl: "",
+      whatsappChannelUrl: ""
+    };
+  }
+
+  function normalizeBrWhatsappPhone(rawInput) {
+    var digits = String(rawInput || "").replace(/\D/g, "");
+    if (digits.indexOf("55") === 0 && (digits.length === 12 || digits.length === 13)) {
+      digits = digits.slice(2);
+    }
+    if (digits.length !== 10 && digits.length !== 11) {
+      return { valid: false, error: "Digite seu DDD + número do WhatsApp com 10 ou 11 números (Exemplo: 11 98765-4321)." };
+    }
+    var ddd = digits.slice(0, 2);
+    var rest = digits.slice(2);
+    var formatted =
+      digits.length === 11
+        ? "(" + ddd + ") " + rest.slice(0, 5) + "-" + rest.slice(5)
+        : "(" + ddd + ") " + rest.slice(0, 4) + "-" + rest.slice(4);
+    return {
+      valid: true,
+      localDigits: digits,
+      formatted: formatted,
+      e164: "55" + digits
+    };
+  }
+
+  function getWhatsappSubscriber() {
+    var raw = safeStorageGet(STORAGE_KEYS.whatsappSubscriber);
+    if (!raw) return null;
+    try {
+      var obj = JSON.parse(raw);
+      return obj && obj.e164 ? obj : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function buildWhatsappDailyMessage() {
+    var sub = getWhatsappSubscriber();
+    var todayObj = getCafeDayObj(new Date().getDate());
+    var greetingName = sub && sub.name ? sub.name + ", " : "";
+    var currentHref =
+      window.location.href && window.location.href.indexOf("http") === 0
+        ? window.location.href
+        : "https://eupaulorrenato-maker.github.io/horizonte-espiritual/";
+    if (!todayObj) {
+      return "☕ *Café Espiritual do Dia*\n\nAcesse seu devocional gratuito de hoje:\n" + currentHref;
+    }
+    return (
+      "☕ *Café Espiritual de Hoje* (" +
+      formatTodayPtBr() +
+      ")\n\n" +
+      (greetingName ? "Bom dia, " + greetingName + "que Deus abençoe sua casa!\n\n" : "") +
+      "*" +
+      todayObj.theme +
+      "*\n\n“" +
+      todayObj.verse +
+      "”\n(" +
+      todayObj.reference +
+      ")\n\n🙏 *Oração:* " +
+      todayObj.shortPrayer +
+      "\n\nAcesse o texto completo e áudio aqui:\n" +
+      currentHref
+    );
+  }
+
+  function openDirectWhatsappToNumber(e164Digits, text) {
+    var cleanDigits = String(e164Digits || "").replace(/\D/g, "");
+    var encoded = encodeURIComponent(text);
+    var url = cleanDigits
+      ? "https://api.whatsapp.com/send?phone=" + cleanDigits + "&text=" + encoded
+      : "https://api.whatsapp.com/send?text=" + encoded;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function buildWhatsappDailyWidgetHtml(slotPrefix) {
+    var sub = getWhatsappSubscriber();
+    var cfg = getPortalWhatsappConfig();
+    var nameId = "wa-name-" + slotPrefix;
+    var phoneId = "wa-phone-" + slotPrefix;
+    var timeId = "wa-time-" + slotPrefix;
+
+    if (sub && !state.whatsappEditing) {
+      var primaryActionBtnHtml = "";
+      if (cfg.whatsappChannelUrl) {
+        primaryActionBtnHtml =
+          '<a href="' +
+          escapeHtml(cfg.whatsappChannelUrl) +
+          '" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-2">📢 Entrar no Canal Oficial do WhatsApp →</a>';
+      } else if (cfg.ownerWhatsappE164) {
+        primaryActionBtnHtml =
+          '<button type="button" class="btn-primary inline-flex items-center gap-2" data-send-wa-owner="true">💬 Confirmar Cadastro no WhatsApp do Portal →</button>';
+      }
+
+      return (
+        '<article class="surface-card p-6 sm:p-8 border-2 space-y-5" style="background-color: var(--bg-amber-soft); border-color: var(--accent-green);">' +
+        '<div class="space-y-2">' +
+        '<span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-surface); color: var(--accent-green);">' +
+        "✅ WhatsApp Salvo neste Celular" +
+        "</span>" +
+        '<h3 class="font-serif-sacred font-bold text-2xl" style="color: var(--text-main);">' +
+        "Café Espiritual no Seu WhatsApp" +
+        "</h3>" +
+        '<p class="text-base font-semibold" style="color: var(--text-main);">' +
+        (sub.name ? "Olá, " + escapeHtml(sub.name) + "! " : "") +
+        "Número cadastrado: <strong>" +
+        escapeHtml(sub.formatted) +
+        "</strong> • Horário escolhido: <strong>" +
+        escapeHtml(sub.preferredTime) +
+        "</strong>." +
+        "</p>" +
+        "</div>" +
+        '<div class="flex flex-wrap items-center gap-3">' +
+        primaryActionBtnHtml +
+        '<button type="button" class="' +
+        (primaryActionBtnHtml ? "btn-secondary" : "btn-primary") +
+        ' inline-flex items-center gap-2" data-send-wa-self="true">☕ Receber o Café de Hoje Agora no Meu WhatsApp</button>' +
+        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-edit-whatsapp-sub="true">✏️ Trocar Número ou Horário</button>' +
+        "</div>" +
+        '<p class="text-xs leading-relaxed p-3 rounded-xl" style="background-color: var(--bg-surface); color: var(--text-secondary);">' +
+        "Transparência: seu número fica guardado com segurança apenas neste aparelho para facilitar o envio direto do devocional ao tocar no botão acima. Para disparos automáticos diários em lista, o administrador pode conectar um Webhook ou Canal Oficial em PORTAL_WHATSAPP_CONFIG." +
+        "</p>" +
+        "</article>"
+      );
+    }
+
+    return (
+      '<article class="surface-card p-6 sm:p-8 border-2 space-y-5" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+      '<div class="space-y-2">' +
+      '<span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-surface); color: var(--accent-wine);">' +
+      "💬 Receba o Devocional Diário" +
+      "</span>" +
+      '<h3 class="font-serif-sacred font-bold text-2xl" style="color: var(--text-main);">' +
+      "Quer Receber o Café Espiritual no Seu WhatsApp?" +
+      "</h3>" +
+      '<p class="text-sm sm:text-base leading-relaxed" style="color: var(--text-secondary);">' +
+      "Preencha os 3 passos simples abaixo. É 100% gratuito e sem propaganda." +
+      "</p>" +
+      "</div>" +
+      '<form class="space-y-4" data-whatsapp-optin-form="true" novalidate>' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">' +
+      '<div>' +
+      '<label for="' + nameId + '" class="block text-base font-bold mb-1.5" style="color: var(--text-main);">' +
+      "1º Passo: Seu nome (para o Bom Dia)" +
+      "</label>" +
+      '<input id="' + nameId + '" name="waName" type="text" class="input-sacred" value="' +
+      escapeHtml(sub && sub.name ? sub.name : "") +
+      '" placeholder="Ex.: Dona Maria" />' +
+      "</div>" +
+      '<div>' +
+      '<label for="' + phoneId + '" class="block text-base font-bold mb-1.5" style="color: var(--text-main);">' +
+      '2º Passo: Seu WhatsApp com DDD <span class="text-sm font-normal" style="color: var(--accent-wine);">(Obrigatório)</span>' +
+      "</label>" +
+      '<input id="' + phoneId + '" name="waPhone" type="tel" inputmode="numeric" required class="input-sacred" value="' +
+      escapeHtml(sub && sub.formatted ? sub.formatted : "") +
+      '" placeholder="Ex.: (11) 98765-4321" />' +
+      "</div>" +
+      "</div>" +
+      '<div>' +
+      '<label for="' + timeId + '" class="block text-base font-bold mb-1.5" style="color: var(--text-main);">' +
+      "3º Passo: Melhor horário para você ler ou ouvir" +
+      "</label>" +
+      '<select id="' + timeId + '" name="waTime" class="input-sacred font-medium">' +
+      '<option value="07:00 - Logo ao acordar"' +
+      (sub && sub.preferredTime === "07:00 - Logo ao acordar" ? " selected" : "") +
+      ">07:00 - Logo ao acordar</option>" +
+      '<option value="08:30 - Hora do café da manhã"' +
+      (!sub || sub.preferredTime === "08:30 - Hora do café da manhã" ? " selected" : "") +
+      ">08:30 - Hora do café da manhã</option>" +
+      '<option value="19:00 - Oração antes de dormir"' +
+      (sub && sub.preferredTime === "19:00 - Oração antes de dormir" ? " selected" : "") +
+      ">19:00 - Oração antes de dormir</option>" +
+      "</select>" +
+      "</div>" +
+      '<div data-wa-feedback="true" class="hidden p-4 rounded-xl text-base font-semibold" role="status" aria-live="polite"></div>' +
+      '<div class="flex flex-wrap items-center gap-3 pt-1">' +
+      '<button type="submit" class="btn-primary w-full sm:w-auto px-8">' +
+      "📲 Salvar Meu WhatsApp Agora" +
+      "</button>" +
+      (sub && state.whatsappEditing
+        ? '<button type="button" class="btn-secondary text-sm" data-cancel-whatsapp-edit="true">Cancelar Alteração</button>'
+        : "") +
+      "</div>" +
+      "</form>" +
+      "</article>"
+    );
+  }
+
+  function renderAllWhatsappWidgets() {
+    var slots = [
+      { id: "cafe-whatsapp-slot", prefix: "cafe" },
+      { id: "salvar-whatsapp-slot", prefix: "salvar" }
+    ];
+    for (var i = 0; i < slots.length; i++) {
+      var el = document.getElementById(slots[i].id);
+      if (el) {
+        el.innerHTML = buildWhatsappDailyWidgetHtml(slots[i].prefix);
+      }
+    }
+  }
+
+  function handleWhatsappDailySubmit(formEl) {
+    if (!formEl) return;
+    var nameInput = formEl.querySelector('input[name="waName"]');
+    var phoneInput = formEl.querySelector('input[name="waPhone"]');
+    var timeSelect = formEl.querySelector('select[name="waTime"]');
+    var feedbackEl = formEl.querySelector('[data-wa-feedback="true"]');
+
+    var parsed = normalizeBrWhatsappPhone(phoneInput ? phoneInput.value : "");
+    if (!parsed.valid) {
+      if (feedbackEl) {
+        feedbackEl.textContent = parsed.error;
+        feedbackEl.style.backgroundColor = "var(--bg-accent-soft)";
+        feedbackEl.style.color = "var(--accent-wine)";
+        feedbackEl.classList.remove("hidden");
+      }
+      if (phoneInput) phoneInput.focus();
+      return;
+    }
+
+    var record = {
+      name: nameInput ? nameInput.value.trim().slice(0, 60) : "",
+      formatted: parsed.formatted,
+      e164: parsed.e164,
+      preferredTime: timeSelect ? timeSelect.value : "08:30 - Hora do café da manhã",
+      traditionId: state.selectedTraditionId,
+      savedAt: getTodayDateKey()
+    };
+
+    safeStorageSet(STORAGE_KEYS.whatsappSubscriber, JSON.stringify(record));
+    state.whatsappEditing = false;
+
+    var cfg = getPortalWhatsappConfig();
+    if (cfg.webhookUrl && typeof window.fetch === "function") {
+      try {
+        window.fetch(cfg.webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(record)
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
+    renderHomeRetentionWidgets();
+    renderAllWhatsappWidgets();
+  }
+
   function renderHomeRetentionWidgets() {
     var cafeHistory = getCafeHistory();
     var todayKey = getTodayDateKey();
@@ -1599,9 +2051,13 @@
     var miguelNext = miguelTrack ? getNextPendingDay(miguelTrack) : 1;
     var userCandles = getUserCandles();
 
+    var currentWorkTrail = findSacredWorkTrail(state.selectedTraditionId);
+    var workTrailDone = currentWorkTrail ? getWorkTrailCompletedSteps(currentWorkTrail.traditionId) : [];
+    var waSub = getWhatsappSubscriber();
+
     var banner = document.getElementById("home-continuity-banner");
     if (banner) {
-      if (cafeHistory.completedDates.length > 0 || miguelDone.length > 0 || userCandles.length > 0) {
+      if (cafeHistory.completedDates.length > 0 || miguelDone.length > 0 || userCandles.length > 0 || workTrailDone.length > 0 || waSub) {
         var parts = [];
         if (cafeHistory.completedDates.length > 0) {
           parts.push("☕ " + cafeHistory.completedDates.length + (cafeHistory.completedDates.length === 1 ? " manhã no Café" : " manhãs no Café"));
@@ -1609,8 +2065,14 @@
         if (miguelDone.length > 0) {
           parts.push("⚔️ São Miguel: " + miguelDone.length + "/21 dias");
         }
+        if (currentWorkTrail && workTrailDone.length > 0) {
+          parts.push("🗓 Trilha da Obra: " + workTrailDone.length + "/" + currentWorkTrail.steps.length);
+        }
         if (userCandles.length > 0) {
           parts.push("🕯 " + userCandles.length + (userCandles.length === 1 ? " vela acesa" : " velas acesas"));
+        }
+        if (waSub) {
+          parts.push("💬 WhatsApp: " + waSub.formatted);
         }
         banner.innerHTML =
           '<div class="text-sm font-semibold" style="color: var(--text-main);">' +
@@ -1656,6 +2118,33 @@
       } else {
         miguelTeaser.textContent = "Oração tradicional completa e caminhada guiada dos 21 dias com marcação diária no aparelho.";
       }
+    }
+
+    var workBadge = document.getElementById("home-work-trails-badge");
+    var workTeaser = document.getElementById("home-work-trails-teaser");
+    if (workBadge && currentWorkTrail) {
+      workBadge.textContent =
+        workTrailDone.length > 0
+          ? "🗓 Em andamento: " + workTrailDone.length + " de " + currentWorkTrail.steps.length + " etapas"
+          : "🗓 Passo a Passo nas 16 Obras";
+    }
+    if (workTeaser && currentWorkTrail) {
+      var nextWorkStep = getNextPendingWorkStep(currentWorkTrail);
+      workTeaser.textContent =
+        workTrailDone.length > 0
+          ? "Sua trilha atual (" + currentWorkTrail.title + ") continua na Etapa " + nextWorkStep + "."
+          : "Plano guiado em etapas para ler todas as 16 obras sagradas sem se perder.";
+    }
+
+    var waBadge = document.getElementById("home-whatsapp-badge");
+    var waTeaser = document.getElementById("home-whatsapp-teaser");
+    if (waBadge) {
+      waBadge.textContent = waSub ? "✅ WhatsApp Salvo neste Celular" : "💬 Devocional no Seu Número";
+    }
+    if (waTeaser) {
+      waTeaser.textContent = waSub
+        ? "Número cadastrado: " + waSub.formatted + ". Toque aqui para receber o Café de hoje."
+        : "Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.";
     }
   }
 
@@ -1787,6 +2276,7 @@
       "</article>";
 
     updateSpeechButtons();
+    renderAllWhatsappWidgets();
   }
 
   function buildTrackInteractiveViewHtml(track, selectedDayNum, options) {
@@ -2036,15 +2526,194 @@
     updateSpeechButtons();
   }
 
+  function buildSacredWorkTrailsPanelHtml() {
+    var workTrails = getAllSacredWorkTrails();
+    if (workTrails.length === 0) return "";
+
+    var trail = findSacredWorkTrail(state.selectedWorkTrailId || state.selectedTraditionId);
+    if (!trail) return "";
+
+    var doneList = getWorkTrailCompletedSteps(trail.traditionId);
+    var totalSteps = trail.steps.length;
+    var pct = Math.round((doneList.length / totalSteps) * 100);
+    var activeStepNum = Math.max(1, Math.min(totalSteps, Number(state.workTrailSelectedStep) || 1));
+    var stepObj = trail.steps[activeStepNum - 1];
+    var isStepDone = doneList.indexOf(stepObj.step) !== -1;
+
+    var selectOptsHtml = "";
+    for (var i = 0; i < workTrails.length; i++) {
+      var wt = workTrails[i];
+      var tradMeta = findTradition(wt.traditionId);
+      var wtDone = getWorkTrailCompletedSteps(wt.traditionId);
+      var prefix = tradMeta ? tradMeta.symbol + " " + tradMeta.name + ": " + tradMeta.canonicalWorkTitle : wt.title;
+      selectOptsHtml +=
+        '<option value="' +
+        escapeHtml(wt.traditionId) +
+        '"' +
+        (wt.traditionId === trail.traditionId ? " selected" : "") +
+        ">" +
+        escapeHtml(prefix + " (" + wtDone.length + "/" + wt.steps.length + ")") +
+        "</option>";
+    }
+
+    var stepGridHtml = "";
+    for (var s = 0; s < trail.steps.length; s++) {
+      var stItem = trail.steps[s];
+      var stDone = doneList.indexOf(stItem.step) !== -1;
+      var stActive = stItem.step === activeStepNum;
+      stepGridHtml +=
+        '<button type="button" class="day-step-btn' +
+        (stActive ? " is-active" : "") +
+        (stDone ? " is-completed" : "") +
+        '" data-select-work-step="' +
+        stItem.step +
+        '" aria-label="Etapa ' +
+        stItem.step +
+        (stDone ? ", concluída" : "") +
+        '">' +
+        (stDone ? "✓ " + stItem.step : String(stItem.step)) +
+        "</button>";
+    }
+
+    var roadmapHtml = "";
+    for (var r = 0; r < trail.steps.length; r++) {
+      var rs = trail.steps[r];
+      var rDone = doneList.indexOf(rs.step) !== -1;
+      roadmapHtml +=
+        '<div class="p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3" style="background-color: ' +
+        (rs.step === activeStepNum ? "var(--bg-amber-soft)" : "var(--bg-surface)") +
+        '; border-color: ' +
+        (rs.step === activeStepNum ? "var(--accent-wine)" : "var(--border-color)") +
+        ';">' +
+        '<div class="min-w-0 flex-1">' +
+        '<p class="text-xs font-bold uppercase tracking-wider mb-0.5" style="color: ' +
+        (rDone ? "var(--accent-green)" : "var(--accent-wine)") +
+        ';">' +
+        (rDone ? "✅ Concluída • " : "") +
+        "Etapa " +
+        rs.step +
+        " de " +
+        totalSteps +
+        " • " +
+        escapeHtml(rs.theme) +
+        "</p>" +
+        '<p class="font-serif-sacred font-bold text-lg" style="color: var(--text-main);">' +
+        escapeHtml(rs.title) +
+        "</p>" +
+        '<p class="text-sm" style="color: var(--text-secondary);">' +
+        escapeHtml(rs.summary) +
+        "</p>" +
+        "</div>" +
+        '<button type="button" class="btn-secondary text-sm py-2 px-4 shrink-0" data-open-work-tradition="' +
+        escapeHtml(trail.traditionId) +
+        '" data-open-work-step="' +
+        rs.step +
+        '">📖 Abrir Capítulo →</button>' +
+        "</div>";
+    }
+
+    return (
+      '<div class="space-y-6 max-w-3xl mx-auto">' +
+      '<div class="surface-card p-6 sm:p-8 space-y-5">' +
+      '<div class="text-center space-y-2">' +
+      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold">Trilha Guiada das 16 Obras Sagradas</h2>' +
+      '<p class="text-sm sm:text-base" style="color: var(--text-secondary);">Escolha qual obra sagrada deseja acompanhar passo a passo e toque para abrir o capítulo na hora:</p>' +
+      "</div>" +
+      '<div>' +
+      '<label for="work-trail-select" class="block text-sm font-bold mb-1.5" style="color: var(--text-main);">1º Passo: Escolha a Obra Sagrada na Lista (Todas as 16):</label>' +
+      '<select id="work-trail-select" class="input-sacred font-semibold">' +
+      selectOptsHtml +
+      "</select>" +
+      "</div>" +
+      '<div class="space-y-2 pt-2">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2 text-sm font-bold">' +
+      '<span style="color: var(--text-main);">' + escapeHtml(trail.title) + "</span>" +
+      '<span style="color: var(--accent-wine);">' + doneList.length + " de " + totalSteps + " etapas (" + pct + "%)</span>" +
+      "</div>" +
+      '<div class="progress-track-bar"><div class="progress-track-fill" style="width: ' + pct + '%;"></div></div>' +
+      '<p class="text-xs" style="color: var(--text-muted);">' + escapeHtml(trail.subtitle) + " • " + escapeHtml(trail.estimatedMinutes) + "</p>" +
+      "</div>" +
+      '<div>' +
+      '<p class="text-sm font-bold mb-2" style="color: var(--text-main);">2º Passo: Toque na Etapa que Deseja Ler:</p>' +
+      '<div class="flex flex-wrap gap-2">' +
+      stepGridHtml +
+      "</div>" +
+      "</div>" +
+      '<div class="p-6 rounded-2xl border-2 space-y-4" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2">' +
+      '<span class="px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-surface); color: var(--accent-wine);">Etapa ' +
+      stepObj.step +
+      " de " +
+      totalSteps +
+      " • " +
+      escapeHtml(stepObj.theme) +
+      "</span>" +
+      '<span class="text-xs font-bold" style="color: var(--text-muted);">Livro: ' +
+      escapeHtml(stepObj.bookMatch) +
+      "</span>" +
+      "</div>" +
+      '<h3 class="font-serif-sacred font-bold text-2xl" style="color: var(--text-main);">' +
+      escapeHtml(stepObj.title) +
+      "</h3>" +
+      '<p class="text-base leading-relaxed" style="color: var(--text-main);">' +
+      escapeHtml(stepObj.summary) +
+      "</p>" +
+      '<div class="flex flex-wrap items-center gap-3 pt-1">' +
+      '<button type="button" class="btn-primary inline-flex items-center gap-2" data-open-work-tradition="' +
+      escapeHtml(trail.traditionId) +
+      '" data-open-work-step="' +
+      stepObj.step +
+      '">📖 Ler Este Capítulo na Biblioteca →</button>' +
+      '<button type="button" class="' +
+      (isStepDone ? "btn-secondary" : "btn-secondary") +
+      ' inline-flex items-center gap-2" data-toggle-work-tradition="' +
+      escapeHtml(trail.traditionId) +
+      '" data-toggle-work-step="' +
+      stepObj.step +
+      '">' +
+      (isStepDone ? "✅ Etapa Lida (Toque para Desmarcar)" : "✓ Marcar Etapa " + stepObj.step + " como Lida") +
+      "</button>" +
+      "</div>" +
+      "</div>" +
+      "</div>" +
+      '<div class="surface-card p-6 sm:p-8 space-y-4">' +
+      '<h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">Lista Completa das ' + totalSteps + ' Etapas desta Obra</h3>' +
+      '<div class="space-y-3">' +
+      roadmapHtml +
+      "</div>" +
+      "</div>" +
+      "</div>"
+    );
+  }
+
   function renderTrilhasView() {
     var container = document.getElementById("trilhas-container");
     if (!container) return;
+
+    var tabsBarHtml =
+      '<div class="surface-card p-4 sm:p-5 max-w-3xl mx-auto mb-6 text-center space-y-3">' +
+      '<p class="text-sm font-bold" style="color: var(--text-muted);">Escolha o Tipo de Trilha:</p>' +
+      '<div class="flex flex-wrap justify-center gap-3" role="group" aria-label="Tipo de Trilha">' +
+      '<button type="button" class="feeling-chip" data-trilhas-tab="works" aria-pressed="' +
+      (state.trilhasTab === "works" ? "true" : "false") +
+      '">📖 Trilha das 16 Obras Sagradas</button>' +
+      '<button type="button" class="feeling-chip" data-trilhas-tab="prayers" aria-pressed="' +
+      (state.trilhasTab === "prayers" ? "true" : "false") +
+      '">🙏 Trilhas de Oração (7, 9 e 21 Dias)</button>' +
+      "</div>" +
+      "</div>";
+
+    if (state.trilhasTab === "works") {
+      container.innerHTML = tabsBarHtml + buildSacredWorkTrailsPanelHtml();
+      return;
+    }
 
     var tracks = getAllPrayerTracks();
     if (state.activeTrackId) {
       var activeTrack = findPrayerTrack(state.activeTrackId);
       if (activeTrack) {
         container.innerHTML =
+          tabsBarHtml +
           '<div class="space-y-6 max-w-3xl mx-auto">' +
           '<div class="surface-card p-6 sm:p-8">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
@@ -2111,6 +2780,7 @@
     }
 
     container.innerHTML =
+      tabsBarHtml +
       '<div class="space-y-6">' +
       '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto">' +
       '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold mb-2">Trilhas de Oração Multi-Dias (7, 9 e 21 Dias)</h2>' +
@@ -2450,6 +3120,77 @@
         return;
       }
 
+      var trilhasTabBtn = target.closest("[data-trilhas-tab]");
+      if (trilhasTabBtn) {
+        state.trilhasTab = trilhasTabBtn.getAttribute("data-trilhas-tab") === "prayers" ? "prayers" : "works";
+        stopSpeech();
+        renderTrilhasView();
+        return;
+      }
+
+      var workStepBtn = target.closest("[data-select-work-step]");
+      if (workStepBtn) {
+        state.workTrailSelectedStep = Number(workStepBtn.getAttribute("data-select-work-step")) || 1;
+        renderTrilhasView();
+        return;
+      }
+
+      var openWorkStepBtn = target.closest("[data-open-work-tradition][data-open-work-step]");
+      if (openWorkStepBtn) {
+        var owTrad = openWorkStepBtn.getAttribute("data-open-work-tradition");
+        var owStep = Number(openWorkStepBtn.getAttribute("data-open-work-step")) || 1;
+        openWorkTrailStepInLibrary(owTrad, owStep);
+        return;
+      }
+
+      var toggleWorkStepBtn = target.closest("[data-toggle-work-tradition][data-toggle-work-step]");
+      if (toggleWorkStepBtn) {
+        var twTrad = toggleWorkStepBtn.getAttribute("data-toggle-work-tradition");
+        var twStep = Number(toggleWorkStepBtn.getAttribute("data-toggle-work-step")) || 1;
+        toggleWorkTrailStepCompletion(twTrad, twStep);
+        return;
+      }
+
+      var waSelfBtn = target.closest("[data-send-wa-self]");
+      if (waSelfBtn) {
+        var waSubSelf = getWhatsappSubscriber();
+        if (waSubSelf) {
+          openDirectWhatsappToNumber(waSubSelf.e164, buildWhatsappDailyMessage());
+        }
+        return;
+      }
+
+      var waOwnerBtn = target.closest("[data-send-wa-owner]");
+      if (waOwnerBtn) {
+        var waCfg = getPortalWhatsappConfig();
+        var waSubOwn = getWhatsappSubscriber();
+        if (waCfg.ownerWhatsappE164 && waSubOwn) {
+          var ownMsg =
+            "Olá! Cadastrei meu WhatsApp (" +
+            waSubOwn.formatted +
+            (waSubOwn.name ? ", " + waSubOwn.name : "") +
+            ") no Horizonte Espiritual para receber o Café Espiritual das " +
+            waSubOwn.preferredTime +
+            ".";
+          openDirectWhatsappToNumber(waCfg.ownerWhatsappE164, ownMsg);
+        }
+        return;
+      }
+
+      var waEditBtn = target.closest("[data-edit-whatsapp-sub]");
+      if (waEditBtn) {
+        state.whatsappEditing = true;
+        renderAllWhatsappWidgets();
+        return;
+      }
+
+      var waCancelEditBtn = target.closest("[data-cancel-whatsapp-edit]");
+      if (waCancelEditBtn) {
+        state.whatsappEditing = false;
+        renderAllWhatsappWidgets();
+        return;
+      }
+
       var actionBtn = target.closest("[data-action]");
       if (!actionBtn) return;
 
@@ -2639,6 +3380,28 @@
         downloadDailyReminderIcs();
       } else if (action === "stop-global-speech") {
         stopSpeech();
+      } else if (action === "open-work-trails-home") {
+        state.trilhasTab = "works";
+        state.selectedWorkTrailId = state.selectedTraditionId;
+        var wtHome = findSacredWorkTrail(state.selectedWorkTrailId);
+        if (wtHome) state.workTrailSelectedStep = getNextPendingWorkStep(wtHome);
+        renderTrilhasView();
+        navigateToSection("trilhas", true);
+      } else if (action === "open-whatsapp-daily-page") {
+        navigateToSection("salvar-app", true);
+        var waPhoneEl = document.getElementById("wa-phone-salvar");
+        if (waPhoneEl) {
+          setTimeout(function () {
+            waPhoneEl.focus();
+          }, 120);
+        }
+      } else if (action === "open-current-work-trail") {
+        state.trilhasTab = "works";
+        state.selectedWorkTrailId = state.libraryTraditionId;
+        var wtLib = findSacredWorkTrail(state.libraryTraditionId);
+        if (wtLib) state.workTrailSelectedStep = getNextPendingWorkStep(wtLib);
+        renderTrilhasView();
+        navigateToSection("trilhas", true);
       }
     });
 
@@ -2647,6 +3410,19 @@
         state.cafeSelectedDay = Number(event.target.value) || 1;
         stopSpeech();
         renderCafeDiario();
+      } else if (event.target && event.target.id === "work-trail-select") {
+        state.selectedWorkTrailId = event.target.value;
+        var pickedWt = findSacredWorkTrail(state.selectedWorkTrailId);
+        state.workTrailSelectedStep = pickedWt ? getNextPendingWorkStep(pickedWt) : 1;
+        renderTrilhasView();
+      }
+    });
+
+    document.addEventListener("submit", function (event) {
+      var waForm = event.target && event.target.closest ? event.target.closest('[data-whatsapp-optin-form="true"]') : null;
+      if (waForm) {
+        event.preventDefault();
+        handleWhatsappDailySubmit(waForm);
       }
     });
 
@@ -2793,11 +3569,18 @@
     if (savedTradition && findTradition(savedTradition)) {
       state.selectedTraditionId = savedTradition;
       state.libraryTraditionId = savedTradition;
+      state.selectedWorkTrailId = savedTradition;
+    }
+
+    var bootWorkTrail = findSacredWorkTrail(state.selectedWorkTrailId);
+    if (bootWorkTrail) {
+      state.workTrailSelectedStep = getNextPendingWorkStep(bootWorkTrail);
     }
 
     renderDailyPanel();
     renderHomeRetentionWidgets();
     renderCafeDiario();
+    renderAllWhatsappWidgets();
     renderArcanjoMiguelPage();
     renderTrilhasView();
     renderPrayersView();

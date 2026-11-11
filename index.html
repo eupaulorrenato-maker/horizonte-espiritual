@@ -85,7 +85,7 @@
       <!-- Calm Institutional & Legal Redirect Tabs Strip (Google Compliance without Cockpit Clutter) -->
       <div class="border-t py-1 px-3 flex flex-wrap items-center justify-center gap-1 sm:gap-2" style="background-color: var(--bg-surface); border-color: var(--border-color);">
         <button type="button" class="nav-inst-btn" data-nav-target="vela">🕯 Vela 7 Dias</button>
-        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas 21 Dias</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas & Obras</button>
         <button type="button" class="nav-inst-btn" data-nav-target="blog">📰 Blog</button>
         <button type="button" class="nav-inst-btn" data-nav-target="quem-somos">🏛 Quem Somos</button>
         <button type="button" class="nav-inst-btn" data-nav-target="privacidade">🔒 Privacidade</button>
@@ -104,14 +104,14 @@
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🏠 Início (Tela Principal)</button>
           <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
           <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7, 9 e 21 Dias)</button>
+          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="trilhas">🗓 Trilhas (Oração e 16 Obras Sagradas)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Religião</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (16 Tradições)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vela">🕯 Vela Virtual de 7 Dias</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="escrituras">📖 Biblioteca Sagrada Completa</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="alento">🌿 Alento Temático (Luto, Saúde e Paz)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quiz">✨ Quiz Sagrado Educativo</button>
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="salvar-app">📲 Salvar no Celular (Como Aplicativo)</button>
+          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="salvar-app">📲 WhatsApp Diário e Atalho no Celular</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="blog">📰 Blog e Artigos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quem-somos">🏛 Quem Somos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="privacidade">🔒 Política de Privacidade (LGPD)</button>
@@ -307,17 +307,47 @@
 
           <button type="button" class="door-card-btn" data-nav-target="salvar-app">
             <div>
-              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
-                📲 Voltar Todo Dia sem Perder
+              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-subtle); color: var(--text-main);">
+                📲 Ícone na Tela do Celular
               </span>
               <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
                 📲 Colocar Atalho no Meu Celular
               </h3>
               <p class="text-sm mt-1" style="color: var(--text-secondary);">
-                Salve como ícone igual aplicativo ou receba seu link no seu WhatsApp.
+                Salve como ícone igual aplicativo ou baixe o lembrete diário na agenda.
               </p>
             </div>
             <span class="text-sm font-bold" style="color: var(--accent-wine);">Ver como salvar →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-action="open-work-trails-home">
+            <div>
+              <span id="home-work-trails-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+                🗓 Passo a Passo nas 16 Obras
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                🗓 Trilhas das 16 Obras Sagradas
+              </h3>
+              <p id="home-work-trails-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
+                Plano guiado em etapas para ler a Bíblia, O Livro dos Espíritos, Alcorão e todas as 16 obras.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Abrir trilha de leitura →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-action="open-whatsapp-daily-page">
+            <div>
+              <span id="home-whatsapp-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+                💬 Devocional no Seu Número
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                💬 Café Espiritual no WhatsApp
+              </h3>
+              <p id="home-whatsapp-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
+                Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Cadastrar meu WhatsApp →</span>
           </button>
         </div>
       </section>
@@ -481,6 +511,7 @@
          ========================================================= -->
     <section data-section-view="cafe-diario" class="hidden space-y-6" aria-labelledby="cafe-main-heading">
       <div id="cafe-diario-container"></div>
+      <div id="cafe-whatsapp-slot" class="max-w-3xl mx-auto"></div>
     </section>
 
     <!-- =========================================================
@@ -491,26 +522,28 @@
     </section>
 
     <!-- =========================================================
-         SECTION 1E: TRILHAS DE ORAÇÃO (JORNADAS DE 7, 9 E 21 DIAS)
+         SECTION 1E: TRILHAS DE ORAÇÃO E TRILHAS DAS 16 OBRAS SAGRADAS
          ========================================================= -->
     <section data-section-view="trilhas" class="hidden space-y-6" aria-labelledby="trilhas-main-heading">
       <div id="trilhas-container"></div>
     </section>
 
     <!-- =========================================================
-         SECTION 1F: VOLTAR TODO DIA (SALVAR NO CELULAR E LEMBRETE DIÁRIO)
+         SECTION 1F: VOLTAR TODO DIA (WHATSAPP DIÁRIO E ATALHO NO CELULAR)
          ========================================================= -->
     <section data-section-view="salvar-app" class="hidden space-y-6" aria-labelledby="salvar-app-heading">
+      <div id="salvar-whatsapp-slot" class="max-w-3xl mx-auto"></div>
+
       <article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto space-y-6">
         <div class="text-center border-b pb-5" style="border-color: var(--border-color);">
           <span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
             Acesso Corriqueiro sem Perder o Site
           </span>
           <h2 id="salvar-app-heading" class="font-serif-sacred heading-section font-bold">
-            Como Ter o Horizonte Espiritual Todos os Dias no Seu Celular
+            Mais 3 Formas Simples de Voltar Todo Dia ao Horizonte Espiritual
           </h2>
           <p class="text-sm mt-2 max-w-xl mx-auto" style="color: var(--text-secondary);">
-            Escolha a forma mais simples para você voltar toda manhã para o seu Café Espiritual, acompanhar os 21 dias de São Miguel Arcanjo e vigiar sua Vela de 7 Dias.
+            Além de cadastrar seu WhatsApp acima, você pode criar um ícone na tela inicial ou baixar um lembrete automático na agenda.
           </p>
         </div>
 
@@ -758,7 +791,12 @@
           </div>
         </div>
 
-        <p id="library-progress-label" class="text-sm font-bold" style="color: var(--accent-wine);" aria-live="polite"></p>
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <p id="library-progress-label" class="text-sm font-bold" style="color: var(--accent-wine);" aria-live="polite"></p>
+          <button type="button" class="btn-secondary text-sm py-2 px-4" data-action="open-current-work-trail">
+            🗓 Seguir Trilha Guiada desta Obra →
+          </button>
+        </div>
       </div>
 
       <!-- Focused Full-Chapter Reader Card -->
@@ -782,6 +820,7 @@
         </div>
 
         <div id="library-verses-container"></div>
+        <div id="library-work-trail-footer" class="mt-6"></div>
 
         <div class="flex flex-wrap items-center justify-between gap-3 pt-6 mt-8 border-t" style="border-color: var(--border-color);">
           <button type="button" class="btn-secondary" data-action="prev-library-chapter">
