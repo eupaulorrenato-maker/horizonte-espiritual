@@ -88,6 +88,8 @@ window.BIBLE_ALL_BOOKS_INDEX = [
 window.TRADITIONS_DATA = [
   {
     id: "catolica",
+    imagePath: "assets/traditions/catolica.jpg",
+    imageCaption: "Jesus Cristo, Luz e Bom Pastor da Fé Católica",
     name: "Fé Católica",
     tag: "Tradição Cristã Católica",
     symbol: "✝",
@@ -167,6 +169,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "evangelica",
+    imagePath: "assets/traditions/evangelica.jpg",
+    imageCaption: "A Bíblia Sagrada aberta sob a luz da Graça Divina",
     name: "Fé Evangélica",
     tag: "Tradição Cristã Evangélica",
     symbol: "📖",
@@ -225,6 +229,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "espirita",
+    imagePath: "assets/traditions/espirita.jpg",
+    imageCaption: "Estudo, Caridade e Paz na Doutrina Espírita",
     name: "Doutrina Espírita",
     tag: "Espiritismo Kardecista",
     symbol: "🕊",
@@ -291,6 +297,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "umbanda",
+    imagePath: "assets/traditions/umbanda.jpg",
+    imageCaption: "Respeito e Caridade na Umbanda: Saudação a Seu Zé Pelintra e aos Guias de Luz",
     name: "Umbanda",
     tag: "Religião Brasileira de Matriz Africana, Indígena e Cristã",
     symbol: "🌿",
@@ -343,6 +351,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "candomble",
+    imagePath: "assets/traditions/candomble.jpg",
+    imageCaption: "Sabedoria Ancestral dos Orixás: As Águas Sagradas de Oxalá e Iemanjá",
     name: "Candomblé",
     tag: "Tradição Ancestral dos Orixás, Voduns e Nkisis",
     symbol: "🐚",
@@ -393,6 +403,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "adventista",
+    imagePath: "assets/traditions/adventista.jpg",
+    imageCaption: "A Beleza da Criação, o Santo Sábado e a Palavra de Deus",
     name: "Igreja Adventista",
     tag: "Igreja Adventista do Sétimo Dia",
     symbol: "🌅",
@@ -444,6 +456,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "mormons",
+    imagePath: "assets/traditions/mormons.jpg",
+    imageCaption: "O Templo Sagrado, as Famílias Eternas e o Evangelho de Jesus Cristo",
     name: "Santos dos Últimos Dias",
     tag: "A Igreja de Jesus Cristo dos Santos dos Últimos Dias",
     symbol: "🏛",
@@ -500,6 +514,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "testemunhas-jeova",
+    imagePath: "assets/traditions/testemunhas-jeova.jpg",
+    imageCaption: "A Promessa Bíblica de Paz e Restauração na Terra",
     name: "Testemunhas de Jeová",
     tag: "Estudo Bíblico Cristão",
     symbol: "📜",
@@ -550,6 +566,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "judaica",
+    imagePath: "assets/traditions/judaica.jpg",
+    imageCaption: "A Sagrada Torá, a Menorá e a Luz da Paz (Shalom)",
     name: "Tradição Judaica",
     tag: "Judaísmo - Torá e Tehilim (Salmos)",
     symbol: "✡",
@@ -601,6 +619,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "islamica",
+    imagePath: "assets/traditions/islamica.jpg",
+    imageCaption: "O Sagrado Alcorão sob a Luz do Clemente e Misericordioso",
     name: "Fé Islâmica",
     tag: "Islã - Sagrado Alcorão e Sabedoria Profética",
     symbol: "☪",
@@ -654,6 +674,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "messianica",
+    imagePath: "assets/traditions/messianica.jpg",
+    imageCaption: "A Luz Divina, o Belo e a Harmonia com a Natureza",
     name: "Igreja Messiânica / Seicho-no-Ie",
     tag: "Filosofias Espiritualistas de Gratidão e Luz Divina",
     symbol: "☀",
@@ -702,6 +724,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "ortodoxa",
+    imagePath: "assets/traditions/ortodoxa.jpg",
+    imageCaption: "Cristo Pantocrator e a Tradição Milenar da Igreja Cristã Ortodoxa",
     name: "Cristã Ortodoxa",
     tag: "Igreja Cristã Ortodoxa Oriental",
     symbol: "☦",
@@ -752,6 +776,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "indigena",
+    imagePath: "assets/traditions/indigena.jpg",
+    imageCaption: "Sabedoria Ancestral dos Povos Originários e da Floresta Sagrada",
     name: "Sabedoria Indígena",
     tag: "Espiritualidade Ancestral dos Povos Originários",
     symbol: "🪶",
@@ -801,6 +827,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "budismo",
+    imagePath: "assets/traditions/budismo.jpg",
+    imageCaption: "Serenidade, Compaixão e Atenção Plena nos Ensinamentos de Buda",
     name: "Budismo",
     tag: "Tradição Budista - O Caminho do Meio e da Compaixão",
     symbol: "☸",
@@ -857,6 +885,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "hinduismo",
+    imagePath: "assets/traditions/hinduismo.jpg",
+    imageCaption: "As Luzes Sagradas do Ganges e a Sabedoria Eterna do Bhagavad Gita",
     name: "Hinduísmo",
     tag: "Tradição Védica - Bhagavad Gita e Upanishads",
     symbol: "🕉",
@@ -906,6 +936,8 @@ window.TRADITIONS_DATA = [
   },
   {
     id: "universal",
+    imagePath: "assets/traditions/universal.jpg",
+    imageCaption: "O Amanhecer da Paz Interior e da Fraternidade Universal",
     name: "Busca Universal",
     tag: "Espiritualidade Livre, Paz Interior e Sabedoria Humana",
     symbol: "✨",

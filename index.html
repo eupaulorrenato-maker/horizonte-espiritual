@@ -19,12 +19,19 @@
   <!-- TOP UTILITY & NAVIGATION BAR -->
   <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-color);">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3">
-      <!-- Active Tradition Pill -->
+      <!-- Active Tradition Pill (Clicking opens that tradition's dedicated page) -->
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Sua Tradição:</span>
-        <span id="active-tradition-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+        <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Vertente Ativa:</span>
+        <button
+          type="button"
+          id="active-tradition-badge"
+          data-action="open-tradition-page"
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold"
+          style="background-color: var(--bg-accent-soft); color: var(--accent-wine);"
+          title="Abrir página dedicada desta vertente religiosa"
+        >
           ✝ Fé Católica
-        </span>
+        </button>
       </div>
 
       <!-- Accessibility Controls + Full Menu Button -->
@@ -44,7 +51,6 @@
           <span data-theme-label class="hidden sm:inline">Modo Noturno</span>
         </button>
 
-        <!-- Menu Button that opens full list (including Alento Temático & Quiz Sagrado) -->
         <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm py-2 px-3.5" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
           <span aria-hidden="true">☰</span>
           <span>Menu</span>
@@ -52,11 +58,14 @@
       </div>
     </div>
 
-    <!-- Clean Primary + Google-Compliant Institutional Navigation Bar (Alento & Quiz moved inside Menu) -->
+    <!-- Clean Primary + Google-Compliant Institutional Navigation Bar -->
     <nav class="border-t overflow-x-auto" style="background-color: var(--bg-page); border-color: var(--border-color);" aria-label="Navegação Principal">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 py-1.5 flex items-center justify-center gap-1.5 min-w-max">
         <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">
           <span aria-hidden="true">🌅</span> Início
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="vertente">
+          <span aria-hidden="true">🕊</span> Minha Vertente
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="oracoes">
           <span aria-hidden="true">🙏</span> Orações Fortes
@@ -91,7 +100,8 @@
           <button type="button" class="btn-secondary text-xs py-1.5 px-3" data-action="close-drawer-menu">✕ Fechar Menu</button>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🌅 Início e Palavra do Dia</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🌅 Início (Escolha da Vertente)</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Vertente Religiosa</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (16 Tradições)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vela">🕯 Vela Virtual de 7 Dias</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="escrituras">📖 Biblioteca Sagrada Completa</button>
@@ -130,14 +140,13 @@
   <main id="main-content" class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
 
     <!-- =========================================================
-         SECTION 1: INÍCIO (CLEAN, CENTERED SELECTORS + DAILY WORD)
+         SECTION 1: INÍCIO (CLEAN, CENTERED SELECTORS ONLY)
          ========================================================= -->
     <div data-section-view="inicio" class="space-y-8">
 
-      <!-- Centered & Clean Step 1 and Step 2 Selectors -->
       <section class="surface-card p-6 sm:p-10 text-center max-w-2xl mx-auto" aria-labelledby="onboarding-heading">
         <div class="space-y-6">
-          <!-- Question 1 Centered -->
+          <!-- Question 1 Centered: ONLY clean religion names in the list -->
           <div>
             <label id="onboarding-heading" for="home-tradition-select" class="block font-serif-sacred heading-section font-bold mb-3">
               Qual tradição espiritual acolhe o seu coração hoje?
@@ -161,30 +170,36 @@
             </label>
             <select id="home-feeling-select" class="input-sacred text-center font-medium text-base max-w-lg mx-auto"></select>
           </div>
+
+          <div class="pt-2">
+            <button type="button" class="btn-primary w-full sm:w-auto px-8" data-action="open-tradition-page">
+              Entrar na Página desta Vertente Religiosa →
+            </button>
+          </div>
         </div>
       </section>
 
-      <!-- Clean Daily Passage Card -->
+      <!-- Clean Daily Passage Card on Home -->
       <section class="surface-card p-6 sm:p-10 max-w-2xl mx-auto" aria-label="Palavra do Dia">
         <div class="p-6 sm:p-8 rounded-2xl border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
-          <p id="daily-tradition-greeting" class="text-sm font-bold mb-1" style="color: var(--accent-wine);">
+          <p data-daily-greeting class="text-sm font-bold mb-1" style="color: var(--accent-wine);">
             A paz de Cristo esteja no seu lar (Fé Católica)
           </p>
-          <p id="daily-canonical-work" class="text-xs font-medium mb-5" style="color: var(--text-muted);">
-            Bíblia Católica Completa
+          <p data-daily-tradition-tag class="text-xs font-medium mb-5" style="color: var(--text-muted);">
+            Tradição Cristã Católica
           </p>
 
-          <blockquote id="daily-passage-text" class="font-serif-sacred text-body-sacred font-semibold mb-3" style="color: var(--text-main);">
+          <blockquote data-daily-passage-text class="font-serif-sacred text-body-sacred font-semibold mb-3" style="color: var(--text-main);">
             “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu próprio cuidado.”
           </blockquote>
 
-          <p id="daily-passage-reference" class="font-serif-sacred font-bold text-sm mb-5" style="color: var(--accent-wine);">
+          <p data-daily-passage-reference class="font-serif-sacred font-bold text-sm mb-5" style="color: var(--accent-wine);">
             São Mateus 6:34
           </p>
 
           <div class="p-4 rounded-xl mb-6 text-left" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
             <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">Reflexão para hoje:</p>
-            <p id="daily-passage-reflection" class="text-base leading-relaxed" style="color: var(--text-main);">
+            <p data-daily-passage-reflection class="text-base leading-relaxed" style="color: var(--text-main);">
               Entregue as preocupações futuras na oração silenciosa de hoje. Deus cuida do tempo presente.
             </p>
           </div>
@@ -208,7 +223,7 @@
         </div>
       </section>
 
-      <!-- Clean "Apoio" Box (Exact label requested: "Apoio") -->
+      <!-- Clean "Apoio" Box -->
       <aside class="ad-sponsor-slot max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left" aria-label="Apoio">
         <div>
           <span class="inline-block text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded mb-1" style="background-color: var(--bg-surface); color: var(--text-muted);">
@@ -225,17 +240,110 @@
     </div>
 
     <!-- =========================================================
+         SECTION 1B: PÁGINA DEDICADA DA VERTENTE RELIGIOSA (COM IMAGEM REALISTA)
+         ========================================================= -->
+    <section data-section-view="vertente" class="hidden space-y-6" aria-labelledby="vertente-title">
+      <article class="surface-card overflow-hidden max-w-3xl mx-auto">
+        <!-- Realistic Devotional Image Banner for the Selected Tradition -->
+        <div class="relative h-64 sm:h-80 w-full bg-black">
+          <img
+            id="vertente-hero-image"
+            src="assets/traditions/catolica.jpg"
+            alt="Imagem devocional da tradição espiritual"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
+            <span id="vertente-image-caption" class="inline-block text-xs font-semibold uppercase tracking-wider text-amber-200 mb-1">
+              Jesus Cristo, Luz e Bom Pastor da Fé Católica
+            </span>
+            <h2 id="vertente-title" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">
+              ✝ Fé Católica
+            </h2>
+            <p id="vertente-subtitle" class="text-sm sm:text-base text-amber-50/95 mt-1">
+              A paz de Cristo esteja no seu lar
+            </p>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b" style="border-color: var(--border-color);">
+            <button type="button" class="btn-secondary text-sm py-2 px-4" data-nav-target="inicio">
+              ← Trocar de Vertente Religiosa
+            </button>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" id="vertente-work-btn-label" class="btn-primary text-sm py-2 px-4" data-action="open-tradition-library">
+                📖 Ler Obra Sagrada Completa
+              </button>
+              <button type="button" class="btn-secondary text-sm py-2 px-4" data-action="open-tradition-prayers">
+                🙏 Orações desta Vertente
+              </button>
+            </div>
+          </div>
+
+          <!-- Centered Feeling Selector inside the Tradition Page -->
+          <div class="text-center max-w-lg mx-auto">
+            <label for="vertente-feeling-select" class="block font-serif-sacred font-bold text-lg mb-2">
+              Como o seu coração se sente neste momento?
+            </label>
+            <select id="vertente-feeling-select" class="input-sacred text-center font-medium"></select>
+          </div>
+
+          <!-- Daily Passage Box for this Tradition -->
+          <div class="p-6 sm:p-8 rounded-2xl border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
+            <p data-daily-greeting class="text-sm font-bold mb-2" style="color: var(--accent-wine);">
+              A paz de Cristo esteja no seu lar
+            </p>
+
+            <blockquote data-daily-passage-text class="font-serif-sacred text-body-sacred font-semibold mb-3" style="color: var(--text-main);">
+              “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo.”
+            </blockquote>
+
+            <p data-daily-passage-reference class="font-serif-sacred font-bold text-sm mb-5" style="color: var(--accent-wine);">
+              São Mateus 6:34
+            </p>
+
+            <div class="p-4 rounded-xl mb-6 text-left" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+              <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">Reflexão para hoje:</p>
+              <p data-daily-passage-reflection class="text-base leading-relaxed" style="color: var(--text-main);">
+                Entregue as preocupações futuras na oração silenciosa de hoje.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button
+                type="button"
+                class="btn-primary inline-flex items-center gap-2"
+                data-action="speak-daily-passage"
+                data-speech-id="daily-passage"
+                data-default-label="Ouvir passagem em voz calma"
+                aria-pressed="false"
+              >
+                <span aria-hidden="true">🔊</span>
+                <span data-speech-label>Ouvir passagem em voz calma</span>
+              </button>
+              <button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="share-daily-passage">
+                <span aria-hidden="true">📲</span> Enviar no WhatsApp
+              </button>
+              <button type="button" class="btn-secondary inline-flex items-center gap-2" data-nav-target="vela">
+                <span aria-hidden="true">🕯</span> Acender Vela de 7 Dias
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================================================
          SECTION 2: ORAÇÕES FORTES (CLEAN PAGINATED DIRECTORY + SINGLE PRAYER PAGE)
          ========================================================= -->
     <section data-section-view="oracoes" class="hidden space-y-6" aria-labelledby="prayers-main-heading">
-      <!-- Sub-page 1: Clean Directory of Prayers -->
       <div id="prayers-directory-view" class="space-y-6">
         <div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto">
           <h2 id="prayers-main-heading" class="font-serif-sacred heading-section font-bold mb-2">
             Orações Fortes de Todas as 16 Tradições
           </h2>
           <p class="text-sm mb-5" style="color: var(--text-secondary);">
-            Escolha a religião na lista abaixo e toque na oração desejada para abri-la em uma página exclusiva de leitura e áudio:
+            Escolha a religião na lista abaixo e toque na oração desejada para abri-la em uma página exclusiva com imagem e áudio:
           </p>
 
           <div class="space-y-3 text-left max-w-lg mx-auto">
@@ -262,14 +370,10 @@
           <p id="prayers-count-label" class="text-xs font-semibold mt-4" style="color: var(--text-muted);" aria-live="polite"></p>
         </div>
 
-        <!-- Paginated Summary Cards (6 per page) -->
         <div id="prayers-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-
-        <!-- Pagination Bar -->
         <div id="prayers-pagination-controls"></div>
       </div>
 
-      <!-- Sub-page 2: Dedicated Single Prayer Reading Page -->
       <div id="prayer-single-page-view" class="hidden"></div>
     </section>
 
@@ -277,7 +381,6 @@
          SECTION 3: VELA VIRTUAL DE 7 DIAS (SEPARATE SUB-PAGES: FORM VS WALL)
          ========================================================= -->
     <section data-section-view="vela" class="hidden space-y-6" aria-labelledby="candle-main-heading">
-      <!-- Clean Sub-Page Switcher -->
       <div class="surface-card p-5 text-center max-w-2xl mx-auto">
         <h2 id="candle-main-heading" class="font-serif-sacred heading-section font-bold mb-3">
           Capela da Vela Virtual de 7 Dias
@@ -292,7 +395,6 @@
         </div>
       </div>
 
-      <!-- Sub-page 1: Light a New Candle -->
       <div id="candle-subpage-form" class="max-w-2xl mx-auto space-y-6">
         <div class="p-6 sm:p-8 rounded-2xl text-white flex flex-col items-center text-center" style="background-color: var(--bg-chapel);">
           <div class="my-2 flex flex-col items-center">
@@ -369,7 +471,6 @@
         </div>
       </div>
 
-      <!-- Sub-page 2: Paginated Mural of Lit Candles -->
       <div id="candle-subpage-wall" class="hidden space-y-4 max-w-3xl mx-auto">
         <div class="surface-card p-4 flex flex-wrap items-center justify-between gap-3">
           <span class="font-serif-sacred font-bold text-lg">Mural de Intenções Acesas</span>
@@ -389,17 +490,16 @@
     </section>
 
     <!-- =========================================================
-         SECTION 4: BIBLIOTECA SAGRADA (OBRAS COMPLETAS COM TÍTULOS CURTOS E LEITOR LIMPO)
+         SECTION 4: BIBLIOTECA SAGRADA (TODAS AS OBRAS COMPLETAS NA ÍNTEGRA)
          ========================================================= -->
     <section data-section-view="escrituras" class="hidden space-y-6" aria-labelledby="library-main-heading">
-      <!-- Centered Clean Selector Box -->
       <div class="surface-card p-6 sm:p-8 max-w-2xl mx-auto text-center space-y-5">
         <div>
           <h2 id="library-main-heading" class="font-serif-sacred heading-section font-bold mb-2">
             Biblioteca Sagrada Completa
           </h2>
           <p class="text-sm" style="color: var(--text-secondary);">
-            Escolha abaixo a obra sagrada completa em domínio público que deseja ler ou ouvir:
+            Escolha abaixo a obra sagrada completa, o livro e o capítulo que deseja ler ou ouvir na íntegra:
           </p>
         </div>
 
@@ -411,37 +511,26 @@
             <select id="library-tradition-select" class="input-sacred font-semibold"></select>
           </div>
 
+          <div id="library-book-select-wrapper">
+            <label for="library-book-select" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">
+              2. Livro da Obra Sagrada:
+            </label>
+            <select id="library-book-select" class="input-sacred font-medium"></select>
+          </div>
+
           <div>
             <label for="library-chapter-select" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">
-              2. Capítulos e Textos Fundamentais:
+              3. Capítulo / Surata / Seção:
             </label>
             <select id="library-chapter-select" class="input-sacred font-medium"></select>
           </div>
-
-          <!-- Full 66-Book / 1,189-Chapter Bible Selector (shown when a Biblical tradition is active) -->
-          <div id="full-bible-navigator-box" class="p-4 rounded-xl border space-y-3" style="background-color: var(--bg-subtle); border-color: var(--border-strong);">
-            <p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">
-              Navegador de Todos os 66 Livros e 1.189 Capítulos da Bíblia Completa:
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label for="bible-full-book-select" class="block text-xs font-semibold mb-1">Livro da Bíblia:</label>
-                <select id="bible-full-book-select" class="input-sacred text-sm"></select>
-              </div>
-              <div>
-                <label for="bible-full-chapter-select" class="block text-xs font-semibold mb-1">Capítulo:</label>
-                <select id="bible-full-chapter-select" class="input-sacred text-sm"></select>
-              </div>
-            </div>
-            <button type="button" class="btn-primary w-full justify-center text-sm" data-action="load-full-bible-chapter">
-              📖 Abrir Capítulo Completo Selecionado
-            </button>
-          </div>
         </div>
+
+        <p id="library-progress-label" class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);" aria-live="polite"></p>
       </div>
 
-      <!-- Clean Focused Chapter Reader Page -->
-      <article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">
+      <!-- Focused Full-Chapter Reader Card -->
+      <article id="library-reader-card" class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b" style="border-color: var(--border-color);">
           <div>
             <p id="library-canonical-title" class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-wine);"></p>
@@ -542,7 +631,7 @@
 
         <h3 class="font-serif-sacred font-bold text-xl pt-2">1. Nossa Missão Institucional</h3>
         <p class="leading-relaxed" style="color: var(--text-secondary);">
-          Disponibilizar gratuitamente passagens diárias de consolo, orações tradicionais, ferramentas simbólicas de vigília (como a Vela Virtual de 7 Dias) e obras sagradas em domínio público das 16 principais tradições espirituais presentes na cultura brasileira.
+          Disponibilizar gratuitamente passagens diárias de consolo, orações tradicionais, ferramentas simbólicas de vigília (como a Vela Virtual de 7 Dias) e obras sagradas completas em domínio público das 16 principais tradições espirituais presentes na cultura brasileira.
         </p>
 
         <h3 class="font-serif-sacred font-bold text-xl pt-2">2. Autonomia e Dignidade de Todas as Matrizes Espirituais</h3>
@@ -662,6 +751,7 @@
 
         <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
           <button type="button" class="underline py-1 px-2" data-nav-target="inicio">Início</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="vertente">Minha Vertente</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="oracoes">Orações</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="escrituras">Biblioteca Sagrada</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="blog">Blog</button>
@@ -690,17 +780,17 @@
       <span class="text-base leading-none mb-0.5" aria-hidden="true">🌅</span>
       <span>Início</span>
     </button>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="vertente">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">🕊</span>
+      <span>Vertente</span>
+    </button>
     <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="oracoes">
       <span class="text-base leading-none mb-0.5" aria-hidden="true">🙏</span>
       <span>Orações</span>
     </button>
-    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="vela">
-      <span class="text-base leading-none mb-0.5" aria-hidden="true">🕯</span>
-      <span>Vela</span>
-    </button>
     <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="escrituras">
       <span class="text-base leading-none mb-0.5" aria-hidden="true">📖</span>
-      <span>Textos</span>
+      <span>Biblioteca</span>
     </button>
     <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-action="toggle-drawer-menu">
       <span class="text-base leading-none mb-0.5" aria-hidden="true">☰</span>
@@ -710,6 +800,11 @@
 
   <script src="js/data-traditions.js"></script>
   <script src="js/data-content.js"></script>
+  <script src="js/data-sacred-works-extra.js"></script>
+  <script src="js/data-bible-full.js"></script>
+  <script src="js/data-catolica-deutero.js"></script>
+  <script src="js/data-espiritismo-full.js"></script>
+  <script src="js/data-quran-full.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

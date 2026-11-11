@@ -32,16 +32,10 @@
     candlesPerPage: 4,
     flamePaused: false,
 
-    // Biblioteca Sagrada (Complete works + full 66-book / 1189-chapter Bible loader + dedicated reader sub-page)
+    // Biblioteca Sagrada (Unified local complete works engine: Book Index + Chapter Index)
     libraryTraditionId: "catolica",
-    librarySubPage: "reader",
-    libraryMode: "curated", // "curated" or "full-bible"
+    libraryBookIndex: 0,
     libraryChapterIndex: 0,
-    bibleBookIndex: 18, // Salmos by default
-    bibleChapterNumber: 23,
-    bibleFetchedTitle: "",
-    bibleFetchedVerses: null,
-    bibleLoading: false,
 
     // Alento, Quiz & Blog
     activeComfortTopicId: "luto-saudade",
@@ -239,12 +233,17 @@
     } else if (sectionId === "blog") {
       state.activeBlogPostId = null;
       renderBlogList();
+    } else if (sectionId === "vertente") {
+      renderTraditionPage();
+    } else if (sectionId === "escrituras") {
+      renderSacredLibrary();
     }
 
     var navButtons = document.querySelectorAll("[data-nav-target]");
     for (var j = 0; j < navButtons.length; j++) {
       var target = navButtons[j].getAttribute("data-nav-target");
-      if (target === sectionId) {
+      var highlightTarget = sectionId === "vertente" ? "inicio" : sectionId;
+      if (target === highlightTarget) {
         navButtons[j].setAttribute("aria-current", "page");
       } else {
         navButtons[j].removeAttribute("aria-current");
@@ -259,10 +258,13 @@
     }
   }
 
-  function populateHomeSelectors() {
+  function populateHomeAndTraditionSelectors() {
+    var traditions = getTraditions();
+    var feelings = window.FEELINGS_LIST || [];
+
+    // Home Tradition Select: Clean name ONLY (no "Completa" work title here)
     var tradSelect = document.getElementById("home-tradition-select");
     if (tradSelect && tradSelect.options.length === 0) {
-      var traditions = getTraditions();
       var tHtml = "";
       for (var i = 0; i < traditions.length; i++) {
         var t = traditions[i];
@@ -270,7 +272,7 @@
           '<option value="' +
           escapeHtml(t.id) +
           '">' +
-          escapeHtml(t.symbol + " " + t.name + " (" + t.canonicalWorkTitle + ")") +
+          escapeHtml(t.symbol + " " + t.name) +
           "</option>";
       }
       tradSelect.innerHTML = tHtml;
@@ -279,23 +281,29 @@
       tradSelect.value = state.selectedTraditionId;
     }
 
-    var feelSelect = document.getElementById("home-feeling-select");
-    if (feelSelect && feelSelect.options.length === 0) {
-      var feelings = window.FEELINGS_LIST || [];
-      var fHtml = "";
-      for (var j = 0; j < feelings.length; j++) {
-        var f = feelings[j];
-        fHtml += '<option value="' + escapeHtml(f.id) + '">' + escapeHtml(f.label) + "</option>";
+    var feelSelects = [
+      document.getElementById("home-feeling-select"),
+      document.getElementById("vertente-feeling-select")
+    ];
+
+    for (var s = 0; s < feelSelects.length; s++) {
+      var fs = feelSelects[s];
+      if (fs && fs.options.length === 0) {
+        var fHtml = "";
+        for (var j = 0; j < feelings.length; j++) {
+          var f = feelings[j];
+          fHtml += '<option value="' + escapeHtml(f.id) + '">' + escapeHtml(f.label) + "</option>";
+        }
+        fs.innerHTML = fHtml;
       }
-      feelSelect.innerHTML = fHtml;
-    }
-    if (feelSelect) {
-      feelSelect.value = state.selectedFeeling;
+      if (fs) {
+        fs.value = state.selectedFeeling;
+      }
     }
   }
 
   function renderDailyPanel() {
-    populateHomeSelectors();
+    populateHomeAndTraditionSelectors();
     var tradition = findTradition(state.selectedTraditionId);
     if (!tradition) return;
 
@@ -304,41 +312,83 @@
       headerBadge.textContent = tradition.symbol + " " + tradition.name;
     }
 
-    var greetingEl = document.getElementById("daily-tradition-greeting");
-    if (greetingEl) {
-      greetingEl.textContent = tradition.greeting + " (" + tradition.name + ")";
-    }
-
-    var sourceEl = document.getElementById("daily-canonical-work");
-    if (sourceEl) {
-      sourceEl.textContent = tradition.canonicalWorkTitle;
-    }
-
     var passageObj =
       (tradition.dailyPassages && tradition.dailyPassages[state.selectedFeeling]) ||
       (tradition.dailyPassages && tradition.dailyPassages.ansiedade);
 
-    if (passageObj) {
-      var textEl = document.getElementById("daily-passage-text");
-      var refEl = document.getElementById("daily-passage-reference");
-      var reflEl = document.getElementById("daily-passage-reflection");
+    var greetingEls = document.querySelectorAll("[data-daily-greeting]");
+    for (var g = 0; g < greetingEls.length; g++) {
+      greetingEls[g].textContent = tradition.greeting + " (" + tradition.name + ")";
+    }
 
-      if (textEl) textEl.textContent = "“" + passageObj.text + "”";
-      if (refEl) refEl.textContent = passageObj.reference;
-      if (reflEl) reflEl.textContent = passageObj.reflection;
+    var tagEls = document.querySelectorAll("[data-daily-tradition-tag]");
+    for (var tg = 0; tg < tagEls.length; tg++) {
+      tagEls[tg].textContent = tradition.tag;
+    }
+
+    if (passageObj) {
+      var textEls = document.querySelectorAll("[data-daily-passage-text]");
+      for (var t = 0; t < textEls.length; t++) {
+        textEls[t].textContent = "“" + passageObj.text + "”";
+      }
+
+      var refEls = document.querySelectorAll("[data-daily-passage-reference]");
+      for (var r = 0; r < refEls.length; r++) {
+        refEls[r].textContent = passageObj.reference;
+      }
+
+      var reflEls = document.querySelectorAll("[data-daily-passage-reflection]");
+      for (var rf = 0; rf < reflEls.length; rf++) {
+        reflEls[rf].textContent = passageObj.reflection;
+      }
+    }
+
+    renderTraditionPage();
+  }
+
+  function renderTraditionPage() {
+    var tradition = findTradition(state.selectedTraditionId);
+    if (!tradition) return;
+
+    var imgEl = document.getElementById("vertente-hero-image");
+    var captionEl = document.getElementById("vertente-image-caption");
+    var titleEl = document.getElementById("vertente-title");
+    var subtitleEl = document.getElementById("vertente-subtitle");
+    var workBtnLabel = document.getElementById("vertente-work-btn-label");
+
+    var imgSrc =
+      (window.EMBEDDED_TRADITION_IMAGES && window.EMBEDDED_TRADITION_IMAGES[tradition.id]) ||
+      tradition.imagePath ||
+      "assets/traditions/" + tradition.id + ".jpg";
+
+    if (imgEl) {
+      imgEl.src = imgSrc;
+      imgEl.alt = tradition.imageCaption || tradition.name;
+    }
+    if (captionEl) {
+      captionEl.textContent = tradition.imageCaption || tradition.tag;
+    }
+    if (titleEl) {
+      titleEl.textContent = tradition.symbol + " " + tradition.name;
+    }
+    if (subtitleEl) {
+      subtitleEl.textContent = tradition.greeting;
+    }
+    if (workBtnLabel) {
+      workBtnLabel.textContent = "📖 Ler " + tradition.canonicalWorkTitle;
     }
   }
 
-  function selectTradition(traditionId, syncLibrary) {
+  function selectTradition(traditionId, openTraditionPage) {
     var found = findTradition(traditionId);
     if (!found) return;
 
     state.selectedTraditionId = found.id;
-    if (syncLibrary !== false) {
-      state.libraryTraditionId = found.id;
-      state.libraryChapterIndex = 0;
-      state.libraryMode = "curated";
-    }
+    state.libraryTraditionId = found.id;
+    state.libraryBookIndex = 0;
+    state.libraryChapterIndex = 0;
+    state.prayerCategory = found.id;
+    state.prayerPage = 1;
 
     if (state.rememberTradition) {
       safeStorageSet(STORAGE_KEYS.tradition, found.id);
@@ -347,6 +397,270 @@
     renderDailyPanel();
     renderSacredLibrary();
     populateCandleTraditionSelect();
+
+    if (openTraditionPage) {
+      navigateToSection("vertente", true);
+    }
+  }
+
+  // Unified complete sacred works builder for all 16 traditions
+  function getLibraryBooksForTradition(traditionId) {
+    var bible66 = window.BIBLE_FULL_DATA || [];
+    var deutero7 = window.BIBLE_CATOLICA_DEUTERO || [];
+    var ldeFull = window.LIVRO_DOS_ESPIRITOS_FULL || [];
+    var quranFull = window.QURAN_FULL_DATA || [];
+    var extras = window.EXTRA_SACRED_WORKS || {};
+    var tradObj = findTradition(traditionId);
+
+    function formatBibleBook(b, customTitlePrefix) {
+      var chaps = [];
+      var rawChaps = b.chapters || [];
+      for (var c = 0; c < rawChaps.length; c++) {
+        var vList = rawChaps[c] || [];
+        var numbered = [];
+        for (var v = 0; v < vList.length; v++) {
+          numbered.push(v + 1 + ". " + vList[v]);
+        }
+        chaps.push({
+          title: (customTitlePrefix || b.name) + " - Capítulo " + (c + 1),
+          verses: numbered
+        });
+      }
+      return {
+        bookTitle: customTitlePrefix || b.name,
+        chapters: chaps
+      };
+    }
+
+    if (traditionId === "catolica") {
+      // All 73 Catholic Books (39 AT + 7 Deuterocanonical + 27 NT = 1,334 chapters)
+      var catBooks = [];
+      for (var i = 0; i < 39 && i < bible66.length; i++) {
+        catBooks.push(formatBibleBook(bible66[i]));
+      }
+      for (var d = 0; d < deutero7.length; d++) {
+        catBooks.push(formatBibleBook(deutero7[d]));
+      }
+      for (var n = 39; n < bible66.length; n++) {
+        catBooks.push(formatBibleBook(bible66[n]));
+      }
+      if (catBooks.length > 0) return catBooks;
+    }
+
+    if (traditionId === "evangelica" || traditionId === "testemunhas-jeova") {
+      // All 66 Books (1,189 chapters)
+      var protBooks = [];
+      for (var p = 0; p < bible66.length; p++) {
+        protBooks.push(formatBibleBook(bible66[p]));
+      }
+      if (protBooks.length > 0) return protBooks;
+    }
+
+    if (traditionId === "judaica") {
+      // All 39 Books of the Hebrew Tanakh (Torah + Nevi'im + Ketuvim including all 150 Tehilim/Psalms = 929 chapters)
+      var hebrewLabels = {
+        "Gênesis": "Bereshit (Gênesis)",
+        "Êxodo": "Shemot (Êxodo)",
+        "Levítico": "Vayikrá (Levítico)",
+        "Números": "Bamidbar (Números)",
+        "Deuteronômio": "Devarim (Deuteronômio)",
+        "Salmos": "Tehilim (Salmos)",
+        "Provérbios": "Mishlei (Provérbios)"
+      };
+      var tanakhBooks = [];
+      for (var j = 0; j < 39 && j < bible66.length; j++) {
+        var bName = bible66[j].name;
+        var label = hebrewLabels[bName] || bName;
+        tanakhBooks.push(formatBibleBook(bible66[j], label));
+      }
+      if (tradObj && tradObj.chapters && tradObj.chapters.length > 0) {
+        tanakhBooks.push({
+          bookTitle: "Pirkei Avot (Ética dos Pais)",
+          chapters: tradObj.chapters
+        });
+      }
+      if (tanakhBooks.length > 0) return tanakhBooks;
+    }
+
+    if (traditionId === "adventista") {
+      var advBooks = [];
+      if (extras.adventista && extras.adventista.length > 0) {
+        advBooks.push({
+          bookTitle: "Livro: Caminho a Cristo (Ellen G. White - Completo)",
+          chapters: extras.adventista
+        });
+      }
+      for (var a = 0; a < bible66.length; a++) {
+        advBooks.push(formatBibleBook(bible66[a]));
+      }
+      if (advBooks.length > 0) return advBooks;
+    }
+
+    if (traditionId === "ortodoxa") {
+      var ortBooks = [];
+      if (extras.ortodoxa && extras.ortodoxa.length > 0) {
+        ortBooks.push({
+          bookTitle: "Saltério, Liturgia e Filocalia Ortodoxa",
+          chapters: extras.ortodoxa
+        });
+      }
+      for (var o = 0; o < bible66.length; o++) {
+        ortBooks.push(formatBibleBook(bible66[o]));
+      }
+      for (var od = 0; od < deutero7.length; od++) {
+        ortBooks.push(formatBibleBook(deutero7[od]));
+      }
+      if (ortBooks.length > 0) return ortBooks;
+    }
+
+    if (traditionId === "espirita") {
+      if (ldeFull.length > 0) {
+        return [
+          {
+            bookTitle: "O Livro dos Espíritos (Questões 1 a 1019 - Completo)",
+            chapters: ldeFull
+          }
+        ];
+      }
+    }
+
+    if (traditionId === "islamica") {
+      if (quranFull.length > 0) {
+        var surahChaps = [];
+        for (var q = 0; q < quranFull.length; q++) {
+          surahChaps.push({
+            title: quranFull[q].name + " (" + quranFull[q].verses.length + " versículos)",
+            verses: quranFull[q].verses
+          });
+        }
+        return [
+          {
+            bookTitle: "Sagrado Alcorão (114 Suratas Completas)",
+            chapters: surahChaps
+          }
+        ];
+      }
+    }
+
+    if (extras[traditionId] && extras[traditionId].length > 0) {
+      return [
+        {
+          bookTitle: tradObj ? tradObj.canonicalWorkTitle : "Obra Sagrada Completa",
+          chapters: extras[traditionId]
+        }
+      ];
+    }
+
+    return [
+      {
+        bookTitle: tradObj ? tradObj.canonicalWorkTitle : "Obra Sagrada Completa",
+        chapters: (tradObj && tradObj.chapters) || []
+      }
+    ];
+  }
+
+  function renderSacredLibrary() {
+    var selectEl = document.getElementById("library-tradition-select");
+    var bookWrapperEl = document.getElementById("library-book-select-wrapper");
+    var bookSelectEl = document.getElementById("library-book-select");
+    var chapterSelectEl = document.getElementById("library-chapter-select");
+    var workTitleEl = document.getElementById("library-canonical-title");
+    var chapterHeadingEl = document.getElementById("library-chapter-heading");
+    var versesContainerEl = document.getElementById("library-verses-container");
+    var progressLabelEl = document.getElementById("library-progress-label");
+
+    var traditions = getTraditions();
+    if (selectEl && selectEl.options.length === 0) {
+      var optsHtml = "";
+      for (var i = 0; i < traditions.length; i++) {
+        optsHtml +=
+          '<option value="' +
+          escapeHtml(traditions[i].id) +
+          '">' +
+          escapeHtml(traditions[i].symbol + " " + traditions[i].canonicalWorkTitle + " (" + traditions[i].name + ")") +
+          "</option>";
+      }
+      selectEl.innerHTML = optsHtml;
+    }
+
+    if (selectEl) {
+      selectEl.value = state.libraryTraditionId;
+    }
+
+    var activeTradition = findTradition(state.libraryTraditionId);
+    if (!activeTradition) return;
+
+    var booksList = getLibraryBooksForTradition(state.libraryTraditionId);
+    if (state.libraryBookIndex >= booksList.length || state.libraryBookIndex < 0) {
+      state.libraryBookIndex = 0;
+    }
+
+    var activeBook = booksList[state.libraryBookIndex];
+    if (!activeBook) return;
+
+    if (bookWrapperEl && bookSelectEl) {
+      if (booksList.length > 1) {
+        bookWrapperEl.classList.remove("hidden");
+        var bHtml = "";
+        for (var b = 0; b < booksList.length; b++) {
+          bHtml +=
+            '<option value="' +
+            b +
+            '">' +
+            escapeHtml(booksList[b].bookTitle + " (" + booksList[b].chapters.length + " cap.)") +
+            "</option>";
+        }
+        bookSelectEl.innerHTML = bHtml;
+        bookSelectEl.value = String(state.libraryBookIndex);
+      } else {
+        bookWrapperEl.classList.add("hidden");
+      }
+    }
+
+    var chapters = activeBook.chapters || [];
+    if (state.libraryChapterIndex >= chapters.length || state.libraryChapterIndex < 0) {
+      state.libraryChapterIndex = 0;
+    }
+
+    if (chapterSelectEl) {
+      var chOpts = "";
+      for (var c = 0; c < chapters.length; c++) {
+        chOpts += '<option value="' + c + '">' + escapeHtml(chapters[c].title) + "</option>";
+      }
+      chapterSelectEl.innerHTML = chOpts;
+      chapterSelectEl.value = String(state.libraryChapterIndex);
+    }
+
+    var activeChapter = chapters[state.libraryChapterIndex];
+    if (!activeChapter) return;
+
+    if (workTitleEl) {
+      workTitleEl.textContent = activeTradition.canonicalWorkTitle + " • " + activeBook.bookTitle;
+    }
+
+    if (chapterHeadingEl) {
+      chapterHeadingEl.textContent = activeChapter.title;
+    }
+
+    if (progressLabelEl) {
+      progressLabelEl.textContent =
+        "Capítulo " +
+        (state.libraryChapterIndex + 1) +
+        " de " +
+        chapters.length +
+        (booksList.length > 1 ? " • Livro " + (state.libraryBookIndex + 1) + " de " + booksList.length : "");
+    }
+
+    if (versesContainerEl) {
+      var vHtml = "";
+      for (var v = 0; v < activeChapter.verses.length; v++) {
+        vHtml +=
+          '<p class="mb-4 leading-relaxed font-serif-sacred text-body-sacred">' +
+          escapeHtml(activeChapter.verses[v]) +
+          "</p>";
+      }
+      versesContainerEl.innerHTML = vHtml;
+    }
   }
 
   function populatePrayerCategorySelect() {
@@ -402,7 +716,6 @@
 
     var allPrayers = window.STRONG_PRAYERS || [];
 
-    // Dedicated single-prayer page view
     if (state.activePrayerId) {
       var foundIndex = -1;
       for (var idx = 0; idx < allPrayers.length; idx++) {
@@ -415,6 +728,14 @@
       if (foundIndex !== -1) {
         var prayer = allPrayers[foundIndex];
         var nextPrayer = allPrayers[(foundIndex + 1) % allPrayers.length];
+        var prayerTrad = findTradition(prayer.category);
+        var imgSrc =
+          (prayerTrad &&
+            window.EMBEDDED_TRADITION_IMAGES &&
+            window.EMBEDDED_TRADITION_IMAGES[prayerTrad.id]) ||
+          (prayerTrad && prayerTrad.imagePath) ||
+          "assets/traditions/catolica.jpg";
+
         var paragraphs = prayer.text.split("\n\n");
         var bodyHtml = "";
         for (var k = 0; k < paragraphs.length; k++) {
@@ -429,20 +750,32 @@
         singleView.classList.remove("hidden");
 
         singleView.innerHTML =
-          '<article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">' +
-          '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b" style="border-color: var(--border-color);">' +
-          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="back-to-prayers-list">← Voltar para a lista de orações</button>' +
-          '<span class="inline-block px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wider" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+          '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
+          '<div class="relative h-48 sm:h-64 w-full bg-black">' +
+          '<img src="' +
+          escapeHtml(imgSrc) +
+          '" alt="' +
+          escapeHtml(prayer.categoryLabel) +
+          '" class="w-full h-full object-cover opacity-90" />' +
+          '<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-5 sm:p-6">' +
+          '<div>' +
+          '<span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-950 mb-1.5">' +
           escapeHtml(prayer.categoryLabel) +
           "</span>" +
-          "</div>" +
-          '<p class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: var(--text-muted);">' +
-          escapeHtml(prayer.salutation) +
-          "</p>" +
-          '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2" style="color: var(--text-main);">' +
+          '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl text-white leading-tight">' +
           escapeHtml(prayer.title) +
           "</h3>" +
-          '<p class="text-base mb-6" style="color: var(--text-secondary);">' +
+          "</div>" +
+          "</div>" +
+          "</div>" +
+          '<div class="p-6 sm:p-10">' +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="back-to-prayers-list">← Voltar para a lista de orações</button>' +
+          '<span class="text-xs font-semibold" style="color: var(--text-muted);">' +
+          escapeHtml(prayer.salutation) +
+          "</span>" +
+          "</div>" +
+          '<p class="text-base mb-5" style="color: var(--text-secondary);">' +
           escapeHtml(prayer.subtitle) +
           "</p>" +
           '<div class="font-serif-sacred text-body-sacred p-6 sm:p-8 rounded-2xl mb-6" style="background-color: var(--bg-amber-soft); color: var(--text-main); border: 1px solid var(--border-strong);">' +
@@ -469,6 +802,7 @@
           '<button type="button" class="btn-secondary text-sm" data-open-prayer="' +
           escapeHtml(nextPrayer.id) +
           '">Próxima Oração →</button>' +
+          "</div>" +
           "</div>" +
           "</article>";
 
@@ -764,186 +1098,6 @@
     feedbackEl.classList.remove("hidden");
 
     renderCandlesWall();
-  }
-
-  function fetchFullBibleChapter(bookIndex, chapterNumber) {
-    var books = window.BIBLE_ALL_BOOKS_INDEX || [];
-    var bookObj = books[bookIndex] || books[18];
-    if (!bookObj) return;
-
-    state.bibleLoading = true;
-    state.libraryMode = "full-bible";
-    renderSacredLibrary();
-
-    var queryRef = encodeURIComponent(bookObj.book + " " + chapterNumber);
-    var url = "https://bible-api.com/" + queryRef + "?translation=almeida";
-
-    fetch(url)
-      .then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.json();
-      })
-      .then(function (data) {
-        state.bibleLoading = false;
-        if (data && Array.isArray(data.verses) && data.verses.length > 0) {
-          state.bibleFetchedTitle = bookObj.book + " - Capítulo " + chapterNumber + " (Texto Integral)";
-          var lines = [];
-          for (var i = 0; i < data.verses.length; i++) {
-            var v = data.verses[i];
-            lines.push(v.verse + ". " + String(v.text || "").trim());
-          }
-          state.bibleFetchedVerses = lines;
-        } else {
-          state.bibleFetchedTitle = bookObj.book + " - Capítulo " + chapterNumber;
-          state.bibleFetchedVerses = null;
-        }
-        renderSacredLibrary();
-      })
-      .catch(function () {
-        state.bibleLoading = false;
-        state.bibleFetchedTitle = "";
-        state.bibleFetchedVerses = null;
-        state.libraryMode = "curated";
-        renderSacredLibrary();
-      });
-  }
-
-  function populateBibleBookAndChapterSelectors() {
-    var bookSelect = document.getElementById("bible-full-book-select");
-    var chapSelect = document.getElementById("bible-full-chapter-select");
-    var books = window.BIBLE_ALL_BOOKS_INDEX || [];
-    if (!bookSelect || !chapSelect || books.length === 0) return;
-
-    if (bookSelect.options.length === 0) {
-      var bHtml = "";
-      for (var i = 0; i < books.length; i++) {
-        bHtml +=
-          '<option value="' +
-          i +
-          '">' +
-          escapeHtml(books[i].book + " (" + books[i].chaptersCount + " cap.)") +
-          "</option>";
-      }
-      bookSelect.innerHTML = bHtml;
-    }
-    bookSelect.value = String(state.bibleBookIndex);
-
-    var selectedBook = books[state.bibleBookIndex] || books[0];
-    var maxCh = selectedBook.chaptersCount || 1;
-    if (state.bibleChapterNumber > maxCh) state.bibleChapterNumber = 1;
-
-    var cHtml = "";
-    for (var c = 1; c <= maxCh; c++) {
-      cHtml += '<option value="' + c + '">Capítulo ' + c + "</option>";
-    }
-    chapSelect.innerHTML = cHtml;
-    chapSelect.value = String(state.bibleChapterNumber);
-  }
-
-  function renderSacredLibrary() {
-    var selectEl = document.getElementById("library-tradition-select");
-    var workTitleEl = document.getElementById("library-canonical-title");
-    var chapterSelectEl = document.getElementById("library-chapter-select");
-    var chapterHeadingEl = document.getElementById("library-chapter-heading");
-    var versesContainerEl = document.getElementById("library-verses-container");
-    var fullBibleBox = document.getElementById("full-bible-navigator-box");
-
-    var traditions = getTraditions();
-    if (selectEl && selectEl.options.length === 0) {
-      var optsHtml = "";
-      for (var i = 0; i < traditions.length; i++) {
-        optsHtml +=
-          '<option value="' +
-          escapeHtml(traditions[i].id) +
-          '">' +
-          escapeHtml(traditions[i].symbol + " " + traditions[i].canonicalWorkTitle + " (" + traditions[i].name + ")") +
-          "</option>";
-      }
-      selectEl.innerHTML = optsHtml;
-    }
-
-    if (selectEl) {
-      selectEl.value = state.libraryTraditionId;
-    }
-
-    var activeTradition = findTradition(state.libraryTraditionId);
-    if (!activeTradition) return;
-
-    if (workTitleEl) {
-      workTitleEl.textContent = activeTradition.canonicalWorkTitle + " • " + activeTradition.name;
-    }
-
-    if (fullBibleBox) {
-      if (activeTradition.usesFullBibleIndex) {
-        fullBibleBox.classList.remove("hidden");
-        populateBibleBookAndChapterSelectors();
-      } else {
-        fullBibleBox.classList.add("hidden");
-      }
-    }
-
-    var chapters = activeTradition.chapters || [];
-    if (state.libraryChapterIndex >= chapters.length) {
-      state.libraryChapterIndex = 0;
-    }
-
-    if (chapterSelectEl) {
-      var chOpts = "";
-      for (var c = 0; c < chapters.length; c++) {
-        chOpts += '<option value="' + c + '">' + escapeHtml(chapters[c].title) + "</option>";
-      }
-      chapterSelectEl.innerHTML = chOpts;
-      chapterSelectEl.value = String(state.libraryChapterIndex);
-    }
-
-    if (state.bibleLoading && versesContainerEl) {
-      if (chapterHeadingEl) {
-        chapterHeadingEl.textContent = "Carregando capítulo completo...";
-      }
-      versesContainerEl.innerHTML =
-        '<p class="text-base py-6" style="color: var(--text-secondary);">Buscando os versículos integrais da obra sagrada...</p>';
-      return;
-    }
-
-    if (
-      state.libraryMode === "full-bible" &&
-      activeTradition.usesFullBibleIndex &&
-      Array.isArray(state.bibleFetchedVerses) &&
-      state.bibleFetchedVerses.length > 0
-    ) {
-      if (chapterHeadingEl) {
-        chapterHeadingEl.textContent = state.bibleFetchedTitle;
-      }
-      if (versesContainerEl) {
-        var fbHtml = "";
-        for (var f = 0; f < state.bibleFetchedVerses.length; f++) {
-          fbHtml +=
-            '<p class="mb-4 leading-relaxed font-serif-sacred text-body-sacred">' +
-            escapeHtml(state.bibleFetchedVerses[f]) +
-            "</p>";
-        }
-        versesContainerEl.innerHTML = fbHtml;
-      }
-      return;
-    }
-
-    var activeChapter = chapters[state.libraryChapterIndex];
-    if (!activeChapter) return;
-
-    if (chapterHeadingEl) {
-      chapterHeadingEl.textContent = activeChapter.title;
-    }
-
-    if (versesContainerEl) {
-      var vHtml = "";
-      for (var v = 0; v < activeChapter.verses.length; v++) {
-        vHtml +=
-          '<p class="mb-4 leading-relaxed font-serif-sacred text-body-sacred">' +
-          escapeHtml(activeChapter.verses[v]) +
-          "</p>";
-      }
-      versesContainerEl.innerHTML = vHtml;
-    }
   }
 
   function renderThematicComfort() {
@@ -1352,6 +1506,20 @@
         applyReaderFontSize(state.readerFontSizePx - 2);
       } else if (action === "font-increase") {
         applyReaderFontSize(state.readerFontSizePx + 2);
+      } else if (action === "open-tradition-page") {
+        navigateToSection("vertente", true);
+      } else if (action === "open-tradition-library") {
+        state.libraryTraditionId = state.selectedTraditionId;
+        state.libraryBookIndex = 0;
+        state.libraryChapterIndex = 0;
+        renderSacredLibrary();
+        navigateToSection("escrituras", true);
+      } else if (action === "open-tradition-prayers") {
+        state.prayerCategory = state.selectedTraditionId;
+        state.prayerPage = 1;
+        state.activePrayerId = null;
+        renderPrayersView();
+        navigateToSection("oracoes", true);
       } else if (action === "speak-daily-passage") {
         var t = findTradition(state.selectedTraditionId);
         var p = t && t.dailyPassages && t.dailyPassages[state.selectedFeeling];
@@ -1406,57 +1574,49 @@
         actionBtn.setAttribute("aria-pressed", state.flamePaused ? "true" : "false");
         actionBtn.textContent = state.flamePaused ? "▶ Retomar movimento da chama" : "⏸ Pausar animação da chama";
         renderCandlesWall();
-      } else if (action === "load-full-bible-chapter") {
-        var bSelect = document.getElementById("bible-full-book-select");
-        var cSelect = document.getElementById("bible-full-chapter-select");
-        if (bSelect && cSelect) {
-          state.bibleBookIndex = Number(bSelect.value) || 0;
-          state.bibleChapterNumber = Number(cSelect.value) || 1;
-          fetchFullBibleChapter(state.bibleBookIndex, state.bibleChapterNumber);
-        }
       } else if (action === "speak-library-chapter") {
-        var libT = findTradition(state.libraryTraditionId);
-        if (
-          state.libraryMode === "full-bible" &&
-          Array.isArray(state.bibleFetchedVerses) &&
-          state.bibleFetchedVerses.length > 0
-        ) {
-          speakText("library-chapter", state.bibleFetchedTitle + ". " + state.bibleFetchedVerses.join(" "));
-          return;
-        }
-        var ch = libT && libT.chapters && libT.chapters[state.libraryChapterIndex];
+        var books = getLibraryBooksForTradition(state.libraryTraditionId);
+        var curBook = books[state.libraryBookIndex];
+        var ch = curBook && curBook.chapters && curBook.chapters[state.libraryChapterIndex];
         if (ch) {
-          speakText("library-chapter", ch.title + ". " + ch.verses.join(" "));
+          speakText("library-chapter", ch.title + ". " + ch.verses.slice(0, 35).join(" "));
         }
       } else if (action === "prev-library-chapter") {
-        if (state.libraryMode === "full-bible") {
-          if (state.bibleChapterNumber > 1) {
-            state.bibleChapterNumber -= 1;
-            fetchFullBibleChapter(state.bibleBookIndex, state.bibleChapterNumber);
-          }
-          return;
+        var bListPrev = getLibraryBooksForTradition(state.libraryTraditionId);
+        if (bListPrev.length === 0) return;
+        if (state.libraryChapterIndex > 0) {
+          state.libraryChapterIndex -= 1;
+        } else if (state.libraryBookIndex > 0) {
+          state.libraryBookIndex -= 1;
+          var prevBookChaps = bListPrev[state.libraryBookIndex].chapters || [];
+          state.libraryChapterIndex = Math.max(0, prevBookChaps.length - 1);
+        } else {
+          state.libraryBookIndex = bListPrev.length - 1;
+          var lastBookChaps = bListPrev[state.libraryBookIndex].chapters || [];
+          state.libraryChapterIndex = Math.max(0, lastBookChaps.length - 1);
         }
-        var curT = findTradition(state.libraryTraditionId);
-        if (curT && curT.chapters && curT.chapters.length > 0) {
-          state.libraryChapterIndex =
-            (state.libraryChapterIndex - 1 + curT.chapters.length) % curT.chapters.length;
-          renderSacredLibrary();
-        }
+        stopSpeech();
+        renderSacredLibrary();
+        var readerTopPrev = document.getElementById("library-reader-card");
+        if (readerTopPrev) readerTopPrev.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (action === "next-library-chapter") {
-        if (state.libraryMode === "full-bible") {
-          var books = window.BIBLE_ALL_BOOKS_INDEX || [];
-          var bObj = books[state.bibleBookIndex];
-          if (bObj && state.bibleChapterNumber < bObj.chaptersCount) {
-            state.bibleChapterNumber += 1;
-            fetchFullBibleChapter(state.bibleBookIndex, state.bibleChapterNumber);
-          }
-          return;
+        var bListNext = getLibraryBooksForTradition(state.libraryTraditionId);
+        if (bListNext.length === 0) return;
+        var activeB = bListNext[state.libraryBookIndex];
+        var chCount = (activeB && activeB.chapters && activeB.chapters.length) || 0;
+        if (state.libraryChapterIndex + 1 < chCount) {
+          state.libraryChapterIndex += 1;
+        } else if (state.libraryBookIndex + 1 < bListNext.length) {
+          state.libraryBookIndex += 1;
+          state.libraryChapterIndex = 0;
+        } else {
+          state.libraryBookIndex = 0;
+          state.libraryChapterIndex = 0;
         }
-        var nxtT = findTradition(state.libraryTraditionId);
-        if (nxtT && nxtT.chapters && nxtT.chapters.length > 0) {
-          state.libraryChapterIndex = (state.libraryChapterIndex + 1) % nxtT.chapters.length;
-          renderSacredLibrary();
-        }
+        stopSpeech();
+        renderSacredLibrary();
+        var readerTopNext = document.getElementById("library-reader-card");
+        if (readerTopNext) readerTopNext.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (action === "next-quiz-question") {
         state.quizIndex += 1;
         state.quizAnswered = false;
@@ -1477,6 +1637,7 @@
     var homeTradSelect = document.getElementById("home-tradition-select");
     if (homeTradSelect) {
       homeTradSelect.addEventListener("change", function () {
+        // Selecting a tradition redirects to that tradition's dedicated page with its realistic image!
         selectTradition(homeTradSelect.value, true);
       });
     }
@@ -1485,6 +1646,14 @@
     if (homeFeelSelect) {
       homeFeelSelect.addEventListener("change", function () {
         state.selectedFeeling = homeFeelSelect.value;
+        renderDailyPanel();
+      });
+    }
+
+    var vertenteFeelSelect = document.getElementById("vertente-feeling-select");
+    if (vertenteFeelSelect) {
+      vertenteFeelSelect.addEventListener("change", function () {
+        state.selectedFeeling = vertenteFeelSelect.value;
         renderDailyPanel();
       });
     }
@@ -1525,8 +1694,19 @@
     if (librarySelect) {
       librarySelect.addEventListener("change", function () {
         state.libraryTraditionId = librarySelect.value;
+        state.libraryBookIndex = 0;
         state.libraryChapterIndex = 0;
-        state.libraryMode = "curated";
+        stopSpeech();
+        renderSacredLibrary();
+      });
+    }
+
+    var libraryBookSelect = document.getElementById("library-book-select");
+    if (libraryBookSelect) {
+      libraryBookSelect.addEventListener("change", function () {
+        state.libraryBookIndex = Number(libraryBookSelect.value) || 0;
+        state.libraryChapterIndex = 0;
+        stopSpeech();
         renderSacredLibrary();
       });
     }
@@ -1535,17 +1715,8 @@
     if (libraryChapterSelect) {
       libraryChapterSelect.addEventListener("change", function () {
         state.libraryChapterIndex = Number(libraryChapterSelect.value) || 0;
-        state.libraryMode = "curated";
+        stopSpeech();
         renderSacredLibrary();
-      });
-    }
-
-    var bibleBookSelect = document.getElementById("bible-full-book-select");
-    if (bibleBookSelect) {
-      bibleBookSelect.addEventListener("change", function () {
-        state.bibleBookIndex = Number(bibleBookSelect.value) || 0;
-        state.bibleChapterNumber = 1;
-        populateBibleBookAndChapterSelectors();
       });
     }
 
