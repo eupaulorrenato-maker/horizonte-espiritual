@@ -44,6 +44,17 @@ window.STRONG_PRAYERS = [
     usageNote: "Devoção tradicional lembrada nas buscas cotidianas."
   },
   {
+    id: "sao-miguel-arcanjo-forte",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    title: "Oração Poderosa de São Miguel Arcanjo (Proteção e 21 Dias)",
+    subtitle: "Defesa contra o mal, limpeza espiritual e proteção do lar (inclui link para a página especial dos 21 dias)",
+    salutation: "São Miguel Arcanjo, defendei-nos no combate!",
+    specialSection: "arcanjo-miguel",
+    text: "São Miguel Arcanjo, defendei-nos no combate; sede o nosso refúgio contra as maldades e ciladas do demônio.\n\nOrdene-lhe Deus, instantemente o pedimos; e vós, Príncipe da Milícia Celeste, pelo divino poder, precipitai no inferno a satanás e aos outros espíritos malignos que andam pelo mundo para perder as almas.\n\nEu apelo a São Miguel Arcanjo para que sele e proteja a minha casa, corte todo laço de medo, desarmonia, tristeza e negatividade com sua espada de luz cristalina, e cubra minha família com a paz soberana de Deus Pai Todo-Poderoso. Amém.",
+    usageNote: "Prece tradicional de Papa Leão XIII unida à súplica de proteção da jornada dos 21 dias."
+  },
+  {
     id: "nossa-senhora-aparecida",
     category: "catolica",
     categoryLabel: "Fé Católica",

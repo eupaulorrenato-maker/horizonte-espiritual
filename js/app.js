@@ -6,7 +6,9 @@
     remember: "he_remember_choice",
     theme: "he_theme",
     fontSize: "he_font_size_px",
-    candles: "he_user_candles"
+    candles: "he_user_candles",
+    cafeHistory: "he_cafe_history_v1",
+    tracksProgress: "he_tracks_progress_v1"
   };
 
   var state = {
@@ -36,6 +38,14 @@
     libraryTraditionId: "catolica",
     libraryBookIndex: 0,
     libraryChapterIndex: 0,
+
+    // Retenção Diária ("Café Espiritual", "Arcanjo Miguel 21 Dias", "Trilhas", "PWA")
+    cafeSelectedDay: new Date().getDate(),
+    miguelSubTab: "prayers",
+    miguelSelectedDay: 1,
+    activeTrackId: null,
+    activeTrackSelectedDay: 1,
+    deferredPwaPrompt: null,
 
     // Alento, Quiz & Blog
     activeComfortTopicId: "luto-saudade",
@@ -227,7 +237,15 @@
     state.activeSection = sectionId;
     toggleDrawerMenu(false);
 
-    if (sectionId === "oracoes") {
+    if (sectionId === "inicio") {
+      renderHomeRetentionWidgets();
+    } else if (sectionId === "cafe-diario") {
+      renderCafeDiario();
+    } else if (sectionId === "arcanjo-miguel") {
+      renderArcanjoMiguelPage();
+    } else if (sectionId === "trilhas") {
+      renderTrilhasView();
+    } else if (sectionId === "oracoes") {
       state.activePrayerId = null;
       renderPrayersView();
     } else if (sectionId === "blog") {
@@ -781,6 +799,12 @@
           '<div class="font-serif-sacred text-body-sacred p-6 sm:p-8 rounded-2xl mb-6" style="background-color: var(--bg-amber-soft); color: var(--text-main); border: 1px solid var(--border-strong);">' +
           bodyHtml +
           "</div>" +
+          (prayer.specialSection === "arcanjo-miguel"
+            ? '<div class="p-4 rounded-xl mb-6 flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-accent-soft); border: 1px solid var(--accent-wine);">' +
+              '<span class="text-sm font-semibold" style="color: var(--accent-wine);">⚔️ Quer fazer a caminhada de 21 dias desta oração?</span>' +
+              '<button type="button" class="btn-primary text-sm" data-action="open-miguel-21dias">Abrir Página Especial (21 Dias) →</button>' +
+              "</div>"
+            : "") +
           '<p class="text-sm italic mb-6" style="color: var(--text-muted);">' +
           escapeHtml(prayer.usageNote) +
           "</p>" +
@@ -1084,6 +1108,7 @@
     var current = getUserCandles();
     current.unshift(newCandle);
     saveUserCandles(current);
+    renderHomeRetentionWidgets();
 
     honoreeInput.value = "";
     intentionInput.value = "";
@@ -1355,6 +1380,777 @@
     listEl.innerHTML = cardsHtml;
   }
 
+  /* =====================================================================
+     DAILY RETENTION ENGINE ("Café Espiritual", "21 Dias São Miguel", "Trilhas")
+     ===================================================================== */
+
+  function getTodayDateKey() {
+    var d = new Date();
+    var yyyy = d.getFullYear();
+    var mm = String(d.getMonth() + 1);
+    if (mm.length < 2) mm = "0" + mm;
+    var dd = String(d.getDate());
+    if (dd.length < 2) dd = "0" + dd;
+    return yyyy + "-" + mm + "-" + dd;
+  }
+
+  function formatTodayPtBr() {
+    var weekdays = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    var months = [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+    var d = new Date();
+    return weekdays[d.getDay()] + ", " + d.getDate() + " de " + months[d.getMonth()];
+  }
+
+  function getCafeDaysList() {
+    return window.CAFE_ESPIRITUAL_DAYS || [];
+  }
+
+  function getCafeDayObj(dayNum) {
+    var list = getCafeDaysList();
+    if (list.length === 0) return null;
+    var normalized = Math.max(1, Math.min(list.length, Number(dayNum) || 1));
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].day === normalized) return list[i];
+    }
+    return list[normalized - 1] || list[0];
+  }
+
+  function getCafeHistory() {
+    var raw = safeStorageGet(STORAGE_KEYS.cafeHistory);
+    var parsed = null;
+    if (raw) {
+      try {
+        parsed = JSON.parse(raw);
+      } catch (e) {}
+    }
+    if (!parsed || typeof parsed !== "object") {
+      parsed = { completedDates: [] };
+    }
+    if (!Array.isArray(parsed.completedDates)) {
+      parsed.completedDates = [];
+    }
+    return parsed;
+  }
+
+  function computeCafeStreak(completedDates) {
+    if (!completedDates || completedDates.length === 0) return 0;
+    var set = {};
+    for (var i = 0; i < completedDates.length; i++) {
+      set[completedDates[i]] = true;
+    }
+    var today = getTodayDateKey();
+    var cursor = new Date();
+    if (!set[today]) {
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    var streak = 0;
+    while (streak < 366) {
+      var yyyy = cursor.getFullYear();
+      var mm = String(cursor.getMonth() + 1);
+      if (mm.length < 2) mm = "0" + mm;
+      var dd = String(cursor.getDate());
+      if (dd.length < 2) dd = "0" + dd;
+      var key = yyyy + "-" + mm + "-" + dd;
+      if (set[key]) {
+        streak += 1;
+        cursor.setDate(cursor.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
+
+  function markCafeTodayCompleted() {
+    var history = getCafeHistory();
+    var todayKey = getTodayDateKey();
+    if (history.completedDates.indexOf(todayKey) === -1) {
+      history.completedDates.push(todayKey);
+      safeStorageSet(STORAGE_KEYS.cafeHistory, JSON.stringify(history));
+    }
+    renderCafeDiario();
+    renderHomeRetentionWidgets();
+  }
+
+  function getAllPrayerTracks() {
+    return window.PRAYER_TRACKS || [];
+  }
+
+  function findPrayerTrack(trackId) {
+    var tracks = getAllPrayerTracks();
+    for (var i = 0; i < tracks.length; i++) {
+      if (tracks[i].id === trackId) return tracks[i];
+    }
+    return null;
+  }
+
+  function getTracksProgressMap() {
+    var raw = safeStorageGet(STORAGE_KEYS.tracksProgress);
+    if (!raw) return {};
+    try {
+      var obj = JSON.parse(raw);
+      return obj && typeof obj === "object" ? obj : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function getTrackCompletedDays(trackId) {
+    var map = getTracksProgressMap();
+    var entry = map[trackId];
+    return entry && Array.isArray(entry.completedDays) ? entry.completedDays : [];
+  }
+
+  function getNextPendingDay(track) {
+    if (!track || !track.days || track.days.length === 0) return 1;
+    var done = getTrackCompletedDays(track.id);
+    for (var i = 0; i < track.days.length; i++) {
+      if (done.indexOf(track.days[i].day) === -1) {
+        return track.days[i].day;
+      }
+    }
+    return track.days[track.days.length - 1].day;
+  }
+
+  function toggleTrackDayCompletion(trackId, dayNum) {
+    var track = findPrayerTrack(trackId);
+    if (!track) return;
+    var map = getTracksProgressMap();
+    if (!map[trackId] || !Array.isArray(map[trackId].completedDays)) {
+      map[trackId] = { completedDays: [], lastDate: "" };
+    }
+    var list = map[trackId].completedDays;
+    var idx = list.indexOf(dayNum);
+    if (idx === -1) {
+      list.push(dayNum);
+      map[trackId].lastDate = getTodayDateKey();
+    } else {
+      list.splice(idx, 1);
+    }
+    safeStorageSet(STORAGE_KEYS.tracksProgress, JSON.stringify(map));
+
+    var nextDay = Math.min(track.durationDays, dayNum + 1);
+    if (trackId === "arcanjo-miguel-21" && idx === -1 && dayNum < track.durationDays) {
+      state.miguelSelectedDay = nextDay;
+    } else if (idx === -1 && dayNum < track.durationDays && state.activeTrackId === trackId) {
+      state.activeTrackSelectedDay = nextDay;
+    }
+
+    renderHomeRetentionWidgets();
+    renderArcanjoMiguelPage();
+    renderTrilhasView();
+  }
+
+  function renderHomeRetentionWidgets() {
+    var cafeHistory = getCafeHistory();
+    var todayKey = getTodayDateKey();
+    var doneToday = cafeHistory.completedDates.indexOf(todayKey) !== -1;
+    var streak = computeCafeStreak(cafeHistory.completedDates);
+    var todayDayObj = getCafeDayObj(new Date().getDate());
+
+    var miguelTrack = findPrayerTrack("arcanjo-miguel-21");
+    var miguelDone = miguelTrack ? getTrackCompletedDays(miguelTrack.id) : [];
+    var miguelNext = miguelTrack ? getNextPendingDay(miguelTrack) : 1;
+    var userCandles = getUserCandles();
+
+    var banner = document.getElementById("home-continuity-banner");
+    if (banner) {
+      if (cafeHistory.completedDates.length > 0 || miguelDone.length > 0 || userCandles.length > 0) {
+        var parts = [];
+        if (cafeHistory.completedDates.length > 0) {
+          parts.push("☕ " + cafeHistory.completedDates.length + (cafeHistory.completedDates.length === 1 ? " manhã no Café" : " manhãs no Café"));
+        }
+        if (miguelDone.length > 0) {
+          parts.push("⚔️ São Miguel: " + miguelDone.length + "/21 dias");
+        }
+        if (userCandles.length > 0) {
+          parts.push("🕯 " + userCandles.length + (userCandles.length === 1 ? " vela acesa" : " velas acesas"));
+        }
+        banner.innerHTML =
+          '<div class="text-sm font-semibold" style="color: var(--text-main);">' +
+          'Que alegria ter você de volta! • ' +
+          escapeHtml(parts.join("  |  ")) +
+          "</div>" +
+          '<button type="button" class="btn-secondary text-xs py-1.5 px-3" data-nav-target="cafe-diario">' +
+          (doneToday ? "✓ Café de hoje feito" : "Abrir Café de Hoje →") +
+          "</button>";
+        banner.classList.remove("hidden");
+      } else {
+        banner.classList.add("hidden");
+      }
+    }
+
+    var cafeBadge = document.getElementById("home-cafe-badge");
+    var cafeTeaser = document.getElementById("home-cafe-teaser");
+    if (cafeBadge) {
+      if (doneToday) {
+        cafeBadge.textContent = "✅ Concluído hoje" + (streak > 1 ? " • " + streak + " dias seguidos" : "");
+      } else {
+        cafeBadge.textContent = "☕ Palavra de Hoje (Dia " + new Date().getDate() + ")";
+      }
+    }
+    if (cafeTeaser && todayDayObj) {
+      cafeTeaser.textContent = 'Tema de hoje: "' + todayDayObj.theme + '" (' + todayDayObj.reference + ").";
+    }
+
+    var miguelBadge = document.getElementById("home-miguel-badge");
+    var miguelTeaser = document.getElementById("home-miguel-teaser");
+    if (miguelBadge) {
+      if (miguelDone.length > 0) {
+        miguelBadge.textContent = "⚔️ Em andamento: " + miguelDone.length + " de 21 dias";
+      } else {
+        miguelBadge.textContent = "⚔️ Página Especial • 21 Dias";
+      }
+    }
+    if (miguelTeaser) {
+      if (miguelDone.length >= 21) {
+        miguelTeaser.textContent = "Você completou todos os 21 dias de São Miguel Arcanjo! Releia quando desejar.";
+      } else if (miguelDone.length > 0) {
+        miguelTeaser.textContent = "Você já rezou " + miguelDone.length + " dia(s). Continue hoje pelo Dia " + miguelNext + " de 21.";
+      } else {
+        miguelTeaser.textContent = "Oração tradicional completa e caminhada guiada dos 21 dias com marcação diária no aparelho.";
+      }
+    }
+  }
+
+  function renderCafeDiario() {
+    var container = document.getElementById("cafe-diario-container");
+    if (!container) return;
+
+    var list = getCafeDaysList();
+    if (list.length === 0) return;
+
+    var todayCalDay = new Date().getDate();
+    if (state.cafeSelectedDay < 1 || state.cafeSelectedDay > list.length) {
+      state.cafeSelectedDay = Math.min(list.length, todayCalDay);
+    }
+    var item = getCafeDayObj(state.cafeSelectedDay);
+    var tomorrowItem = getCafeDayObj((item.day % list.length) + 1);
+    var tradition = findTradition(state.selectedTraditionId);
+    var history = getCafeHistory();
+    var todayKey = getTodayDateKey();
+    var isTodaySelected = item.day === Math.min(list.length, todayCalDay);
+    var completedToday = history.completedDates.indexOf(todayKey) !== -1;
+    var streak = computeCafeStreak(history.completedDates);
+
+    var dayOptionsHtml = "";
+    for (var i = 0; i < list.length; i++) {
+      var dObj = list[i];
+      dayOptionsHtml +=
+        '<option value="' +
+        dObj.day +
+        '"' +
+        (dObj.day === item.day ? " selected" : "") +
+        ">Dia " +
+        dObj.day +
+        " - " +
+        escapeHtml(dObj.theme) +
+        "</option>";
+    }
+
+    var bodyParagraphs = item.message.split("\n\n");
+    var msgHtml = "";
+    for (var p = 0; p < bodyParagraphs.length; p++) {
+      msgHtml += '<p class="mb-4 leading-relaxed">' + escapeHtml(bodyParagraphs[p]) + "</p>";
+    }
+
+    container.innerHTML =
+      '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
+      '<div class="relative h-56 sm:h-72 w-full bg-black">' +
+      '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" class="w-full h-full object-cover" />' +
+      '<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
+      '<span class="inline-block text-xs font-bold uppercase tracking-wider text-amber-200 mb-1">' +
+      escapeHtml(formatTodayPtBr()) +
+      " • Devocional Diário" +
+      "</span>" +
+      '<h2 id="cafe-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">☕ Café Espiritual do Dia</h2>' +
+      '<p class="text-sm sm:text-base text-amber-50/95 mt-1">' +
+      escapeHtml(tradition ? tradition.greeting : "Paz e bem para a sua manhã!") +
+      "</p>" +
+      "</div>" +
+      "</div>" +
+      '<div class="p-6 sm:p-10 space-y-6">' +
+      '<div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl" style="background-color: var(--bg-subtle); border: 1px solid var(--border-color);">' +
+      '<div class="text-sm font-semibold" style="color: var(--text-main);">' +
+      (completedToday
+        ? "✅ Café de hoje concluído! (" + history.completedDates.length + (history.completedDates.length === 1 ? " dia lido" : " dias lidos") + (streak > 1 ? " • " + streak + " seguidos" : "") + ")"
+        : "☀️ Reflexão de hoje pronta para o seu coração" + (history.completedDates.length > 0 ? " (" + history.completedDates.length + " manhãs registradas)" : "")) +
+      "</div>" +
+      '<div class="flex flex-wrap items-center gap-2">' +
+      '<label for="cafe-day-select" class="sr-only">Escolher dia do Café Espiritual</label>' +
+      '<select id="cafe-day-select" class="input-sacred py-1.5 px-3 text-sm w-auto">' +
+      dayOptionsHtml +
+      "</select>" +
+      (!isTodaySelected
+        ? '<button type="button" class="btn-secondary text-xs py-2 px-3" data-action="cafe-jump-today">Ir para Hoje</button>'
+        : "") +
+      "</div>" +
+      "</div>" +
+      '<div class="text-center space-y-2">' +
+      '<span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">Dia ' +
+      item.day +
+      " de 31</span>" +
+      '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl" style="color: var(--text-main);">' +
+      escapeHtml(item.theme) +
+      "</h3>" +
+      "</div>" +
+      '<div class="p-6 rounded-2xl border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+      '<blockquote class="font-serif-sacred text-body-sacred font-semibold mb-2" style="color: var(--text-main);">“' +
+      escapeHtml(item.verse) +
+      '”</blockquote>' +
+      '<p class="font-serif-sacred font-bold text-sm" style="color: var(--accent-wine);">' +
+      escapeHtml(item.reference) +
+      "</p>" +
+      "</div>" +
+      '<div class="font-serif-sacred text-body-sacred" style="color: var(--text-main);">' +
+      msgHtml +
+      "</div>" +
+      '<div class="p-5 rounded-xl space-y-2" style="background-color: var(--bg-subtle); border-left: 4px solid var(--accent-amber);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-amber);">🌿 Gesto Prático de Fé para Hoje</p>' +
+      '<p class="text-base font-medium" style="color: var(--text-main);">' +
+      escapeHtml(item.dailyAction) +
+      "</p>" +
+      "</div>" +
+      '<div class="p-5 rounded-xl space-y-2" style="background-color: var(--bg-accent-soft); border: 1px solid var(--border-color);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">🙏 Oração Breve desta Manhã</p>' +
+      '<p class="font-serif-sacred text-body-sacred italic" style="color: var(--text-main);">' +
+      escapeHtml(item.shortPrayer) +
+      "</p>" +
+      "</div>" +
+      '<div class="flex flex-wrap items-center justify-center gap-3 pt-2">' +
+      '<button type="button" class="' +
+      (completedToday ? "btn-secondary" : "btn-primary") +
+      ' inline-flex items-center gap-2" data-action="cafe-mark-done">' +
+      (completedToday ? "✅ Café de Hoje Concluído" : "☕ Concluir meu Café Espiritual de Hoje") +
+      "</button>" +
+      '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="speak-cafe-today" data-speech-id="cafe-today" data-default-label="Ouvir devocional em voz calma" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir devocional em voz calma</span>' +
+      "</button>" +
+      '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="share-cafe-whatsapp">' +
+      '<span aria-hidden="true">📲</span> Bom Dia no WhatsApp' +
+      "</button>" +
+      "</div>" +
+      (tomorrowItem
+        ? '<div class="p-4 rounded-xl text-center text-sm" style="background-color: var(--bg-subtle); color: var(--text-secondary);">' +
+          '<strong>Amanhã no seu Café Espiritual:</strong> “' +
+          escapeHtml(tomorrowItem.theme) +
+          '”. <button type="button" class="underline font-bold ml-1" style="color: var(--accent-wine);" data-nav-target="salvar-app">Salvar atalho no celular para não perder →</button>' +
+          "</div>"
+        : "") +
+      "</div>" +
+      "</article>";
+
+    updateSpeechButtons();
+  }
+
+  function buildTrackInteractiveViewHtml(track, selectedDayNum, options) {
+    if (!track || !track.days || track.days.length === 0) return "";
+    var doneList = getTrackCompletedDays(track.id);
+    var total = track.durationDays;
+    var pct = Math.round((doneList.length / total) * 100);
+    var activeDayNum = Math.max(1, Math.min(track.days.length, Number(selectedDayNum) || 1));
+    var dayObj = track.days[activeDayNum - 1];
+    var isDayDone = doneList.indexOf(dayObj.day) !== -1;
+
+    var gridBtnsHtml = "";
+    for (var i = 0; i < track.days.length; i++) {
+      var d = track.days[i];
+      var checked = doneList.indexOf(d.day) !== -1;
+      var active = d.day === activeDayNum;
+      var cls = "day-step-btn" + (checked ? " is-completed" : "") + (active ? " is-active" : "");
+      gridBtnsHtml +=
+        '<button type="button" class="' +
+        cls +
+        '" data-track-id="' +
+        escapeHtml(track.id) +
+        '" data-track-day="' +
+        d.day +
+        '" aria-label="Abrir Dia ' +
+        d.day +
+        (checked ? " (concluído)" : "") +
+        '">' +
+        (checked ? "✓ " : "") +
+        d.day +
+        "</button>";
+    }
+
+    var speechId = "track-" + track.id + "-day-" + dayObj.day;
+
+    return (
+      '<div class="space-y-6">' +
+      '<div class="p-5 rounded-2xl border space-y-3" style="background-color: var(--bg-subtle); border-color: var(--border-color);">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2">' +
+      '<span class="font-bold text-sm" style="color: var(--text-main);">Progresso nesta Jornada: ' +
+      doneList.length +
+      " de " +
+      total +
+      " dias concluídos (" +
+      pct +
+      "%)</span>" +
+      '<span class="text-xs font-semibold" style="color: var(--accent-wine);">' +
+      (doneList.length >= total ? "🎉 Jornada concluída com fé!" : "Toque no número abaixo para escolher o dia") +
+      "</span>" +
+      "</div>" +
+      '<div class="progress-track-bar" role="progressbar" aria-valuenow="' +
+      pct +
+      '" aria-valuemin="0" aria-valuemax="100">' +
+      '<div class="progress-track-fill" style="width: ' +
+      pct +
+      '%;"></div>' +
+      "</div>" +
+      '<div class="grid grid-cols-5 sm:grid-cols-7 gap-2 pt-2">' +
+      gridBtnsHtml +
+      "</div>" +
+      "</div>" +
+      '<div class="p-6 sm:p-8 rounded-2xl border space-y-5" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color: var(--border-color);">' +
+      '<h3 class="font-serif-sacred font-bold text-xl sm:text-2xl" style="color: var(--accent-wine);">' +
+      escapeHtml(dayObj.title) +
+      "</h3>" +
+      (isDayDone
+        ? '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: var(--accent-green); border: 1px solid var(--accent-green);">✓ Dia Concluído</span>'
+        : '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: var(--text-muted);">Pendente hoje</span>') +
+      "</div>" +
+      '<p class="text-sm font-semibold" style="color: var(--text-secondary);"><strong>Intenção do Dia:</strong> ' +
+      escapeHtml(dayObj.intention) +
+      "</p>" +
+      '<div class="p-4 rounded-xl" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-wine);">Palavra de Firmeza (' +
+      escapeHtml(dayObj.scriptureRef) +
+      ")</p>" +
+      '<p class="font-serif-sacred font-semibold text-base" style="color: var(--text-main);">“' +
+      escapeHtml(dayObj.scriptureText) +
+      '”</p>' +
+      "</div>" +
+      '<p class="text-base leading-relaxed" style="color: var(--text-main);">' +
+      escapeHtml(dayObj.meditation) +
+      "</p>" +
+      '<div class="p-5 rounded-xl" style="background-color: var(--bg-surface); border-left: 4px solid var(--accent-wine);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--accent-wine);">Oração do Dia ' +
+      dayObj.day +
+      "</p>" +
+      '<p class="font-serif-sacred text-body-sacred leading-relaxed" style="color: var(--text-main);">' +
+      escapeHtml(dayObj.prayer) +
+      "</p>" +
+      "</div>" +
+      '<div class="flex flex-wrap items-center justify-between gap-3 pt-2">' +
+      '<button type="button" class="' +
+      (isDayDone ? "btn-secondary" : "btn-primary") +
+      ' inline-flex items-center gap-2" data-toggle-track-day="' +
+      dayObj.day +
+      '" data-toggle-track-id="' +
+      escapeHtml(track.id) +
+      '">' +
+      (isDayDone ? "✓ Dia " + dayObj.day + " Concluído (Desmarcar)" : "✓ Concluir Oração do Dia " + dayObj.day) +
+      "</button>" +
+      '<div class="flex flex-wrap gap-2">' +
+      '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-speech-id="' +
+      escapeHtml(speechId) +
+      '" data-speak-track-id="' +
+      escapeHtml(track.id) +
+      '" data-speak-track-day="' +
+      dayObj.day +
+      '" data-default-label="Ouvir em voz calma" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir em voz calma</span>' +
+      "</button>" +
+      '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-share-track-id="' +
+      escapeHtml(track.id) +
+      '" data-share-track-day="' +
+      dayObj.day +
+      '">' +
+      '<span aria-hidden="true">📲</span> WhatsApp' +
+      "</button>" +
+      "</div>" +
+      "</div>" +
+      "</div>" +
+      (options && options.extraFooterHtml ? options.extraFooterHtml : "") +
+      "</div>"
+    );
+  }
+
+  function renderArcanjoMiguelPage() {
+    var container = document.getElementById("arcanjo-miguel-container");
+    if (!container) return;
+
+    var data = window.SAO_MIGUEL_ARCANJO_DATA;
+    var track = findPrayerTrack("arcanjo-miguel-21");
+    if (!data || !track) return;
+
+    var doneDays = getTrackCompletedDays(track.id);
+    if (doneDays.length > 0 && state.miguelSelectedDay === 1 && !state._miguelDayInitialized) {
+      state.miguelSelectedDay = getNextPendingDay(track);
+      state._miguelDayInitialized = true;
+    }
+
+    var prayersHtml = "";
+    for (var i = 0; i < data.prayers.length; i++) {
+      var pr = data.prayers[i];
+      var paragraphs = pr.text.split("\n\n");
+      var pTextHtml = "";
+      for (var k = 0; k < paragraphs.length; k++) {
+        pTextHtml += '<p class="mb-3 leading-relaxed">' + escapeHtml(paragraphs[k]) + "</p>";
+      }
+      var spId = "miguel-prayer-" + pr.id;
+      prayersHtml +=
+        '<div class="p-6 sm:p-7 rounded-2xl border space-y-4" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+        "<div>" +
+        '<h3 class="font-serif-sacred font-bold text-xl sm:text-2xl" style="color: var(--accent-wine);">' +
+        escapeHtml(pr.title) +
+        "</h3>" +
+        '<p class="text-sm mt-1" style="color: var(--text-secondary);">' +
+        escapeHtml(pr.subtitle) +
+        "</p>" +
+        "</div>" +
+        '<div class="font-serif-sacred text-body-sacred p-5 rounded-xl" style="background-color: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-color);">' +
+        pTextHtml +
+        "</div>" +
+        '<div class="flex flex-wrap gap-3">' +
+        '<button type="button" class="btn-primary text-sm inline-flex items-center gap-2" data-speech-id="' +
+        escapeHtml(spId) +
+        '" data-speak-miguel-prayer="' +
+        escapeHtml(pr.id) +
+        '" data-default-label="Ouvir Oração" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir Oração</span>' +
+        "</button>" +
+        '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-share-miguel-prayer="' +
+        escapeHtml(pr.id) +
+        '">' +
+        '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+        "</button>" +
+        "</div>" +
+        "</div>";
+    }
+
+    var tabContentHtml = "";
+    if (state.miguelSubTab === "21dias") {
+      tabContentHtml = buildTrackInteractiveViewHtml(track, state.miguelSelectedDay, {
+        extraFooterHtml:
+          '<div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">' +
+          '<span class="text-sm" style="color: var(--text-secondary);">Deseja acompanhar com a oração clássica de Papa Leão XIII e a Oração de Purificação?</span>' +
+          '<button type="button" class="btn-secondary text-sm" data-miguel-tab="prayers">Ler Orações Completas</button>' +
+          "</div>"
+      });
+    } else {
+      tabContentHtml =
+        '<div class="space-y-6">' +
+        '<div class="p-5 rounded-xl flex flex-wrap items-center justify-between gap-4" style="background-color: var(--bg-accent-soft); border: 1px solid var(--accent-wine);">' +
+        "<div>" +
+        '<p class="font-serif-sacred font-bold text-lg" style="color: var(--accent-wine);">Trilha Completa dos 21 Dias de São Miguel Arcanjo</p>' +
+        '<p class="text-sm" style="color: var(--text-secondary);">Acompanhe dia a dia do Dia 1 ao Dia 21 com intenção diária e marcação automática no seu celular (' +
+        doneDays.length +
+        "/21 concluídos).</p>" +
+        "</div>" +
+        '<button type="button" class="btn-primary text-sm" data-miguel-tab="21dias">⚔️ Abrir Checklist dos 21 Dias →</button>' +
+        "</div>" +
+        '<p class="text-base leading-relaxed" style="color: var(--text-secondary);">' +
+        escapeHtml(data.introText) +
+        "</p>" +
+        prayersHtml +
+        "</div>";
+    }
+
+    container.innerHTML =
+      '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
+      '<div class="relative h-64 sm:h-80 w-full bg-black">' +
+      '<img src="' +
+      escapeHtml(data.imagePath) +
+      '" onerror="this.src=\'' +
+      escapeHtml(data.fallbackImagePath) +
+      '\'" alt="São Miguel Arcanjo" class="w-full h-full object-cover" />' +
+      '<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
+      '<span class="inline-block text-xs font-bold uppercase tracking-wider text-amber-200 mb-1">' +
+      escapeHtml(data.imageCaption) +
+      "</span>" +
+      '<h2 id="miguel-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">⚔️ ' +
+      escapeHtml(data.title) +
+      "</h2>" +
+      '<p class="text-sm sm:text-base text-amber-50/95 mt-1">' +
+      escapeHtml(data.subtitle) +
+      "</p>" +
+      "</div>" +
+      "</div>" +
+      '<div class="p-6 sm:p-10 space-y-6">' +
+      '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b" style="border-color: var(--border-color);">' +
+      '<div class="flex flex-wrap gap-2" role="group" aria-label="Páginas de São Miguel Arcanjo">' +
+      '<button type="button" class="feeling-chip" data-miguel-tab="prayers" aria-pressed="' +
+      (state.miguelSubTab === "prayers" ? "true" : "false") +
+      '">🙏 Orações Completas</button>' +
+      '<button type="button" class="feeling-chip" data-miguel-tab="21dias" aria-pressed="' +
+      (state.miguelSubTab === "21dias" ? "true" : "false") +
+      '">🗓 Trilha dos 21 Dias (' +
+      doneDays.length +
+      "/21)</button>" +
+      "</div>" +
+      '<button type="button" class="btn-secondary text-xs py-2 px-3" data-nav-target="vela">🕯 Acender Vela de 7 Dias</button>' +
+      "</div>" +
+      tabContentHtml +
+      "</div>" +
+      "</article>";
+
+    updateSpeechButtons();
+  }
+
+  function renderTrilhasView() {
+    var container = document.getElementById("trilhas-container");
+    if (!container) return;
+
+    var tracks = getAllPrayerTracks();
+    if (state.activeTrackId) {
+      var activeTrack = findPrayerTrack(state.activeTrackId);
+      if (activeTrack) {
+        container.innerHTML =
+          '<div class="space-y-6 max-w-3xl mx-auto">' +
+          '<div class="surface-card p-6 sm:p-8">' +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm" data-action="back-to-trilhas-list">← Ver Todas as Trilhas</button>' +
+          '<span class="px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+          escapeHtml(activeTrack.badge) +
+          "</span>" +
+          "</div>" +
+          '<h2 id="trilhas-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2" style="color: var(--text-main);">' +
+          escapeHtml(activeTrack.title) +
+          "</h2>" +
+          '<p class="text-sm mb-6" style="color: var(--text-secondary);">' +
+          escapeHtml(activeTrack.description) +
+          "</p>" +
+          buildTrackInteractiveViewHtml(activeTrack, state.activeTrackSelectedDay) +
+          "</div>" +
+          "</div>";
+        updateSpeechButtons();
+        return;
+      }
+    }
+
+    var cardsHtml = "";
+    for (var i = 0; i < tracks.length; i++) {
+      var tr = tracks[i];
+      var done = getTrackCompletedDays(tr.id);
+      var pct = Math.round((done.length / tr.durationDays) * 100);
+      var nextD = getNextPendingDay(tr);
+
+      cardsHtml +=
+        '<article class="surface-card p-6 flex flex-col justify-between">' +
+        "<div>" +
+        '<div class="flex flex-wrap items-center justify-between gap-2 mb-2">' +
+        '<span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">' +
+        escapeHtml(tr.badge) +
+        "</span>" +
+        '<span class="text-xs font-bold" style="color: var(--text-muted);">' +
+        done.length +
+        "/" +
+        tr.durationDays +
+        " dias</span>" +
+        "</div>" +
+        '<h3 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">' +
+        escapeHtml(tr.title) +
+        "</h3>" +
+        '<p class="text-xs font-semibold mb-2" style="color: var(--accent-amber);">' +
+        escapeHtml(tr.traditionLabel) +
+        "</p>" +
+        '<p class="text-sm mb-4" style="color: var(--text-secondary);">' +
+        escapeHtml(tr.description) +
+        "</p>" +
+        '<div class="progress-track-bar mb-4"><div class="progress-track-fill" style="width: ' +
+        pct +
+        '%;"></div></div>' +
+        "</div>" +
+        '<button type="button" class="btn-primary w-full text-sm" data-open-track="' +
+        escapeHtml(tr.id) +
+        '">' +
+        (done.length > 0 && done.length < tr.durationDays
+          ? "Continuar no Dia " + nextD + " →"
+          : "Abrir Trilha Completa →") +
+        "</button>" +
+        "</article>";
+    }
+
+    container.innerHTML =
+      '<div class="space-y-6">' +
+      '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto">' +
+      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold mb-2">Trilhas de Oração Multi-Dias (7, 9 e 21 Dias)</h2>' +
+      '<p class="text-sm" style="color: var(--text-secondary);">Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho.</p>' +
+      "</div>" +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">' +
+      cardsHtml +
+      "</div>" +
+      "</div>";
+  }
+
+  function triggerPwaInstall() {
+    var feedbackEl = document.getElementById("pwa-install-feedback");
+    if (state.deferredPwaPrompt) {
+      try {
+        state.deferredPwaPrompt.prompt();
+        state.deferredPwaPrompt.userChoice.then(function () {
+          state.deferredPwaPrompt = null;
+        });
+      } catch (e) {}
+      if (feedbackEl) {
+        feedbackEl.textContent = "Confirme na janela do seu navegador para criar o ícone do Horizonte Espiritual na sua tela inicial!";
+        feedbackEl.classList.remove("hidden");
+      }
+      return;
+    }
+
+    if (feedbackEl) {
+      feedbackEl.textContent =
+        "No celular: toque no menu (⋮ no Chrome do Android) ou no botão Compartilhar (Safari do iPhone) e escolha 'Adicionar à tela inicial'. Assim nosso ícone fica salvo junto aos seus aplicativos!";
+      feedbackEl.classList.remove("hidden");
+    }
+  }
+
+  function downloadDailyReminderIcs() {
+    var now = new Date();
+    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 7, 30, 0);
+    function pad2(n) {
+      return n < 10 ? "0" + n : String(n);
+    }
+    var dtStart =
+      start.getFullYear() +
+      pad2(start.getMonth() + 1) +
+      pad2(start.getDate()) +
+      "T" +
+      pad2(start.getHours()) +
+      pad2(start.getMinutes()) +
+      "00";
+
+    var icsContent =
+      "BEGIN:VCALENDAR\r\n" +
+      "VERSION:2.0\r\n" +
+      "PRODID:-//Horizonte Espiritual//PT-BR\r\n" +
+      "BEGIN:VEVENT\r\n" +
+      "UID:horizonte-espiritual-manha@local\r\n" +
+      "DTSTAMP:" + dtStart + "\r\n" +
+      "DTSTART:" + dtStart + "\r\n" +
+      "DURATION:PT15M\r\n" +
+      "RRULE:FREQ=DAILY;COUNT=21\r\n" +
+      "SUMMARY:Horizonte Espiritual - Café Diário e Oração (21 Dias)\r\n" +
+      "DESCRIPTION:Reserve 5 minutos serenos com seu Café Espiritual do Dia ou Trilha de São Miguel Arcanjo.\r\n" +
+      "END:VEVENT\r\n" +
+      "END:VCALENDAR\r\n";
+
+    try {
+      var blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "Lembrete-Horizonte-Espiritual-21dias.ics";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {}
+
+    var feedback = document.getElementById("ics-feedback");
+    if (feedback) {
+      feedback.textContent = "✓ Lembrete criado! Abra o arquivo baixado no seu celular para ativar o aviso às 07:30 na agenda.";
+      feedback.classList.remove("hidden");
+    }
+  }
+
   function copyPixKey() {
     var pixKey = "eupaulorrenato@gmail.com";
     var feedbackEl = document.getElementById("pix-copy-feedback");
@@ -1489,6 +2285,125 @@
         renderBlogList();
         var mainBlog = document.getElementById("main-content");
         if (mainBlog) mainBlog.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      var miguelTabBtn = target.closest("[data-miguel-tab]");
+      if (miguelTabBtn) {
+        state.miguelSubTab = miguelTabBtn.getAttribute("data-miguel-tab") === "21dias" ? "21dias" : "prayers";
+        stopSpeech();
+        renderArcanjoMiguelPage();
+        return;
+      }
+
+      var speakMiguelBtn = target.closest("[data-speak-miguel-prayer]");
+      if (speakMiguelBtn && window.SAO_MIGUEL_ARCANJO_DATA) {
+        var mpId = speakMiguelBtn.getAttribute("data-speak-miguel-prayer");
+        var mpList = window.SAO_MIGUEL_ARCANJO_DATA.prayers || [];
+        for (var m = 0; m < mpList.length; m++) {
+          if (mpList[m].id === mpId) {
+            speakText("miguel-prayer-" + mpId, mpList[m].title + ". " + mpList[m].text);
+            break;
+          }
+        }
+        return;
+      }
+
+      var shareMiguelBtn = target.closest("[data-share-miguel-prayer]");
+      if (shareMiguelBtn && window.SAO_MIGUEL_ARCANJO_DATA) {
+        var smId = shareMiguelBtn.getAttribute("data-share-miguel-prayer");
+        var smpList = window.SAO_MIGUEL_ARCANJO_DATA.prayers || [];
+        for (var sm = 0; sm < smpList.length; sm++) {
+          if (smpList[sm].id === smId) {
+            shareViaWhatsApp(
+              "⚔️ *" + smpList[sm].title + "*\n\n" + smpList[sm].text + "\n\nHorizonte Espiritual"
+            );
+            break;
+          }
+        }
+        return;
+      }
+
+      var openTrackBtn = target.closest("[data-open-track]");
+      if (openTrackBtn) {
+        var otId = openTrackBtn.getAttribute("data-open-track");
+        if (otId === "arcanjo-miguel-21") {
+          state.miguelSubTab = "21dias";
+          var otObj = findPrayerTrack(otId);
+          if (otObj) state.miguelSelectedDay = getNextPendingDay(otObj);
+          navigateToSection("arcanjo-miguel", true);
+          return;
+        }
+        var foundTr = findPrayerTrack(otId);
+        state.activeTrackId = otId;
+        state.activeTrackSelectedDay = foundTr ? getNextPendingDay(foundTr) : 1;
+        stopSpeech();
+        renderTrilhasView();
+        var mTop = document.getElementById("main-content");
+        if (mTop) mTop.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      var trackDayBtn = target.closest("[data-track-day][data-track-id]");
+      if (trackDayBtn) {
+        var tdId = trackDayBtn.getAttribute("data-track-id");
+        var tdDay = Number(trackDayBtn.getAttribute("data-track-day")) || 1;
+        stopSpeech();
+        if (tdId === "arcanjo-miguel-21") {
+          state.miguelSelectedDay = tdDay;
+          renderArcanjoMiguelPage();
+        } else {
+          state.activeTrackId = tdId;
+          state.activeTrackSelectedDay = tdDay;
+          renderTrilhasView();
+        }
+        return;
+      }
+
+      var toggleDayBtn = target.closest("[data-toggle-track-day][data-toggle-track-id]");
+      if (toggleDayBtn) {
+        var tgdId = toggleDayBtn.getAttribute("data-toggle-track-id");
+        var tgdDay = Number(toggleDayBtn.getAttribute("data-toggle-track-day")) || 1;
+        toggleTrackDayCompletion(tgdId, tgdDay);
+        return;
+      }
+
+      var speakTrackBtn = target.closest("[data-speak-track-id][data-speak-track-day]");
+      if (speakTrackBtn) {
+        var stId = speakTrackBtn.getAttribute("data-speak-track-id");
+        var stDay = Number(speakTrackBtn.getAttribute("data-speak-track-day")) || 1;
+        var stObj = findPrayerTrack(stId);
+        var stDayObj = stObj && stObj.days && stObj.days[stDay - 1];
+        if (stDayObj) {
+          speakText(
+            "track-" + stId + "-day-" + stDay,
+            stDayObj.title + ". " + stDayObj.scriptureText + ". " + stDayObj.meditation + ". Oração: " + stDayObj.prayer
+          );
+        }
+        return;
+      }
+
+      var shareTrackBtn = target.closest("[data-share-track-id][data-share-track-day]");
+      if (shareTrackBtn) {
+        var shId = shareTrackBtn.getAttribute("data-share-track-id");
+        var shDay = Number(shareTrackBtn.getAttribute("data-share-track-day")) || 1;
+        var shObj = findPrayerTrack(shId);
+        var shDayObj = shObj && shObj.days && shObj.days[shDay - 1];
+        if (shObj && shDayObj) {
+          shareViaWhatsApp(
+            "🗓 *" +
+              shObj.shortTitle +
+              " - " +
+              shDayObj.title +
+              "*\n\n“" +
+              shDayObj.scriptureText +
+              "” (" +
+              shDayObj.scriptureRef +
+              ")\n\n" +
+              shDayObj.prayer +
+              "\n\nHorizonte Espiritual"
+          );
+        }
         return;
       }
 
@@ -1631,7 +2546,68 @@
         renderBlogList();
       } else if (action === "copy-pix-key") {
         copyPixKey();
+      } else if (action === "open-miguel-21dias") {
+        state.miguelSubTab = "21dias";
+        var trM = findPrayerTrack("arcanjo-miguel-21");
+        if (trM) state.miguelSelectedDay = getNextPendingDay(trM);
+        navigateToSection("arcanjo-miguel", true);
+      } else if (action === "cafe-jump-today") {
+        state.cafeSelectedDay = Math.min(getCafeDaysList().length, new Date().getDate());
+        stopSpeech();
+        renderCafeDiario();
+      } else if (action === "cafe-mark-done") {
+        markCafeTodayCompleted();
+      } else if (action === "speak-cafe-today") {
+        var cDay = getCafeDayObj(state.cafeSelectedDay);
+        if (cDay) {
+          speakText(
+            "cafe-today",
+            cDay.theme + ". " + cDay.verse + ". " + cDay.message + ". Oração: " + cDay.shortPrayer
+          );
+        }
+      } else if (action === "share-cafe-whatsapp") {
+        var cw = getCafeDayObj(state.cafeSelectedDay);
+        if (cw) {
+          shareViaWhatsApp(
+            "☕ *Café Espiritual do Dia (" +
+              cw.theme +
+              ")*\n\n“" +
+              cw.verse +
+              "”\n(" +
+              cw.reference +
+              ")\n\n" +
+              cw.shortPrayer +
+              "\n\nHorizonte Espiritual (Acesso Gratuito)"
+          );
+        }
+      } else if (action === "back-to-trilhas-list") {
+        state.activeTrackId = null;
+        stopSpeech();
+        renderTrilhasView();
+      } else if (action === "trigger-pwa-install") {
+        triggerPwaInstall();
+      } else if (action === "share-bookmark-whatsapp") {
+        var currentHref = window.location.href && window.location.href.indexOf("http") === 0 ? window.location.href : "https://eupaulorrenato-maker.github.io/horizonte-espiritual/";
+        shareViaWhatsApp(
+          "🌅 *Horizonte Espiritual* - Meu refúgio diário gratuito para Café Espiritual do Dia, 21 Dias de São Miguel Arcanjo, Velas de 7 Dias e Obras Sagradas Completas:\n\n" +
+            currentHref
+        );
+      } else if (action === "download-daily-ics") {
+        downloadDailyReminderIcs();
       }
+    });
+
+    document.addEventListener("change", function (event) {
+      if (event.target && event.target.id === "cafe-day-select") {
+        state.cafeSelectedDay = Number(event.target.value) || 1;
+        stopSpeech();
+        renderCafeDiario();
+      }
+    });
+
+    window.addEventListener("beforeinstallprompt", function (event) {
+      event.preventDefault();
+      state.deferredPwaPrompt = event;
     });
 
     var homeTradSelect = document.getElementById("home-tradition-select");
@@ -1775,6 +2751,10 @@
     }
 
     renderDailyPanel();
+    renderHomeRetentionWidgets();
+    renderCafeDiario();
+    renderArcanjoMiguelPage();
+    renderTrilhasView();
     renderPrayersView();
     populateCandleTraditionSelect();
     renderCandleSubPages();

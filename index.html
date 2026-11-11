@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Horizonte Espiritual | Acolhimento, Orações, Vela Virtual e Obras Sagradas Completas</title>
-  <meta name="description" content="Portal inter-religioso gratuito de acolhimento espiritual, passagens diárias, orações tradicionais, vela virtual de 7 dias e obras sagradas completas das 16 tradições." />
+  <title>Horizonte Espiritual | Café Espiritual Diário, 21 Dias de Arcanjo Miguel, Orações e Obras Completas</title>
+  <meta name="description" content="Portal inter-religioso gratuito: Café Espiritual do Dia, Trilha de 21 Dias de São Miguel Arcanjo, orações fortes, vela virtual de 7 dias e obras sagradas completas das 16 tradições." />
+  <meta name="theme-color" content="#7A2629" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Horizonte Espiritual" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/traditions/catolica.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -60,21 +65,27 @@
 
     <!-- Clean Primary + Google-Compliant Institutional Navigation Bar -->
     <nav class="border-t overflow-x-auto" style="background-color: var(--bg-page); border-color: var(--border-color);" aria-label="Navegação Principal">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-1.5 flex items-center justify-center gap-1.5 min-w-max">
+      <div class="max-w-6xl mx-auto px-3 sm:px-6 py-1.5 flex items-center justify-start lg:justify-center gap-1 min-w-max">
         <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">
           <span aria-hidden="true">🌅</span> Início
         </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="vertente">
-          <span aria-hidden="true">🕊</span> Minha Vertente
+        <button type="button" class="nav-tab-btn" data-nav-target="cafe-diario">
+          <span aria-hidden="true">☕</span> Café Diário
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="arcanjo-miguel">
+          <span aria-hidden="true">⚔️</span> Arcanjo Miguel
+        </button>
+        <button type="button" class="nav-tab-btn" data-nav-target="trilhas">
+          <span aria-hidden="true">🗓</span> Trilhas
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="oracoes">
-          <span aria-hidden="true">🙏</span> Orações Fortes
+          <span aria-hidden="true">🙏</span> Orações
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="vela">
-          <span aria-hidden="true">🕯</span> Vela Virtual
+          <span aria-hidden="true">🕯</span> Vela
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="escrituras">
-          <span aria-hidden="true">📖</span> Biblioteca Sagrada
+          <span aria-hidden="true">📖</span> Biblioteca
         </button>
         <span class="h-5 w-px mx-1" style="background-color: var(--border-strong);" aria-hidden="true"></span>
         <button type="button" class="nav-tab-btn" data-nav-target="blog">
@@ -101,12 +112,16 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🌅 Início (Escolha da Vertente)</button>
+          <button type="button" class="btn-secondary justify-start text-left font-semibold" style="color: var(--accent-wine);" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
+          <button type="button" class="btn-secondary justify-start text-left font-semibold" style="color: var(--accent-wine);" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7, 9 e 21 Dias)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Vertente Religiosa</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (16 Tradições)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vela">🕯 Vela Virtual de 7 Dias</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="escrituras">📖 Biblioteca Sagrada Completa</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="alento">🌿 Alento Temático (Luto, Saúde e Paz)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quiz">✨ Quiz Sagrado Educativo</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="salvar-app">📲 Salvar no Celular (Voltar Todo Dia)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="blog">📰 Blog e Artigos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quem-somos">🏛 Quem Somos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="privacidade">🔒 Política de Privacidade (LGPD)</button>
@@ -143,6 +158,9 @@
          SECTION 1: INÍCIO (CLEAN, CENTERED SELECTORS ONLY)
          ========================================================= -->
     <div data-section-view="inicio" class="space-y-8">
+
+      <!-- Optional returning-user summary banner (hidden automatically for brand-new visitors) -->
+      <div id="home-continuity-banner" class="hidden surface-card p-4 max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-amber-soft); border-color: var(--accent-amber);"></div>
 
       <section class="surface-card p-6 sm:p-10 text-center max-w-2xl mx-auto" aria-labelledby="onboarding-heading">
         <div class="space-y-6">
@@ -221,6 +239,43 @@
             </button>
           </div>
         </div>
+      </section>
+
+      <!-- Compact Daily Habit Shortcuts (Café Espiritual & 21 Dias São Miguel) -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto" aria-label="Hábito Diário e Trilhas de Oração">
+        <article class="surface-card p-5 flex flex-col justify-between">
+          <div>
+            <span id="home-cafe-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+              ☕ Leitura da Manhã
+            </span>
+            <h2 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">
+              Café Espiritual do Dia
+            </h2>
+            <p id="home-cafe-teaser" class="text-sm mb-4" style="color: var(--text-secondary);">
+              Palavra curta de hoje, gesto prático e oração da manhã para acompanhar o seu café.
+            </p>
+          </div>
+          <button type="button" class="btn-primary w-full text-sm" data-nav-target="cafe-diario">
+            Abrir Café de Hoje →
+          </button>
+        </article>
+
+        <article class="surface-card p-5 flex flex-col justify-between">
+          <div>
+            <span id="home-miguel-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+              ⚔️ Página Especial • 21 Dias
+            </span>
+            <h2 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">
+              São Miguel Arcanjo
+            </h2>
+            <p id="home-miguel-teaser" class="text-sm mb-4" style="color: var(--text-secondary);">
+              Oração tradicional completa e caminhada guiada dos 21 dias com marcação diária no aparelho.
+            </p>
+          </div>
+          <button type="button" class="btn-secondary w-full text-sm font-semibold" style="border-color: var(--accent-wine); color: var(--accent-wine);" data-nav-target="arcanjo-miguel">
+            Ir para São Miguel Arcanjo →
+          </button>
+        </article>
       </section>
 
       <!-- Clean "Apoio" Box -->
@@ -328,6 +383,95 @@
                 <span aria-hidden="true">🕯</span> Acender Vela de 7 Dias
               </button>
             </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================================================
+         SECTION 1C: CAFÉ ESPIRITUAL DO DIA (DEVOCIONAL DIÁRIO DA MANHÃ)
+         ========================================================= -->
+    <section data-section-view="cafe-diario" class="hidden space-y-6" aria-labelledby="cafe-main-heading">
+      <div id="cafe-diario-container"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 1D: PÁGINA EXCLUSIVA DE SÃO MIGUEL ARCANJO (ORAÇÕES + 21 DIAS)
+         ========================================================= -->
+    <section data-section-view="arcanjo-miguel" class="hidden space-y-6" aria-labelledby="miguel-main-heading">
+      <div id="arcanjo-miguel-container"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 1E: TRILHAS DE ORAÇÃO (JORNADAS DE 7, 9 E 21 DIAS)
+         ========================================================= -->
+    <section data-section-view="trilhas" class="hidden space-y-6" aria-labelledby="trilhas-main-heading">
+      <div id="trilhas-container"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 1F: VOLTAR TODO DIA (SALVAR NO CELULAR E LEMBRETE DIÁRIO)
+         ========================================================= -->
+    <section data-section-view="salvar-app" class="hidden space-y-6" aria-labelledby="salvar-app-heading">
+      <article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto space-y-6">
+        <div class="text-center border-b pb-5" style="border-color: var(--border-color);">
+          <span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+            Acesso Corriqueiro sem Perder o Site
+          </span>
+          <h2 id="salvar-app-heading" class="font-serif-sacred heading-section font-bold">
+            Como Ter o Horizonte Espiritual Todos os Dias no Seu Celular
+          </h2>
+          <p class="text-sm mt-2 max-w-xl mx-auto" style="color: var(--text-secondary);">
+            Escolha a forma mais simples para você voltar toda manhã para o seu Café Espiritual, acompanhar os 21 dias de São Miguel Arcanjo e vigiar sua Vela de 7 Dias.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5">
+          <!-- Option 1: Add to Home Screen -->
+          <div class="p-5 sm:p-6 rounded-2xl border space-y-3" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
+            <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--accent-wine);">
+              1. Transformar em Ícone na Tela do Celular (Igual Aplicativo)
+            </h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-main);">
+              Não ocupa memória do aparelho, é 100% gratuito e coloca nosso ícone junto aos outros aplicativos do seu celular:
+            </p>
+            <ul class="text-sm space-y-2 pl-5 list-disc" style="color: var(--text-secondary);">
+              <li><strong>No Android (Google Chrome):</strong> Toque nos <strong>3 pontinhos (⋮)</strong> no canto direito em cima da tela e escolha <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar aplicativo"</strong>.</li>
+              <li><strong>No iPhone (Safari):</strong> Toque no botão de <strong>Compartilhar (quadrado com seta para cima)</strong> embaixo da tela e depois toque em <strong>"Adicionar à Tela de Início"</strong>.</li>
+            </ul>
+            <div class="pt-2">
+              <button type="button" id="pwa-install-btn" class="btn-primary text-sm" data-action="trigger-pwa-install">
+                📲 Salvar Atalho no Celular Agora
+              </button>
+              <p id="pwa-install-feedback" class="hidden mt-3 text-sm font-semibold p-3 rounded-lg" style="background-color: var(--bg-surface); color: var(--text-main);" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <!-- Option 2: Self-WhatsApp Pin -->
+          <div class="p-5 sm:p-6 rounded-2xl border space-y-3" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+            <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--accent-wine);">
+              2. Guardar no Seu Próprio WhatsApp
+            </h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Mande a mensagem abaixo para a sua própria conversa ("Você") no WhatsApp ou para o grupo da sua família. Depois, basta tocar no link todas as manhãs quando pegar o telefone!
+            </p>
+            <button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-action="share-bookmark-whatsapp">
+              <span aria-hidden="true">📲</span> Enviar Link do Site no WhatsApp
+            </button>
+          </div>
+
+          <!-- Option 3: Daily Calendar Alarm (.ics) -->
+          <div class="p-5 sm:p-6 rounded-2xl border space-y-3" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+            <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--accent-wine);">
+              3. Lembrete Suave às 07:30 na Agenda do Celular (21 Dias)
+            </h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Com um toque abaixo, seu celular cria um lembrete automático todo dia às 07:30 da manhã durante 21 dias com o convite para o seu Café Espiritual e Oração.
+            </p>
+            <button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-action="download-daily-ics">
+              <span aria-hidden="true">🔔</span> Baixar Lembrete Matinal (07:30)
+            </button>
+            <p id="ics-feedback" class="hidden mt-2 text-sm font-semibold" style="color: var(--accent-green);"></p>
           </div>
         </div>
       </article>
@@ -751,9 +895,12 @@
 
         <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
           <button type="button" class="underline py-1 px-2" data-nav-target="inicio">Início</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="vertente">Minha Vertente</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="cafe-diario">Café Diário</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="trilhas">Trilhas</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="oracoes">Orações</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="escrituras">Biblioteca Sagrada</button>
+          <button type="button" class="underline py-1 px-2" data-nav-target="salvar-app">Salvar no Celular</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="blog">Blog</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="quem-somos">Quem Somos</button>
           <button type="button" class="underline py-1 px-2" data-nav-target="privacidade">Privacidade & LGPD</button>
@@ -780,17 +927,17 @@
       <span class="text-base leading-none mb-0.5" aria-hidden="true">🌅</span>
       <span>Início</span>
     </button>
-    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="vertente">
-      <span class="text-base leading-none mb-0.5" aria-hidden="true">🕊</span>
-      <span>Vertente</span>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="cafe-diario">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">☕</span>
+      <span>Café</span>
+    </button>
+    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="arcanjo-miguel">
+      <span class="text-base leading-none mb-0.5" aria-hidden="true">⚔️</span>
+      <span>Miguel</span>
     </button>
     <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="oracoes">
       <span class="text-base leading-none mb-0.5" aria-hidden="true">🙏</span>
       <span>Orações</span>
-    </button>
-    <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-nav-target="escrituras">
-      <span class="text-base leading-none mb-0.5" aria-hidden="true">📖</span>
-      <span>Biblioteca</span>
     </button>
     <button type="button" class="tap-target flex-col text-[11px] font-semibold rounded-lg py-1" data-action="toggle-drawer-menu">
       <span class="text-base leading-none mb-0.5" aria-hidden="true">☰</span>
@@ -800,6 +947,7 @@
 
   <script src="js/data-traditions.js"></script>
   <script src="js/data-content.js"></script>
+  <script src="js/data-retention.js"></script>
   <script src="js/data-sacred-works-extra.js"></script>
   <script src="js/data-bible-full.js"></script>
   <script src="js/data-catolica-deutero.js"></script>

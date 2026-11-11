@@ -1,0 +1,18 @@
+{
+  "name": "Horizonte Espiritual",
+  "short_name": "Horizonte",
+  "description": "Café Espiritual diário, Trilha de 21 Dias de São Miguel Arcanjo, Orações Fortes, Vela Virtual e Obras Sagradas Completas.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F7F4EE",
+  "theme_color": "#7A2629",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "assets/traditions/catolica.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
