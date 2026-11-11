@@ -21,107 +21,97 @@
     Pular direto ao conteúdo principal
   </a>
 
-  <!-- TOP UTILITY & NAVIGATION BAR -->
-  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-color);">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3">
-      <!-- Active Tradition Pill (Clicking opens that tradition's dedicated page) -->
+  <!-- TOP UTILITY & NAVIGATION BAR (ELDERLY-FIRST, HIGH CLARITY) -->
+  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-strong);">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2.5">
+      <!-- Active Tradition Pill -->
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Vertente Ativa:</span>
+        <span class="text-sm font-bold" style="color: var(--text-secondary);">Minha Fé:</span>
         <button
           type="button"
           id="active-tradition-badge"
           data-action="open-tradition-page"
-          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold"
-          style="background-color: var(--bg-accent-soft); color: var(--accent-wine);"
-          title="Abrir página dedicada desta vertente religiosa"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm sm:text-base font-bold border"
+          style="background-color: var(--bg-accent-soft); color: var(--accent-wine); border-color: var(--accent-wine);"
+          title="Toque para abrir a página desta tradição"
         >
           ✝ Fé Católica
         </button>
       </div>
 
-      <!-- Accessibility Controls + Full Menu Button -->
-      <div class="flex items-center gap-2">
-        <div class="inline-flex items-center rounded-lg border px-1" style="border-color: var(--border-strong); background-color: var(--bg-page);" role="group" aria-label="Tamanho da letra">
-          <button type="button" class="tap-target px-2.5 text-sm font-bold" data-action="font-decrease" aria-label="Diminuir tamanho da letra">
-            A-
+      <!-- Clear Accessibility Controls + Menu -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="inline-flex items-center rounded-xl border-2 px-1" style="border-color: var(--border-strong); background-color: var(--bg-page);" role="group" aria-label="Ajustar tamanho da letra">
+          <button type="button" class="tap-target px-2.5 text-sm sm:text-base font-bold" data-action="font-decrease" aria-label="Diminuir tamanho da letra">
+            A- <span class="hidden sm:inline font-medium text-xs ml-1">Menor</span>
           </button>
-          <span id="font-size-indicator" class="text-xs font-semibold px-1.5" style="color: var(--text-muted);" aria-live="polite">19px</span>
-          <button type="button" class="tap-target px-2.5 text-base font-bold" data-action="font-increase" aria-label="Aumentar tamanho da letra">
-            A+
+          <span id="font-size-indicator" class="text-sm font-bold px-2" style="color: var(--text-main);" aria-live="polite">20px</span>
+          <button type="button" class="tap-target px-2.5 text-base sm:text-lg font-bold" data-action="font-increase" aria-label="Aumentar tamanho da letra">
+            A+ <span class="hidden sm:inline font-medium text-xs ml-1">Maior</span>
           </button>
         </div>
 
-        <button type="button" class="btn-secondary inline-flex items-center gap-1.5 text-sm py-2 px-3" data-action="toggle-theme" aria-pressed="false">
+        <button type="button" class="btn-secondary inline-flex items-center gap-1.5 text-sm sm:text-base py-2 px-3" data-action="toggle-theme" aria-pressed="false">
           <span aria-hidden="true">🌓</span>
-          <span data-theme-label class="hidden sm:inline">Modo Noturno</span>
+          <span data-theme-label class="hidden md:inline">Modo Noturno</span>
         </button>
 
-        <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm py-2 px-3.5" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
+        <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm sm:text-base py-2 px-4" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
           <span aria-hidden="true">☰</span>
           <span>Menu</span>
         </button>
       </div>
     </div>
 
-    <!-- Clean Primary + Google-Compliant Institutional Navigation Bar -->
-    <nav class="border-t overflow-x-auto" style="background-color: var(--bg-page); border-color: var(--border-color);" aria-label="Navegação Principal">
-      <div class="max-w-6xl mx-auto px-3 sm:px-6 py-1.5 flex items-center justify-start lg:justify-center gap-1 min-w-max">
+    <!-- Primary Clear 5-Button Navigation (NO cramped horizontal overflow!) -->
+    <nav class="border-t" style="background-color: var(--bg-page); border-color: var(--border-color);" aria-label="Atalhos Principais">
+      <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2 flex flex-wrap items-center justify-center gap-2">
         <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">
-          <span aria-hidden="true">🌅</span> Início
+          <span aria-hidden="true">🏠</span> Início
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="cafe-diario">
-          <span aria-hidden="true">☕</span> Café Diário
+          <span aria-hidden="true">☕</span> Café de Hoje
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="arcanjo-miguel">
           <span aria-hidden="true">⚔️</span> Arcanjo Miguel
         </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="trilhas">
-          <span aria-hidden="true">🗓</span> Trilhas
-        </button>
         <button type="button" class="nav-tab-btn" data-nav-target="oracoes">
           <span aria-hidden="true">🙏</span> Orações
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="vela">
-          <span aria-hidden="true">🕯</span> Vela
         </button>
         <button type="button" class="nav-tab-btn" data-nav-target="escrituras">
           <span aria-hidden="true">📖</span> Biblioteca
         </button>
-        <span class="h-5 w-px mx-1" style="background-color: var(--border-strong);" aria-hidden="true"></span>
-        <button type="button" class="nav-tab-btn" data-nav-target="blog">
-          <span aria-hidden="true">📰</span> Blog
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="quem-somos">
-          <span aria-hidden="true">🏛</span> Quem Somos
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="privacidade">
-          <span aria-hidden="true">🔒</span> Privacidade
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="apoio" style="border-color: var(--accent-amber);">
-          <span aria-hidden="true">💛</span> Apoio
-        </button>
+      </div>
+      <!-- Calm Institutional & Legal Redirect Tabs Strip (Google Compliance without Cockpit Clutter) -->
+      <div class="border-t py-1 px-3 flex flex-wrap items-center justify-center gap-1 sm:gap-2" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+        <button type="button" class="nav-inst-btn" data-nav-target="vela">🕯 Vela 7 Dias</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas 21 Dias</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="blog">📰 Blog</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="quem-somos">🏛 Quem Somos</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="privacidade">🔒 Privacidade</button>
+        <button type="button" class="nav-inst-btn font-bold" style="color: var(--accent-wine);" data-nav-target="apoio">💛 Apoio (PIX)</button>
       </div>
     </nav>
 
-    <!-- EXPANDABLE DRAWER MENU ("Menu" with ALL sections including Alento Temático & Quiz Sagrado) -->
+    <!-- EXPANDABLE DRAWER MENU ("Menu" with ALL sections) -->
     <div id="full-site-drawer" class="hidden border-t shadow-lg" style="background-color: var(--bg-surface); border-color: var(--border-strong);" role="region" aria-label="Menu Completo do Portal">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 py-5">
         <div class="flex items-center justify-between mb-4 pb-2 border-b" style="border-color: var(--border-color);">
-          <p class="font-serif-sacred font-bold text-lg">Todas as Páginas do Horizonte Espiritual</p>
-          <button type="button" class="btn-secondary text-xs py-1.5 px-3" data-action="close-drawer-menu">✕ Fechar Menu</button>
+          <p class="font-serif-sacred font-bold text-xl">Escolha a Página que Deseja Abrir</p>
+          <button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-drawer-menu">✕ Fechar Menu</button>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🌅 Início (Escolha da Vertente)</button>
-          <button type="button" class="btn-secondary justify-start text-left font-semibold" style="color: var(--accent-wine);" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
-          <button type="button" class="btn-secondary justify-start text-left font-semibold" style="color: var(--accent-wine);" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🏠 Início (Tela Principal)</button>
+          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
+          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7, 9 e 21 Dias)</button>
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Vertente Religiosa</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Religião</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (16 Tradições)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vela">🕯 Vela Virtual de 7 Dias</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="escrituras">📖 Biblioteca Sagrada Completa</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="alento">🌿 Alento Temático (Luto, Saúde e Paz)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quiz">✨ Quiz Sagrado Educativo</button>
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="salvar-app">📲 Salvar no Celular (Voltar Todo Dia)</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="salvar-app">📲 Salvar no Celular (Como Aplicativo)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="blog">📰 Blog e Artigos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quem-somos">🏛 Quem Somos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="privacidade">🔒 Política de Privacidade (LGPD)</button>
@@ -131,79 +121,214 @@
     </div>
   </header>
 
-  <!-- HERO BANNER WITH REALISTIC SUNRISE IMAGE & PROMINENT BRAND TITLE "HORIZONTE ESPIRITUAL" -->
+  <!-- SLEEK HERO BANNER -->
   <section class="relative overflow-hidden border-b" style="border-color: var(--border-color);">
     <div
-      class="relative bg-cover bg-center py-9 sm:py-12 px-4 sm:px-6"
-      style="background-image: linear-gradient(to bottom, rgba(21, 18, 15, 0.60), rgba(21, 18, 15, 0.76)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');"
+      class="relative bg-cover bg-center py-5 sm:py-8 px-4 sm:px-6"
+      style="background-image: linear-gradient(to bottom, rgba(21, 18, 15, 0.62), rgba(21, 18, 15, 0.80)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');"
     >
       <div class="max-w-3xl mx-auto text-center text-white">
-        <h1 class="font-serif-sacred font-bold text-3xl sm:text-5xl tracking-tight mb-2 text-white">
+        <h1 class="font-serif-sacred font-bold text-3xl sm:text-5xl tracking-tight mb-1.5 text-white">
           Horizonte Espiritual
         </h1>
         <p class="text-sm sm:text-base max-w-xl mx-auto leading-relaxed text-amber-50/95">
-          Um refúgio calmo, limpo e gratuito de leitura sagrada, orações e paz para todas as tradições espirituais.
+          Site gratuito, com letras grandes e leitura em voz calma para orações, Café Espiritual e obras sagradas completas.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- AUDIO READER FEEDBACK BANNER -->
-  <div id="audio-status-banner" class="hidden max-w-4xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite"></div>
+  <!-- STICKY AUDIO READER CONTROL BANNER (INCLUDES GIANT STOP BUTTON FOR SENIORS) -->
+  <div id="audio-status-banner" class="hidden sticky top-20 z-30 max-w-3xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite">
+    <div class="surface-card p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 shadow-md" style="background-color: var(--bg-amber-soft); border: 2px solid var(--accent-wine);">
+      <span id="audio-status-text" class="text-sm sm:text-base font-bold" style="color: var(--text-main);">
+        🔊 Lendo em voz calma neste momento...
+      </span>
+      <button type="button" class="btn-primary text-sm py-2 px-4" data-action="stop-global-speech">
+        ⏹ Parar Áudio Agora
+      </button>
+    </div>
+  </div>
 
   <!-- MAIN APPLICATION CONTAINER -->
-  <main id="main-content" class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+  <main id="main-content" class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- PERSISTENT TOP BACK-TO-HOME BAR (ALWAYS VISIBLE WHEN NOT ON HOME) -->
+    <div id="global-back-bar" class="hidden max-w-3xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl border-2" style="background-color: var(--bg-surface); border-color: var(--border-strong);">
+      <button type="button" class="back-home-btn" data-nav-target="inicio">
+        <span aria-hidden="true">🏠</span> ← Voltar para a Tela Inicial
+      </button>
+      <span id="current-page-breadcrumb" class="text-sm sm:text-base font-bold px-3 py-1 rounded-lg" style="background-color: var(--bg-subtle); color: var(--text-main);">
+        Você está em: Início
+      </span>
+    </div>
 
     <!-- =========================================================
-         SECTION 1: INÍCIO (CLEAN, CENTERED SELECTORS ONLY)
+         SECTION 1: INÍCIO (ELDERLY-FIRST STEP-BY-STEP + 6 BIG DOORS)
          ========================================================= -->
     <div data-section-view="inicio" class="space-y-8">
 
-      <!-- Optional returning-user summary banner (hidden automatically for brand-new visitors) -->
-      <div id="home-continuity-banner" class="hidden surface-card p-4 max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-amber-soft); border-color: var(--accent-amber);"></div>
+      <!-- Optional returning-user summary banner -->
+      <div id="home-continuity-banner" class="hidden surface-card p-4 sm:p-5 max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-amber-soft); border: 2px solid var(--accent-amber);"></div>
 
-      <section class="surface-card p-6 sm:p-10 text-center max-w-2xl mx-auto" aria-labelledby="onboarding-heading">
+      <section class="surface-card p-6 sm:p-9 text-center max-w-2xl mx-auto" style="border-width: 2px;" aria-labelledby="onboarding-heading">
         <div class="space-y-6">
-          <!-- Question 1 Centered: ONLY clean religion names in the list -->
+          <!-- Step 1: Choose Tradition without abrupt page teleportation -->
           <div>
-            <label id="onboarding-heading" for="home-tradition-select" class="block font-serif-sacred heading-section font-bold mb-3">
+            <span class="inline-block px-3.5 py-1 rounded-full text-sm font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+              1º Passo: Sua Fé
+            </span>
+            <label id="onboarding-heading" for="home-tradition-select" class="block font-serif-sacred heading-section font-bold mb-2">
               Qual tradição espiritual acolhe o seu coração hoje?
             </label>
-            <select id="home-tradition-select" class="input-sacred text-center font-medium text-base max-w-lg mx-auto"></select>
+            <p class="text-sm mb-3" style="color: var(--text-secondary);">
+              Toque na caixa abaixo para escolher na lista:
+            </p>
+            <select id="home-tradition-select" class="input-sacred text-center font-semibold max-w-lg mx-auto"></select>
 
             <div class="mt-3 flex justify-center">
-              <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2 text-xs sm:text-sm font-medium select-none py-1.5 px-3 rounded-lg" style="background-color: var(--bg-subtle); color: var(--text-secondary);">
-                <input id="remember-tradition-checkbox" type="checkbox" checked class="w-4 h-4 accent-[#7A2629]" />
-                <span>Salvar minha escolha neste aparelho</span>
+              <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base font-semibold select-none py-2 px-4 rounded-xl border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
+                <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#7A2629]" />
+                <span>Deixar minha religião salva neste celular</span>
               </label>
             </div>
           </div>
 
           <hr style="border-color: var(--border-color);" />
 
-          <!-- Question 2 Centered -->
+          <!-- Step 2: How does your heart feel? -->
           <div>
-            <label id="daily-word-heading" for="home-feeling-select" class="block font-serif-sacred heading-section font-bold mb-3">
+            <span class="inline-block px-3.5 py-1 rounded-full text-sm font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+              2º Passo: Seu Momento
+            </span>
+            <label id="daily-word-heading" for="home-feeling-select" class="block font-serif-sacred heading-section font-bold mb-2">
               Como o seu coração se sente neste momento?
             </label>
-            <select id="home-feeling-select" class="input-sacred text-center font-medium text-base max-w-lg mx-auto"></select>
+            <p class="text-sm mb-3" style="color: var(--text-secondary);">
+              A Palavra de Consolo logo abaixo muda automaticamente conforme o que você escolher:
+            </p>
+            <select id="home-feeling-select" class="input-sacred text-center font-semibold max-w-lg mx-auto"></select>
           </div>
 
           <div class="pt-2">
-            <button type="button" class="btn-primary w-full sm:w-auto px-8" data-action="open-tradition-page">
-              Entrar na Página desta Vertente Religiosa →
+            <button type="button" id="home-enter-tradition-btn" class="btn-primary w-full sm:w-auto px-8" data-action="open-tradition-page">
+              🕊 Abrir Página da Minha Religião →
             </button>
           </div>
         </div>
       </section>
 
+      <!-- Large Clear Doorways ("O que você deseja fazer agora?") -->
+      <section class="max-w-3xl mx-auto space-y-4" aria-labelledby="doors-heading">
+        <div class="text-center">
+          <h2 id="doors-heading" class="font-serif-sacred heading-section font-bold">
+            O que você deseja fazer agora?
+          </h2>
+          <p class="text-base mt-1" style="color: var(--text-secondary);">
+            Toque em qualquer um dos botões grandes abaixo para entrar:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button type="button" class="door-card-btn" data-nav-target="cafe-diario">
+            <div>
+              <span id="home-cafe-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+                ☕ Palavra da Manhã
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                ☕ Tomar o Café Espiritual de Hoje
+              </h3>
+              <p id="home-cafe-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
+                Leitura curta e acolhedora de hoje com botão para ouvir em voz calma.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para abrir →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="arcanjo-miguel">
+            <div>
+              <span id="home-miguel-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+                ⚔️ Página Especial • 21 Dias
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                ⚔️ São Miguel Arcanjo (21 Dias)
+              </h3>
+              <p id="home-miguel-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
+                Oração tradicional completa e lista para marcar do Dia 1 ao Dia 21.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para rezar →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="oracoes">
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-subtle); color: var(--text-main);">
+                🙏 Todas as 16 Tradições
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                🙏 Ler e Ouvir Orações Fortes
+              </h3>
+              <p class="text-sm mt-1" style="color: var(--text-secondary);">
+                Salmo 91, São Bento, Cáritas, Zé Pelintra, Oxalá e muitas outras preces.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para abrir →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="vela">
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
+                🕯 Gratuita • Duração de 7 Dias
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                🕯 Acender Vela pela Família
+              </h3>
+              <p class="text-sm mt-1" style="color: var(--text-secondary);">
+                Escreva o nome de quem ama e deixe uma vela acesa com sua oração.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para acender →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="escrituras">
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-subtle); color: var(--text-main);">
+                📖 Leitura Integral na Tela
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                📖 Livros Sagrados Completos
+              </h3>
+              <p class="text-sm mt-1" style="color: var(--text-secondary);">
+                Bíblia Completa, O Livro dos Espíritos, Alcorão, Dhammapada e outros.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para ler →</span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="salvar-app">
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
+                📲 Voltar Todo Dia sem Perder
+              </span>
+              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
+                📲 Colocar Atalho no Meu Celular
+              </h3>
+              <p class="text-sm mt-1" style="color: var(--text-secondary);">
+                Salve como ícone igual aplicativo ou receba seu link no seu WhatsApp.
+              </p>
+            </div>
+            <span class="text-sm font-bold" style="color: var(--accent-wine);">Ver como salvar →</span>
+          </button>
+        </div>
+      </section>
+
       <!-- Clean Daily Passage Card on Home -->
-      <section class="surface-card p-6 sm:p-10 max-w-2xl mx-auto" aria-label="Palavra do Dia">
-        <div class="p-6 sm:p-8 rounded-2xl border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
-          <p data-daily-greeting class="text-sm font-bold mb-1" style="color: var(--accent-wine);">
+      <section class="surface-card p-6 sm:p-10 max-w-2xl mx-auto" style="border-width: 2px;" aria-label="Palavra do Dia">
+        <div class="p-6 sm:p-8 rounded-2xl border-2 text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
+          <p data-daily-greeting class="text-base font-bold mb-1" style="color: var(--accent-wine);">
             A paz de Cristo esteja no seu lar (Fé Católica)
           </p>
-          <p data-daily-tradition-tag class="text-xs font-medium mb-5" style="color: var(--text-muted);">
+          <p data-daily-tradition-tag class="text-sm font-medium mb-5" style="color: var(--text-muted);">
             Tradição Cristã Católica
           </p>
 
@@ -211,13 +336,13 @@
             “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu próprio cuidado.”
           </blockquote>
 
-          <p data-daily-passage-reference class="font-serif-sacred font-bold text-sm mb-5" style="color: var(--accent-wine);">
+          <p data-daily-passage-reference class="font-serif-sacred font-bold text-base mb-5" style="color: var(--accent-wine);">
             São Mateus 6:34
           </p>
 
-          <div class="p-4 rounded-xl mb-6 text-left" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-            <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">Reflexão para hoje:</p>
-            <p data-daily-passage-reflection class="text-base leading-relaxed" style="color: var(--text-main);">
+          <div class="p-4 sm:p-5 rounded-xl mb-6 text-left" style="background-color: var(--bg-surface); border: 1px solid var(--border-strong);">
+            <p class="text-sm font-bold mb-1" style="color: var(--text-muted);">Explicação simples para hoje:</p>
+            <p data-daily-passage-reflection class="text-base sm:text-lg leading-relaxed" style="color: var(--text-main);">
               Entregue as preocupações futuras na oração silenciosa de hoje. Deus cuida do tempo presente.
             </p>
           </div>
@@ -241,54 +366,17 @@
         </div>
       </section>
 
-      <!-- Compact Daily Habit Shortcuts (Café Espiritual & 21 Dias São Miguel) -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto" aria-label="Hábito Diário e Trilhas de Oração">
-        <article class="surface-card p-5 flex flex-col justify-between">
-          <div>
-            <span id="home-cafe-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
-              ☕ Leitura da Manhã
-            </span>
-            <h2 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">
-              Café Espiritual do Dia
-            </h2>
-            <p id="home-cafe-teaser" class="text-sm mb-4" style="color: var(--text-secondary);">
-              Palavra curta de hoje, gesto prático e oração da manhã para acompanhar o seu café.
-            </p>
-          </div>
-          <button type="button" class="btn-primary w-full text-sm" data-nav-target="cafe-diario">
-            Abrir Café de Hoje →
-          </button>
-        </article>
-
-        <article class="surface-card p-5 flex flex-col justify-between">
-          <div>
-            <span id="home-miguel-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
-              ⚔️ Página Especial • 21 Dias
-            </span>
-            <h2 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">
-              São Miguel Arcanjo
-            </h2>
-            <p id="home-miguel-teaser" class="text-sm mb-4" style="color: var(--text-secondary);">
-              Oração tradicional completa e caminhada guiada dos 21 dias com marcação diária no aparelho.
-            </p>
-          </div>
-          <button type="button" class="btn-secondary w-full text-sm font-semibold" style="border-color: var(--accent-wine); color: var(--accent-wine);" data-nav-target="arcanjo-miguel">
-            Ir para São Miguel Arcanjo →
-          </button>
-        </article>
-      </section>
-
       <!-- Clean "Apoio" Box -->
       <aside class="ad-sponsor-slot max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left" aria-label="Apoio">
         <div>
-          <span class="inline-block text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded mb-1" style="background-color: var(--bg-surface); color: var(--text-muted);">
+          <span class="inline-block text-xs font-bold uppercase tracking-widest px-2.5 py-0.5 rounded mb-1" style="background-color: var(--bg-surface); color: var(--text-muted);">
             Apoio
           </span>
-          <p class="text-sm font-medium" style="color: var(--text-main);">
+          <p class="text-base font-medium" style="color: var(--text-main);">
             Este portal é 100% gratuito. Conheça nossa página de apoio espontâneo via PIX.
           </p>
         </div>
-        <button type="button" class="btn-secondary text-sm shrink-0" data-nav-target="apoio">
+        <button type="button" class="btn-secondary shrink-0" data-nav-target="apoio">
           Ver Página de Apoio
         </button>
       </aside>
@@ -562,29 +650,29 @@
             Registre o nome de quem você deseja abençoar e escreva sua intenção:
           </p>
 
-          <form id="light-candle-form" class="space-y-4" novalidate>
+          <form id="light-candle-form" class="space-y-5" novalidate>
             <div>
-              <label for="candle-honoree-input" class="block text-sm font-semibold mb-1">
-                Nome da pessoa, família ou intenção *
+              <label for="candle-honoree-input" class="block text-base font-bold mb-1.5">
+                Nome da pessoa, família ou intenção <span class="font-normal text-sm" style="color: var(--accent-wine);">(Obrigatório)</span>
               </label>
               <input
                 id="candle-honoree-input"
                 type="text"
                 required
                 class="input-sacred"
-                placeholder="Ex.: Pela saúde de Dona Aparecida / Em memória de meu pai José"
+                placeholder="Ex.: Pela saúde de Dona Aparecida"
               />
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label for="candle-tradition-select" class="block text-sm font-semibold mb-1">
+                <label for="candle-tradition-select" class="block text-base font-bold mb-1.5">
                   Tradição espiritual
                 </label>
                 <select id="candle-tradition-select" class="input-sacred"></select>
               </div>
               <div>
-                <label for="candle-city-input" class="block text-sm font-semibold mb-1">
+                <label for="candle-city-input" class="block text-base font-bold mb-1.5">
                   Cidade e Estado (opcional)
                 </label>
                 <input id="candle-city-input" type="text" class="input-sacred" placeholder="Ex.: Recife, PE" />
@@ -592,8 +680,8 @@
             </div>
 
             <div>
-              <label for="candle-intention-input" class="block text-sm font-semibold mb-1">
-                Sua prece ou pedido de bênção *
+              <label for="candle-intention-input" class="block text-base font-bold mb-1.5">
+                Sua prece ou pedido de bênção <span class="font-normal text-sm" style="color: var(--accent-wine);">(Obrigatório)</span>
               </label>
               <textarea
                 id="candle-intention-input"
@@ -604,11 +692,11 @@
               ></textarea>
             </div>
 
-            <div id="candle-form-feedback" class="hidden p-4 rounded-xl text-sm font-medium" role="status" aria-live="polite"></div>
+            <div id="candle-form-feedback" class="hidden p-4 rounded-xl text-base font-semibold" role="status" aria-live="polite"></div>
 
             <div class="text-center pt-2">
               <button type="submit" class="btn-primary w-full sm:w-auto px-8">
-                🕯 Acender Vela de 7 Dias
+                🕯 Acender Vela de 7 Dias Agora
               </button>
             </div>
           </form>
@@ -649,28 +737,28 @@
 
         <div class="text-left space-y-4">
           <div>
-            <label for="library-tradition-select" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">
-              1. Obra Sagrada Completa:
+            <label for="library-tradition-select" class="block text-sm font-bold mb-1.5" style="color: var(--text-main);">
+              Passo 1: Escolha a Obra Sagrada Completa:
             </label>
             <select id="library-tradition-select" class="input-sacred font-semibold"></select>
           </div>
 
           <div id="library-book-select-wrapper">
-            <label for="library-book-select" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">
-              2. Livro da Obra Sagrada:
+            <label for="library-book-select" class="block text-sm font-bold mb-1.5" style="color: var(--text-main);">
+              Passo 2: Escolha o Livro:
             </label>
             <select id="library-book-select" class="input-sacred font-medium"></select>
           </div>
 
           <div>
-            <label for="library-chapter-select" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--text-muted);">
-              3. Capítulo / Surata / Seção:
+            <label for="library-chapter-select" class="block text-sm font-bold mb-1.5" style="color: var(--text-main);">
+              Passo 3: Escolha o Capítulo ou Seção:
             </label>
             <select id="library-chapter-select" class="input-sacred font-medium"></select>
           </div>
         </div>
 
-        <p id="library-progress-label" class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);" aria-live="polite"></p>
+        <p id="library-progress-label" class="text-sm font-bold" style="color: var(--accent-wine);" aria-live="polite"></p>
       </div>
 
       <!-- Focused Full-Chapter Reader Card -->
@@ -872,11 +960,18 @@
               <span aria-hidden="true">📋</span> Copiar Chave PIX: eupaulorrenato@gmail.com
             </button>
 
-            <p id="pix-copy-feedback" class="hidden mt-4 text-sm font-bold p-3 rounded-lg" style="background-color: var(--bg-surface); color: var(--accent-green);" role="status" aria-live="polite"></p>
+            <p id="pix-copy-feedback" class="hidden mt-4 text-base font-bold p-3 rounded-lg" style="background-color: var(--bg-surface); color: var(--accent-green);" role="status" aria-live="polite"></p>
           </div>
         </div>
       </article>
     </section>
+
+    <!-- PERSISTENT BOTTOM BACK-TO-HOME BAR (ALWAYS VISIBLE WHEN NOT ON HOME) -->
+    <div id="global-bottom-back-bar" class="hidden max-w-3xl mx-auto mt-8 pt-6 border-t text-center" style="border-color: var(--border-strong);">
+      <button type="button" class="back-home-btn" data-nav-target="inicio">
+        <span aria-hidden="true">🏠</span> ← Voltar para a Tela Inicial
+      </button>
+    </div>
 
   </main>
 

@@ -18,7 +18,7 @@
     selectedFeeling: "ansiedade",
     rememberTradition: true,
     theme: "light",
-    readerFontSizePx: 19,
+    readerFontSizePx: 20,
 
     // Orações Fortes (Paginated directory + dedicated single-prayer page)
     prayerCategory: "todas",
@@ -118,7 +118,7 @@
   }
 
   function applyReaderFontSize(px) {
-    var clamped = Math.max(16, Math.min(26, Number(px) || 19));
+    var clamped = Math.max(18, Math.min(28, Number(px) || 20));
     state.readerFontSizePx = clamped;
     document.documentElement.style.setProperty("--reader-font-size", (clamped / 16).toFixed(3) + "rem");
     safeStorageSet(STORAGE_KEYS.fontSize, String(clamped));
@@ -146,6 +146,21 @@
     }
   }
 
+  function setAudioBanner(isVisible, messageText) {
+    var bannerEl = document.getElementById("audio-status-banner");
+    var textEl = document.getElementById("audio-status-text");
+    if (textEl && messageText) {
+      textEl.textContent = messageText;
+    }
+    if (bannerEl) {
+      if (isVisible) {
+        bannerEl.classList.remove("hidden");
+      } else {
+        bannerEl.classList.add("hidden");
+      }
+    }
+  }
+
   function stopSpeech() {
     if ("speechSynthesis" in window) {
       try {
@@ -153,22 +168,18 @@
       } catch (e) {}
     }
     state.speakingId = null;
+    setAudioBanner(false);
     updateSpeechButtons();
   }
 
   function speakText(id, textToRead) {
-    var statusEl = document.getElementById("audio-status-banner");
     if (!("speechSynthesis" in window)) {
-      if (statusEl) {
-        statusEl.textContent = "Seu navegador não possui suporte de leitura em voz alta neste aparelho.";
-        statusEl.classList.remove("hidden");
-      }
+      setAudioBanner(true, "Seu navegador não possui suporte de leitura em voz neste aparelho.");
       return;
     }
 
     if (state.speakingId === id) {
       stopSpeech();
-      if (statusEl) statusEl.classList.add("hidden");
       return;
     }
 
@@ -177,31 +188,29 @@
     try {
       var utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = "pt-BR";
-      // Slightly slower cadence improves comprehension and calm for 50+ listeners.
-      utterance.rate = 0.9;
+      // Slightly slower cadence improves comprehension and calm for 50+ and senior listeners.
+      utterance.rate = 0.88;
       utterance.pitch = 1.0;
 
       utterance.onend = function () {
         state.speakingId = null;
+        setAudioBanner(false);
         updateSpeechButtons();
-        if (statusEl) statusEl.classList.add("hidden");
       };
 
       utterance.onerror = function () {
         state.speakingId = null;
+        setAudioBanner(false);
         updateSpeechButtons();
-        if (statusEl) statusEl.classList.add("hidden");
       };
 
       state.speakingId = id;
       updateSpeechButtons();
-      if (statusEl) {
-        statusEl.textContent = "Leitura em voz calma iniciada. Toque novamente no botão de áudio se desejar parar.";
-        statusEl.classList.remove("hidden");
-      }
+      setAudioBanner(true, "🔊 Lendo em voz calma para você. Toque no botão ao lado para parar.");
       window.speechSynthesis.speak(utterance);
     } catch (e) {
       state.speakingId = null;
+      setAudioBanner(false);
       updateSpeechButtons();
     }
   }
@@ -220,6 +229,24 @@
     }
   }
 
+  var SECTION_LABELS = {
+    inicio: "Tela Inicial",
+    vertente: "Minha Religião",
+    "cafe-diario": "Café Espiritual do Dia",
+    "arcanjo-miguel": "São Miguel Arcanjo (21 Dias)",
+    trilhas: "Trilhas de Oração",
+    "salvar-app": "Colocar Atalho no Celular",
+    oracoes: "Orações Fortes",
+    vela: "Vela Virtual de 7 Dias",
+    escrituras: "Biblioteca Sagrada Completa",
+    alento: "Alento Temático",
+    quiz: "Quiz Sagrado",
+    blog: "Blog e Artigos",
+    "quem-somos": "Quem Somos",
+    privacidade: "Política de Privacidade",
+    apoio: "Apoio e Doação PIX"
+  };
+
   function navigateToSection(sectionId, shouldScroll) {
     var sections = document.querySelectorAll("[data-section-view]");
     var targetFound = false;
@@ -236,6 +263,17 @@
 
     state.activeSection = sectionId;
     toggleDrawerMenu(false);
+
+    var backTopEl = document.getElementById("global-back-bar");
+    var backBotEl = document.getElementById("global-bottom-back-bar");
+    var breadcrumbEl = document.getElementById("current-page-breadcrumb");
+    var showBackBar = sectionId !== "inicio";
+
+    if (backTopEl) backTopEl.classList.toggle("hidden", !showBackBar);
+    if (backBotEl) backBotEl.classList.toggle("hidden", !showBackBar);
+    if (breadcrumbEl) {
+      breadcrumbEl.textContent = "Você está em: " + (SECTION_LABELS[sectionId] || "Horizonte Espiritual");
+    }
 
     if (sectionId === "inicio") {
       renderHomeRetentionWidgets();
@@ -328,6 +366,11 @@
     var headerBadge = document.getElementById("active-tradition-badge");
     if (headerBadge) {
       headerBadge.textContent = tradition.symbol + " " + tradition.name;
+    }
+
+    var enterTraditionBtn = document.getElementById("home-enter-tradition-btn");
+    if (enterTraditionBtn) {
+      enterTraditionBtn.textContent = "🕊 Abrir Página da Minha Religião (" + tradition.name + ") →";
     }
 
     var passageObj =
@@ -2594,6 +2637,8 @@
         );
       } else if (action === "download-daily-ics") {
         downloadDailyReminderIcs();
+      } else if (action === "stop-global-speech") {
+        stopSpeech();
       }
     });
 
@@ -2613,8 +2658,8 @@
     var homeTradSelect = document.getElementById("home-tradition-select");
     if (homeTradSelect) {
       homeTradSelect.addEventListener("change", function () {
-        // Selecting a tradition redirects to that tradition's dedicated page with its realistic image!
-        selectTradition(homeTradSelect.value, true);
+        // Updates live on Home without unexpectedly teleporting older visitors away from Step 2.
+        selectTradition(homeTradSelect.value, false);
       });
     }
 
@@ -2734,7 +2779,7 @@
     if (savedFont) {
       applyReaderFontSize(Number(savedFont));
     } else {
-      applyReaderFontSize(19);
+      applyReaderFontSize(20);
     }
 
     var savedRemember = safeStorageGet(STORAGE_KEYS.remember);
