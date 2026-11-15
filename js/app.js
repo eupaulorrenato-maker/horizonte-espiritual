@@ -361,7 +361,111 @@
     apoio: "Apoio e Doação PIX"
   };
 
-  function navigateToSection(sectionId, shouldScroll) {
+  var SECTION_HASHES = {
+    inicio: "inicio",
+    vertente: "espaco-da-fe",
+    "cafe-diario": "cafe-diario",
+    propositos: "40-dias",
+    "arcanjo-miguel": "sao-miguel",
+    trilhas: "trilhas",
+    "salvar-app": "como-receber",
+    oracoes: "oracoes",
+    vela: "vela-7-dias",
+    escrituras: "biblia-online",
+    alento: "alento",
+    quiz: "quiz",
+    blog: "blog",
+    "quem-somos": "quem-somos",
+    privacidade: "privacidade",
+    apoio: "apoio"
+  };
+
+  var SECTION_SEO_META = {
+    inicio: {
+      title: "Horizonte Espiritual | Café com Deus, 40 Dias de Propósitos e Bíblia Online",
+      description: "Portal cristão gratuito e fácil para idosos e famílias: escolha Fé Católica ou Evangélica, faça os 40 Dias de Propósitos, reze São Miguel Arcanjo (21 dias), leia a Bíblia Online completa e ouça tudo em voz calma."
+    },
+    "cafe-diario": {
+      title: "Café Espiritual de Hoje com Áudio | Horizonte Espiritual",
+      description: "Leia ou ouça em voz calma o devocional matinal Café Espiritual de hoje com versículo, reflexão acolhedora e oração guiada para começar bem o dia."
+    },
+    propositos: {
+      title: "40 Dias de Propósitos com Deus | Horizonte Espiritual",
+      description: "Escolha seu propósito (Vida em Deus, Família Abençoada, Saúde e Cura ou Sabedoria e Fé) e caminhe 40 dias com passagens da Bíblia e leitura em áudio."
+    },
+    "arcanjo-miguel": {
+      title: "Oração de São Miguel Arcanjo 21 Dias | Horizonte Espiritual",
+      description: "Reze a oração tradicional de São Miguel Arcanjo com áudio em português e acompanhe sua trilha de 21 dias marcada diretamente no aparelho."
+    },
+    trilhas: {
+      title: "Trilhas de Oração de 7 a 21 Dias | Horizonte Espiritual",
+      description: "Caminhadas diárias de oração com Salmos, Provérbios, Família, Cura, Consolo e Nossa Senhora Desatadora dos Nós em letras grandes."
+    },
+    oracoes: {
+      title: "Mais de 40 Orações Fortes Católicas e Evangélicas em Áudio | Horizonte Espiritual",
+      description: "Leia e escute em voz calma Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, orações pela saúde, filhos e netos."
+    },
+    vela: {
+      title: "Vela Virtual de 7 Dias Gratuita pela Família | Horizonte Espiritual",
+      description: "Acenda gratuitamente sua vela virtual com duração de 7 dias em intenção da sua família, saúde ou agradecimento sem precisar de cadastro."
+    },
+    escrituras: {
+      title: "Bíblia Online Completa Católica (73 Livros) e Evangélica (66) | Horizonte Espiritual",
+      description: "Leia na íntegra todos os capítulos da Bíblia Católica (73 livros) e Evangélica (66 livros) com fonte ampliável e narração contínua em áudio."
+    },
+    blog: {
+      title: "Blog Cristão e Reflexões Bíblicas | Horizonte Espiritual",
+      description: "Artigos sobre oração na maturidade, Salmos de proteção, esperança em Cristo e vida devocional diária em áudio."
+    },
+    "quem-somos": {
+      title: "Quem Somos e Transparência Editorial | Horizonte Espiritual",
+      description: "Conheça a missão cristã, o compromisso com acessibilidade para idosos e os princípios editoriais do Horizonte Espiritual."
+    },
+    privacidade: {
+      title: "Política de Privacidade e LGPD | Horizonte Espiritual",
+      description: "Entenda como o Horizonte Espiritual protege seus dados segundo a LGPD, sem exigir login, senha ou cadastro."
+    },
+    apoio: {
+      title: "Apoio Espontâneo via PIX | Horizonte Espiritual",
+      description: "O Horizonte Espiritual é inteiramente gratuito. Saiba como contribuir espontaneamente para manter o portal no ar."
+    }
+  };
+
+  function resolveSectionFromHash(hashValue) {
+    var clean = String(hashValue || "")
+      .replace(/^#\/?/, "")
+      .trim()
+      .toLowerCase();
+    if (!clean) return null;
+    if (SECTION_LABELS[clean]) return clean;
+    for (var sec in SECTION_HASHES) {
+      if (Object.prototype.hasOwnProperty.call(SECTION_HASHES, sec) && SECTION_HASHES[sec] === clean) {
+        return sec;
+      }
+    }
+    return null;
+  }
+
+  function updateSectionSeoState(sectionId, updateHash) {
+    var seo = SECTION_SEO_META[sectionId] || SECTION_SEO_META.inicio;
+    if (seo && typeof document !== "undefined") {
+      document.title = seo.title;
+      var metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute("content", seo.description);
+      }
+    }
+    if (updateHash !== false && typeof window !== "undefined" && window.location) {
+      var slug = SECTION_HASHES[sectionId] || sectionId;
+      var targetHash = sectionId === "inicio" ? "" : "#" + slug;
+      if (window.history && typeof window.history.replaceState === "function") {
+        var baseUrl = window.location.pathname + (window.location.search || "") + targetHash;
+        window.history.replaceState(null, "", baseUrl);
+      }
+    }
+  }
+
+  function navigateToSection(sectionId, shouldScroll, skipHashUpdate) {
     var sections = document.querySelectorAll("[data-section-view]");
     var targetFound = false;
     for (var i = 0; i < sections.length; i++) {
@@ -377,6 +481,7 @@
 
     state.activeSection = sectionId;
     toggleDrawerMenu(false);
+    updateSectionSeoState(sectionId, !skipHashUpdate);
 
     var backTopEl = document.getElementById("global-back-bar");
     var backBotEl = document.getElementById("global-bottom-back-bar");
@@ -393,6 +498,8 @@
       renderHomeRetentionWidgets();
     } else if (sectionId === "cafe-diario") {
       renderCafeDiario();
+    } else if (sectionId === "propositos") {
+      renderPropositosView();
     } else if (sectionId === "arcanjo-miguel") {
       renderArcanjoMiguelPage();
     } else if (sectionId === "trilhas") {
@@ -738,7 +845,7 @@
         escapeHtml(art.imagePath) +
         '" alt="' +
         escapeHtml(art.title) +
-        '" class="w-full h-full object-cover" loading="lazy" />' +
+        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
         '<span class="absolute top-3 left-3 font-mono-label px-2.5 py-1 rounded-full bg-white text-[#1d1d1f]">' +
         escapeHtml(art.scriptureRef) +
         "</span>" +
@@ -2306,7 +2413,7 @@
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
       '<div class="relative h-56 sm:h-72 w-full bg-[#272729]">' +
-      '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" class="w-full h-full object-cover" />' +
+      '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" width="1200" height="902" decoding="async" class="w-full h-full object-cover" />' +
       '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
       '<span class="font-mono-label text-[#2997ff] mb-1">' +
       escapeHtml(formatTodayPtBr()) +
@@ -2831,7 +2938,7 @@
         escapeHtml(pr.imagePath) +
         '" alt="' +
         escapeHtml(pr.title) +
-        '" class="w-full h-full object-cover" loading="lazy" />' +
+        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
         '<span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white text-[#1d1d1f]">' +
         prDone.length +
         "/40 dias</span>" +
@@ -4169,6 +4276,25 @@
     renderQuiz();
     renderBlogList();
     initEvents();
+
+    if (typeof window !== "undefined") {
+      if (typeof window.addEventListener === "function") {
+        window.addEventListener("hashchange", function () {
+          var hashSec = resolveSectionFromHash(window.location.hash);
+          if (hashSec && hashSec !== state.activeSection) {
+            navigateToSection(hashSec, true, true);
+          } else if (!window.location.hash && state.activeSection !== "inicio") {
+            navigateToSection("inicio", true, true);
+          }
+        });
+      }
+      if (window.location && window.location.hash) {
+        var initialSec = resolveSectionFromHash(window.location.hash);
+        if (initialSec && initialSec !== "inicio") {
+          navigateToSection(initialSec, false, true);
+        }
+      }
+    }
   }
 
   if (document.readyState === "loading") {

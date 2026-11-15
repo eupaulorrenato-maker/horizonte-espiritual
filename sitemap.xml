@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/traditions/cafe-espiritual.jpg</image:loc>
+      <image:title>Café Espiritual e Devocional Diário - Horizonte Espiritual</image:title>
+      <image:caption>Leitura matinal da Palavra de Deus com letras grandes e áudio em voz calma</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/traditions/catolica.jpg</image:loc>
+      <image:title>Fé Católica e Bíblia Online (73 Livros)</image:title>
+      <image:caption>Espaço católico gratuito com Bíblia completa e orações tradicionais</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/traditions/evangelica.jpg</image:loc>
+      <image:title>Fé Evangélica e Bíblia Online (66 Livros)</image:title>
+      <image:caption>Espaço evangélico gratuito com Bíblia completa, Salmos e devocionais diários</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/traditions/arcanjo-miguel.jpg</image:loc>
+      <image:title>São Miguel Arcanjo - Trilha de 21 Dias</image:title>
+      <image:caption>Oração tradicional e jornada espiritual de 21 dias dedicada a São Miguel Arcanjo</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/criacao-luz.jpg</image:loc>
+      <image:title>A Criação e a Luz Divina (Gênesis)</image:title>
+      <image:caption>Pintura sacra renascentista retratando Gênesis capítulo 1</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/arca-noe-alianca.jpg</image:loc>
+      <image:title>A Arca de Noé e o Arco da Aliança (Gênesis 9)</image:title>
+      <image:caption>Pintura sacra renascentista retratando a aliança de fidelidade após o dilúvio</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/moises-monte-sinai.jpg</image:loc>
+      <image:title>Moisés no Monte Sinai e os Dez Mandamentos (Êxodo 20)</image:title>
+      <image:caption>Pintura sacra renascentista retratando as Tábuas da Lei no Monte Sinai</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/davi-salmos-harpa.jpg</image:loc>
+      <image:title>O Rei Davi e os Salmos com Harpa (Salmo 23)</image:title>
+      <image:caption>Pintura sacra renascentista retratando Davi entoando os Salmos</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/daniel-cova-leoes.jpg</image:loc>
+      <image:title>Daniel Protegido na Cova dos Leões (Daniel 6)</image:title>
+      <image:caption>Pintura sacra renascentista sobre fidelidade na oração e proteção divina</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/anunciacao-maria.jpg</image:loc>
+      <image:title>A Anunciação a Maria (Lucas 1)</image:title>
+      <image:caption>Pintura sacra renascentista da Anunciação do Anjo Gabriel</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/sermao-montanha-jesus.jpg</image:loc>
+      <image:title>O Sermão da Montanha e as Bem-Aventuranças (Mateus 5)</image:title>
+      <image:caption>Pintura sacra renascentista retratando Jesus ensinando a multidão na Galileia</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/jesus-bom-pastor.jpg</image:loc>
+      <image:title>Jesus Cristo, o Bom Pastor (João 10)</image:title>
+      <image:caption>Pintura sacra renascentista retratando Jesus Cristo guiando Seu rebanho</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/tempestade-acalmada.jpg</image:loc>
+      <image:title>Jesus Acalma a Tempestade no Mar da Galileia (Marcos 4)</image:title>
+      <image:caption>Pintura sacra renascentista retratando Jesus acalmando as águas</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/sacred/pentecostes-cenaculo.jpg</image:loc>
+      <image:title>Pentecostes no Cenáculo (Atos 2)</image:title>
+      <image:caption>Pintura sacra renascentista da descida do Espírito Santo no Cenáculo</image:caption>
+    </image:image>
   </url>
 </urlset>

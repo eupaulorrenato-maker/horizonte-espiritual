@@ -1,17 +1,28 @@
 {
-  "name": "Horizonte Espiritual - Portal Cristão Diário",
+  "id": "./index.html",
+  "name": "Horizonte Espiritual - Devocional Cristão e Bíblia Online",
   "short_name": "Horizonte",
-  "description": "Café Espiritual do Dia, São Miguel Arcanjo (21 Dias), orações católicas e evangélicas, vela virtual de 7 dias e Bíblia Sagrada completa.",
+  "description": "Café Espiritual do Dia, 40 Dias de Propósitos, São Miguel Arcanjo (21 Dias), orações católicas e evangélicas em áudio, vela virtual de 7 dias e Bíblia Online completa.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "lang": "pt-BR",
+  "categories": ["lifestyle", "books", "education"],
   "icons": [
     {
-      "src": "assets/traditions/catolica.jpg",
+      "src": "assets/icons/apple-touch-icon.jpg",
+      "sizes": "180x180",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ]
 }
