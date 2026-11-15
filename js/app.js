@@ -824,18 +824,18 @@
 
         singleView.innerHTML =
           '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
-          '<div class="relative h-48 sm:h-64 w-full bg-[#17171c]">' +
+          '<div class="relative h-48 sm:h-64 w-full bg-[#272729]">' +
           '<img src="' +
           escapeHtml(imgSrc) +
           '" alt="' +
           escapeHtml(prayer.categoryLabel) +
           '" class="w-full h-full object-cover opacity-90" />' +
-          '<div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/35 to-transparent flex items-end p-5 sm:p-6">' +
+          '<div class="absolute inset-0 flex items-end p-5 sm:p-6" style="background: rgba(0, 0, 0, 0.45);">' +
           '<div>' +
-          '<span class="font-mono-label inline-block px-3 py-1 rounded-full bg-white/95 text-[#17171c] mb-2">' +
+          '<span class="font-mono-label inline-block px-3 py-1 rounded-full bg-white text-[#1d1d1f] mb-2">' +
           escapeHtml(prayer.categoryLabel) +
           "</span>" +
-          '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl text-white leading-tight">' +
+          '<h3 class="font-serif-sacred font-semibold text-2xl sm:text-3xl text-white leading-tight">' +
           escapeHtml(prayer.title) +
           "</h3>" +
           "</div>" +
@@ -2076,14 +2076,14 @@
 
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
-      '<div class="relative h-56 sm:h-72 w-full bg-[#17171c]">' +
+      '<div class="relative h-56 sm:h-72 w-full bg-[#272729]">' +
       '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/40 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
-      '<span class="font-mono-label text-[#ffad9b] mb-1">' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
+      '<span class="font-mono-label text-[#2997ff] mb-1">' +
       escapeHtml(formatTodayPtBr()) +
       " • Devocional Diário" +
       "</span>" +
-      '<h2 id="cafe-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">☕ Café Espiritual do Dia</h2>' +
+      '<h2 id="cafe-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">☕ Café Espiritual do Dia</h2>' +
       '<p class="text-sm sm:text-base text-white/90 mt-1">' +
       escapeHtml(tradition ? tradition.greeting : "Paz e bem para a sua manhã!") +
       "</p>" +
@@ -2377,17 +2377,17 @@
 
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
-      '<div class="relative h-64 sm:h-80 w-full bg-[#17171c]">' +
+      '<div class="relative h-64 sm:h-80 w-full bg-[#272729]">' +
       '<img src="' +
       escapeHtml(data.imagePath) +
       '" onerror="this.src=\'' +
       escapeHtml(data.fallbackImagePath) +
       '\'" alt="São Miguel Arcanjo" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
-      '<span class="font-mono-label text-[#ffad9b] mb-1">' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
+      '<span class="font-mono-label text-[#2997ff] mb-1">' +
       escapeHtml(data.imageCaption) +
       "</span>" +
-      '<h2 id="miguel-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">⚔️ ' +
+      '<h2 id="miguel-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">⚔️ ' +
       escapeHtml(data.title) +
       "</h2>" +
       '<p class="text-sm sm:text-base text-white/90 mt-1">' +

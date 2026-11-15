@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Horizonte Espiritual | Mensagem do Dia, Orações Fortes, São Miguel Arcanjo e Bíblia Completa</title>
   <meta name="description" content="Portal cristão gratuito para falar com Deus: Café Espiritual do Dia, São Miguel Arcanjo (21 Dias), mais de 30 orações católicas e evangélicas, vela virtual de 7 dias e Bíblia Sagrada completa." />
-  <meta name="theme-color" content="#003c33" />
+  <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Horizonte Espiritual" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="assets/traditions/catolica.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -21,13 +21,13 @@
     Pular direto ao conteúdo principal
   </a>
 
-  <!-- TOP COHERE ANNOUNCEMENT BAR -->
+  <!-- APPLE GLOBAL NAV BAR (#000000) -->
   <div id="top-announcement-bar" class="announcement-bar flex items-center justify-center relative px-10 text-center">
-    <p class="m-0">
-      <span class="font-mono-label text-[#ffad9b] mr-2">100% Gratuito</span>
+    <p class="m-0 text-white">
+      <span class="font-semibold text-[#2997ff] mr-2">100% Gratuito</span>
       <span class="text-white/90">Letras ajustáveis e leitura em voz calma em todo o portal.</span>
-      <button type="button" class="underline ml-2 text-white font-medium hover:text-[#ffad9b]" data-nav-target="cafe-diario">
-        Abrir Café de Hoje
+      <button type="button" class="underline ml-2 text-[#2997ff] font-normal hover:text-white" data-nav-target="cafe-diario">
+        Abrir Café de Hoje ›
       </button>
     </p>
     <button
@@ -40,8 +40,8 @@
     </button>
   </div>
 
-  <!-- THREE-ZONE COHERE GLOBAL HEADER (CLEAN WHITE CANVAS + HAIRLINE DIVIDER) -->
-  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-light);">
+  <!-- APPLE FROSTED SUB-NAV HEADER -->
+  <header class="sticky top-0 z-40 apple-frosted-header">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
       <!-- Left Zone: Brand Wordmark + Active Tradition Pill -->
       <div class="flex flex-wrap items-center gap-3">
@@ -143,13 +143,13 @@
     </div>
   </header>
 
-  <!-- STICKY AUDIO READER CONTROL BANNER (COHERE CONSOLE STYLE, HIGH-CONTRAST STOP) -->
+  <!-- STICKY AUDIO READER CONTROL BANNER -->
   <div id="audio-status-banner" class="hidden sticky top-24 z-30 max-w-4xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite">
-    <div class="p-3.5 sm:p-4 rounded-[22px] flex flex-wrap items-center justify-between gap-3 border" style="background-color: #17171c; color: #ffffff; border-color: #32323d;">
-      <span id="audio-status-text" class="text-sm sm:text-base font-medium text-white">
+    <div class="p-3.5 sm:p-4 rounded-[18px] flex flex-wrap items-center justify-between gap-3 border" style="background-color: #272729; color: #ffffff; border-color: #3a3a3e;">
+      <span id="audio-status-text" class="text-sm sm:text-base font-normal text-white">
         🔊 Lendo em voz calma neste momento...
       </span>
-      <button type="button" class="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-[#17171c] hover:bg-[#eeece7]" data-action="stop-global-speech">
+      <button type="button" class="px-5 py-2.5 rounded-full text-sm font-normal bg-[#0066cc] text-white hover:bg-[#0071e3]" data-action="stop-global-speech">
         ⏹ Parar Áudio Agora
       </button>
     </div>
@@ -222,8 +222,8 @@
               <select id="home-tradition-select" class="input-sacred"></select>
 
               <div class="pt-1">
-                <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base select-none py-2 px-3.5 rounded-lg border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
-                  <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#17171c]" />
+                <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base select-none py-2 px-3.5 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
+                  <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#0066cc]" />
                   <span>Deixar minha escolha salva neste celular</span>
                 </label>
               </div>
@@ -253,7 +253,7 @@
           </div>
         </div>
 
-        <!-- Right Hero Photo + Console Module (Cohere 22px Radius Media Card) -->
+        <!-- Right Hero Photo + Media Card (Signature Apple Shadow) -->
         <aside class="lg:col-span-5 hero-media-frame flex flex-col justify-between" aria-label="Painel do Portal">
           <div class="relative h-56 sm:h-64 w-full overflow-hidden">
             <img
@@ -261,34 +261,33 @@
               alt="Momento tranquilo de leitura espiritual matinal"
               class="w-full h-full object-cover"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#17171c] via-[#17171c]/20 to-transparent"></div>
-            <span class="absolute top-4 left-4 font-mono-label px-3 py-1 rounded-full bg-[#17171c]/85 text-[#edfce9] border border-white/15">
-              ● Acessibilidade Ativa
+            <span class="absolute top-4 left-4 font-mono-label px-3.5 py-1 rounded-full text-[#1d1d1f]" style="background-color: rgba(210, 210, 215, 0.88);">
+              Acessibilidade Ativa
             </span>
           </div>
-          <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between" style="background-color: #17171c; color: #ffffff;">
+          <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between" style="background-color: #272729; color: #ffffff;">
             <div class="space-y-3">
-              <span class="font-mono-label text-[#ffad9b] block">Biblioteca &amp; Voz Calma</span>
+              <span class="font-mono-label text-[#2997ff] block">Biblioteca &amp; Voz Calma</span>
               <h2 class="font-display text-2xl text-white leading-snug">
-                Obras completas na íntegra, sem cadastros nem bloqueios.
+                Bíblia Sagrada na íntegra, sem cadastros nem bloqueios.
               </h2>
-              <p class="text-sm leading-relaxed text-[#d9d9dd]">
+              <p class="text-sm leading-relaxed text-[#cccccc]">
                 Ajuste o tamanho das letras lá em cima (A- / A+), acenda uma vela virtual gratuita ou escute capítulos inteiros em português sem cortes.
               </p>
             </div>
-            <div class="pt-2 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
-              <button type="button" class="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-[#17171c] hover:bg-[#eeece7]" data-nav-target="escrituras">
-                📖 Abrir Biblioteca →
+            <div class="pt-3 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
+              <button type="button" class="px-5 py-2.5 rounded-full text-sm font-normal bg-[#0066cc] text-white hover:bg-[#0071e3]" data-nav-target="escrituras">
+                📖 Abrir Biblioteca ›
               </button>
-              <button type="button" class="text-sm underline text-[#d9d9dd] hover:text-white" data-nav-target="salvar-app">
-                Salvar no Celular
+              <button type="button" class="text-sm text-[#2997ff] hover:underline" data-nav-target="salvar-app">
+                Salvar no Celular ›
               </button>
             </div>
           </div>
         </aside>
       </section>
 
-      <!-- Monochrome Quiet Trust Strip -->
+      <!-- Minimal Hairline Trust Strip -->
       <section class="trust-strip" aria-label="Pilares do Portal">
         <div class="flex flex-wrap items-center justify-center sm:justify-between gap-4 sm:gap-6 text-center">
           <span class="font-mono-label" style="color: var(--text-muted);">Fé Católica e Evangélica</span>
@@ -298,16 +297,16 @@
         </div>
       </section>
 
-      <!-- Deep Enterprise Green Band (#003c33): Daily Passage Card -->
+      <!-- Apple Near-Black Product Tile (#272729): Daily Passage Card -->
       <section class="cohere-dark-band p-7 sm:p-12 max-w-5xl mx-auto" aria-label="Palavra do Dia">
         <div class="max-w-3xl mx-auto text-center space-y-5">
-          <span class="font-mono-label inline-block px-3 py-1 rounded-full bg-white/10 text-[#ffad9b]">
+          <span class="font-mono-label inline-block text-[#2997ff]">
             Mensagem do Dia
           </span>
-          <p data-daily-greeting class="text-base sm:text-lg font-medium text-white">
+          <p data-daily-greeting class="text-base sm:text-lg font-semibold text-white">
             A paz de Cristo esteja no seu lar (Fé Católica)
           </p>
-          <p data-daily-tradition-tag class="font-mono-label text-[#edfce9]/80">
+          <p data-daily-tradition-tag class="font-mono-label text-[#cccccc]">
             Fé Cristã Católica
           </p>
 
@@ -315,12 +314,12 @@
             “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu próprio cuidado.”
           </blockquote>
 
-          <p data-daily-passage-reference class="font-mono-label text-[#ffad9b]">
+          <p data-daily-passage-reference class="font-mono-label text-[#2997ff]">
             São Mateus 6:34
           </p>
 
           <div class="cohere-dark-inner p-5 sm:p-6 text-left">
-            <p class="font-mono-label text-[#edfce9]/80 mb-1.5">Explicação simples para hoje:</p>
+            <p class="font-mono-label text-[#cccccc] mb-1.5">Explicação simples para hoje:</p>
             <p data-daily-passage-reflection class="text-base sm:text-lg leading-relaxed text-white/95">
               Entregue as preocupações futuras na oração silenciosa de hoje. Deus cuida do tempo presente.
             </p>
@@ -345,11 +344,11 @@
         </div>
       </section>
 
-      <!-- Large Clear Doorways ("O que você deseja fazer agora?") - 3-Col Soft Stone Grid -->
-      <section class="max-w-5xl mx-auto space-y-6" aria-labelledby="doors-heading">
+      <!-- Apple Parchment Gallery Band (#f5f5f7) with White Store Utility Cards -->
+      <section class="max-w-5xl mx-auto p-6 sm:p-10 rounded-[18px] border space-y-6" style="background-color: var(--bg-subtle); border-color: var(--border-color);" aria-labelledby="doors-heading">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b pb-4" style="border-color: var(--border-color);">
           <div>
-            <span class="font-mono-label block mb-1" style="color: var(--text-muted);">Acesso Direto</span>
+            <span class="font-mono-label block mb-1" style="color: var(--accent-blue);">Acesso Direto</span>
             <h2 id="doors-heading" class="font-display heading-section" style="color: var(--text-main);">
               O que você deseja fazer agora?
             </h2>
@@ -359,10 +358,10 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <button type="button" class="door-card-btn" data-nav-target="cafe-diario">
             <div>
-              <span id="home-cafe-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+              <span id="home-cafe-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
                 ☕ Palavra da Manhã
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
@@ -372,14 +371,14 @@
                 Leitura curta e acolhedora de hoje com botão para ouvir em voz calma.
               </p>
             </div>
-            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Toque aqui para abrir →
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para abrir ›
             </span>
           </button>
 
           <button type="button" class="door-card-btn" data-nav-target="arcanjo-miguel">
             <div>
-              <span id="home-miguel-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+              <span id="home-miguel-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
                 ⚔️ Página Especial • 21 Dias
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
@@ -389,14 +388,14 @@
                 Oração tradicional completa e lista para marcar do Dia 1 ao Dia 21.
               </p>
             </div>
-            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Toque aqui para rezar →
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para rezar ›
             </span>
           </button>
 
           <button type="button" class="door-card-btn" data-nav-target="oracoes">
             <div>
-              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
                 🙏 Católicas &amp; Evangélicas
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
@@ -406,14 +405,14 @@
                 Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, Cura e Família.
               </p>
             </div>
-            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Toque aqui para abrir →
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para abrir ›
             </span>
           </button>
 
           <button type="button" class="door-card-btn" data-nav-target="vela">
             <div>
-              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
                 🕯 Gratuita • Duração de 7 Dias
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
@@ -423,14 +422,14 @@
                 Escreva o nome de quem ama e deixe uma vela acesa com sua oração.
               </p>
             </div>
-            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Toque aqui para acender →
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para acender ›
             </span>
           </button>
 
           <button type="button" class="door-card-btn" data-nav-target="escrituras">
             <div>
-              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
                 📖 Leitura Integral na Tela
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
@@ -440,14 +439,14 @@
                 Bíblia Católica (73 livros) e Bíblia Evangélica (66 livros) capítulo por capítulo.
               </p>
             </div>
-            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Toque aqui para ler →
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para ler ›
             </span>
           </button>
 
           <button type="button" class="door-card-btn" data-nav-target="salvar-app">
             <div>
-              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
                 📲 Ícone na Tela do Celular
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
@@ -457,17 +456,17 @@
                 Salve como ícone igual aplicativo ou baixe o lembrete diário na agenda.
               </p>
             </div>
-            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Ver como salvar →
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Ver como salvar ›
             </span>
           </button>
         </div>
 
-        <!-- Pale Blue Wash (#f1f5ff) Full-Width WhatsApp Opt-In Band -->
-        <button type="button" class="door-card-btn door-card-blue w-full" data-action="open-whatsapp-daily-page">
+        <!-- Clean White Full-Width WhatsApp Opt-In Card inside Parchment Gallery -->
+        <button type="button" class="door-card-btn w-full" data-action="open-whatsapp-daily-page">
           <div class="flex flex-wrap items-center justify-between gap-4 w-full">
             <div class="space-y-1">
-              <span id="home-whatsapp-badge" class="font-mono-label inline-block px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--accent-blue); border-color: var(--border-color);">
+              <span id="home-whatsapp-badge" class="font-mono-label inline-block px-3 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--accent-blue); border-color: var(--border-color);">
                 💬 Devocional no Seu Número
               </span>
               <h3 class="font-display text-2xl pt-1" style="color: var(--text-main);">
@@ -477,7 +476,7 @@
                 Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.
               </p>
             </div>
-            <span class="btn-primary shrink-0">Cadastrar meu WhatsApp →</span>
+            <span class="btn-primary shrink-0">Cadastrar meu WhatsApp ›</span>
           </div>
         </button>
       </section>
@@ -503,16 +502,16 @@
          ========================================================= -->
     <section data-section-view="vertente" class="hidden space-y-6" aria-labelledby="vertente-title">
       <article class="surface-card overflow-hidden max-w-4xl mx-auto">
-        <!-- Realistic Devotional Image Banner for the Selected Tradition -->
-        <div class="relative h-64 sm:h-80 w-full bg-[#17171c]">
+        <!-- Realistic Devotional Image Banner -->
+        <div class="relative h-64 sm:h-80 w-full bg-[#272729]">
           <img
             id="vertente-hero-image"
             src="assets/traditions/catolica.jpg"
-            alt="Imagem devocional da tradição espiritual"
+            alt="Imagem devocional da fé cristã"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
-            <span id="vertente-image-caption" class="font-mono-label text-[#ffad9b] mb-1">
+          <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.45);">
+            <span id="vertente-image-caption" class="font-mono-label text-[#2997ff] mb-1">
               Jesus Cristo, Luz e Bom Pastor da Fé Católica
             </span>
             <h2 id="vertente-title" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">
@@ -797,13 +796,13 @@
       </div>
 
       <div id="candle-subpage-form" class="max-w-2xl mx-auto space-y-6">
-        <div class="p-6 sm:p-8 rounded-[22px] text-white flex flex-col items-center text-center border border-white/10" style="background-color: var(--bg-chapel);">
+        <div class="p-6 sm:p-8 rounded-[18px] text-white flex flex-col items-center text-center border border-white/10" style="background-color: var(--bg-chapel);">
           <div class="my-2 flex flex-col items-center">
             <div id="hero-candle-flame" class="candle-flame mb-1" aria-hidden="true"></div>
-            <div class="w-14 h-24 rounded-t-md border-t-4 border-[#ffad9b]" style="background: linear-gradient(to bottom, #FFFFFF, #eeece7);"></div>
-            <div class="w-24 h-2.5 rounded-full mt-1" style="background-color: #75758a;"></div>
+            <div class="w-14 h-24 rounded-t-md border-t-4 border-[#d2d2d7]" style="background-color: #fafafc;"></div>
+            <div class="w-24 h-2.5 rounded-full mt-1" style="background-color: #6e6e73;"></div>
           </div>
-          <p id="candles-active-counter" class="font-mono-label text-[#ffad9b] mt-3 mb-4" aria-live="polite">
+          <p id="candles-active-counter" class="font-mono-label text-[#2997ff] mt-3 mb-4" aria-live="polite">
             3 velas acesas em vigília
           </p>
           <button type="button" class="px-4 py-2 rounded-full border border-white/30 text-white text-xs hover:bg-white/10" data-action="toggle-flame-motion" aria-pressed="false">
@@ -1196,40 +1195,40 @@
 
   </main>
 
-  <!-- COHERE DARK FOOTER (#17171c) WITH MUTED SLATE LINKS & CORAL LABEL -->
-  <footer class="cohere-footer border-t border-white/10 mt-16 py-12 px-4 sm:px-6">
+  <!-- APPLE SIGNATURE PARCHMENT FOOTER (#f5f5f7) -->
+  <footer class="cohere-footer mt-16 py-14 px-4 sm:px-6">
     <div class="max-w-6xl mx-auto flex flex-col gap-8">
       <div class="flex flex-col md:flex-row items-start justify-between gap-6">
         <div class="space-y-2 max-w-sm">
-          <span class="font-mono-label text-[#ff7759] block">Acesso Livre e Gratuito</span>
-          <p class="font-display text-2xl text-white">
+          <span class="font-mono-label block" style="color: var(--accent-blue);">Acesso Livre e Gratuito</span>
+          <p class="font-display text-2xl font-semibold" style="color: var(--text-main);">
             Horizonte Espiritual
           </p>
-          <p class="text-sm text-[#93939f] leading-relaxed">
+          <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
             Fé em Deus, mensagens diárias, orações católicas e evangélicas, São Miguel Arcanjo e Bíblia Sagrada completa em acesso gratuito.
           </p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-2.5 text-sm">
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="inicio">Início</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="cafe-diario">Café Diário</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="trilhas">Trilhas 21 Dias</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="oracoes">Orações Fortes</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="escrituras">Biblioteca Sagrada</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="salvar-app">Salvar no Celular</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="blog">Blog</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="quem-somos">Quem Somos</button>
-          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="privacidade">Privacidade &amp; LGPD</button>
-          <button type="button" class="text-left text-[#ffad9b] hover:text-white font-medium py-1" data-nav-target="apoio">Apoio (PIX)</button>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-2 text-[15px] leading-[1.9]">
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="inicio">Início</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="cafe-diario">Café Diário</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="trilhas">Trilhas 21 Dias</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="oracoes">Orações Fortes</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="escrituras">Biblioteca Sagrada</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="salvar-app">Salvar no Celular</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="blog">Blog</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="quem-somos">Quem Somos</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="privacidade">Privacidade &amp; LGPD</button>
+          <button type="button" class="text-left hover:underline font-semibold" style="color: var(--accent-blue);" data-nav-target="apoio">Apoio (PIX) ›</button>
         </div>
       </div>
 
-      <div class="pt-6 border-t border-white/10 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="text-xs text-[#93939f]">
+      <div class="pt-6 border-t text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-3" style="border-color: var(--border-color);">
+        <p class="text-xs" style="color: var(--text-muted);">
           Nota de Gratuidade: Acesso livre a toda leitura e áudio. Apoio espontâneo opcional via PIX: eupaulorrenato@gmail.com.
         </p>
-        <p class="text-xs shrink-0 text-[#93939f]">
+        <p class="text-xs shrink-0" style="color: var(--text-muted);">
           © 2026 Horizonte Espiritual • Todos os direitos reservados.
         </p>
       </div>

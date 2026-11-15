@@ -1,77 +1,74 @@
 :root {
-  /* Cohere 2026 Editorial & Controlled Product Palette */
-  --font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Inter', Arial, ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Apple Design System Tokens (SF Pro Display + SF Pro Text + Inter fallback) */
+  --font-display: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --font-sans: 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
 
   --bg-page: #ffffff;
   --bg-surface: #ffffff;
-  --bg-subtle: #eeece7;
-  --bg-accent-soft: #f1f5ff;
-  --bg-amber-soft: #edfce9;
-  --bg-chapel: #071829;
-  --bg-deep-green: #003c33;
-  --bg-primary: #17171c;
+  --bg-subtle: #f5f5f7;
+  --surface-pearl: #fafafc;
+  --bg-accent-soft: #f5f5f7;
+  --bg-amber-soft: #f5f5f7;
+  --bg-tile-dark: #272729;
+  --bg-tile-dark-2: #2a2a2c;
+  --bg-chapel: #252527;
   --bg-black: #000000;
 
-  --text-main: #212121;
-  --text-secondary: #616161;
-  --text-muted: #75758a;
+  --text-main: #1d1d1f;
+  --text-secondary: #333333;
+  --text-muted: #6e6e73;
   --text-on-dark: #ffffff;
+  --text-muted-on-dark: #cccccc;
 
-  --border-color: #d9d9dd;
-  --border-strong: #c2c2ca;
-  --border-light: #e5e7eb;
-  --card-border: #f2f2f2;
+  --border-color: #e0e0e0;
+  --border-strong: #d2d2d7;
+  --border-light: rgba(0, 0, 0, 0.08);
+  --divider-soft: #f0f0f0;
 
-  /* Structural accents mapped cleanly for all views + high contrast */
-  --accent-wine: #003c33;
-  --accent-wine-hover: #071829;
-  --accent-blue: #1863dc;
-  --accent-amber: #003c33;
-  --accent-coral: #ff7759;
-  --accent-coral-soft: #ffad9b;
-  --accent-coral-ink: #b83b1e;
-  --accent-green: #003c33;
+  /* Single Brand Interactive Accent: Apple Action Blue (#0066cc) */
+  --accent-blue: #0066cc;
+  --accent-blue-dark: #2997ff;
+  --accent-wine: #0066cc;
+  --accent-wine-hover: #004c99;
+  --accent-amber: #0066cc;
+  --accent-green: #0066cc;
 
-  --focus-ring: #4c6ee6;
-  --form-focus: #9b60aa;
+  --focus-ring: #0071e3;
   --error-red: #b30000;
+  --apple-product-shadow: 3px 5px 30px 0 rgba(0, 0, 0, 0.22);
   --reader-font-size: 1.25rem;
 }
 
 [data-theme="dark"] {
-  --bg-page: #17171c;
-  --bg-surface: #1f1f26;
-  --bg-subtle: #282832;
-  --bg-accent-soft: #13223b;
-  --bg-amber-soft: #092e27;
-  --bg-chapel: #071829;
-  --bg-deep-green: #003c33;
-  --bg-primary: #ffffff;
+  --bg-page: #1d1d1f;
+  --bg-surface: #272729;
+  --bg-subtle: #2a2a2c;
+  --surface-pearl: #2a2a2c;
+  --bg-accent-soft: #252527;
+  --bg-amber-soft: #252527;
+  --bg-tile-dark: #272729;
+  --bg-tile-dark-2: #2a2a2c;
+  --bg-chapel: #1d1d1f;
   --bg-black: #000000;
 
   --text-main: #ffffff;
-  --text-secondary: #d9d9dd;
-  --text-muted: #93939f;
+  --text-secondary: #cccccc;
+  --text-muted: #a1a1a6;
   --text-on-dark: #ffffff;
+  --text-muted-on-dark: #cccccc;
 
-  --border-color: #32323d;
-  --border-strong: #4a4a57;
-  --border-light: #292933;
-  --card-border: #2a2a33;
+  --border-color: #3a3a3e;
+  --border-strong: #4d4d52;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --divider-soft: #3a3a3e;
 
-  --accent-wine: #edfce9;
-  --accent-wine-hover: #ffffff;
-  --accent-blue: #8cb4ff;
-  --accent-amber: #ffad9b;
-  --accent-coral: #ff7759;
-  --accent-coral-soft: #ffad9b;
-  --accent-coral-ink: #ffad9b;
-  --accent-green: #7ce38f;
+  --accent-blue: #2997ff;
+  --accent-wine: #2997ff;
+  --accent-wine-hover: #64b5ff;
+  --accent-amber: #2997ff;
+  --accent-green: #2997ff;
 
-  --focus-ring: #4c6ee6;
-  --form-focus: #c88fd6;
+  --focus-ring: #2997ff;
 }
 
 *, *::before, *::after {
@@ -87,34 +84,42 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
+  font-feature-settings: "ss03";
   background-color: var(--bg-page);
   color: var(--text-main);
-  line-height: 1.5;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
   overflow-x: hidden;
   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .font-display,
 .font-serif-sacred {
   font-family: var(--font-display);
+  font-feature-settings: "ss03";
 }
 
+/* Apple Tagline / Eyebrow Caption (replaces mono uppercase tags) */
 .font-mono-label {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.29;
+  letter-spacing: -0.014em;
+  text-transform: none;
 }
 
-/* Display typography scale aligned to Cohere hierarchy */
+/* Apple Negative-Tracked Headlines (Weight 600, never 500 or decorative gradients) */
 h1, h2, h3, h4,
 .font-serif-sacred.heading-hero,
 .font-serif-sacred.heading-section {
+  font-family: var(--font-display);
   letter-spacing: -0.02em;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .text-body-sacred,
@@ -123,8 +128,9 @@ div.font-serif-sacred.text-body-sacred,
 p.font-serif-sacred.text-body-sacred {
   font-family: var(--font-sans);
   font-size: var(--reader-font-size);
-  line-height: 1.7;
-  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.015em;
 }
 
 a[href],
@@ -149,7 +155,7 @@ select:disabled,
 }
 
 :focus-visible {
-  outline: 3px solid var(--focus-ring);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -159,32 +165,47 @@ img, video, iframe {
   display: block;
 }
 
-/* Monumental Cohere Display Scale (mobile-safe up to desktop) */
+/* Apple Hero & Section Display Scale (SF Pro Display 600 tight) */
 .heading-hero {
-  font-size: clamp(2.5rem, 6vw, 4.75rem);
-  line-height: 1.02;
+  font-size: clamp(2.125rem, 5.2vw, 3.5rem);
+  line-height: 1.07;
   letter-spacing: -0.025em;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .heading-section {
-  font-size: clamp(1.65rem, 3.2vw, 2.5rem);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  font-weight: 400;
+  font-size: clamp(1.625rem, 3.2vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  font-weight: 600;
 }
 
-/* Top Cohere Announcement Bar */
+/* Apple Global Nav Bar (#000000, 44px slim rail) */
 .announcement-bar {
   background-color: #000000;
   color: #ffffff;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0.5rem 1rem;
-  font-size: 0.8125rem;
-  line-height: 1.4;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-/* Minimum 48px touch targets for 50+ audience */
+/* Apple Frosted Glass Sub-Nav Bar */
+.apple-frosted-header {
+  background-color: rgba(245, 245, 247, 0.84);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .apple-frosted-header {
+  background-color: rgba(29, 29, 31, 0.84);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Minimum 48px touch targets maintained for elderly accessibility */
 .tap-target {
   min-height: 48px;
   min-width: 48px;
@@ -193,121 +214,149 @@ img, video, iframe {
   justify-content: center;
 }
 
-/* Cohere Primary Pill CTA (near-black on light, white on dark) */
+/* System-wide Apple Active Scale Micro-Interaction */
+button:not(:disabled):active,
+.door-card-btn:active,
+.tradition-card:active {
+  transform: scale(0.985);
+}
+
+.btn-primary:not(:disabled):active,
+.btn-secondary:not(:disabled):active,
+.feeling-chip:not(:disabled):active,
+.nav-tab-btn:not(:disabled):active,
+.back-home-btn:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+/* Apple Action Blue Pill Primary CTA (#0066cc, full pill, no shadow) */
 .btn-primary {
-  background-color: #17171c;
+  background-color: #0066cc;
   color: #ffffff;
-  border: 1px solid #17171c;
+  border: 1px solid #0066cc;
   min-height: 48px;
-  padding: 0.75rem 1.5rem;
-  border-radius: 32px;
+  padding: 0.6875rem 1.375rem;
+  border-radius: 9999px;
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.95rem;
-  line-height: 1.3;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.24;
+  letter-spacing: -0.02em;
   box-shadow: none;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-primary:hover {
-  background-color: #2b2b34;
-  border-color: #2b2b34;
+  background-color: #0071e3;
+  border-color: #0071e3;
 }
 
-[data-theme="dark"] .btn-primary {
-  background-color: #ffffff;
-  color: #17171c;
-  border-color: #ffffff;
-}
-
-[data-theme="dark"] .btn-primary:hover {
-  background-color: #eeece7;
-  border-color: #eeece7;
-}
-
-/* Cohere Outlined Pill Secondary Control */
+/* Apple Ghost Pill Secondary Button (#0066cc outline, full pill) */
 .btn-secondary {
-  background-color: transparent;
-  color: var(--text-main);
-  border: 1px solid var(--border-strong);
+  background-color: var(--bg-surface);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
   min-height: 48px;
-  padding: 0.65rem 1.35rem;
-  border-radius: 32px;
+  padding: 0.6875rem 1.375rem;
+  border-radius: 9999px;
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.95rem;
-  line-height: 1.3;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.24;
+  letter-spacing: -0.02em;
   box-shadow: none;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .btn-secondary:hover {
   background-color: var(--bg-subtle);
-  border-color: var(--text-main);
 }
 
-/* Dark Band CTA Overrides (Deep Green / Near-Black) */
+[data-theme="dark"] .btn-secondary {
+  background-color: transparent;
+  color: #2997ff;
+  border-color: #2997ff;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background-color: rgba(41, 151, 255, 0.12);
+}
+
+/* Quiz options and full-width drawer items need dark readable text */
+[data-quiz-option].btn-secondary,
+#full-site-drawer .btn-secondary {
+  color: var(--text-main);
+  border-color: var(--border-strong);
+  background-color: var(--surface-pearl);
+  border-radius: 11px;
+}
+
+[data-quiz-option].btn-secondary:hover,
+#full-site-drawer .btn-secondary:hover {
+  border-color: var(--accent-blue);
+  background-color: var(--bg-subtle);
+}
+
+/* Apple Dark Product Tile (#272729) */
+.cohere-dark-band {
+  background-color: #272729;
+  color: #ffffff;
+  border-radius: 18px;
+}
+
 .cohere-dark-band .btn-primary {
-  background-color: #ffffff;
-  color: #17171c;
-  border-color: #ffffff;
+  background-color: #0066cc;
+  color: #ffffff;
+  border-color: #0066cc;
 }
 
 .cohere-dark-band .btn-primary:hover {
-  background-color: #eeece7;
-  border-color: #eeece7;
+  background-color: #0071e3;
+  border-color: #0071e3;
 }
 
 .cohere-dark-band .btn-secondary {
   background-color: transparent;
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.36);
+  color: #2997ff;
+  border-color: #2997ff;
 }
 
 .cohere-dark-band .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: #ffffff;
-}
-
-/* Cohere Dark Feature Band (#003c33 Deep Enterprise Green) */
-.cohere-dark-band {
-  background-color: #003c33;
-  color: #ffffff;
-  border-radius: 22px;
+  background-color: rgba(41, 151, 255, 0.14);
 }
 
 .cohere-dark-inner {
-  background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
+  background-color: #2a2a2c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
 }
 
-/* Cohere Soft-Stone Product / Capability Doorway Cards (#eeece7, flat, hairline ruled) */
+/* Apple Store Utility Cards (White on Parchment/White, 18px radius, hairline border, zero shadow) */
 .door-card-btn {
-  background-color: var(--bg-subtle);
+  background-color: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 1.5rem;
-  min-height: 148px;
+  min-height: 152px;
   text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
   box-shadow: none;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .door-card-btn:hover {
-  border-color: var(--text-main);
-  background-color: var(--bg-surface);
+  border-color: var(--accent-blue);
+  background-color: var(--surface-pearl);
 }
 
 .door-card-blue {
-  background-color: var(--bg-accent-soft);
+  background-color: var(--bg-subtle);
   border-color: var(--border-color);
-  border-radius: 22px;
+  border-radius: 18px;
 }
 
 .door-card-blue:hover {
@@ -322,73 +371,67 @@ img, video, iframe {
   gap: 0.5rem;
   min-height: 48px;
   padding: 0.55rem 1.25rem;
-  border-radius: 32px;
-  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
+  border: 1px solid var(--accent-blue);
   background-color: var(--bg-surface);
-  color: var(--text-main);
-  font-weight: 500;
+  color: var(--accent-blue);
+  font-weight: 400;
   font-size: 0.95rem;
   box-shadow: none;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .back-home-btn:hover {
-  background-color: #17171c;
+  background-color: #0066cc;
   color: #ffffff;
-  border-color: #17171c;
 }
 
-[data-theme="dark"] .back-home-btn:hover {
-  background-color: #ffffff;
-  color: #17171c;
-  border-color: #ffffff;
-}
-
-/* Flat Cohere Surfaces */
+/* Flat Apple Cards & Surfaces (No shadow on UI chrome) */
 .surface-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: 22px;
+  border-radius: 18px;
 }
 
 .surface-subtle {
   background-color: var(--bg-subtle);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 18px;
 }
 
+/* Signature Single Drop-Shadow Reserved ONLY for Devotional Media Container */
 .hero-media-frame {
-  border-radius: 22px;
+  border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--border-color);
-  background-color: #17171c;
+  background-color: #272729;
   color: #ffffff;
+  box-shadow: var(--apple-product-shadow);
 }
 
-/* Editorial Coral & Hairline Tags */
+/* Apple Clean Pill Tag (No coral, quiet hairline neutral / blue) */
 .coral-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: 8px;
-  border: 1px solid var(--accent-coral-soft);
-  background-color: rgba(255, 119, 89, 0.1);
-  color: var(--accent-coral-ink);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.014em;
 }
 
-/* Monochrome Quiet Trust Strip */
+/* Minimal Hairline Trust Strip */
 .trust-strip {
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  padding: 1.5rem 0.5rem;
+  padding: 1.25rem 0.5rem;
 }
 
-/* Tradition & Feature Grids */
 .traditions-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -398,13 +441,13 @@ img, video, iframe {
 .features-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 640px) {
   .traditions-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.875rem;
+    gap: 1rem;
   }
   .features-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -430,7 +473,7 @@ img, video, iframe {
 .tradition-card {
   min-height: 60px;
   padding: 0.85rem 1rem;
-  border-radius: 16px;
+  border-radius: 18px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   color: var(--text-main);
@@ -438,94 +481,85 @@ img, video, iframe {
   align-items: center;
   gap: 0.85rem;
   text-align: left;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .tradition-card:hover {
-  border-color: var(--text-main);
+  border-color: var(--accent-blue);
   background-color: var(--bg-subtle);
 }
 
 .tradition-card[aria-pressed="true"] {
-  border-color: #17171c;
-  background-color: var(--bg-amber-soft);
+  border: 2px solid var(--focus-ring);
+  background-color: var(--bg-surface);
 }
 
-/* Cohere Outlined Filter Pills */
+/* Apple Configurator Option Chips (rounded pill, 2px Focus Blue border when selected) */
 .feeling-chip {
   min-height: 48px;
-  padding: 0.5rem 1.15rem;
-  border-radius: 30px;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
   border: 1px solid var(--border-strong);
-  background-color: transparent;
+  background-color: var(--bg-surface);
   color: var(--text-main);
-  font-size: 0.925rem;
-  font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: -0.014em;
+  transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .feeling-chip:hover {
-  border-color: var(--text-main);
+  border-color: var(--accent-blue);
   background-color: var(--bg-subtle);
 }
 
 .feeling-chip[aria-pressed="true"] {
-  background-color: #17171c;
+  background-color: #0066cc;
   color: #ffffff;
-  border-color: #17171c;
+  border: 2px solid #0071e3;
 }
 
-[data-theme="dark"] .feeling-chip[aria-pressed="true"] {
-  background-color: #ffffff;
-  color: #17171c;
-  border-color: #ffffff;
-}
-
-/* Primary & Institutional Navigation Tabs (Clean Cohere Header Links) */
+/* Apple Sub-Nav Links & Active Pill */
 .nav-tab-btn {
   min-height: 44px;
-  padding: 0.45rem 0.95rem;
-  border-radius: 32px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
   border: 1px solid transparent;
   background-color: transparent;
   color: var(--text-secondary);
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: -0.014em;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
   white-space: nowrap;
   box-shadow: none;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .nav-tab-btn:hover {
-  background-color: var(--bg-subtle);
-  color: var(--text-main);
+  background-color: var(--bg-surface);
+  color: var(--accent-blue);
 }
 
 .nav-tab-btn[aria-current="page"] {
-  background-color: #17171c;
+  background-color: #0066cc;
   color: #ffffff;
-  border-color: #17171c;
-}
-
-[data-theme="dark"] .nav-tab-btn[aria-current="page"] {
-  background-color: #ffffff;
-  color: #17171c;
-  border-color: #ffffff;
+  border-color: #0066cc;
 }
 
 .nav-inst-btn {
   min-height: 40px;
   padding: 0.35rem 0.7rem;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid transparent;
   background-color: transparent;
   color: var(--text-secondary);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: -0.014em;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -534,40 +568,41 @@ img, video, iframe {
 }
 
 .nav-inst-btn:hover {
-  color: var(--text-main);
+  color: var(--accent-blue);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
 .nav-inst-btn[aria-current="page"] {
   color: var(--accent-blue);
-  background-color: var(--bg-accent-soft);
+  font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-/* Cohere Clean Form Inputs (8px radius, hairline border, violet focus) */
+/* Apple Clean Form Controls (Rounded pill for search/select or 11px soft hairline) */
 .input-sacred {
   width: 100%;
   min-height: 52px;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: 0.75rem 1.15rem;
+  border-radius: 11px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-main);
-  font-size: 1.05rem;
+  font-size: 1.0625rem;
   font-weight: 400;
+  letter-spacing: -0.02em;
   font-family: var(--font-sans);
   transition: border-color 0.15s ease;
 }
 
 .input-sacred:focus {
-  border-color: var(--form-focus);
-  outline: 3px solid var(--focus-ring);
+  border-color: var(--focus-ring);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 1px;
 }
 
-/* Native respectful Apoio row (flat, rule-driven) */
+/* Minimal Apoio Rule Row */
 .ad-sponsor-slot {
   background-color: var(--bg-surface);
   border-top: 1px solid var(--border-color);
@@ -628,52 +663,43 @@ img, video, iframe {
   min-height: 48px;
   min-width: 48px;
   padding: 0.4rem 0.6rem;
-  border-radius: 8px;
+  border-radius: 11px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-main);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .day-step-btn:hover {
-  border-color: var(--text-main);
+  border-color: var(--accent-blue);
   background-color: var(--bg-subtle);
 }
 
 .day-step-btn.is-completed {
-  border-color: #003c33;
-  background-color: #edfce9;
-  color: #003c33;
-}
-
-[data-theme="dark"] .day-step-btn.is-completed {
-  border-color: #7ce38f;
-  background-color: #092e27;
-  color: #edfce9;
+  border-color: var(--accent-blue);
+  background-color: var(--bg-subtle);
+  color: var(--accent-blue);
+  font-weight: 600;
 }
 
 .day-step-btn.is-active {
-  background-color: #17171c;
+  background-color: #0066cc;
   color: #ffffff;
-  border-color: #17171c;
+  border-color: #0066cc;
+  font-weight: 600;
 }
 
-[data-theme="dark"] .day-step-btn.is-active {
-  background-color: #ffffff;
-  color: #17171c;
-  border-color: #ffffff;
-}
-
-/* Dark Footer anchored to Cohere Near-Black Primary */
+/* Apple Signature Parchment Footer (#f5f5f7 light, #252527 dark) */
 .cohere-footer {
-  background-color: #17171c;
-  color: #ffffff;
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
 }
 
 .sr-only {

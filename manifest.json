@@ -1,18 +1,17 @@
 {
-  "name": "Horizonte Espiritual",
+  "name": "Horizonte Espiritual - Portal Cristão Diário",
   "short_name": "Horizonte",
-  "description": "Café Espiritual diário, Trilha de 21 Dias de São Miguel Arcanjo, Orações Fortes, Vela Virtual e Obras Sagradas Completas.",
+  "description": "Café Espiritual do Dia, São Miguel Arcanjo (21 Dias), orações católicas e evangélicas, vela virtual de 7 dias e Bíblia Sagrada completa.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#003c33",
+  "theme_color": "#000000",
   "lang": "pt-BR",
   "icons": [
     {
       "src": "assets/traditions/catolica.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "any"
+      "type": "image/jpeg"
     }
   ]
 }
