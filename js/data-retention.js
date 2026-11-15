@@ -1,5 +1,5 @@
 ﻿// Dados de retenção diária ("Café Espiritual do Dia"), Trilha dos 21 Dias de São Miguel Arcanjo
-// e Trilhas Multi-dias das Tradições Espirituais (Horizonte Espiritual).
+// e Trilhas Multi-dias Cristãs (Fé Católica e Fé Evangélica - Horizonte Espiritual).
 
 window.CAFE_ESPIRITUAL_DAYS = [
   {
@@ -139,10 +139,10 @@ window.CAFE_ESPIRITUAL_DAYS = [
   },
   {
     day: 16,
-    theme: "A Companhia Invisível dos Anjos e Guias",
+    theme: "A Companhia Invisível dos Anjos de Deus",
     verse: "Porque aos seus anjos dará ordem a teu respeito, para te guardarem em todos os teus caminhos.",
     reference: "Salmo 91:11",
-    message: "Bom dia! Você não entra nem sai de nenhum ambiente sem proteção espiritual. Por trás da rotina visível do cotidiano, mensageiros de luz velam pelos que buscam o bem e invocam o nome de Deus com sinceridade.\n\nCaminhe pelas ruas e tarefas de hoje com o coração firme, sabendo que anjos guardiões cercam sua casa e quem você ama.",
+    message: "Bom dia! Você não entra nem sai de nenhum ambiente sem a proteção de Deus. Por trás da rotina visível do cotidiano, os santos anjos do Senhor velam pelos que buscam o bem e invocam o nome de Jesus com sinceridade.\n\nCaminhe pelas ruas e tarefas de hoje com o coração firme, sabendo que anjos guardiões cercam sua casa e quem você ama.",
     dailyAction: "Antes de sair pela porta hoje, faça uma breve oração pelo seu Anjo da Guarda e pelos anjos que protegem sua família.",
     shortPrayer: "Senhor dos Exércitos, agradeço pelos mensageiros de luz que me guardam nos caminhos visíveis e invisíveis. Mantém o mal distante do meu lar."
   },
@@ -188,7 +188,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.",
     reference: "Salmo 46:1",
     message: "Bom dia! Casas construídas sobre areia balançam quando o temporal aperta, mas casas firmadas na rocha permanecem de pé até o amanhecer.\n\nSua fé cultivada todos os dias pelas manhãs é essa rocha firme dentro da sua casa. Continue firme nesse bom propósito.",
-    dailyAction: "Leia uma das Orações Fortes da sua tradição em voz audível para firmar sua manhã na fé.",
+    dailyAction: "Leia uma das Orações Fortes em voz audível hoje para firmar sua manhã na fé em Deus.",
     shortPrayer: "Tu és meu refúgio e minha fortaleza, ó Deus! Mesmo que tudo mude lá fora, minha confiança permanece firmada em Ti."
   },
   {
@@ -250,7 +250,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     theme: "Justiça e Mansidão Andam Juntas",
     verse: "Ele te declarou, ó homem, o que é bom: que pratiques a justiça, e ames a misericórdia, e andes humildemente com o teu Deus.",
     reference: "Miqueias 6:8",
-    message: "Bom dia! Toda grande tradição espiritual do mundo resume a caminhada em três joias simples: agir com retidão no que fazemos, ter misericórdia com as falhas alheias e caminhar sem soberba diante do Sagrado.\n\nNão é complicado agradar a Deus: basta ser honesto, compassivo e humilde hoje.",
+    message: "Bom dia! As Sagradas Escrituras resumem a caminhada com Deus em três joias simples: agir com retidão no que fazemos, ter misericórdia com as falhas alheias e andar em humildade diante do Senhor.\n\nNão é complicado agradar a Deus: basta ser honesto, compassivo e humilde hoje.",
     dailyAction: "Observe hoje uma situação ao seu redor pelos olhos da compaixão antes de emitir qualquer julgamento.",
     shortPrayer: "Senhor justo e misericordioso, ensina-me a ser íntegro nas minhas escolhas e compassivo diante das fraquezas dos outros."
   },
@@ -278,7 +278,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "O Senhor te abençoe e te guarde; o Senhor faça resplandecer o seu rosto sobre ti, e tenha misericórdia de ti.",
     reference: "Números 6:24-25",
     message: "Bom dia! Ao fechar um ciclo de dias, olhe com ternura para tudo o que aprendeu e superou. Toda lágrima que secou e toda risada sincera fazem parte do tecido sagrado da vida.\n\nReceba esta antiga bênção sobre você, sobre os seus descendentes e sobre tudo o que suas mãos tocarem neste novo ciclo que amanhece.",
-    dailyAction: "Encerre o mês acendendo uma Vela Virtual de Gratidão ou rezando um Pai-Nosso / prece da sua fé em favor da paz mundial.",
+    dailyAction: "Encerre o mês acendendo uma Vela Virtual de Gratidão ou rezando um Pai-Nosso em favor da paz da sua família.",
     shortPrayer: "O Senhor nos abençoe e nos guarde; faça resplandecer sobre nós a Sua paz e nos conceda serenidade em cada novo amanhecer. Amém."
   }
 ];
@@ -289,7 +289,7 @@ window.SAO_MIGUEL_ARCANJO_DATA = {
   imagePath: "assets/traditions/arcanjo-miguel.jpg",
   fallbackImagePath: "assets/traditions/catolica.jpg",
   imageCaption: "São Miguel Arcanjo, defensor na luz e guardião da paz espiritual",
-  introText: "O nome 'Miguel' (Mi-ka-El) significa 'Quem é como Deus?'. Celebrado com profunda devoção nas tradições cristãs e respeitado universalmente como símbolo de proteção contra o mal, coragem nas provações e limpeza espiritual, São Miguel Arcanjo é invocado especialmente em momentos de angústia, na proteção da família e na tradicional jornada de 21 dias.",
+  introText: "O nome 'Miguel' (Mi-ka-El) significa 'Quem é como Deus?'. Celebrado com profunda devoção pela Igreja e pelos fiéis cristãos como defensor contra o mal, símbolo de coragem nas provações e guarda espiritual do lar, São Miguel Arcanjo é invocado em momentos de angústia, na proteção da família e na tradicional jornada de 21 dias.",
   prayers: [
     {
       id: "sao-miguel-leao-xiii",
@@ -684,152 +684,170 @@ window.PRAYER_TRACKS = [
     ]
   },
   {
-    id: "evangelho-lar-7",
-    title: "7 Dias de Paz e Evangelho no Lar",
-    shortTitle: "Evangelho no Lar (7 Dias)",
+    id: "familia-em-deus-7",
+    title: "7 Dias de Oração pela Família, Filhos e Netos",
+    shortTitle: "Família em Deus (7 Dias)",
     durationDays: 7,
-    traditionId: "espirita",
-    traditionLabel: "Doutrina Espírita",
-    badge: "Trilha Espírita de 7 Dias",
-    description: "Sete encontros curtos para iluminar o ambiente doméstico com o estudo do Evangelho, a prece sincera e os bons pensamentos.",
+    traditionId: "evangelica",
+    traditionLabel: "Fé Evangélica e Bíblica",
+    badge: "Trilha Bíblica da Família (7 Dias)",
+    description: "Sete dias de clamores bíblicos pela proteção do casamento, sabedoria dos filhos, saúde dos pais idosos e futuro abençoado dos netos.",
     days: [
       {
         day: 1,
-        title: "Dia 1 de 7 - Prece de Abertura e Harmonia do Lar",
-        intention: "Preparar o lar como ponto de apoio para os bons Espíritos.",
-        scriptureRef: "O Evangelho Segundo o Espiritismo - Cap. XXVII",
-        scriptureText: "A prece é um orvalho divino que aplaca o calor excessivo das paixões.",
-        meditation: "Reserve alguns minutos no mesmo horário e coloque um copo com água pura sobre a mesa durante a leitura.",
-        prayer: "Mestre Jesus, pedimos permissão aos bons Espíritos protetores desta casa para envolver cada cômodo em paz e luz."
+        title: "Dia 1 de 7 - Consagração da Casa ao Senhor",
+        intention: "Declarar que Cristo é o alicerce e o hóspede principal do lar.",
+        scriptureRef: "Josué 24:15",
+        scriptureText: "Eu e a minha casa serviremos ao Senhor.",
+        meditation: "Uma família firme em Deus não é livre de problemas, mas sabe exatamente a quem recorrer na hora da tempestade.",
+        prayer: "Senhor Jesus, consagro esta casa diante do Teu altar. Sê o centro das nossas conversas, decisões e planos. Amém."
       },
       {
         day: 2,
-        title: "Dia 2 de 7 - Bem-Aventurados os Aflitos",
-        intention: "Compreender as provas com resignação ativa e esperança.",
-        scriptureRef: "O Evangelho Segundo o Espiritismo - Cap. V",
-        scriptureText: "Consolam-se os que sofrem quando compreendem a justiça futura e a transitoriedade das dores terrenas.",
-        meditation: "A dor passa, mas as virtudes construídas durante a provação acompanham o espírito eternamente.",
-        prayer: "Pai de Bondade, dá-nos entendimento lúcido para atravessar as provas sem revolta nem desânimo."
+        title: "Dia 2 de 7 - Bênção sobre os Filhos e Netos",
+        intention: "Cobrir o caminho dos descendentes contra perigos e más influências.",
+        scriptureRef: "Isaías 54:13",
+        scriptureText: "E todos os teus filhos serão ensinados do Senhor; e a paz de teus filhos será abundante.",
+        meditation: "As orações dos pais e avós plantam sementes que Deus guarda com fidelidade ao longo dos anos.",
+        prayer: "Pai Eterno, guarda a mente, os passos e as amizades dos meus filhos e netos hoje e sempre. Em nome de Jesus, Amém."
       },
       {
         day: 3,
-        title: "Dia 3 de 7 - Amai os Vossos Inimigos e Perdoai",
-        intention: "Liberar o coração de mágoas e cultivar a indulgência.",
-        scriptureRef: "O Evangelho Segundo o Espiritismo - Cap. X",
-        scriptureText: "Perdoar aos inimigos é pedir perdão para si mesmo; fazer-lhes o bem é entrar nos desígnios de Deus.",
-        meditation: "Ser indulgente com as imperfeições alheias traz leveza imediata para a própria saúde emocional.",
-        prayer: "Irradiamos hoje pensamentos de paz a todos que se afastaram de nós. Que a concórdia renasça."
+        title: "Dia 3 de 7 - Diálogo Manso e Perdão no Lar",
+        intention: "Curar mágoas antigas e trazer paciência entre gerações.",
+        scriptureRef: "Provérbios 15:1",
+        scriptureText: "A resposta branda desvia o furor, mas a palavra dura suscita a ira.",
+        meditation: "Quando escolhemos ouvir com carinho em vez de discutir no calor do momento, a paz vence dentro de casa.",
+        prayer: "Senhor, dá-nos mansidão nos lábios e perdão sincero dentro da nossa família. Restaura pontes rompidas. Amém."
       },
       {
         day: 4,
-        title: "Dia 4 de 7 - Fora da Caridade Não Há Salvação",
-        intention: "Praticar a benevolência, a indulgência e o perdão.",
-        scriptureRef: "O Evangelho Segundo o Espiritismo - Cap. XV",
-        scriptureText: "Benevolência para com todos, indulgência para com as imperfeições dos outros, perdão das ofensas.",
-        meditation: "A caridade moral começa dentro de casa na escuta carinhosa e na paciência diária.",
-        prayer: "Ajuda-nos, Senhor, a sermos instrumentos silenciosos da Tua caridade hoje."
+        title: "Dia 4 de 7 - Provisão, Trabalho Honesto e Equilíbrio",
+        intention: "Pedir portas abertas no emprego e sabedoria na administração da casa.",
+        scriptureRef: "Salmo 128:1-2",
+        scriptureText: "Bem-aventurado aquele que teme ao Senhor e anda nos seus caminhos! Do trabalho das tuas mãos comerás.",
+        meditation: "O trabalho abençoado por Deus traz dignidade, paz no sustento e gratidão na mesa simples.",
+        prayer: "Deus Provedor, abençoa as mãos de quem trabalha em nossa casa e abre novas portas aos que buscam oportunidade. Amém."
       },
       {
         day: 5,
-        title: "Dia 5 de 7 - A Fé que Transporta Montanhas",
-        intention: "Unir fé raciocinada e trabalho persistente pelo bem.",
-        scriptureRef: "O Evangelho Segundo o Espiritismo - Cap. XIX",
-        scriptureText: "A fé sincera e verdadeira é sempre calma; proporciona paciência que sabe esperar.",
-        meditation: "Quando unimos prece à atitude prática construtiva, nenhuma dificuldade nos paralisa.",
-        prayer: "Firma em nós a fé tranquila, clara e perseverante diante de cada desafio."
+        title: "Dia 5 de 7 - Saúde Física e Paz para Pais e Avós",
+        intention: "Orar pela vitalidade e lucidez dos mais velhos da família.",
+        scriptureRef: "Isaías 46:4",
+        scriptureText: "E até à velhice eu serei o mesmo, e ainda até às cãs eu vos carregarei.",
+        meditation: "Cada cabelo branco conta uma história de superação guardada nas mãos fiéis do Criador.",
+        prayer: "Senhor, renova a saúde, a memória e a alegria de viver dos idosos da nossa família. Amém."
       },
       {
         day: 6,
-        title: "Dia 6 de 7 - Vibrações pelos Hospitais e Encarnados",
-        intention: "Prece pelos enfermos, solitários e pelos espíritos em sofrimento.",
-        scriptureRef: "O Evangelho Segundo o Espiritismo - Cap. XXVIII",
-        scriptureText: "O pensamento sincero de amor atravessa distâncias instantaneamente para consolar quem sofre.",
-        meditation: "Nossas preces em grupo ou no silêncio do lar fortalecem os trabalhadores espirituais do bem.",
-        prayer: "Enviamos fluidos de calma, saúde e coragem a todos os que hoje sofrem nos leitos físicos ou espirituais."
+        title: "Dia 6 de 7 - Proteção nas Saídas, Viagens e Escolas",
+        intention: "Guardar entradas, trânsitos, trabalho e volta segura ao lar.",
+        scriptureRef: "Salmo 121:7-8",
+        scriptureText: "O Senhor te guardará de todo o mal; guardará a tua entrada e a tua saída, desde agora e para sempre.",
+        meditation: "Antes que seus familiares saiam pela porta, entregue cada trajeto ao cuidado dos anjos de Deus.",
+        prayer: "Pai Celestial, cerca cada carro, transporte e rua por onde passarem os que amo hoje. Traz todos em paz. Amém."
       },
       {
         day: 7,
-        title: "Dia 7 de 7 - Encerramento em Gratidão e Fluidificação",
-        intention: "Consagrar a semana e renovar o propósito semanal do Evangelho no Lar.",
-        scriptureRef: "Prece de Encerramento",
-        scriptureText: "Agradecidos pelo amparo recebido, retornamos aos deveres cotidianos com renovada serenidade.",
-        meditation: "Mantenha este hábito em sua residência ao menos uma vez por semana em dia e hora escolhidos por você.",
-        prayer: "Obrigado, Pai Celestial, Mestre Jesus e Anjos Guardiães, por esta semana de luz no nosso lar. Que assim seja!"
+        title: "Dia 7 de 7 - Aliança de Gratidão à Mesa",
+        intention: "Agradecer pela família reunida ou reconciliada em oração.",
+        scriptureRef: "Atos 16:31",
+        scriptureText: "Crê no Senhor Jesus Cristo e serás salvo, tu e a tua casa.",
+        meditation: "Encerre esta trilha de 7 dias enviando uma palavra carinhosa de bênção para alguém da sua família.",
+        prayer: "Obrigado, Senhor Jesus, pela minha família! Continua sendo o nosso refúgio de geração em geração. Amém!"
       }
     ]
   },
   {
-    id: "firmeza-orixas-7",
-    title: "7 Dias de Firmeza com os Orixás e Guias de Luz",
-    shortTitle: "Firmeza na Umbanda (7 Dias)",
-    durationDays: 7,
-    traditionId: "umbanda",
-    traditionLabel: "Umbanda",
-    badge: "Trilha Semanal de Umbanda (7 Dias)",
-    description: "Sete dias de preces respeitosas acompanhando as forças da semana na Umbanda: Almas e Pretos Velhos, Ogum, Xangô e Iansã, Oxóssi, Oxalá, Iemanjá e Oxum.",
+    id: "cura-esperanca-9",
+    title: "9 Dias pela Saúde, Cura Interior e Serenidade",
+    shortTitle: "Saúde e Cura (9 Dias)",
+    durationDays: 9,
+    traditionId: "catolica",
+    traditionLabel: "Fé Católica e Esperança",
+    badge: "Novena Cristã de Cura (9 Dias)",
+    description: "Nove dias serenos de oração para quem enfrenta tratamentos de saúde, cirurgias, dores crônicas, cansaço da mente ou cuida de um familiar doente.",
     days: [
       {
         day: 1,
-        title: "Dia 1 de 7 - Segunda-feira: Salve os Pretos Velhos e as Almas",
-        intention: "Humildade, paciência, cura pelas ervas e conselhos de sabedoria.",
-        scriptureRef: "Saudação: Adorei as Almas!",
-        scriptureText: "Na paciência de quem venceu muito cativeiro e dor mora a sabedoria que ensina a caminhar sem perder a doçura.",
-        meditation: "Comece o ciclo pedindo calma nos pensamentos e respeito aos ensinamentos dos mais velhos.",
-        prayer: "Salve os vovôs e vovós da Umbanda! Adorei as almas benditas! Dai-nos paciência, discernimento e cura neste dia."
+        title: "Dia 1 de 9 - Confiança no Médico dos Médicos",
+        intention: "Entregar exames, diagnósticos e preocupações nas mãos de Jesus.",
+        scriptureRef: "Jeremias 17:14",
+        scriptureText: "Sara-me, Senhor, e serei sarado; salva-me, e serei salvo; porque tu és o meu louvor.",
+        meditation: "Você não atravessa nenhuma consulta ou tratamento sozinho: Cristo segura a sua mão direita.",
+        prayer: "Senhor Jesus, Médico dos médicos, coloco minha saúde e meus tratamentos sob o Teu olhar amoroso. Amém."
       },
       {
         day: 2,
-        title: "Dia 2 de 7 - Terça-feira: Força de Pai Ogum nos Caminhos",
-        intention: "Coragem, abertura de trabalho justo e proteção nas ruas.",
-        scriptureRef: "Saudação: Ogunhê, Meu Pai!",
-        scriptureText: "Ogum caminha à frente de quem age com lealdade e coragem para vencer os obstáculos da estrada.",
-        meditation: "Firme seus passos nos compromissos honestos de hoje sabendo que há proteção na sua jornada.",
-        prayer: "Ogunhê! Meu Pai Ogum, abre os caminhos honestos da minha família e guarda minha saída e volta ao lar."
+        title: "Dia 2 de 9 - Sabedoria aos Médicos e Cuidadores",
+        intention: "Orar pelas mãos dos médicos, enfermeiros e familiares que cuidam.",
+        scriptureRef: "Tiago 1:5",
+        scriptureText: "Se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente.",
+        meditation: "Deus age também através do conhecimento médico, da paciência dos cuidadores e dos remédios certos.",
+        prayer: "Pai Celeste, ilumina médicos, enfermeiros e familiares para que cada cuidado produza alívio e cura. Amém."
       },
       {
         day: 3,
-        title: "Dia 3 de 7 - Quarta-feira: Justiça de Xangô e Ventos de Iansã",
-        intention: "Equilíbrio, verdade nas decisões e limpeza dos ares pesados.",
-        scriptureRef: "Saudação: Kaô Kabecilê! Eparrey Oyá!",
-        scriptureText: "A balança da justiça de Deus pesa com exatidão; os ventos de Iansã levam embora o ar estagnado.",
-        meditation: "Entregue as causas que exigem verdade e permita que os bons ventos renovem a alegria da sua casa.",
-        prayer: "Kaô Kabecilê! Eparrey Iansã! Que a justiça divina e os bons ventos tragam verdade, movimento e paz à nossa casa."
+        title: "Dia 3 de 9 - Descanso para a Mente Inquieta",
+        intention: "Acalmar medos noturnos e pensamentos repetitivos sobre a doença.",
+        scriptureRef: "São Mateus 11:28",
+        scriptureText: "Vinde a mim, todos vós que estais cansados e sobrecarregados, e eu vos aliviarei.",
+        meditation: "Solte os ombros agora ao respirar: o corpo se recupera melhor quando o coração descansa na fé.",
+        prayer: "Jesus manso e humilde de coração, alivia minhas tensões e concede-me repouso tranquilo hoje. Amém."
       },
       {
         day: 4,
-        title: "Dia 4 de 7 - Quinta-feira: Fartura e Foco com Pai Oxóssi e Caboclos",
-        intention: "Direção clara, saúde das matas e mesa farta.",
-        scriptureRef: "Saudação: Okê Arô! Okê Caboclo!",
-        scriptureText: "Uma única flecha bem direcionada basta para alcançar o sustento certo na hora certa.",
-        meditation: "Concentre sua energia no bem concreto de hoje sem dispersar forças com preocupações inúteis.",
-        prayer: "Okê Arô! Pai Oxóssi e Sagrados Caboclos, abençoai nossa mesa para que nunca falte pão nem clareza nos propósitos."
+        title: "Dia 4 de 9 - Força na Recuperação Dia Após Dia",
+        intention: "Celebrar cada pequeno progresso na saúde sem pressa ansiosa.",
+        scriptureRef: "Salmo 30:2",
+        scriptureText: "Senhor, meu Deus, clamei a vós e vós me restituístes a saúde.",
+        meditation: "A cura física e emocional costuma acontecer em degraus firmes, um dia de cada vez.",
+        prayer: "Senhor da Vida, renova hoje as células, a disposição e o apetite para minha plena recuperação. Amém."
       },
       {
         day: 5,
-        title: "Dia 5 de 7 - Sexta-feira: Manto Branco de Pai Oxalá",
-        intention: "Paz absoluta, mansidão, perdão e silêncio sagrado.",
-        scriptureRef: "Saudação: Epa Babá, Oxalá!",
-        scriptureText: "Sob o alá branco de Oxalá toda agitação se aquieta e todos os filhos reencontram a paz.",
-        meditation: "A sexta-feira pede serenidade no falar, pensamento limpo e gratidão ao Pai da criação.",
-        prayer: "Epa Babá! Meu Pai Oxalá, cobre minha família com o teu manto branco de paz, saúde e misericórdia."
+        title: "Dia 5 de 9 - Alívio das Dores e Esperança Firme",
+        intention: "Pedir serenidade diante de desconfortos físicos ou emocionais.",
+        scriptureRef: "2 Coríntios 12:9",
+        scriptureText: "A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza.",
+        meditation: "Mesmo quando o corpo parece frágil, a presença do Espírito Santo sustenta o ânimo por dentro.",
+        prayer: "Espírito Santo Consolador, visita com alívio as áreas do meu corpo que hoje precisam da Tua graça. Amém."
       },
       {
         day: 6,
-        title: "Dia 6 de 7 - Sábado: Águas de Mãe Iemanjá e Mãe Oxum",
-        intention: "Amor familiar, saúde emocional, harmonia no lar e proteção às mães.",
-        scriptureRef: "Saudação: Odoyá! Ora Iê Iê Ô!",
-        scriptureText: "As águas doces e salgadas lavam o cansaço da semana e embalam o coração com ternura maternal.",
-        meditation: "Cuide hoje das relações afetivas dentro de casa com palavras doces e escuta amorosa.",
-        prayer: "Odoyá Iemanjá! Ora Iê Iê Ô Oxum! Lavai nossas dores e derramai harmonia, saúde e prosperidade sobre nossa família."
+        title: "Dia 6 de 9 - Consolo para Quem Cuida",
+        intention: "Renovar as energias de filhos, cônjuges e cuidadores cansados.",
+        scriptureRef: "Gálatas 6:2",
+        scriptureText: "Levai as cargas uns dos outros, e assim cumprireis a lei de Cristo.",
+        meditation: "Cuidar de quem se ama é um ato sagrado de caridade que Deus honra com força dobrada.",
+        prayer: "Pai de Bondade, abençoa e descansa todos os cuidadores que se doam com carinho nos lares e hospitais. Amém."
       },
       {
         day: 7,
-        title: "Dia 7 de 7 - Domingo: Alegria Pura, União e Linha do Oriente",
-        intention: "Leveza de coração com Cosme e Damião, Zé Pelintra e todos os bons guias.",
-        scriptureRef: "Saudação: Salve a Umbanda de Luz e Caridade!",
-        scriptureText: "A fé verdadeira também sorri, reparte o bolo simples na mesa e agradece em comunhão fraterna.",
-        meditation: "Conclua os 7 dias celebrando a alegria simples da vida, a saúde e a caridade sem preconceitos.",
-        prayer: "Louvado seja Zambi, Pai Oxalá e todas as linhas de luz da Umbanda! Seguimos na paz e na caridade. Saravá!"
+        title: "Dia 7 de 9 - Paz no Sono e Vigília dos Anjos",
+        intention: "Dormir sem sobressaltos sob a proteção de Deus.",
+        scriptureRef: "Salmo 4:8",
+        scriptureText: "Em paz também me deitarei e dormirei, porque só tu, Senhor, me fazes habitar em segurança.",
+        meditation: "O sono tranquilo à noite é um dos maiores remédios criados por Deus para restaurar a saúde.",
+        prayer: "Guarda fiel, envia Teus santos anjos ao redor do meu leito nesta noite para um sono reparador. Amém."
+      },
+      {
+        day: 8,
+        title: "Dia 8 de 9 - Cura das Lembranças e Perdão Interior",
+        intention: "Libertar mágoas antigas que pesam sobre o coração.",
+        scriptureRef: "Salmo 147:3",
+        scriptureText: "Sara os quebrantados de coração, e lhes ata as suas feridas.",
+        meditation: "Entregar mágoas antigas nas mãos de Deus traz leveza à respiração e alegria ao semblante.",
+        prayer: "Senhor, cicatriza minhas feridas antigas e renova minha paz interior neste oitavo dia. Amém."
+      },
+      {
+        day: 9,
+        title: "Dia 9 de 9 - Ação de Graças pela Vida e Saúde",
+        intention: "Agradecer pela força recebida e consagrar a continuidade dos cuidados.",
+        scriptureRef: "Salmo 103:1-2",
+        scriptureText: "Bendize, ó minha alma, ao Senhor, e tudo o que há em mim bendiga o seu santo nome.",
+        meditation: "Agradeça hoje por cada passo superado e continue firme na fé e nos cuidados diários.",
+        prayer: "Obrigado, Senhor Jesus, por me sustentar até aqui! Entrego minha saúde em Tuas mãos hoje e sempre. Amém!"
       }
     ]
   }

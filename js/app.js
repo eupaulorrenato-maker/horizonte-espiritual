@@ -341,7 +341,7 @@
 
   var SECTION_LABELS = {
     inicio: "Tela Inicial",
-    vertente: "Minha Religião",
+    vertente: "Fé & Mensagem",
     "cafe-diario": "Café Espiritual do Dia",
     "arcanjo-miguel": "São Miguel Arcanjo (21 Dias)",
     trilhas: "Trilhas de Oração",
@@ -480,7 +480,7 @@
 
     var enterTraditionBtn = document.getElementById("home-enter-tradition-btn");
     if (enterTraditionBtn) {
-      enterTraditionBtn.textContent = "🕊 Abrir Página da Minha Religião (" + tradition.name + ") →";
+      enterTraditionBtn.textContent = "✝ Abrir Espaço da Fé (" + tradition.name + ") →";
     }
 
     var passageObj =
@@ -574,13 +574,10 @@
     }
   }
 
-  // Unified complete sacred works builder for all 16 traditions
+  // Unified complete Bible builder (Fé Católica: 73 books; Fé Evangélica: 66 books)
   function getLibraryBooksForTradition(traditionId) {
     var bible66 = window.BIBLE_FULL_DATA || [];
     var deutero7 = window.BIBLE_CATOLICA_DEUTERO || [];
-    var ldeFull = window.LIVRO_DOS_ESPIRITOS_FULL || [];
-    var quranFull = window.QURAN_FULL_DATA || [];
-    var extras = window.EXTRA_SACRED_WORKS || {};
     var tradObj = findTradition(traditionId);
 
     function formatBibleBook(b, customTitlePrefix) {
@@ -618,7 +615,7 @@
       if (catBooks.length > 0) return catBooks;
     }
 
-    if (traditionId === "evangelica" || traditionId === "testemunhas-jeova") {
+    if (traditionId === "evangelica") {
       // All 66 Books (1,189 chapters)
       var protBooks = [];
       for (var p = 0; p < bible66.length; p++) {
@@ -627,104 +624,9 @@
       if (protBooks.length > 0) return protBooks;
     }
 
-    if (traditionId === "judaica") {
-      // All 39 Books of the Hebrew Tanakh (Torah + Nevi'im + Ketuvim including all 150 Tehilim/Psalms = 929 chapters)
-      var hebrewLabels = {
-        "Gênesis": "Bereshit (Gênesis)",
-        "Êxodo": "Shemot (Êxodo)",
-        "Levítico": "Vayikrá (Levítico)",
-        "Números": "Bamidbar (Números)",
-        "Deuteronômio": "Devarim (Deuteronômio)",
-        "Salmos": "Tehilim (Salmos)",
-        "Provérbios": "Mishlei (Provérbios)"
-      };
-      var tanakhBooks = [];
-      for (var j = 0; j < 39 && j < bible66.length; j++) {
-        var bName = bible66[j].name;
-        var label = hebrewLabels[bName] || bName;
-        tanakhBooks.push(formatBibleBook(bible66[j], label));
-      }
-      if (tradObj && tradObj.chapters && tradObj.chapters.length > 0) {
-        tanakhBooks.push({
-          bookTitle: "Pirkei Avot (Ética dos Pais)",
-          chapters: tradObj.chapters
-        });
-      }
-      if (tanakhBooks.length > 0) return tanakhBooks;
-    }
-
-    if (traditionId === "adventista") {
-      var advBooks = [];
-      if (extras.adventista && extras.adventista.length > 0) {
-        advBooks.push({
-          bookTitle: "Livro: Caminho a Cristo (Ellen G. White - Completo)",
-          chapters: extras.adventista
-        });
-      }
-      for (var a = 0; a < bible66.length; a++) {
-        advBooks.push(formatBibleBook(bible66[a]));
-      }
-      if (advBooks.length > 0) return advBooks;
-    }
-
-    if (traditionId === "ortodoxa") {
-      var ortBooks = [];
-      if (extras.ortodoxa && extras.ortodoxa.length > 0) {
-        ortBooks.push({
-          bookTitle: "Saltério, Liturgia e Filocalia Ortodoxa",
-          chapters: extras.ortodoxa
-        });
-      }
-      for (var o = 0; o < bible66.length; o++) {
-        ortBooks.push(formatBibleBook(bible66[o]));
-      }
-      for (var od = 0; od < deutero7.length; od++) {
-        ortBooks.push(formatBibleBook(deutero7[od]));
-      }
-      if (ortBooks.length > 0) return ortBooks;
-    }
-
-    if (traditionId === "espirita") {
-      if (ldeFull.length > 0) {
-        return [
-          {
-            bookTitle: "O Livro dos Espíritos (Questões 1 a 1019 - Completo)",
-            chapters: ldeFull
-          }
-        ];
-      }
-    }
-
-    if (traditionId === "islamica") {
-      if (quranFull.length > 0) {
-        var surahChaps = [];
-        for (var q = 0; q < quranFull.length; q++) {
-          surahChaps.push({
-            title: quranFull[q].name + " (" + quranFull[q].verses.length + " versículos)",
-            verses: quranFull[q].verses
-          });
-        }
-        return [
-          {
-            bookTitle: "Sagrado Alcorão (114 Suratas Completas)",
-            chapters: surahChaps
-          }
-        ];
-      }
-    }
-
-    if (extras[traditionId] && extras[traditionId].length > 0) {
-      return [
-        {
-          bookTitle: tradObj ? tradObj.canonicalWorkTitle : "Obra Sagrada Completa",
-          chapters: extras[traditionId]
-        }
-      ];
-    }
-
     return [
       {
-        bookTitle: tradObj ? tradObj.canonicalWorkTitle : "Obra Sagrada Completa",
+        bookTitle: tradObj ? tradObj.canonicalWorkTitle : "Bíblia Sagrada Completa",
         chapters: (tradObj && tradObj.chapters) || []
       }
     ];
@@ -839,7 +741,7 @@
     if (!selectEl || selectEl.options.length > 0) return;
 
     var traditions = getTraditions();
-    var html = '<option value="todas">Todas as 16 Tradições Religiosas</option>';
+    var html = '<option value="todas">Todas as Orações (Católica e Evangélica)</option>';
     for (var i = 0; i < traditions.length; i++) {
       var t = traditions[i];
       html += '<option value="' + escapeHtml(t.id) + '">' + escapeHtml(t.symbol + " " + t.name) + "</option>";
@@ -1010,7 +912,7 @@
       listContainer.innerHTML =
         '<div class="surface-card p-6 text-center col-span-full">' +
         '<p class="font-semibold text-lg mb-2">Nenhuma oração encontrada com esse filtro.</p>' +
-        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Toque abaixo para mostrar novamente as orações de todas as 16 tradições.</p>' +
+        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Toque abaixo para mostrar novamente todas as orações católicas e evangélicas.</p>' +
         '<button type="button" class="btn-secondary" data-action="reset-prayer-filters">Mostrar todas as orações</button>' +
         "</div>";
       if (paginationContainer) paginationContainer.innerHTML = "";
@@ -1184,7 +1086,7 @@
         "</div>" +
         '<div class="min-w-0 flex-1">' +
         '<span class="inline-block text-xs font-semibold px-2.5 py-0.5 rounded mb-1" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">' +
-        escapeHtml(c.traditionName || "Prece Universal") +
+        escapeHtml(c.traditionName || "Oração Cristã") +
         " • " +
         escapeHtml(String(c.daysRemaining || 7)) +
         " dias restantes" +
@@ -1256,7 +1158,7 @@
     var honoree = honoreeInput.value.trim();
     var intention = intentionInput.value.trim();
     var city = cityInput ? cityInput.value.trim() : "";
-    var traditionName = traditionSelect ? traditionSelect.value : "Busca Universal";
+    var traditionName = traditionSelect ? traditionSelect.value : "Fé Cristã";
 
     if (!honoree || !intention) {
       feedbackEl.textContent = "Por favor, preencha o nome da pessoa (ou família) e escreva a intenção da sua prece antes de acender a vela.";
@@ -1406,7 +1308,7 @@
         state.quizScore +
         " de " +
         questions.length +
-        "</strong> perguntas sobre as tradições espirituais e escrituras sagradas.</p>" +
+        "</strong> perguntas sobre a Bíblia Sagrada e a fé cristã.</p>" +
         '<p class="text-sm mb-6" style="color: var(--text-muted);">Conhecer a história e os livros sagrados fortalece a nossa cultura de paz e respeito mútuo.</p>' +
         '<div class="flex flex-wrap items-center justify-center gap-3">' +
         '<button type="button" class="btn-primary" data-action="restart-quiz">Jogar Novamente</button>' +
@@ -3012,8 +2914,8 @@
               "candle-" + scId,
               "Vela de 7 dias em intenção de " +
                 cd.honoree +
-                ". Tradição: " +
-                (cd.traditionName || "Prece Universal") +
+                ". Fé: " +
+                (cd.traditionName || "Oração Cristã") +
                 ". Prece: " +
                 cd.intention
             );
@@ -3364,11 +3266,11 @@
             : "";
         speakText(
           "home-guide",
-          "Bem-vindo ao Horizonte Espiritual. Primeiro passo: escolha qual tradição espiritual acolhe o seu coração na primeira lista" +
-            (selTrad ? ". Tradição selecionada no momento: " + selTrad.name : "") +
-            ". Deixe a caixinha Deixar minha religião salva neste celular marcada. Segundo passo: escolha na segunda lista como o seu coração se sente neste momento" +
+          "Bem-vindo ao Horizonte Espiritual. Primeiro passo: escolha entre Fé Católica ou Fé Evangélica na primeira lista" +
+            (selTrad ? ". Caminho selecionado no momento: " + selTrad.name : "") +
+            ". Deixe a caixinha Deixar minha escolha salva neste celular marcada. Segundo passo: escolha na segunda lista como o seu coração se sente neste momento" +
             (selFeelLabel ? ". Momento selecionado: " + selFeelLabel : "") +
-            ". A Palavra de Consolo muda automaticamente logo abaixo, ou toque no botão Abrir Página da Minha Religião."
+            ". A Palavra de Deus muda automaticamente logo abaixo, ou toque no botão Abrir Espaço da Fé."
         );
       } else if (action === "speak-vertente-overview") {
         var vt = findTradition(state.selectedTraditionId);
@@ -3390,7 +3292,7 @@
       } else if (action === "speak-prayers-guide") {
         speakText(
           "prayers-guide",
-          "Orações Fortes de Todas as 16 Tradições. Escolha a religião na lista abaixo ou pesquise pelo nome da oração. Em qualquer cartão abaixo, toque em Ouvir para escutar direto, ou em Abrir Oração para ler em letras grandes e enviar no WhatsApp."
+          "Orações Fortes Católicas e Evangélicas. Escolha na lista abaixo entre Fé Católica, Fé Evangélica ou todas, ou pesquise pelo nome da oração. Em qualquer cartão abaixo, toque em Ouvir para escutar direto, ou em Abrir Oração para ler em letras grandes e enviar no WhatsApp."
         );
       } else if (action === "speak-candle-guide") {
         speakText(
@@ -3439,7 +3341,7 @@
             state.quizScore +
             " de " +
             qListRes.length +
-            " perguntas sobre as tradições espirituais e escrituras sagradas."
+            " perguntas sobre a Bíblia Sagrada e a fé cristã."
         );
       } else if (action === "open-whatsapp-daily-page") {
         navigateToSection("salvar-app", true);
@@ -3608,9 +3510,10 @@
     }
 
     var savedTradition = safeStorageGet(STORAGE_KEYS.tradition);
-    if (savedTradition && findTradition(savedTradition)) {
-      state.selectedTraditionId = savedTradition;
-      state.libraryTraditionId = savedTradition;
+    var resolvedSavedTrad = savedTradition ? findTradition(savedTradition) : null;
+    if (resolvedSavedTrad) {
+      state.selectedTraditionId = resolvedSavedTrad.id;
+      state.libraryTraditionId = resolvedSavedTrad.id;
     }
 
     renderDailyPanel();
