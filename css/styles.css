@@ -1,74 +1,85 @@
 :root {
-  /* Apple Design System Tokens (SF Pro Display + SF Pro Text + Inter fallback) */
-  --font-display: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  --font-sans: 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  /* Linear Design System Tokens (#010102 Near-Black Canvas + #5e6ad2 Lavender Accent) */
+  --font-display: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-sans: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --bg-page: #ffffff;
-  --bg-surface: #ffffff;
-  --bg-subtle: #f5f5f7;
-  --surface-pearl: #fafafc;
-  --bg-accent-soft: #f5f5f7;
-  --bg-amber-soft: #f5f5f7;
-  --bg-tile-dark: #272729;
-  --bg-tile-dark-2: #2a2a2c;
-  --bg-chapel: #252527;
-  --bg-black: #000000;
+  /* Four-Step Surface Ladder */
+  --bg-page: #010102;
+  --bg-surface: #0f1011;
+  --bg-subtle: #141516;
+  --surface-pearl: #18191a;
+  --surface-4: #191a1b;
+  --bg-accent-soft: #141516;
+  --bg-amber-soft: #141516;
+  --bg-tile-dark: #0f1011;
+  --bg-tile-dark-2: #141516;
+  --bg-chapel: #0f1011;
+  --bg-black: #010102;
 
-  --text-main: #1d1d1f;
-  --text-secondary: #333333;
-  --text-muted: #6e6e73;
-  --text-on-dark: #ffffff;
-  --text-muted-on-dark: #cccccc;
+  /* Ink Scale */
+  --text-main: #f7f8f8;
+  --text-secondary: #d0d6e0;
+  --text-muted: #8a8f98;
+  --text-tertiary: #62666d;
+  --text-on-dark: #f7f8f8;
+  --text-muted-on-dark: #d0d6e0;
 
-  --border-color: #e0e0e0;
-  --border-strong: #d2d2d7;
-  --border-light: rgba(0, 0, 0, 0.08);
-  --divider-soft: #f0f0f0;
+  /* Hairlines */
+  --border-color: #23252a;
+  --border-strong: #34343a;
+  --border-tertiary: #3e3e44;
+  --border-light: #23252a;
+  --divider-soft: #23252a;
 
-  /* Single Brand Interactive Accent: Apple Action Blue (#0066cc) */
-  --accent-blue: #0066cc;
-  --accent-blue-dark: #2997ff;
-  --accent-wine: #0066cc;
-  --accent-wine-hover: #004c99;
-  --accent-amber: #0066cc;
-  --accent-green: #0066cc;
+  /* Single Chromatic Brand Accent: Linear Lavender-Blue */
+  --accent-primary: #5e6ad2;
+  --accent-primary-hover: #828fff;
+  --accent-primary-focus: #5e69d1;
+  --brand-secure: #7a7fad;
+  --accent-blue: #5e6ad2;
+  --accent-blue-dark: #828fff;
+  --accent-wine: #828fff;
+  --accent-wine-hover: #5e6ad2;
+  --accent-amber: #828fff;
+  --accent-green: #27a644;
 
-  --focus-ring: #0071e3;
-  --error-red: #b30000;
-  --apple-product-shadow: 3px 5px 30px 0 rgba(0, 0, 0, 0.22);
+  --focus-ring: #5e69d1;
+  --error-red: #e5484d;
+  --linear-pixel-edge: inset 0 1px 0 rgba(255, 255, 255, 0.045);
   --reader-font-size: 1.25rem;
 }
 
-[data-theme="dark"] {
-  --bg-page: #1d1d1f;
-  --bg-surface: #272729;
-  --bg-subtle: #2a2a2c;
-  --surface-pearl: #2a2a2c;
-  --bg-accent-soft: #252527;
-  --bg-amber-soft: #252527;
-  --bg-tile-dark: #272729;
-  --bg-tile-dark-2: #2a2a2c;
-  --bg-chapel: #1d1d1f;
-  --bg-black: #000000;
+/* Optional High-Contrast Inverse Reading Sheet for Elderly Readers */
+[data-theme="light"] {
+  --bg-page: #ffffff;
+  --bg-surface: #f5f6f6;
+  --bg-subtle: #f6f7f7;
+  --surface-pearl: #ffffff;
+  --surface-4: #eceeef;
+  --bg-accent-soft: #f5f6f6;
+  --bg-amber-soft: #f5f6f6;
+  --bg-tile-dark: #0f1011;
+  --bg-tile-dark-2: #141516;
+  --bg-chapel: #0f1011;
 
-  --text-main: #ffffff;
-  --text-secondary: #cccccc;
-  --text-muted: #a1a1a6;
-  --text-on-dark: #ffffff;
-  --text-muted-on-dark: #cccccc;
+  --text-main: #000000;
+  --text-secondary: #2c2e33;
+  --text-muted: #5a5e66;
+  --text-tertiary: #6e727a;
 
-  --border-color: #3a3a3e;
-  --border-strong: #4d4d52;
-  --border-light: rgba(255, 255, 255, 0.1);
-  --divider-soft: #3a3a3e;
+  --border-color: #d8dbe0;
+  --border-strong: #b9bec7;
+  --border-tertiary: #aeb4be;
+  --border-light: #e2e4e8;
+  --divider-soft: #e2e4e8;
 
-  --accent-blue: #2997ff;
-  --accent-wine: #2997ff;
-  --accent-wine-hover: #64b5ff;
-  --accent-amber: #2997ff;
-  --accent-green: #2997ff;
-
-  --focus-ring: #2997ff;
+  --accent-blue: #5e6ad2;
+  --accent-wine: #5e6ad2;
+  --accent-wine-hover: #4954ba;
+  --accent-amber: #5e6ad2;
+  --accent-green: #1d8a36;
+  --linear-pixel-edge: none;
 }
 
 *, *::before, *::after {
@@ -79,18 +90,18 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  background-color: var(--bg-page);
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-feature-settings: "ss03";
   background-color: var(--bg-page);
   color: var(--text-main);
   font-size: 1.0625rem;
   font-weight: 400;
-  line-height: 1.47;
-  letter-spacing: -0.022em;
+  line-height: 1.5;
+  letter-spacing: -0.003em;
   overflow-x: hidden;
   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   -webkit-font-smoothing: antialiased;
@@ -100,26 +111,38 @@ body {
 .font-display,
 .font-serif-sacred {
   font-family: var(--font-display);
-  font-feature-settings: "ss03";
 }
 
-/* Apple Tagline / Eyebrow Caption (replaces mono uppercase tags) */
+/* Linear Positive-Tracked Eyebrow (0.4px) / Mono utility */
 .font-mono-label {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.29;
-  letter-spacing: -0.014em;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.4px;
   text-transform: none;
 }
 
-/* Apple Negative-Tracked Headlines (Weight 600, never 500 or decorative gradients) */
-h1, h2, h3, h4,
+.font-code-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+/* Linear Negative-Tracked Display Headlines (Weight 600, max 600, never 700+) */
+h1, h2,
 .font-serif-sacred.heading-hero,
 .font-serif-sacred.heading-section {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
   font-weight: 600;
+}
+
+h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.018em;
 }
 
 .text-body-sacred,
@@ -130,7 +153,7 @@ p.font-serif-sacred.text-body-sacred {
   font-size: var(--reader-font-size);
   font-weight: 400;
   line-height: 1.55;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
 }
 
 a[href],
@@ -165,47 +188,48 @@ img, video, iframe {
   display: block;
 }
 
-/* Apple Hero & Section Display Scale (SF Pro Display 600 tight) */
+/* Linear Display Scale: Aggressive negative tracking on Display XL & LG */
 .heading-hero {
-  font-size: clamp(2.125rem, 5.2vw, 3.5rem);
-  line-height: 1.07;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.25rem, 5.4vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.037em;
   font-weight: 600;
 }
 
 .heading-section {
-  font-size: clamp(1.625rem, 3.2vw, 2.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.018em;
+  font-size: clamp(1.625rem, 3.4vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   font-weight: 600;
 }
 
-/* Apple Global Nav Bar (#000000, 44px slim rail) */
+/* Linear Top Announcement Strip (#0f1011 with #23252a hairline) */
 .announcement-bar {
-  background-color: #000000;
-  color: #ffffff;
-  min-height: 44px;
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
+  background-color: #0f1011;
+  color: #f7f8f8;
+  border-bottom: 1px solid #23252a;
+  min-height: 40px;
+  padding: 0.45rem 1rem;
+  font-size: 0.8125rem;
   font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.3;
+  letter-spacing: 0;
 }
 
-/* Apple Frosted Glass Sub-Nav Bar */
+/* Linear Sticky Top Navigation Bar (#010102 canvas, hairline bottom) */
 .apple-frosted-header {
-  background-color: rgba(245, 245, 247, 0.84);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: rgba(1, 1, 2, 0.88);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] .apple-frosted-header {
-  background-color: rgba(29, 29, 31, 0.84);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+[data-theme="light"] .apple-frosted-header {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* Minimum 48px touch targets maintained for elderly accessibility */
+/* Minimum 48px touch targets preserved for elderly accessibility */
 .tap-target {
   min-height: 48px;
   min-width: 48px;
@@ -214,7 +238,7 @@ img, video, iframe {
   justify-content: center;
 }
 
-/* System-wide Apple Active Scale Micro-Interaction */
+/* Subtle Tactile Response */
 button:not(:disabled):active,
 .door-card-btn:active,
 .tradition-card:active {
@@ -226,117 +250,115 @@ button:not(:disabled):active,
 .feeling-chip:not(:disabled):active,
 .nav-tab-btn:not(:disabled):active,
 .back-home-btn:not(:disabled):active {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
-/* Apple Action Blue Pill Primary CTA (#0066cc, full pill, no shadow) */
+/* Linear Primary CTA: #5e6ad2 Lavender-Blue, 8px rounded-md (never pill) */
 .btn-primary {
-  background-color: #0066cc;
+  background-color: #5e6ad2;
   color: #ffffff;
-  border: 1px solid #0066cc;
-  min-height: 48px;
-  padding: 0.6875rem 1.375rem;
-  border-radius: 9999px;
+  border: 1px solid #5e6ad2;
+  min-height: 46px;
+  padding: 0.625rem 1.125rem;
+  border-radius: 8px;
   font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 1.0625rem;
-  line-height: 1.24;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  letter-spacing: 0;
   box-shadow: none;
   transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-primary:hover {
-  background-color: #0071e3;
-  border-color: #0071e3;
+  background-color: #828fff;
+  border-color: #828fff;
 }
 
-/* Apple Ghost Pill Secondary Button (#0066cc outline, full pill) */
+.btn-primary:active {
+  background-color: #5e69d1;
+  border-color: #5e69d1;
+}
+
+/* Linear Secondary Charcoal CTA: Surface 1 + #23252a hairline + Ink + 8px rounded-md */
 .btn-secondary {
   background-color: var(--bg-surface);
-  color: var(--accent-blue);
-  border: 1px solid var(--accent-blue);
-  min-height: 48px;
-  padding: 0.6875rem 1.375rem;
-  border-radius: 9999px;
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+  min-height: 46px;
+  padding: 0.625rem 1.125rem;
+  border-radius: 8px;
   font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 1.0625rem;
-  line-height: 1.24;
-  letter-spacing: -0.02em;
-  box-shadow: none;
-  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  box-shadow: var(--linear-pixel-edge);
+  transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-secondary:hover {
   background-color: var(--bg-subtle);
+  border-color: var(--border-tertiary);
 }
 
-[data-theme="dark"] .btn-secondary {
-  background-color: transparent;
-  color: #2997ff;
-  border-color: #2997ff;
-}
-
-[data-theme="dark"] .btn-secondary:hover {
-  background-color: rgba(41, 151, 255, 0.12);
-}
-
-/* Quiz options and full-width drawer items need dark readable text */
 [data-quiz-option].btn-secondary,
 #full-site-drawer .btn-secondary {
   color: var(--text-main);
-  border-color: var(--border-strong);
-  background-color: var(--surface-pearl);
-  border-radius: 11px;
+  border-color: var(--border-color);
+  background-color: var(--bg-surface);
+  border-radius: 8px;
 }
 
 [data-quiz-option].btn-secondary:hover,
 #full-site-drawer .btn-secondary:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-primary);
   background-color: var(--bg-subtle);
 }
 
-/* Apple Dark Product Tile (#272729) */
+/* Linear Lifted Featured Panel (Surface 2: #141516 with #34343a border + top pixel highlight) */
 .cohere-dark-band {
-  background-color: #272729;
-  color: #ffffff;
-  border-radius: 18px;
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  box-shadow: var(--linear-pixel-edge);
 }
 
 .cohere-dark-band .btn-primary {
-  background-color: #0066cc;
+  background-color: #5e6ad2;
   color: #ffffff;
-  border-color: #0066cc;
+  border-color: #5e6ad2;
 }
 
 .cohere-dark-band .btn-primary:hover {
-  background-color: #0071e3;
-  border-color: #0071e3;
+  background-color: #828fff;
+  border-color: #828fff;
 }
 
 .cohere-dark-band .btn-secondary {
-  background-color: transparent;
-  color: #2997ff;
-  border-color: #2997ff;
+  background-color: var(--surface-pearl);
+  color: var(--text-main);
+  border-color: var(--border-strong);
 }
 
 .cohere-dark-band .btn-secondary:hover {
-  background-color: rgba(41, 151, 255, 0.14);
+  background-color: var(--surface-4);
+  border-color: var(--border-tertiary);
 }
 
 .cohere-dark-inner {
-  background-color: #2a2a2c;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 11px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
 }
 
-/* Apple Store Utility Cards (White on Parchment/White, 18px radius, hairline border, zero shadow) */
+/* Linear Feature Cards (Surface 1: #0f1011, 12px radius, #23252a hairline, zero shadow) */
 .door-card-btn {
   background-color: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  border-radius: 18px;
+  border-radius: 12px;
   padding: 1.5rem;
   min-height: 152px;
   text-align: left;
@@ -344,92 +366,93 @@ button:not(:disabled):active,
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
-  box-shadow: none;
+  box-shadow: var(--linear-pixel-edge);
   transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .door-card-btn:hover {
-  border-color: var(--accent-blue);
-  background-color: var(--surface-pearl);
+  border-color: var(--border-strong);
+  background-color: var(--bg-subtle);
 }
 
 .door-card-blue {
   background-color: var(--bg-subtle);
-  border-color: var(--border-color);
-  border-radius: 18px;
+  border-color: var(--border-strong);
+  border-radius: 12px;
 }
 
 .door-card-blue:hover {
-  border-color: var(--accent-blue);
-  background-color: var(--bg-surface);
+  border-color: var(--accent-primary);
+  background-color: var(--surface-pearl);
 }
 
-/* Back-home pill bar */
+/* Back-home Linear Button (8px rounded-md) */
 .back-home-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 48px;
-  padding: 0.55rem 1.25rem;
-  border-radius: 9999px;
-  border: 1px solid var(--accent-blue);
+  min-height: 46px;
+  padding: 0.55rem 1.125rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
-  color: var(--accent-blue);
-  font-weight: 400;
-  font-size: 0.95rem;
-  box-shadow: none;
-  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  box-shadow: var(--linear-pixel-edge);
+  transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .back-home-btn:hover {
-  background-color: #0066cc;
-  color: #ffffff;
+  background-color: var(--bg-subtle);
+  border-color: var(--accent-primary);
 }
 
-/* Flat Apple Cards & Surfaces (No shadow on UI chrome) */
+/* Flat Linear Surface 1 & Surface 2 Containers (12px rounded-lg, hairline bordered) */
 .surface-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: 18px;
+  border-radius: 12px;
+  box-shadow: var(--linear-pixel-edge);
 }
 
 .surface-subtle {
   background-color: var(--bg-subtle);
   border: 1px solid var(--border-color);
-  border-radius: 18px;
+  border-radius: 12px;
 }
 
-/* Signature Single Drop-Shadow Reserved ONLY for Devotional Media Container */
+/* Linear Product Screenshot Panel (rounded-xl 16px frame, Surface 1, hairline border) */
 .hero-media-frame {
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border-color);
-  background-color: #272729;
-  color: #ffffff;
-  box-shadow: var(--apple-product-shadow);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  box-shadow: var(--linear-pixel-edge);
 }
 
-/* Apple Clean Pill Tag (No coral, quiet hairline neutral / blue) */
+/* Linear Status Pill Tag (rounded-pill, surface-2 fill, ink-muted text, 1px hairline) */
 .coral-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.8rem;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-subtle);
-  color: var(--text-main);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: -0.014em;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
 }
 
-/* Minimal Hairline Trust Strip */
+/* Minimal Hairline Divider Strip */
 .trust-strip {
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  padding: 1.25rem 0.5rem;
+  padding: 1.15rem 0.5rem;
 }
 
 .traditions-grid {
@@ -473,7 +496,7 @@ button:not(:disabled):active,
 .tradition-card {
   min-height: 60px;
   padding: 0.85rem 1rem;
-  border-radius: 18px;
+  border-radius: 12px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   color: var(--text-main);
@@ -485,81 +508,85 @@ button:not(:disabled):active,
 }
 
 .tradition-card:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--border-strong);
   background-color: var(--bg-subtle);
 }
 
 .tradition-card[aria-pressed="true"] {
-  border: 2px solid var(--focus-ring);
-  background-color: var(--bg-surface);
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(94, 105, 209, 0.35);
+  background-color: var(--bg-subtle);
 }
 
-/* Apple Configurator Option Chips (rounded pill, 2px Focus Blue border when selected) */
+/* Linear Pricing/Filter Tab Pills */
 .feeling-chip {
-  min-height: 48px;
-  padding: 0.55rem 1.15rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
   border-radius: 9999px;
-  border: 1px solid var(--border-strong);
-  background-color: var(--bg-surface);
-  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-page);
+  color: var(--text-muted);
   font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: -0.014em;
+  font-weight: 500;
+  letter-spacing: 0;
   transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .feeling-chip:hover {
-  border-color: var(--accent-blue);
-  background-color: var(--bg-subtle);
+  border-color: var(--border-strong);
+  color: var(--text-main);
+  background-color: var(--bg-surface);
 }
 
 .feeling-chip[aria-pressed="true"] {
-  background-color: #0066cc;
-  color: #ffffff;
-  border: 2px solid #0071e3;
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 0 0 1px rgba(94, 105, 209, 0.45);
 }
 
-/* Apple Sub-Nav Links & Active Pill */
+/* Linear Top Nav Links & Active State */
 .nav-tab-btn {
-  min-height: 44px;
-  padding: 0.45rem 0.9rem;
-  border-radius: 9999px;
-  border: 1px solid transparent;
-  background-color: transparent;
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: -0.014em;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  white-space: nowrap;
-  box-shadow: none;
-  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease;
-}
-
-.nav-tab-btn:hover {
-  background-color: var(--bg-surface);
-  color: var(--accent-blue);
-}
-
-.nav-tab-btn[aria-current="page"] {
-  background-color: #0066cc;
-  color: #ffffff;
-  border-color: #0066cc;
-}
-
-.nav-inst-btn {
   min-height: 40px;
-  padding: 0.35rem 0.7rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 8px;
   border: 1px solid transparent;
   background-color: transparent;
   color: var(--text-secondary);
   font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: -0.014em;
+  font-weight: 500;
+  letter-spacing: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  box-shadow: none;
+  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-tab-btn:hover {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.nav-tab-btn[aria-current="page"] {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--border-strong);
+}
+
+.nav-inst-btn {
+  min-height: 36px;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -568,49 +595,47 @@ button:not(:disabled):active,
 }
 
 .nav-inst-btn:hover {
-  color: var(--accent-blue);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  color: var(--text-main);
+  background-color: var(--bg-surface);
 }
 
 .nav-inst-btn[aria-current="page"] {
-  color: var(--accent-blue);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  color: var(--accent-blue-dark);
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
 }
 
-/* Apple Clean Form Controls (Rounded pill for search/select or 11px soft hairline) */
+/* Linear Text Inputs (Surface 1 fill, #23252a hairline, 8px rounded-md, focus lavender ring) */
 .input-sacred {
   width: 100%;
-  min-height: 52px;
-  padding: 0.75rem 1.15rem;
-  border-radius: 11px;
+  min-height: 48px;
+  padding: 0.65rem 0.95rem;
+  border-radius: 8px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-main);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.005em;
   font-family: var(--font-sans);
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .input-sacred:focus {
-  border-color: var(--focus-ring);
-  outline: 2px solid var(--focus-ring);
+  border-color: var(--accent-primary-focus);
+  outline: 2px solid rgba(94, 105, 209, 0.5);
   outline-offset: 1px;
 }
 
-/* Minimal Apoio Rule Row */
+/* Linear Changelog-Style Rule Row */
 .ad-sponsor-slot {
-  background-color: var(--bg-surface);
+  background-color: var(--bg-page);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   border-left: none;
   border-right: none;
   border-radius: 0;
-  padding: 1.25rem 0.25rem;
+  padding: 1.5rem 0.25rem;
 }
 
 /* Virtual candle flame animation */
@@ -645,30 +670,30 @@ button:not(:disabled):active,
 /* Prayer trail day selector buttons and progress bar */
 .progress-track-bar {
   width: 100%;
-  height: 0.55rem;
+  height: 0.5rem;
   border-radius: 9999px;
-  background-color: var(--bg-subtle);
+  background-color: var(--surface-4);
   border: 1px solid var(--border-color);
   overflow: hidden;
 }
 
 .progress-track-fill {
   height: 100%;
-  background-color: var(--accent-blue);
+  background-color: var(--accent-primary);
   border-radius: 9999px;
   transition: width 0.25s ease;
 }
 
 .day-step-btn {
-  min-height: 48px;
-  min-width: 48px;
+  min-height: 46px;
+  min-width: 46px;
   padding: 0.4rem 0.6rem;
-  border-radius: 11px;
-  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   color: var(--text-main);
-  font-size: 0.95rem;
-  font-weight: 400;
+  font-size: 0.9375rem;
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -677,30 +702,34 @@ button:not(:disabled):active,
 }
 
 .day-step-btn:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--border-strong);
   background-color: var(--bg-subtle);
 }
 
 .day-step-btn.is-completed {
-  border-color: var(--accent-blue);
-  background-color: var(--bg-subtle);
-  color: var(--accent-blue);
+  border-color: var(--accent-green);
+  background-color: rgba(39, 166, 68, 0.12);
+  color: #4ade80;
   font-weight: 600;
+}
+
+[data-theme="light"] .day-step-btn.is-completed {
+  color: #166534;
 }
 
 .day-step-btn.is-active {
-  background-color: #0066cc;
+  background-color: #5e6ad2;
   color: #ffffff;
-  border-color: #0066cc;
+  border-color: #5e6ad2;
   font-weight: 600;
 }
 
-/* Elderly-friendly tactile faith option buttons (Apple Clean Surface + Action Blue Ring) */
+/* Linear Tactile Faith Option Cards (Surface 1 + Lavender Active Focus Border) */
 .faith-choice-card {
   min-height: 68px;
   padding: 0.9rem 1rem;
-  border-radius: 14px;
-  border: 2px solid var(--border-strong);
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-main);
   text-align: left;
@@ -709,22 +738,19 @@ button:not(:disabled):active,
   justify-content: space-between;
   gap: 0.75rem;
   cursor: pointer;
+  box-shadow: var(--linear-pixel-edge);
   transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease, transform 0.14s ease;
 }
 
 .faith-choice-card:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--border-tertiary);
   background-color: var(--bg-subtle);
 }
 
 .faith-choice-card.is-active {
-  border-color: var(--accent-blue);
-  background-color: var(--bg-accent-soft);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.16);
-}
-
-[data-theme="dark"] .faith-choice-card.is-active {
-  box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.28);
+  border-color: var(--accent-primary);
+  background-color: var(--bg-subtle);
+  box-shadow: 0 0 0 2px rgba(94, 105, 209, 0.45);
 }
 
 /* Visible FAQ Accordion matching Schema FAQPage (SEO + GEO) */
@@ -736,7 +762,7 @@ button:not(:disabled):active,
 .faq-details summary {
   list-style: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.0625rem;
   line-height: 1.45;
   color: var(--text-main);
@@ -755,25 +781,25 @@ button:not(:disabled):active,
   content: "+";
   font-size: 1.35rem;
   font-weight: 400;
-  color: var(--accent-blue);
+  color: var(--accent-blue-dark);
   flex-shrink: 0;
 }
 
 .faq-details[open] summary::after {
-  content: "−";
+  content: "-";
 }
 
-/* Improved elderly tap area and readability on mobile sticky bottom nav */
+/* Mobile sticky bottom bar */
 .mobile-bottom-nav .tap-target {
   min-height: 54px;
   font-size: 0.75rem;
   line-height: 1.2;
 }
 
-/* Apple Signature Parchment Footer (#f5f5f7 light, #252527 dark) */
+/* Linear Minimal Canvas Footer (#010102 with #23252a hairline top) */
 .cohere-footer {
-  background-color: var(--bg-subtle);
-  color: var(--text-secondary);
+  background-color: var(--bg-page);
+  color: var(--text-muted);
   border-top: 1px solid var(--border-color);
 }
 

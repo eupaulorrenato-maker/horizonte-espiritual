@@ -19,7 +19,7 @@
     selectedTraditionId: "catolica",
     selectedFeeling: "ansiedade",
     rememberTradition: true,
-    theme: "light",
+    theme: "dark",
     readerFontSizePx: 20,
 
     // Orações Fortes (Paginated directory + dedicated single-prayer page)
@@ -105,9 +105,9 @@
   }
 
   function applyTheme(theme) {
-    state.theme = theme === "dark" ? "dark" : "light";
-    if (state.theme === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
+    state.theme = theme === "light" ? "light" : "dark";
+    if (state.theme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
@@ -115,11 +115,11 @@
 
     var labelEls = document.querySelectorAll("[data-theme-label]");
     for (var i = 0; i < labelEls.length; i++) {
-      labelEls[i].textContent = state.theme === "dark" ? "Modo Claro" : "Modo Noturno";
+      labelEls[i].textContent = state.theme === "light" ? "Modo Linear" : "Modo Claro";
     }
     var btnEls = document.querySelectorAll("[data-action='toggle-theme']");
     for (var j = 0; j < btnEls.length; j++) {
-      btnEls[j].setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
+      btnEls[j].setAttribute("aria-pressed", state.theme === "light" ? "true" : "false");
     }
   }
 
@@ -840,13 +840,13 @@
       html +=
         '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
-        '<div class="relative h-48 w-full overflow-hidden bg-[#272729]">' +
+        '<div class="relative h-48 w-full overflow-hidden bg-[#0f1011]">' +
         '<img src="' +
         escapeHtml(art.imagePath) +
         '" alt="' +
         escapeHtml(art.title) +
         '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
-        '<span class="absolute top-3 left-3 font-mono-label px-2.5 py-1 rounded-full bg-white text-[#1d1d1f]">' +
+        '<span class="absolute top-3 left-3 font-mono-label px-2.5 py-1 rounded-full bg-[#141516] text-[#f7f8f8] border border-[#34343a]">' +
         escapeHtml(art.scriptureRef) +
         "</span>" +
         "</div>" +
@@ -959,15 +959,15 @@
     if (bannerEl) {
       var artInfo = getSacredArtForBibleBook(activeBook.bookTitle);
       bannerEl.innerHTML =
-        '<div class="relative h-48 sm:h-60 w-full bg-[#272729]">' +
+        '<div class="relative h-48 sm:h-60 w-full bg-[#0f1011]">' +
         '<img src="' +
         escapeHtml(artInfo.imagePath) +
         '" alt="' +
         escapeHtml(artInfo.caption) +
-        '" class="w-full h-full object-cover" />' +
-        '<div class="absolute inset-x-0 bottom-0 px-4 py-2.5 text-white" style="background: rgba(0, 0, 0, 0.56);">' +
-        '<span class="font-mono-label text-[#2997ff] block">Arte Sacra Renascentista</span>' +
-        '<p class="text-sm font-semibold text-white">' +
+        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+        '<div class="absolute inset-x-0 bottom-0 px-4 py-2.5 text-white" style="background: rgba(1, 1, 2, 0.72);">' +
+        '<span class="font-mono-label text-[#828fff] block">Arte Sacra Renascentista</span>' +
+        '<p class="text-sm font-medium text-[#f7f8f8]">' +
         escapeHtml(artInfo.caption) +
         "</p>" +
         "</div>" +
@@ -1086,15 +1086,15 @@
 
         singleView.innerHTML =
           '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
-          '<div class="relative h-48 sm:h-64 w-full bg-[#272729]">' +
+          '<div class="relative h-48 sm:h-64 w-full bg-[#0f1011]">' +
           '<img src="' +
           escapeHtml(imgSrc) +
           '" alt="' +
           escapeHtml(prayer.categoryLabel) +
-          '" class="w-full h-full object-cover opacity-90" />' +
-          '<div class="absolute inset-0 flex items-end p-5 sm:p-6" style="background: rgba(0, 0, 0, 0.45);">' +
+          '" width="1200" height="670" decoding="async" class="w-full h-full object-cover opacity-90" />' +
+          '<div class="absolute inset-0 flex items-end p-5 sm:p-6" style="background: rgba(1, 1, 2, 0.6);">' +
           '<div>' +
-          '<span class="font-mono-label inline-block px-3 py-1 rounded-full bg-white text-[#1d1d1f] mb-2">' +
+          '<span class="font-mono-label inline-block px-3 py-1 rounded-full bg-[#141516] text-[#f7f8f8] border border-[#34343a] mb-2">' +
           escapeHtml(prayer.categoryLabel) +
           "</span>" +
           '<h3 class="font-serif-sacred font-semibold text-2xl sm:text-3xl text-white leading-tight">' +
@@ -1191,13 +1191,13 @@
       html +=
         '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
-        '<div class="relative h-40 w-full overflow-hidden bg-[#272729]">' +
+        '<div class="relative h-40 w-full overflow-hidden bg-[#0f1011]">' +
         '<img src="' +
         escapeHtml(cardImg) +
         '" alt="' +
         escapeHtml(item.title) +
-        '" class="w-full h-full object-cover" loading="lazy" />' +
-        '<span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white text-[#1d1d1f]">' +
+        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
+        '<span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#141516] text-[#f7f8f8] border border-[#34343a]">' +
         escapeHtml(item.categoryLabel) +
         "</span>" +
         "</div>" +
@@ -1715,12 +1715,12 @@
         readerEl.innerHTML =
           '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
           (activePost.imagePath
-            ? '<div class="relative h-56 sm:h-72 w-full bg-[#272729]">' +
+            ? '<div class="relative h-56 sm:h-72 w-full bg-[#0f1011]">' +
               '<img src="' +
               escapeHtml(activePost.imagePath) +
               '" alt="' +
               escapeHtml(activePost.title) +
-              '" class="w-full h-full object-cover" />' +
+              '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
               "</div>"
             : "") +
           '<div class="p-6 sm:p-10">' +
@@ -1767,12 +1767,12 @@
         '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
         (post.imagePath
-          ? '<div class="h-44 w-full overflow-hidden bg-[#272729]">' +
+          ? '<div class="h-44 w-full overflow-hidden bg-[#0f1011]">' +
             '<img src="' +
             escapeHtml(post.imagePath) +
             '" alt="' +
             escapeHtml(post.title) +
-            '" class="w-full h-full object-cover" loading="lazy" />' +
+            '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
             "</div>"
           : "") +
         '<div class="p-6 pb-2">' +
@@ -2412,10 +2412,10 @@
 
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
-      '<div class="relative h-56 sm:h-72 w-full bg-[#272729]">' +
+      '<div class="relative h-56 sm:h-72 w-full bg-[#0f1011]">' +
       '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" width="1200" height="902" decoding="async" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
-      '<span class="font-mono-label text-[#2997ff] mb-1">' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(1, 1, 2, 0.58);">' +
+      '<span class="font-mono-label text-[#828fff] mb-1">' +
       escapeHtml(formatTodayPtBr()) +
       " • Devocional Diário" +
       "</span>" +
@@ -2730,14 +2730,14 @@
 
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
-      '<div class="relative h-64 sm:h-80 w-full bg-[#272729]">' +
+      '<div class="relative h-64 sm:h-80 w-full bg-[#0f1011]">' +
       '<img src="' +
       escapeHtml(data.imagePath) +
       '" onerror="this.src=\'' +
       escapeHtml(data.fallbackImagePath) +
-      '\'" alt="São Miguel Arcanjo" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
-      '<span class="font-mono-label text-[#2997ff] mb-1">' +
+      '\'" alt="São Miguel Arcanjo" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(1, 1, 2, 0.58);">' +
+      '<span class="font-mono-label text-[#828fff] mb-1">' +
       escapeHtml(data.imageCaption) +
       "</span>" +
       '<h2 id="miguel-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">⚔️ ' +
@@ -2781,12 +2781,12 @@
           '<div class="space-y-6 max-w-3xl mx-auto">' +
           '<div class="surface-card overflow-hidden">' +
           (activeTrack.imagePath
-            ? '<div class="relative h-52 sm:h-64 w-full bg-[#272729]">' +
+            ? '<div class="relative h-52 sm:h-64 w-full bg-[#0f1011]">' +
               '<img src="' +
               escapeHtml(activeTrack.imagePath) +
               '" alt="' +
               escapeHtml(activeTrack.title) +
-              '" class="w-full h-full object-cover" />' +
+              '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
               "</div>"
             : "") +
           '<div class="p-6 sm:p-8">' +
@@ -2831,12 +2831,12 @@
         '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
         (tr.imagePath
-          ? '<div class="h-44 w-full overflow-hidden bg-[#272729]">' +
+          ? '<div class="h-44 w-full overflow-hidden bg-[#0f1011]">' +
             '<img src="' +
             escapeHtml(tr.imagePath) +
             '" alt="' +
             escapeHtml(tr.title) +
-            '" class="w-full h-full object-cover" loading="lazy" />' +
+            '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
             "</div>"
           : "") +
         '<div class="p-6 pb-2">' +
@@ -2926,20 +2926,20 @@
       var isSelected = pr.id === active.id;
       choiceCardsHtml +=
         '<button type="button" class="surface-card overflow-hidden text-left flex flex-col justify-between transition ' +
-        (isSelected ? "ring-2 ring-[#0066cc]" : "") +
+        (isSelected ? "ring-2 ring-[#5e6ad2] border-[#5e6ad2]" : "") +
         '" data-select-purpose="' +
         escapeHtml(pr.id) +
         '" aria-pressed="' +
         (isSelected ? "true" : "false") +
         '">' +
         "<div>" +
-        '<div class="relative h-36 w-full overflow-hidden bg-[#272729]">' +
+        '<div class="relative h-36 w-full overflow-hidden bg-[#0f1011]">' +
         '<img src="' +
         escapeHtml(pr.imagePath) +
         '" alt="' +
         escapeHtml(pr.title) +
         '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
-        '<span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white text-[#1d1d1f]">' +
+        '<span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#141516] text-[#f7f8f8] border border-[#34343a]">' +
         prDone.length +
         "/40 dias</span>" +
         "</div>" +
@@ -2996,14 +2996,14 @@
       choiceCardsHtml +
       "</div>" +
       '<article class="surface-card overflow-hidden">' +
-      '<div class="relative h-52 sm:h-64 w-full bg-[#272729]">' +
+      '<div class="relative h-52 sm:h-64 w-full bg-[#0f1011]">' +
       '<img src="' +
       escapeHtml(active.imagePath) +
       '" alt="' +
       escapeHtml(active.imageCaption || active.title) +
-      '" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-7 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
-      '<span class="font-mono-label text-[#2997ff] mb-1">' +
+      '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-7 text-white" style="background: rgba(1, 1, 2, 0.58);">' +
+      '<span class="font-mono-label text-[#828fff] mb-1">' +
       escapeHtml(dayObj.phase) +
       "</span>" +
       '<h3 class="font-display text-2xl sm:text-3xl text-white">' +
@@ -4223,8 +4223,10 @@
 
   function bootstrap() {
     var savedTheme = safeStorageGet(STORAGE_KEYS.theme);
-    if (savedTheme === "dark" || savedTheme === "light") {
-      applyTheme(savedTheme);
+    if (savedTheme === "light") {
+      applyTheme("light");
+    } else {
+      applyTheme("dark");
     }
 
     var savedFont = safeStorageGet(STORAGE_KEYS.fontSize);

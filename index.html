@@ -30,7 +30,7 @@
   <meta name="twitter:description" content="Escolha Fé Católica ou Evangélica, viva os 40 Dias de Propósitos, ouça orações em voz calma e leia a Bíblia Online completa gratuitamente." />
   <meta name="twitter:image" content="https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/traditions/cafe-espiritual.jpg" />
   <meta name="twitter:image:alt" content="Café Espiritual e Bíblia Online com letras grandes - Horizonte Espiritual" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#010102" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Horizonte Espiritual" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -41,7 +41,7 @@
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -278,18 +278,18 @@
     Pular direto ao conteúdo principal
   </a>
 
-  <!-- APPLE GLOBAL NAV BAR (#000000) -->
+  <!-- LINEAR TOP ANNOUNCEMENT RAIL (#0f1011) -->
   <div id="top-announcement-bar" class="announcement-bar flex items-center justify-center relative px-10 text-center">
-    <p class="m-0 text-white">
-      <span class="font-semibold text-[#2997ff] mr-2">100% Gratuito</span>
-      <span class="text-white/90">Letras ajustáveis e leitura em voz calma em todo o portal.</span>
-      <button type="button" class="underline ml-2 text-[#2997ff] font-normal hover:text-white" data-nav-target="cafe-diario">
+    <p class="m-0 text-[#d0d6e0]">
+      <span class="font-medium text-[#828fff] mr-2">100% Gratuito</span>
+      <span>Letras ajustáveis e leitura em voz calma em todo o portal.</span>
+      <button type="button" class="underline ml-2 text-[#828fff] font-medium hover:text-[#f7f8f8]" data-nav-target="cafe-diario">
         Abrir Café de Hoje ›
       </button>
     </p>
     <button
       type="button"
-      class="absolute right-3 top-1/2 -translate-y-1/2 text-white/75 hover:text-white px-2 py-1 text-base leading-none"
+      class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8a8f98] hover:text-[#f7f8f8] px-2 py-1 text-base leading-none"
       data-action="close-announcement"
       aria-label="Fechar aviso superior"
     >
@@ -297,12 +297,12 @@
     </button>
   </div>
 
-  <!-- APPLE FROSTED SUB-NAV HEADER -->
+  <!-- LINEAR FROSTED HEADER (#010102 + #23252a hairline) -->
   <header class="sticky top-0 z-40 apple-frosted-header">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
-      <!-- Left Zone: Brand Wordmark + Active Tradition Pill -->
+      <!-- Left Zone: Brand Wordmark + Active Tradition Badge -->
       <div class="flex flex-wrap items-center gap-3">
-        <button type="button" class="font-display text-lg sm:text-xl tracking-tight text-left" style="color: var(--text-main);" data-nav-target="inicio">
+        <button type="button" class="font-display font-semibold text-lg sm:text-xl tracking-tight text-left" style="color: var(--text-main);" data-nav-target="inicio">
           Horizonte Espiritual
         </button>
         <button
@@ -310,14 +310,14 @@
           id="active-tradition-badge"
           data-action="open-tradition-page"
           class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-medium border"
-          style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);"
+          style="background-color: var(--bg-subtle); color: var(--text-secondary); border-color: var(--border-color);"
           title="Toque para abrir o espaço de Fé Católica ou Evangélica"
         >
           ✝ Fé Católica
         </button>
       </div>
 
-      <!-- Center Zone: Primary Links on Desktop (clean single row, no box chrome) -->
+      <!-- Center Zone: Primary Links on Desktop -->
       <nav class="hidden lg:flex items-center gap-1" aria-label="Atalhos Principais Desktop">
         <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">Início</button>
         <button type="button" class="nav-tab-btn" data-nav-target="cafe-diario">Café de Hoje</button>
@@ -327,24 +327,24 @@
         <button type="button" class="nav-tab-btn" data-nav-target="escrituras">Bíblia Online</button>
       </nav>
 
-      <!-- Right Zone: Accessibility Controls (A-/A+, Theme) + Pill Menu -->
+      <!-- Right Zone: Accessibility Controls (A-/A+, Theme) + Menu -->
       <div class="flex flex-wrap items-center gap-2">
-        <div class="inline-flex items-center rounded-full border px-1" style="border-color: var(--border-color); background-color: var(--bg-surface);" role="group" aria-label="Ajustar tamanho da letra">
+        <div class="inline-flex items-center rounded-[8px] border px-1" style="border-color: var(--border-strong); background-color: var(--bg-surface);" role="group" aria-label="Ajustar tamanho da letra">
           <button type="button" class="tap-target px-2 text-sm font-medium" data-action="font-decrease" aria-label="Diminuir tamanho da letra">
             A-
           </button>
-          <span id="font-size-indicator" class="font-mono-label px-1.5" style="color: var(--text-muted);" aria-live="polite">20px</span>
+          <span id="font-size-indicator" class="font-code-mono px-1.5" style="color: var(--text-muted);" aria-live="polite">20px</span>
           <button type="button" class="tap-target px-2 text-base font-medium" data-action="font-increase" aria-label="Aumentar tamanho da letra">
             A+
           </button>
         </div>
 
         <button type="button" class="btn-secondary inline-flex items-center gap-1.5 text-sm py-2 px-3.5" data-action="toggle-theme" aria-pressed="false">
-          <span aria-hidden="true">🌓</span>
-          <span data-theme-label class="hidden xl:inline">Modo Noturno</span>
+          <span aria-hidden="true">☀️</span>
+          <span data-theme-label class="hidden xl:inline">Modo Claro</span>
         </button>
 
-        <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm py-2 px-5" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
+        <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm py-2 px-4" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
           <span aria-hidden="true">☰</span>
           <span>Menu</span>
         </button>
@@ -405,11 +405,11 @@
 
   <!-- STICKY AUDIO READER CONTROL BANNER -->
   <div id="audio-status-banner" class="hidden sticky top-24 z-30 max-w-4xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite">
-    <div class="p-3.5 sm:p-4 rounded-[18px] flex flex-wrap items-center justify-between gap-3 border" style="background-color: #272729; color: #ffffff; border-color: #3a3a3e;">
-      <span id="audio-status-text" class="text-sm sm:text-base font-normal text-white">
+    <div class="p-3.5 sm:p-4 rounded-[12px] flex flex-wrap items-center justify-between gap-3 border" style="background-color: #141516; color: #f7f8f8; border-color: #34343a;">
+      <span id="audio-status-text" class="text-sm sm:text-base font-normal text-[#f7f8f8]">
         🔊 Lendo em voz calma neste momento...
       </span>
-      <button type="button" class="px-5 py-2.5 rounded-full text-sm font-normal bg-[#0066cc] text-white hover:bg-[#0071e3]" data-action="stop-global-speech">
+      <button type="button" class="btn-primary text-sm" data-action="stop-global-speech">
         ⏹ Parar Áudio Agora
       </button>
     </div>
@@ -419,11 +419,11 @@
   <main id="main-content" class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
     <!-- PERSISTENT TOP BACK-TO-HOME BAR (ALWAYS VISIBLE WHEN NOT ON HOME) -->
-    <div id="global-back-bar" class="hidden max-w-4xl mx-auto mb-8 flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-[22px] border" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+    <div id="global-back-bar" class="hidden max-w-4xl mx-auto mb-8 flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-[12px] border" style="background-color: var(--bg-surface); border-color: var(--border-color);">
       <button type="button" class="back-home-btn" data-nav-target="inicio">
         <span aria-hidden="true">🏠</span> ← Voltar para a Tela Inicial
       </button>
-      <span id="current-page-breadcrumb" class="font-mono-label px-3.5 py-1.5 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
+      <span id="current-page-breadcrumb" class="font-mono-label px-3 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-secondary); border-color: var(--border-color);">
         Você está em: Início
       </span>
     </div>
@@ -526,8 +526,8 @@
               </div>
 
               <div class="pt-1">
-                <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base select-none py-2 px-3.5 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
-                  <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#0066cc]" />
+                <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base select-none py-2 px-3.5 rounded-[8px] border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
+                  <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#5e6ad2]" />
                   <span>Lembrar minha escolha da próxima vez</span>
                 </label>
               </div>
@@ -560,7 +560,7 @@
           </div>
         </div>
 
-        <!-- Right Hero Photo + Media Card (Signature Apple Shadow) -->
+        <!-- Right Hero Product Showcase Frame (Linear Surface 1 + 16px radius) -->
         <aside class="lg:col-span-5 hero-media-frame flex flex-col justify-between" aria-label="Bíblia Online e Recebimento Diário">
           <div class="relative h-56 sm:h-64 w-full overflow-hidden">
             <img
@@ -572,25 +572,25 @@
               decoding="async"
               class="w-full h-full object-cover"
             />
-            <span class="absolute top-4 left-4 font-mono-label px-3.5 py-1 rounded-full text-[#1d1d1f]" style="background-color: rgba(210, 210, 215, 0.88);">
+            <span class="absolute top-4 left-4 font-mono-label px-3 py-1 rounded-full border text-[#f7f8f8]" style="background-color: rgba(15, 16, 17, 0.88); border-color: #34343a;">
               100% Gratuito • Letras Grandes
             </span>
           </div>
-          <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between" style="background-color: #272729; color: #ffffff;">
+          <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between" style="background-color: #0f1011; color: #f7f8f8; border-top: 1px solid #23252a;">
             <div class="space-y-3">
-              <span class="font-mono-label text-[#2997ff] block">Bíblia Online &amp; Voz Calma</span>
-              <h2 class="font-display text-2xl text-white leading-snug">
+              <span class="font-mono-label text-[#828fff] block">Bíblia Online &amp; Voz Calma</span>
+              <h2 class="font-display text-2xl text-[#f7f8f8] leading-snug">
                 Bíblia Online Completa, sem senha nem cobrança.
               </h2>
-              <p class="text-sm sm:text-base leading-relaxed text-[#cccccc]">
+              <p class="text-sm sm:text-base leading-relaxed text-[#d0d6e0]">
                 Aumente as letras lá no alto (A+ / A-), escute capítulos inteiros da Bíblia Online em voz calma ou acenda sua vela pela família.
               </p>
             </div>
-            <div class="pt-3 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
-              <button type="button" class="px-5 py-3 rounded-full text-sm font-normal bg-[#0066cc] text-white hover:bg-[#0071e3]" data-nav-target="escrituras">
+            <div class="pt-3 border-t border-[#23252a] flex flex-wrap items-center justify-between gap-3">
+              <button type="button" class="btn-primary text-sm" data-nav-target="escrituras">
                 📖 Abrir Bíblia Online ›
               </button>
-              <button type="button" class="text-sm text-[#2997ff] hover:underline py-2" data-scroll-target="home-receive-section">
+              <button type="button" class="text-sm text-[#828fff] hover:text-[#f7f8f8] hover:underline py-2" data-scroll-target="home-receive-section">
                 Como Receber Todo Dia ›
               </button>
             </div>
@@ -608,30 +608,30 @@
         </div>
       </section>
 
-      <!-- Apple Near-Black Product Tile (#272729): Daily Passage Card -->
+      <!-- Linear Lifted Feature Panel (Surface 2 #141516): Daily Passage Card -->
       <section id="home-daily-passage-section" class="cohere-dark-band p-7 sm:p-12 max-w-5xl mx-auto" aria-label="Palavra do Dia">
         <div class="max-w-3xl mx-auto text-center space-y-5">
-          <span class="font-mono-label inline-block text-[#2997ff]">
+          <span class="font-mono-label inline-block text-[#828fff]">
             Mensagem do Dia
           </span>
-          <p data-daily-greeting class="text-base sm:text-lg font-semibold text-white">
+          <p data-daily-greeting class="text-base sm:text-lg font-medium" style="color: var(--text-main);">
             A paz de Cristo esteja no seu lar (Fé Católica)
           </p>
-          <p data-daily-tradition-tag class="font-mono-label text-[#cccccc]">
+          <p data-daily-tradition-tag class="font-mono-label" style="color: var(--text-muted);">
             Fé Cristã Católica
           </p>
 
-          <blockquote data-daily-passage-text class="font-display text-2xl sm:text-3xl leading-snug text-white py-2">
+          <blockquote data-daily-passage-text class="font-display text-2xl sm:text-3xl leading-snug py-2" style="color: var(--text-main);">
             “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu próprio cuidado.”
           </blockquote>
 
-          <p data-daily-passage-reference class="font-mono-label text-[#2997ff]">
+          <p data-daily-passage-reference class="font-mono-label text-[#828fff]">
             São Mateus 6:34
           </p>
 
           <div class="cohere-dark-inner p-5 sm:p-6 text-left">
-            <p class="font-mono-label text-[#cccccc] mb-1.5">Explicação simples para hoje:</p>
-            <p data-daily-passage-reflection class="text-base sm:text-lg leading-relaxed text-white/95">
+            <p class="font-mono-label mb-1.5" style="color: var(--text-muted);">Explicação simples para hoje:</p>
+            <p data-daily-passage-reflection class="text-base sm:text-lg leading-relaxed" style="color: var(--text-secondary);">
               Entregue as preocupações futuras na oração silenciosa de hoje. Deus cuida do tempo presente.
             </p>
           </div>
@@ -655,7 +655,7 @@
         </div>
       </section>
 
-      <!-- Apple Parchment Gallery Band (#f5f5f7) with White Store Utility Cards -->
+      <!-- Linear Feature Deck Band (Surface 2 #141516) with Surface 1 Utility Cards -->
       <section class="max-w-5xl mx-auto p-6 sm:p-10 rounded-[18px] border space-y-6" style="background-color: var(--bg-subtle); border-color: var(--border-color);" aria-labelledby="doors-heading">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b pb-4" style="border-color: var(--border-color);">
           <div>
@@ -889,15 +889,18 @@
     <section data-section-view="vertente" class="hidden space-y-6" aria-labelledby="vertente-title">
       <article class="surface-card overflow-hidden max-w-4xl mx-auto">
         <!-- Realistic Devotional Image Banner -->
-        <div class="relative h-64 sm:h-80 w-full bg-[#272729]">
+        <div class="relative h-64 sm:h-80 w-full bg-[#0f1011]">
           <img
             id="vertente-hero-image"
             src="assets/traditions/catolica.jpg"
             alt="Imagem devocional da fé cristã"
+            width="1200"
+            height="670"
+            decoding="async"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(0, 0, 0, 0.45);">
-            <span id="vertente-image-caption" class="font-mono-label text-[#2997ff] mb-1">
+          <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(1, 1, 2, 0.55);">
+            <span id="vertente-image-caption" class="font-mono-label text-[#828fff] mb-1">
               Jesus Cristo, Luz e Bom Pastor da Fé Católica
             </span>
             <h2 id="vertente-title" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">
@@ -1193,13 +1196,13 @@
         <div class="p-6 sm:p-8 rounded-[18px] text-white flex flex-col items-center text-center border border-white/10" style="background-color: var(--bg-chapel);">
           <div class="my-2 flex flex-col items-center">
             <div id="hero-candle-flame" class="candle-flame mb-1" aria-hidden="true"></div>
-            <div class="w-14 h-24 rounded-t-md border-t-4 border-[#d2d2d7]" style="background-color: #fafafc;"></div>
-            <div class="w-24 h-2.5 rounded-full mt-1" style="background-color: #6e6e73;"></div>
+            <div class="w-14 h-24 rounded-t-md border-t-4 border-[#34343a]" style="background-color: #f7f8f8;"></div>
+            <div class="w-24 h-2.5 rounded-full mt-1" style="background-color: #62666d;"></div>
           </div>
-          <p id="candles-active-counter" class="font-mono-label text-[#2997ff] mt-3 mb-4" aria-live="polite">
+          <p id="candles-active-counter" class="font-mono-label text-[#828fff] mt-3 mb-4" aria-live="polite">
             3 velas acesas em vigília
           </p>
-          <button type="button" class="px-4 py-2 rounded-full border border-white/30 text-white text-xs hover:bg-white/10" data-action="toggle-flame-motion" aria-pressed="false">
+          <button type="button" class="btn-secondary text-xs py-2 px-4" data-action="toggle-flame-motion" aria-pressed="false">
             ⏸ Pausar animação da chama
           </button>
         </div>
@@ -1590,7 +1593,7 @@
 
   </main>
 
-  <!-- APPLE SIGNATURE PARCHMENT FOOTER (#f5f5f7) -->
+  <!-- LINEAR MINIMAL CANVAS FOOTER (#010102) -->
   <footer class="cohere-footer mt-16 py-14 px-4 sm:px-6">
     <div class="max-w-6xl mx-auto flex flex-col gap-8">
       <div class="flex flex-col md:flex-row items-start justify-between gap-6">

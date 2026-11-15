@@ -1,28 +1,17 @@
-# DESIGN.md - Horizonte Espiritual
+# DESIGN.md - Horizonte Espiritual (Linear Design Architecture)
 
-## Design Read
-Reading this as: Portal multi-religioso de acolhimento espiritual e leitura sagrada voltado ao público 50+ brasileiro, em estilo editorial sereno de livro clássico, dial ENERGY 1 / RHYTHM 2 / MOTION 1.
+## Diretriz Visual
+Sistema visual escuro minimalista inspirado em Linear.app, construído sobre tela quase negra `#010102`, escada de superfícies grafite em 4 degraus (`#0f1011`, `#141516`, `#18191a`, `#191a1b`), texto em alto contraste `#f7f8f8` e acento único em azul-lavanda Linear (`#5e6ad2` / hover `#828fff` / foco `#5e69d1`).
 
-## Dials
-- **ENERGY: 1 (Calmo)** - Paz imediata aos olhos, sem clarões nem excessos visuais.
-- **RHYTHM: 2 (Equilibrado)** - Seções consistentes com variação intencional entre o banner fotográfico, a grade de seleção, o destaque da Palavra do Dia e a capela escura da Vela Virtual.
-- **MOTION: 1 (Sutil)** - Estados claros de toque e foco, com movimento contínuo restrito à chama da vela virtual (respeitando `prefers-reduced-motion: reduce`).
+## Paleta de Tokens
+- **Canvas:** `#010102` (tela base, nunca `#000000` puro).
+- **Superfícies:** `#0f1011` (`surface-1`), `#141516` (`surface-2`), `#18191a` (`surface-3`), `#191a1b` (`surface-4`).
+- **Bordas Hairline:** `#23252a` (`hairline`), `#34343a` (`hairline-strong`), `#3e3e44` (`hairline-tertiary`).
+- **Tipografia / Tinta:** `#f7f8f8` (`ink`), `#d0d6e0` (`ink-muted`), `#8a8f98` (`ink-subtle`), `#62666d` (`ink-tertiary`).
+- **Acento Único:** `#5e6ad2` (`primary`), `#828fff` (`hover`), `#5e69d1` (`focus`) e `#27a644` (`semantic-success`).
 
-## Paleta de Cores (2 cores base + 1 destaque)
-- **Base Clara (Pergaminho Editorial):** `#F7F4EE` (fundo principal) e `#FFFFFF` (superfície de leitura), com bordas em `#DFD8CC`.
-- **Base de Texto (Carvão Terroso):** `#171717` (contraste 15:1, acima do WCAG AAA) e `#4A443C` (texto secundário, contraste 7.8:1).
-- **Destaque Devocional (Vinho Sagrado e Âmbar Vela):** `#7A2629` (ações principais e cabeçalhos editoriais) e `#C97A2B` (chama da vela e marcadores de leitura).
-- **Modo Noturno (Leitura Suave):** `#161412` (fundo), `#221F1C` (cartões), `#EDE8DF` (texto principal) e `#E09F5A` (destaque).
-
-## Tipografia
-- **Leituras Sagradas e Títulos (`Lora`, serifa editorial):** Escolhida pela legibilidade em textos longos e semelhança com edições impressas de obras sagradas.
-- **Interface, Rótulos e Botões (`Inter`, sem serifa):** Escolhida pela clareza dos caracteres em tamanhos variados e leitura rápida por pessoas com mais de 50 anos.
-- **Escala Fluida:** Corpo base entre `17px` e `19px` com controles explícitos `A-` e `A+` que ampliam a leitura até `26px`.
-
-## Razões de Uma Linha (Regra R-31)
-- **Cor:** O fundo pergaminho `#F7F4EE` evita o ofuscamento do branco puro em telas de celular para olhos maduros, enquanto o vinho `#7A2629` remete a encadernações litúrgicas clássicas.
-- **Layout:** Três estados responsivos reais (1 coluna no celular, 2 colunas em tablets a partir de 640px, painel editorial amplo com navegação lateral a partir de 1024px) garantem conforto em qualquer tela.
-- **Tipografia:** A combinação de serifa caligráfica (`Lora`) nos textos de fé com sem-serifa limpa (`Inter`) nos botões separa o momento de meditação dos controles de navegação.
-- **Espaçamento:** Áreas de toque mínimas de `48px` de altura com espaçamento de `10px` a `16px` evitam toques acidentais de usuários 50+.
-- **Cartões:** Cartões com borda sólida de `1px` sem sombras flutuantes organizam as 16 tradições e as orações com nitidez de índice editorial.
-- **Fotografia:** Imagem real de alvorada na abertura estabelece serenidade sem recorrer a ilustrações genéricas ou símbolos exclusivos de uma só fé.
+## Tipografia e Geometria
+- **Família:** `Inter` (`500`, `600`, `400`) com fallback `SF Pro Display / Text / system-ui`, combinada com `JetBrains Mono` para indicadores técnicos e contadores.
+- **Rastreamento:** Tracking negativo em títulos (`-0.037em` no herói, `-0.03em` em seções) e positivo (`+0.4px`) em sobrancelhas (eyebrows).
+- **Arredondamento:** Botões e campos de texto com `8px` (`rounded-md`), cartões com `12px` (`rounded-lg`), painéis de arte e mídia com `16px` (`rounded-xl`) e apenas etiquetas/filtros em formato pílula.
+- **Acessibilidade 50+:** Áreas de toque de pelo menos `46px - 48px`, ajuste de fonte `A- / A+` (`18px - 28px`), leitura contínua em voz calma PT-BR e modo opcional claro de leitura (`data-theme="light"`).
