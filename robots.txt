@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eupaulorrenato-maker.github.io/horizonte-espiritual/sitemap.xml

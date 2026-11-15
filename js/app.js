@@ -342,15 +342,15 @@
   var SECTION_LABELS = {
     inicio: "Tela Inicial",
     vertente: "Fé & Mensagem",
-    "cafe-diario": "Café Espiritual do Dia",
+    "cafe-diario": "Café com Deus (Mensagem da Manhã)",
     "arcanjo-miguel": "São Miguel Arcanjo (21 Dias)",
     trilhas: "Trilhas de Oração",
-    "salvar-app": "Colocar Atalho no Celular",
+    "salvar-app": "Como Receber Todo Dia",
     oracoes: "Orações Fortes",
     vela: "Vela Virtual de 7 Dias",
-    escrituras: "Biblioteca Sagrada Completa",
-    alento: "Alento Temático",
-    quiz: "Quiz Sagrado",
+    escrituras: "Bíblia Online Completa",
+    alento: "Palavras para Momentos Difíceis",
+    quiz: "Perguntas sobre a Bíblia",
     blog: "Blog e Artigos",
     "quem-somos": "Quem Somos",
     privacidade: "Política de Privacidade",
@@ -481,6 +481,18 @@
     var enterTraditionBtn = document.getElementById("home-enter-tradition-btn");
     if (enterTraditionBtn) {
       enterTraditionBtn.textContent = "✝ Abrir Espaço da Fé (" + tradition.name + ") →";
+    }
+
+    var faithChoiceBtns = document.querySelectorAll("[data-home-trad-choice]");
+    for (var fc = 0; fc < faithChoiceBtns.length; fc++) {
+      var btn = faithChoiceBtns[fc];
+      var isChosen = btn.getAttribute("data-home-trad-choice") === tradition.id;
+      btn.setAttribute("aria-pressed", isChosen ? "true" : "false");
+      btn.classList.toggle("is-active", isChosen);
+      var statusBadge = btn.querySelector("[data-choice-status]");
+      if (statusBadge) {
+        statusBadge.textContent = isChosen ? "✓ Marcada" : "Toque para marcar";
+      }
     }
 
     var passageObj =
@@ -1888,6 +1900,7 @@
 
   function renderAllWhatsappWidgets() {
     var slots = [
+      { id: "home-whatsapp-slot", prefix: "home" },
       { id: "cafe-whatsapp-slot", prefix: "cafe" },
       { id: "salvar-whatsapp-slot", prefix: "salvar" }
     ];
@@ -2643,6 +2656,27 @@
     document.addEventListener("click", function (event) {
       var target = event.target;
 
+      var homeTradChoiceBtn = target.closest("[data-home-trad-choice]");
+      if (homeTradChoiceBtn) {
+        event.preventDefault();
+        var chosenTradId = homeTradChoiceBtn.getAttribute("data-home-trad-choice");
+        if (chosenTradId) {
+          selectTradition(chosenTradId, false);
+        }
+        return;
+      }
+
+      var scrollTargetBtn = target.closest("[data-scroll-target]");
+      if (scrollTargetBtn) {
+        event.preventDefault();
+        var scrollId = scrollTargetBtn.getAttribute("data-scroll-target");
+        var scrollEl = scrollId ? document.getElementById(scrollId) : null;
+        if (scrollEl) {
+          scrollEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
+
       var navBtn = target.closest("[data-nav-target]");
       if (navBtn) {
         event.preventDefault();
@@ -3266,11 +3300,11 @@
             : "";
         speakText(
           "home-guide",
-          "Bem-vindo ao Horizonte Espiritual. Primeiro passo: escolha entre Fé Católica ou Fé Evangélica na primeira lista" +
-            (selTrad ? ". Caminho selecionado no momento: " + selTrad.name : "") +
-            ". Deixe a caixinha Deixar minha escolha salva neste celular marcada. Segundo passo: escolha na segunda lista como o seu coração se sente neste momento" +
-            (selFeelLabel ? ". Momento selecionado: " + selFeelLabel : "") +
-            ". A Palavra de Deus muda automaticamente logo abaixo, ou toque no botão Abrir Espaço da Fé."
+          "Bem-vindo ao Horizonte Espiritual, seu espaço diário gratuito para falar com Deus. Funciona em 3 passos simples. Passo 1: toque no botão grande de Fé Católica ou Fé Evangélica para marcar sua opção" +
+            (selTrad ? ". Opção marcada agora: " + selTrad.name : "") +
+            ". Passo 2: escolha na lista como o seu coração se sente hoje" +
+            (selFeelLabel ? ". Sentimento escolhido: " + selFeelLabel : "") +
+            ", e a Palavra de Deus aparece logo abaixo para ler ou ouvir. Passo 3: logo mais abaixo na página inicial você cadastra seu WhatsApp gratuitamente para receber a mensagem toda manhã, ou abre a Bíblia Online Completa e as orações a qualquer momento."
         );
       } else if (action === "speak-vertente-overview") {
         var vt = findTradition(state.selectedTraditionId);
@@ -3302,7 +3336,7 @@
       } else if (action === "speak-library-guide") {
         speakText(
           "library-guide",
-          "Biblioteca Sagrada Completa. Passo 1: escolha na primeira lista a obra sagrada completa. Passo 2: escolha o livro. Passo 3: escolha o capítulo ou seção. Depois toque no botão Ouvir capítulo completo logo abaixo para escutar todo o texto na íntegra."
+          "Bíblia Online Completa. Passo 1: escolha na primeira lista a Bíblia Católica ou a Bíblia Evangélica. Passo 2: escolha o livro da Bíblia. Passo 3: escolha o capítulo. Depois toque no botão azul Ouvir capítulo completo logo abaixo para escutar toda a leitura em voz calma."
         );
       } else if (action === "speak-miguel-intro") {
         if (window.SAO_MIGUEL_ARCANJO_DATA) {
