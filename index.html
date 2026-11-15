@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Horizonte Espiritual | Café Espiritual Diário, 21 Dias de Arcanjo Miguel, Orações e Obras Completas</title>
   <meta name="description" content="Portal inter-religioso gratuito: Café Espiritual do Dia, Trilha de 21 Dias de São Miguel Arcanjo, orações fortes, vela virtual de 7 dias e obras sagradas completas das 16 tradições." />
-  <meta name="theme-color" content="#7A2629" />
+  <meta name="theme-color" content="#003c33" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Horizonte Espiritual" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="assets/traditions/catolica.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -21,89 +21,111 @@
     Pular direto ao conteúdo principal
   </a>
 
-  <!-- TOP UTILITY & NAVIGATION BAR (ELDERLY-FIRST, HIGH CLARITY) -->
-  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-strong);">
-    <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2.5">
-      <!-- Active Tradition Pill -->
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-bold" style="color: var(--text-secondary);">Minha Fé:</span>
+  <!-- TOP COHERE ANNOUNCEMENT BAR -->
+  <div id="top-announcement-bar" class="announcement-bar flex items-center justify-center relative px-10 text-center">
+    <p class="m-0">
+      <span class="font-mono-label text-[#ffad9b] mr-2">100% Gratuito</span>
+      <span class="text-white/90">Letras ajustáveis e leitura em voz calma em todo o portal.</span>
+      <button type="button" class="underline ml-2 text-white font-medium hover:text-[#ffad9b]" data-nav-target="cafe-diario">
+        Abrir Café de Hoje
+      </button>
+    </p>
+    <button
+      type="button"
+      class="absolute right-3 top-1/2 -translate-y-1/2 text-white/75 hover:text-white px-2 py-1 text-base leading-none"
+      data-action="close-announcement"
+      aria-label="Fechar aviso superior"
+    >
+      ×
+    </button>
+  </div>
+
+  <!-- THREE-ZONE COHERE GLOBAL HEADER (CLEAN WHITE CANVAS + HAIRLINE DIVIDER) -->
+  <header class="sticky top-0 z-40 border-b" style="background-color: var(--bg-surface); border-color: var(--border-light);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Left Zone: Brand Wordmark + Active Tradition Pill -->
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" class="font-display text-lg sm:text-xl tracking-tight text-left" style="color: var(--text-main);" data-nav-target="inicio">
+          Horizonte Espiritual
+        </button>
         <button
           type="button"
           id="active-tradition-badge"
           data-action="open-tradition-page"
-          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm sm:text-base font-bold border"
-          style="background-color: var(--bg-accent-soft); color: var(--accent-wine); border-color: var(--accent-wine);"
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-medium border"
+          style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);"
           title="Toque para abrir a página desta tradição"
         >
           ✝ Fé Católica
         </button>
       </div>
 
-      <!-- Clear Accessibility Controls + Menu -->
+      <!-- Center Zone: Primary Links on Desktop (clean single row, no box chrome) -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Atalhos Principais Desktop">
+        <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">Início</button>
+        <button type="button" class="nav-tab-btn" data-nav-target="cafe-diario">Café de Hoje</button>
+        <button type="button" class="nav-tab-btn" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
+        <button type="button" class="nav-tab-btn" data-nav-target="oracoes">Orações</button>
+        <button type="button" class="nav-tab-btn" data-nav-target="escrituras">Biblioteca</button>
+      </nav>
+
+      <!-- Right Zone: Accessibility Controls (A-/A+, Theme) + Pill Menu -->
       <div class="flex flex-wrap items-center gap-2">
-        <div class="inline-flex items-center rounded-xl border-2 px-1" style="border-color: var(--border-strong); background-color: var(--bg-page);" role="group" aria-label="Ajustar tamanho da letra">
-          <button type="button" class="tap-target px-2.5 text-sm sm:text-base font-bold" data-action="font-decrease" aria-label="Diminuir tamanho da letra">
-            A- <span class="hidden sm:inline font-medium text-xs ml-1">Menor</span>
+        <div class="inline-flex items-center rounded-full border px-1" style="border-color: var(--border-color); background-color: var(--bg-surface);" role="group" aria-label="Ajustar tamanho da letra">
+          <button type="button" class="tap-target px-2 text-sm font-medium" data-action="font-decrease" aria-label="Diminuir tamanho da letra">
+            A-
           </button>
-          <span id="font-size-indicator" class="text-sm font-bold px-2" style="color: var(--text-main);" aria-live="polite">20px</span>
-          <button type="button" class="tap-target px-2.5 text-base sm:text-lg font-bold" data-action="font-increase" aria-label="Aumentar tamanho da letra">
-            A+ <span class="hidden sm:inline font-medium text-xs ml-1">Maior</span>
+          <span id="font-size-indicator" class="font-mono-label px-1.5" style="color: var(--text-muted);" aria-live="polite">20px</span>
+          <button type="button" class="tap-target px-2 text-base font-medium" data-action="font-increase" aria-label="Aumentar tamanho da letra">
+            A+
           </button>
         </div>
 
-        <button type="button" class="btn-secondary inline-flex items-center gap-1.5 text-sm sm:text-base py-2 px-3" data-action="toggle-theme" aria-pressed="false">
+        <button type="button" class="btn-secondary inline-flex items-center gap-1.5 text-sm py-2 px-3.5" data-action="toggle-theme" aria-pressed="false">
           <span aria-hidden="true">🌓</span>
-          <span data-theme-label class="hidden md:inline">Modo Noturno</span>
+          <span data-theme-label class="hidden xl:inline">Modo Noturno</span>
         </button>
 
-        <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm sm:text-base py-2 px-4" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
+        <button type="button" class="btn-primary inline-flex items-center gap-1.5 text-sm py-2 px-5" data-action="toggle-drawer-menu" aria-expanded="false" aria-controls="full-site-drawer">
           <span aria-hidden="true">☰</span>
           <span>Menu</span>
         </button>
       </div>
     </div>
 
-    <!-- Primary Clear 5-Button Navigation (NO cramped horizontal overflow!) -->
-    <nav class="border-t" style="background-color: var(--bg-page); border-color: var(--border-color);" aria-label="Atalhos Principais">
-      <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2 flex flex-wrap items-center justify-center gap-2">
-        <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">
-          <span aria-hidden="true">🏠</span> Início
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="cafe-diario">
-          <span aria-hidden="true">☕</span> Café de Hoje
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="arcanjo-miguel">
-          <span aria-hidden="true">⚔️</span> Arcanjo Miguel
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="oracoes">
-          <span aria-hidden="true">🙏</span> Orações
-        </button>
-        <button type="button" class="nav-tab-btn" data-nav-target="escrituras">
-          <span aria-hidden="true">📖</span> Biblioteca
-        </button>
+    <!-- Tablet/Mobile Horizontal Main Links + Clean Institutional Utility Strip -->
+    <nav class="border-t" style="background-color: var(--bg-surface); border-color: var(--border-light);" aria-label="Navegação Secundária">
+      <div class="max-w-6xl mx-auto px-3 sm:px-6 py-1.5 flex lg:hidden flex-wrap items-center justify-center gap-1.5 border-b" style="border-color: var(--border-light);">
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="inicio" aria-current="page">🏠 Início</button>
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="cafe-diario">☕ Café</button>
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="arcanjo-miguel">⚔️ Arcanjo Miguel</button>
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="oracoes">🙏 Orações</button>
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="escrituras">📖 Biblioteca</button>
       </div>
-      <!-- Calm Institutional & Legal Redirect Tabs Strip (Google Compliance without Cockpit Clutter) -->
-      <div class="border-t py-1 px-3 flex flex-wrap items-center justify-center gap-1 sm:gap-2" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+      <div class="max-w-6xl mx-auto py-1 px-3 flex flex-wrap items-center justify-center gap-1 sm:gap-3">
         <button type="button" class="nav-inst-btn" data-nav-target="vela">🕯 Vela 7 Dias</button>
         <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas 21 Dias</button>
         <button type="button" class="nav-inst-btn" data-nav-target="blog">📰 Blog</button>
-        <button type="button" class="nav-inst-btn" data-nav-target="quem-somos">🏛 Quem Somos</button>
-        <button type="button" class="nav-inst-btn" data-nav-target="privacidade">🔒 Privacidade</button>
-        <button type="button" class="nav-inst-btn font-bold" style="color: var(--accent-wine);" data-nav-target="apoio">💛 Apoio (PIX)</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="quem-somos">Quem Somos</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="privacidade">Privacidade</button>
+        <button type="button" class="nav-inst-btn font-medium" style="color: var(--accent-blue);" data-nav-target="apoio">Apoio (PIX)</button>
       </div>
     </nav>
 
     <!-- EXPANDABLE DRAWER MENU ("Menu" with ALL sections) -->
-    <div id="full-site-drawer" class="hidden border-t shadow-lg" style="background-color: var(--bg-surface); border-color: var(--border-strong);" role="region" aria-label="Menu Completo do Portal">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-5">
-        <div class="flex items-center justify-between mb-4 pb-2 border-b" style="border-color: var(--border-color);">
-          <p class="font-serif-sacred font-bold text-xl">Escolha a Página que Deseja Abrir</p>
-          <button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-drawer-menu">✕ Fechar Menu</button>
+    <div id="full-site-drawer" class="hidden border-t" style="background-color: var(--bg-surface); border-color: var(--border-color);" role="region" aria-label="Menu Completo do Portal">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <div class="flex items-center justify-between mb-5 pb-3 border-b" style="border-color: var(--border-color);">
+          <div>
+            <span class="coral-badge mb-1">Índice Completo</span>
+            <p class="font-display text-2xl" style="color: var(--text-main);">Escolha a Página que Deseja Abrir</p>
+          </div>
+          <button type="button" class="btn-secondary text-sm py-2 px-5" data-action="close-drawer-menu">✕ Fechar</button>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🏠 Início (Tela Principal)</button>
-          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
-          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7, 9 e 21 Dias)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">🕊 Página da Minha Religião</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (16 Tradições)</button>
@@ -111,271 +133,200 @@
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="escrituras">📖 Biblioteca Sagrada Completa</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="alento">🌿 Alento Temático (Luto, Saúde e Paz)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quiz">✨ Quiz Sagrado Educativo</button>
-          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="salvar-app">📲 WhatsApp Diário e Atalho no Celular</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="salvar-app">📲 WhatsApp Diário e Atalho no Celular</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="blog">📰 Blog e Artigos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="quem-somos">🏛 Quem Somos</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="privacidade">🔒 Política de Privacidade (LGPD)</button>
-          <button type="button" class="btn-secondary justify-start text-left font-bold" style="color: var(--accent-wine);" data-nav-target="apoio">💛 Apoio e Doação PIX</button>
+          <button type="button" class="btn-secondary justify-start text-left" style="color: var(--accent-blue);" data-nav-target="apoio">💛 Apoio e Doação PIX</button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- SLEEK HERO BANNER -->
-  <section class="relative overflow-hidden border-b" style="border-color: var(--border-color);">
-    <div
-      class="relative bg-cover bg-center py-5 sm:py-8 px-4 sm:px-6"
-      style="background-image: linear-gradient(to bottom, rgba(21, 18, 15, 0.62), rgba(21, 18, 15, 0.80)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');"
-    >
-      <div class="max-w-3xl mx-auto text-center text-white">
-        <h1 class="font-serif-sacred font-bold text-3xl sm:text-5xl tracking-tight mb-1.5 text-white">
-          Horizonte Espiritual
-        </h1>
-        <p class="text-sm sm:text-base max-w-xl mx-auto leading-relaxed text-amber-50/95">
-          Site gratuito, com letras grandes e leitura em voz calma para orações, Café Espiritual e obras sagradas completas.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- STICKY AUDIO READER CONTROL BANNER (INCLUDES GIANT STOP BUTTON FOR SENIORS) -->
-  <div id="audio-status-banner" class="hidden sticky top-20 z-30 max-w-3xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite">
-    <div class="surface-card p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 shadow-md" style="background-color: var(--bg-amber-soft); border: 2px solid var(--accent-wine);">
-      <span id="audio-status-text" class="text-sm sm:text-base font-bold" style="color: var(--text-main);">
+  <!-- STICKY AUDIO READER CONTROL BANNER (COHERE CONSOLE STYLE, HIGH-CONTRAST STOP) -->
+  <div id="audio-status-banner" class="hidden sticky top-24 z-30 max-w-4xl mx-auto mt-4 px-4 sm:px-6" role="status" aria-live="polite">
+    <div class="p-3.5 sm:p-4 rounded-[22px] flex flex-wrap items-center justify-between gap-3 border" style="background-color: #17171c; color: #ffffff; border-color: #32323d;">
+      <span id="audio-status-text" class="text-sm sm:text-base font-medium text-white">
         🔊 Lendo em voz calma neste momento...
       </span>
-      <button type="button" class="btn-primary text-sm py-2 px-4" data-action="stop-global-speech">
+      <button type="button" class="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-[#17171c] hover:bg-[#eeece7]" data-action="stop-global-speech">
         ⏹ Parar Áudio Agora
       </button>
     </div>
   </div>
 
   <!-- MAIN APPLICATION CONTAINER -->
-  <main id="main-content" class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+  <main id="main-content" class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
     <!-- PERSISTENT TOP BACK-TO-HOME BAR (ALWAYS VISIBLE WHEN NOT ON HOME) -->
-    <div id="global-back-bar" class="hidden max-w-3xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl border-2" style="background-color: var(--bg-surface); border-color: var(--border-strong);">
+    <div id="global-back-bar" class="hidden max-w-4xl mx-auto mb-8 flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-[22px] border" style="background-color: var(--bg-surface); border-color: var(--border-color);">
       <button type="button" class="back-home-btn" data-nav-target="inicio">
         <span aria-hidden="true">🏠</span> ← Voltar para a Tela Inicial
       </button>
-      <span id="current-page-breadcrumb" class="text-sm sm:text-base font-bold px-3 py-1 rounded-lg" style="background-color: var(--bg-subtle); color: var(--text-main);">
+      <span id="current-page-breadcrumb" class="font-mono-label px-3.5 py-1.5 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
         Você está em: Início
       </span>
     </div>
 
     <!-- =========================================================
-         SECTION 1: INÍCIO (ELDERLY-FIRST STEP-BY-STEP + 6 BIG DOORS)
+         SECTION 1: INÍCIO (COHERE EDITORIAL HERO + 2-CARD SPLIT + DEEP GREEN BAND + STONE DOORS)
          ========================================================= -->
-    <div data-section-view="inicio" class="space-y-8">
+    <div data-section-view="inicio" class="space-y-12 sm:space-y-16">
+
+      <!-- Monumental Editorial Header on White Canvas -->
+      <section class="text-center max-w-3xl mx-auto pt-2 sm:pt-4 space-y-5" aria-label="Boas-vindas ao Portal">
+        <span class="coral-badge">Portal Inter-religioso • 16 Tradições</span>
+        <h1 class="font-display heading-hero" style="color: var(--text-main);">
+          Horizonte Espiritual
+        </h1>
+        <p class="text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+          Refúgio gratuito com letras ajustáveis e leitura em voz calma para orações, Café Espiritual do dia e obras sagradas completas.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-1">
+          <button type="button" class="btn-primary px-7" data-nav-target="cafe-diario">
+            ☕ Tomar Café Espiritual de Hoje
+          </button>
+          <button
+            type="button"
+            class="btn-secondary inline-flex items-center gap-2"
+            data-action="speak-home-guide"
+            data-speech-id="home-guide"
+            data-default-label="Ouvir orientações em áudio"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">🔊</span>
+            <span data-speech-label>Ouvir orientações em áudio</span>
+          </button>
+        </div>
+      </section>
 
       <!-- Optional returning-user summary banner -->
-      <div id="home-continuity-banner" class="hidden surface-card p-4 sm:p-5 max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-amber-soft); border: 2px solid var(--accent-amber);"></div>
+      <div id="home-continuity-banner" class="hidden p-4 sm:p-5 max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3 rounded-[16px] border" style="background-color: var(--bg-amber-soft); border-color: var(--border-color);"></div>
 
-      <section class="surface-card p-6 sm:p-9 text-center max-w-2xl mx-auto" style="border-width: 2px;" aria-labelledby="onboarding-heading">
-        <div class="space-y-6">
-          <!-- Step 1: Choose Tradition without abrupt page teleportation -->
-          <div>
-            <span class="inline-block px-3.5 py-1 rounded-full text-sm font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
-              1º Passo: Sua Fé
-            </span>
-            <label id="onboarding-heading" for="home-tradition-select" class="block font-serif-sacred heading-section font-bold mb-2">
-              Qual tradição espiritual acolhe o seu coração hoje?
-            </label>
-            <p class="text-sm mb-3" style="color: var(--text-secondary);">
-              Toque na caixa abaixo para escolher na lista:
-            </p>
-            <select id="home-tradition-select" class="input-sacred text-center font-semibold max-w-lg mx-auto"></select>
-
-            <div class="mt-3 flex justify-center">
-              <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base font-semibold select-none py-2 px-4 rounded-xl border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
-                <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#7A2629]" />
-                <span>Deixar minha religião salva neste celular</span>
+      <!-- Cohere Signature 2-Card Split Hero Composition -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch" aria-labelledby="onboarding-heading">
+        <!-- Left Wide Interactive Panel (Step 1 + Step 2) -->
+        <div class="lg:col-span-7 surface-card p-6 sm:p-9 flex flex-col justify-between space-y-6">
+          <div class="space-y-6">
+            <!-- Step 1 -->
+            <div class="space-y-2">
+              <span class="font-mono-label inline-block px-2.5 py-1 rounded border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
+                01 / Sua Fé
+              </span>
+              <label id="onboarding-heading" for="home-tradition-select" class="block font-display text-2xl sm:text-3xl leading-tight" style="color: var(--text-main);">
+                Qual tradição espiritual acolhe o seu coração hoje?
               </label>
+              <p class="text-sm" style="color: var(--text-secondary);">
+                Toque na caixa abaixo para escolher na lista:
+              </p>
+              <select id="home-tradition-select" class="input-sacred"></select>
+
+              <div class="pt-1">
+                <label for="remember-tradition-checkbox" class="inline-flex items-center gap-2.5 text-sm sm:text-base select-none py-2 px-3.5 rounded-lg border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
+                  <input id="remember-tradition-checkbox" type="checkbox" checked class="w-5 h-5 accent-[#17171c]" />
+                  <span>Deixar minha religião salva neste celular</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="border-t" style="border-color: var(--border-color);"></div>
+
+            <!-- Step 2 -->
+            <div class="space-y-2">
+              <span class="font-mono-label inline-block px-2.5 py-1 rounded border" style="background-color: var(--bg-accent-soft); color: var(--accent-blue); border-color: var(--border-color);">
+                02 / Seu Momento
+              </span>
+              <label id="daily-word-heading" for="home-feeling-select" class="block font-display text-2xl sm:text-3xl leading-tight" style="color: var(--text-main);">
+                Como o seu coração se sente neste momento?
+              </label>
+              <p class="text-sm" style="color: var(--text-secondary);">
+                A Palavra de Consolo logo abaixo muda automaticamente conforme o que você escolher:
+              </p>
+              <select id="home-feeling-select" class="input-sacred"></select>
             </div>
           </div>
 
-          <hr style="border-color: var(--border-color);" />
-
-          <!-- Step 2: How does your heart feel? -->
-          <div>
-            <span class="inline-block px-3.5 py-1 rounded-full text-sm font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
-              2º Passo: Seu Momento
-            </span>
-            <label id="daily-word-heading" for="home-feeling-select" class="block font-serif-sacred heading-section font-bold mb-2">
-              Como o seu coração se sente neste momento?
-            </label>
-            <p class="text-sm mb-3" style="color: var(--text-secondary);">
-              A Palavra de Consolo logo abaixo muda automaticamente conforme o que você escolher:
-            </p>
-            <select id="home-feeling-select" class="input-sacred text-center font-semibold max-w-lg mx-auto"></select>
-          </div>
-
-          <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <button type="button" id="home-enter-tradition-btn" class="btn-primary w-full sm:w-auto px-8" data-action="open-tradition-page">
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <button type="button" id="home-enter-tradition-btn" class="btn-primary w-full sm:w-auto px-7" data-action="open-tradition-page">
               🕊 Abrir Página da Minha Religião →
             </button>
-            <button
-              type="button"
-              class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2"
-              data-action="speak-home-guide"
-              data-speech-id="home-guide"
-              data-default-label="Ouvir orientações em áudio"
-              aria-pressed="false"
-            >
-              <span aria-hidden="true">🔊</span>
-              <span data-speech-label>Ouvir orientações em áudio</span>
-            </button>
           </div>
+        </div>
+
+        <!-- Right Hero Photo + Console Module (Cohere 22px Radius Media Card) -->
+        <aside class="lg:col-span-5 hero-media-frame flex flex-col justify-between" aria-label="Painel do Portal">
+          <div class="relative h-56 sm:h-64 w-full overflow-hidden">
+            <img
+              src="assets/traditions/cafe-espiritual.jpg"
+              alt="Momento tranquilo de leitura espiritual matinal"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#17171c] via-[#17171c]/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 font-mono-label px-3 py-1 rounded-full bg-[#17171c]/85 text-[#edfce9] border border-white/15">
+              ● Acessibilidade Ativa
+            </span>
+          </div>
+          <div class="p-6 sm:p-7 space-y-5 flex-1 flex flex-col justify-between" style="background-color: #17171c; color: #ffffff;">
+            <div class="space-y-3">
+              <span class="font-mono-label text-[#ffad9b] block">Biblioteca &amp; Voz Calma</span>
+              <h2 class="font-display text-2xl text-white leading-snug">
+                Obras completas na íntegra, sem cadastros nem bloqueios.
+              </h2>
+              <p class="text-sm leading-relaxed text-[#d9d9dd]">
+                Ajuste o tamanho das letras lá em cima (A- / A+), acenda uma vela virtual gratuita ou escute capítulos inteiros em português sem cortes.
+              </p>
+            </div>
+            <div class="pt-2 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
+              <button type="button" class="px-5 py-2.5 rounded-full text-sm font-medium bg-white text-[#17171c] hover:bg-[#eeece7]" data-nav-target="escrituras">
+                📖 Abrir Biblioteca →
+              </button>
+              <button type="button" class="text-sm underline text-[#d9d9dd] hover:text-white" data-nav-target="salvar-app">
+                Salvar no Celular
+              </button>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Monochrome Quiet Trust Strip -->
+      <section class="trust-strip" aria-label="Pilares do Portal">
+        <div class="flex flex-wrap items-center justify-center sm:justify-between gap-4 sm:gap-6 text-center">
+          <span class="font-mono-label" style="color: var(--text-muted);">16 Tradições Respeitadas</span>
+          <span class="font-mono-label" style="color: var(--text-muted);">Obras em Domínio Público</span>
+          <span class="font-mono-label" style="color: var(--text-muted);">Leitura em Voz PT-BR</span>
+          <span class="font-mono-label" style="color: var(--text-muted);">100% Gratuito</span>
         </div>
       </section>
 
-      <!-- Large Clear Doorways ("O que você deseja fazer agora?") -->
-      <section class="max-w-3xl mx-auto space-y-4" aria-labelledby="doors-heading">
-        <div class="text-center">
-          <h2 id="doors-heading" class="font-serif-sacred heading-section font-bold">
-            O que você deseja fazer agora?
-          </h2>
-          <p class="text-base mt-1" style="color: var(--text-secondary);">
-            Toque em qualquer um dos botões grandes abaixo para entrar:
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <button type="button" class="door-card-btn" data-nav-target="cafe-diario">
-            <div>
-              <span id="home-cafe-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
-                ☕ Palavra da Manhã
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                ☕ Tomar o Café Espiritual de Hoje
-              </h3>
-              <p id="home-cafe-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
-                Leitura curta e acolhedora de hoje com botão para ouvir em voz calma.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para abrir →</span>
-          </button>
-
-          <button type="button" class="door-card-btn" data-nav-target="arcanjo-miguel">
-            <div>
-              <span id="home-miguel-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
-                ⚔️ Página Especial • 21 Dias
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                ⚔️ São Miguel Arcanjo (21 Dias)
-              </h3>
-              <p id="home-miguel-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
-                Oração tradicional completa e lista para marcar do Dia 1 ao Dia 21.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para rezar →</span>
-          </button>
-
-          <button type="button" class="door-card-btn" data-nav-target="oracoes">
-            <div>
-              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-subtle); color: var(--text-main);">
-                🙏 Todas as 16 Tradições
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                🙏 Ler e Ouvir Orações Fortes
-              </h3>
-              <p class="text-sm mt-1" style="color: var(--text-secondary);">
-                Salmo 91, São Bento, Cáritas, Zé Pelintra, Oxalá e muitas outras preces.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para abrir →</span>
-          </button>
-
-          <button type="button" class="door-card-btn" data-nav-target="vela">
-            <div>
-              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-amber-soft); color: var(--accent-amber);">
-                🕯 Gratuita • Duração de 7 Dias
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                🕯 Acender Vela pela Família
-              </h3>
-              <p class="text-sm mt-1" style="color: var(--text-secondary);">
-                Escreva o nome de quem ama e deixe uma vela acesa com sua oração.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para acender →</span>
-          </button>
-
-          <button type="button" class="door-card-btn" data-nav-target="escrituras">
-            <div>
-              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-subtle); color: var(--text-main);">
-                📖 Leitura Integral na Tela
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                📖 Livros Sagrados Completos
-              </h3>
-              <p class="text-sm mt-1" style="color: var(--text-secondary);">
-                Bíblia Completa, O Livro dos Espíritos, Alcorão, Dhammapada e outros.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Toque aqui para ler →</span>
-          </button>
-
-          <button type="button" class="door-card-btn" data-nav-target="salvar-app">
-            <div>
-              <span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-subtle); color: var(--text-main);">
-                📲 Ícone na Tela do Celular
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                📲 Colocar Atalho no Meu Celular
-              </h3>
-              <p class="text-sm mt-1" style="color: var(--text-secondary);">
-                Salve como ícone igual aplicativo ou baixe o lembrete diário na agenda.
-              </p>
-            </div>
-            <span class="text-sm font-bold" style="color: var(--accent-wine);">Ver como salvar →</span>
-          </button>
-        </div>
-
-        <button type="button" class="door-card-btn w-full" data-action="open-whatsapp-daily-page">
-          <div class="flex flex-wrap items-center justify-between gap-3 w-full">
-            <div>
-              <span id="home-whatsapp-badge" class="inline-block px-2.5 py-0.5 rounded text-xs font-bold mb-2" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">
-                💬 Devocional no Seu Número
-              </span>
-              <h3 class="font-serif-sacred font-bold text-xl" style="color: var(--text-main);">
-                💬 Receber Café Espiritual no WhatsApp
-              </h3>
-              <p id="home-whatsapp-teaser" class="text-sm mt-1" style="color: var(--text-secondary);">
-                Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.
-              </p>
-            </div>
-            <span class="text-sm font-bold shrink-0" style="color: var(--accent-wine);">Cadastrar meu WhatsApp →</span>
-          </div>
-        </button>
-      </section>
-
-      <!-- Clean Daily Passage Card on Home -->
-      <section class="surface-card p-6 sm:p-10 max-w-2xl mx-auto" style="border-width: 2px;" aria-label="Palavra do Dia">
-        <div class="p-6 sm:p-8 rounded-2xl border-2 text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">
-          <p data-daily-greeting class="text-base font-bold mb-1" style="color: var(--accent-wine);">
+      <!-- Deep Enterprise Green Band (#003c33): Daily Passage Card -->
+      <section class="cohere-dark-band p-7 sm:p-12 max-w-5xl mx-auto" aria-label="Palavra do Dia">
+        <div class="max-w-3xl mx-auto text-center space-y-5">
+          <span class="font-mono-label inline-block px-3 py-1 rounded-full bg-white/10 text-[#ffad9b]">
+            Palavra de Consolo
+          </span>
+          <p data-daily-greeting class="text-base sm:text-lg font-medium text-white">
             A paz de Cristo esteja no seu lar (Fé Católica)
           </p>
-          <p data-daily-tradition-tag class="text-sm font-medium mb-5" style="color: var(--text-muted);">
+          <p data-daily-tradition-tag class="font-mono-label text-[#edfce9]/80">
             Tradição Cristã Católica
           </p>
 
-          <blockquote data-daily-passage-text class="font-serif-sacred text-body-sacred font-semibold mb-3" style="color: var(--text-main);">
+          <blockquote data-daily-passage-text class="font-display text-2xl sm:text-3xl leading-snug text-white py-2">
             “Não vos inquieteis com o dia de amanhã, pois o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu próprio cuidado.”
           </blockquote>
 
-          <p data-daily-passage-reference class="font-serif-sacred font-bold text-base mb-5" style="color: var(--accent-wine);">
+          <p data-daily-passage-reference class="font-mono-label text-[#ffad9b]">
             São Mateus 6:34
           </p>
 
-          <div class="p-4 sm:p-5 rounded-xl mb-6 text-left" style="background-color: var(--bg-surface); border: 1px solid var(--border-strong);">
-            <p class="text-sm font-bold mb-1" style="color: var(--text-muted);">Explicação simples para hoje:</p>
-            <p data-daily-passage-reflection class="text-base sm:text-lg leading-relaxed" style="color: var(--text-main);">
+          <div class="cohere-dark-inner p-5 sm:p-6 text-left">
+            <p class="font-mono-label text-[#edfce9]/80 mb-1.5">Explicação simples para hoje:</p>
+            <p data-daily-passage-reflection class="text-base sm:text-lg leading-relaxed text-white/95">
               Entregue as preocupações futuras na oração silenciosa de hoje. Deus cuida do tempo presente.
             </p>
           </div>
 
-          <div class="flex flex-wrap items-center justify-center gap-3">
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
               type="button"
               class="btn-primary inline-flex items-center gap-2"
@@ -394,13 +345,150 @@
         </div>
       </section>
 
-      <!-- Clean "Apoio" Box -->
-      <aside class="ad-sponsor-slot max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left" aria-label="Apoio">
-        <div>
-          <span class="inline-block text-xs font-bold uppercase tracking-widest px-2.5 py-0.5 rounded mb-1" style="background-color: var(--bg-surface); color: var(--text-muted);">
+      <!-- Large Clear Doorways ("O que você deseja fazer agora?") - 3-Col Soft Stone Grid -->
+      <section class="max-w-5xl mx-auto space-y-6" aria-labelledby="doors-heading">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b pb-4" style="border-color: var(--border-color);">
+          <div>
+            <span class="font-mono-label block mb-1" style="color: var(--text-muted);">Acesso Direto</span>
+            <h2 id="doors-heading" class="font-display heading-section" style="color: var(--text-main);">
+              O que você deseja fazer agora?
+            </h2>
+          </div>
+          <p class="text-sm sm:text-base" style="color: var(--text-secondary);">
+            Toque em qualquer um dos cartões abaixo para entrar:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <button type="button" class="door-card-btn" data-nav-target="cafe-diario">
+            <div>
+              <span id="home-cafe-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+                ☕ Palavra da Manhã
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                ☕ Tomar o Café Espiritual de Hoje
+              </h3>
+              <p id="home-cafe-teaser" class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Leitura curta e acolhedora de hoje com botão para ouvir em voz calma.
+              </p>
+            </div>
+            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para abrir →
+            </span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="arcanjo-miguel">
+            <div>
+              <span id="home-miguel-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+                ⚔️ Página Especial • 21 Dias
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                ⚔️ São Miguel Arcanjo (21 Dias)
+              </h3>
+              <p id="home-miguel-teaser" class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Oração tradicional completa e lista para marcar do Dia 1 ao Dia 21.
+              </p>
+            </div>
+            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para rezar →
+            </span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="oracoes">
+            <div>
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+                🙏 Todas as 16 Tradições
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                🙏 Ler e Ouvir Orações Fortes
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Salmo 91, São Bento, Cáritas, Zé Pelintra, Oxalá e muitas outras preces.
+              </p>
+            </div>
+            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para abrir →
+            </span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="vela">
+            <div>
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+                🕯 Gratuita • Duração de 7 Dias
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                🕯 Acender Vela pela Família
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Escreva o nome de quem ama e deixe uma vela acesa com sua oração.
+              </p>
+            </div>
+            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para acender →
+            </span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="escrituras">
+            <div>
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+                📖 Leitura Integral na Tela
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                📖 Livros Sagrados Completos
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Bíblia Completa, O Livro dos Espíritos, Alcorão, Dhammapada e outros.
+              </p>
+            </div>
+            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Toque aqui para ler →
+            </span>
+          </button>
+
+          <button type="button" class="door-card-btn" data-nav-target="salvar-app">
+            <div>
+              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border-color);">
+                📲 Ícone na Tela do Celular
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                📲 Colocar Atalho no Meu Celular
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Salve como ícone igual aplicativo ou baixe o lembrete diário na agenda.
+              </p>
+            </div>
+            <span class="text-sm font-medium underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Ver como salvar →
+            </span>
+          </button>
+        </div>
+
+        <!-- Pale Blue Wash (#f1f5ff) Full-Width WhatsApp Opt-In Band -->
+        <button type="button" class="door-card-btn door-card-blue w-full" data-action="open-whatsapp-daily-page">
+          <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+            <div class="space-y-1">
+              <span id="home-whatsapp-badge" class="font-mono-label inline-block px-2.5 py-1 rounded border" style="background-color: var(--bg-surface); color: var(--accent-blue); border-color: var(--border-color);">
+                💬 Devocional no Seu Número
+              </span>
+              <h3 class="font-display text-2xl pt-1" style="color: var(--text-main);">
+                💬 Receber Café Espiritual no WhatsApp
+              </h3>
+              <p id="home-whatsapp-teaser" class="text-sm sm:text-base" style="color: var(--text-secondary);">
+                Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.
+              </p>
+            </div>
+            <span class="btn-primary shrink-0">Cadastrar meu WhatsApp →</span>
+          </div>
+        </button>
+      </section>
+
+      <!-- Minimal Rule-Driven Apoio Strip -->
+      <aside class="ad-sponsor-slot max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left" aria-label="Apoio">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+          <span class="font-mono-label px-2.5 py-1 rounded border" style="background-color: var(--bg-subtle); color: var(--text-muted); border-color: var(--border-color);">
             Apoio
           </span>
-          <p class="text-base font-medium" style="color: var(--text-main);">
+          <p class="text-base" style="color: var(--text-main);">
             Este portal é 100% gratuito. Conheça nossa página de apoio espontâneo via PIX.
           </p>
         </div>
@@ -414,23 +502,23 @@
          SECTION 1B: PÁGINA DEDICADA DA VERTENTE RELIGIOSA (COM IMAGEM REALISTA)
          ========================================================= -->
     <section data-section-view="vertente" class="hidden space-y-6" aria-labelledby="vertente-title">
-      <article class="surface-card overflow-hidden max-w-3xl mx-auto">
+      <article class="surface-card overflow-hidden max-w-4xl mx-auto">
         <!-- Realistic Devotional Image Banner for the Selected Tradition -->
-        <div class="relative h-64 sm:h-80 w-full bg-black">
+        <div class="relative h-64 sm:h-80 w-full bg-[#17171c]">
           <img
             id="vertente-hero-image"
             src="assets/traditions/catolica.jpg"
             alt="Imagem devocional da tradição espiritual"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
-            <span id="vertente-image-caption" class="inline-block text-xs font-semibold uppercase tracking-wider text-amber-200 mb-1">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
+            <span id="vertente-image-caption" class="font-mono-label text-[#ffad9b] mb-1">
               Jesus Cristo, Luz e Bom Pastor da Fé Católica
             </span>
             <h2 id="vertente-title" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">
               ✝ Fé Católica
             </h2>
-            <p id="vertente-subtitle" class="text-sm sm:text-base text-amber-50/95 mt-1">
+            <p id="vertente-subtitle" class="text-sm sm:text-base text-white/90 mt-1">
               A paz de Cristo esteja no seu lar
             </p>
           </div>
@@ -709,16 +797,16 @@
       </div>
 
       <div id="candle-subpage-form" class="max-w-2xl mx-auto space-y-6">
-        <div class="p-6 sm:p-8 rounded-2xl text-white flex flex-col items-center text-center" style="background-color: var(--bg-chapel);">
+        <div class="p-6 sm:p-8 rounded-[22px] text-white flex flex-col items-center text-center border border-white/10" style="background-color: var(--bg-chapel);">
           <div class="my-2 flex flex-col items-center">
             <div id="hero-candle-flame" class="candle-flame mb-1" aria-hidden="true"></div>
-            <div class="w-14 h-24 rounded-t-md border-t-4 border-amber-200 shadow-inner" style="background: linear-gradient(to bottom, #FFFDF9, #E6DEC8);"></div>
-            <div class="w-24 h-2.5 rounded-full mt-1" style="background-color: #8C6239;"></div>
+            <div class="w-14 h-24 rounded-t-md border-t-4 border-[#ffad9b]" style="background: linear-gradient(to bottom, #FFFFFF, #eeece7);"></div>
+            <div class="w-24 h-2.5 rounded-full mt-1" style="background-color: #75758a;"></div>
           </div>
-          <p id="candles-active-counter" class="text-sm font-semibold text-amber-200 mt-3 mb-3" aria-live="polite">
+          <p id="candles-active-counter" class="font-mono-label text-[#ffad9b] mt-3 mb-4" aria-live="polite">
             3 velas acesas em vigília
           </p>
-          <button type="button" class="btn-secondary text-xs py-1.5 px-3" data-action="toggle-flame-motion" aria-pressed="false">
+          <button type="button" class="px-4 py-2 rounded-full border border-white/30 text-white text-xs hover:bg-white/10" data-action="toggle-flame-motion" aria-pressed="false">
             ⏸ Pausar animação da chama
           </button>
         </div>
@@ -1081,11 +1169,11 @@
             </p>
           </div>
 
-          <div class="p-6 sm:p-8 rounded-2xl border-2 text-center" style="background-color: var(--bg-amber-soft); border-color: var(--accent-amber);">
-            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: var(--text-secondary);">
+          <div class="p-6 sm:p-8 rounded-[16px] border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-color);">
+            <p class="font-mono-label mb-2" style="color: var(--text-secondary);">
               Chave PIX Oficial (E-mail)
             </p>
-            <p class="font-mono font-bold text-xl sm:text-2xl break-all mb-5 select-all" style="color: var(--text-main);">
+            <p class="font-mono font-semibold text-xl sm:text-2xl break-all mb-5 select-all" style="color: var(--text-main);">
               eupaulorrenato@gmail.com
             </p>
 
@@ -1093,14 +1181,14 @@
               <span aria-hidden="true">📋</span> Copiar Chave PIX: eupaulorrenato@gmail.com
             </button>
 
-            <p id="pix-copy-feedback" class="hidden mt-4 text-base font-bold p-3 rounded-lg" style="background-color: var(--bg-surface); color: var(--accent-green);" role="status" aria-live="polite"></p>
+            <p id="pix-copy-feedback" class="hidden mt-4 text-base font-medium p-3 rounded-lg border" style="background-color: var(--bg-surface); color: var(--accent-green); border-color: var(--border-color);" role="status" aria-live="polite"></p>
           </div>
         </div>
       </article>
     </section>
 
     <!-- PERSISTENT BOTTOM BACK-TO-HOME BAR (ALWAYS VISIBLE WHEN NOT ON HOME) -->
-    <div id="global-bottom-back-bar" class="hidden max-w-3xl mx-auto mt-8 pt-6 border-t text-center" style="border-color: var(--border-strong);">
+    <div id="global-bottom-back-bar" class="hidden max-w-4xl mx-auto mt-10 pt-6 border-t text-center" style="border-color: var(--border-color);">
       <button type="button" class="back-home-btn" data-nav-target="inicio">
         <span aria-hidden="true">🏠</span> ← Voltar para a Tela Inicial
       </button>
@@ -1108,41 +1196,40 @@
 
   </main>
 
-  <!-- FOOTER WITH VISIBLE INSTITUTIONAL LINKS & SMALL DISCREET FREE-ACCESS NOTICE -->
-  <footer class="border-t mt-12 py-8 px-4 sm:px-6" style="background-color: var(--bg-subtle); border-color: var(--border-color);">
-    <div class="max-w-5xl mx-auto flex flex-col gap-5">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <p class="font-serif-sacred font-bold text-lg" style="color: var(--text-main);">
+  <!-- COHERE DARK FOOTER (#17171c) WITH MUTED SLATE LINKS & CORAL LABEL -->
+  <footer class="cohere-footer border-t border-white/10 mt-16 py-12 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col gap-8">
+      <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+        <div class="space-y-2 max-w-sm">
+          <span class="font-mono-label text-[#ff7759] block">Acesso Livre e Gratuito</span>
+          <p class="font-display text-2xl text-white">
             Horizonte Espiritual
           </p>
-          <p class="text-xs" style="color: var(--text-secondary);">
-            Respeito, acolhimento e obras sagradas completas das 16 tradições espirituais.
+          <p class="text-sm text-[#93939f] leading-relaxed">
+            Respeito, acolhimento e obras sagradas completas das 16 tradições espirituais em domínio público.
           </p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
-          <button type="button" class="underline py-1 px-2" data-nav-target="inicio">Início</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="cafe-diario">Café Diário</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="trilhas">Trilhas</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="oracoes">Orações</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="escrituras">Biblioteca Sagrada</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="salvar-app">Salvar no Celular</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="blog">Blog</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="quem-somos">Quem Somos</button>
-          <button type="button" class="underline py-1 px-2" data-nav-target="privacidade">Privacidade & LGPD</button>
-          <button type="button" class="underline font-bold py-1 px-2" style="color: var(--accent-wine);" data-nav-target="apoio">
-            Apoio (PIX)
-          </button>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-2.5 text-sm">
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="inicio">Início</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="cafe-diario">Café Diário</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="trilhas">Trilhas 21 Dias</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="oracoes">Orações Fortes</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="escrituras">Biblioteca Sagrada</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="salvar-app">Salvar no Celular</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="blog">Blog</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="quem-somos">Quem Somos</button>
+          <button type="button" class="text-left text-[#93939f] hover:text-white py-1" data-nav-target="privacidade">Privacidade &amp; LGPD</button>
+          <button type="button" class="text-left text-[#ffad9b] hover:text-white font-medium py-1" data-nav-target="apoio">Apoio (PIX)</button>
         </div>
       </div>
 
-      <div class="pt-4 border-t text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-2" style="border-color: var(--border-color);">
-        <p class="text-xs" style="color: var(--text-muted);">
-          Nota de Gratuidade: Não cobramos absolutamente nada para você acessar, ler ou ouvir qualquer conteúdo deste site. Apoio espontâneo opcional via PIX: eupaulorrenato@gmail.com.
+      <div class="pt-6 border-t border-white/10 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-xs text-[#93939f]">
+          Nota de Gratuidade: Acesso livre a toda leitura e áudio. Apoio espontâneo opcional via PIX: eupaulorrenato@gmail.com.
         </p>
-        <p class="text-xs shrink-0" style="color: var(--text-muted);">
+        <p class="text-xs shrink-0 text-[#93939f]">
           © 2026 Horizonte Espiritual • Todos os direitos reservados.
         </p>
       </div>

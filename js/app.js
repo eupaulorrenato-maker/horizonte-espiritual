@@ -922,15 +922,15 @@
 
         singleView.innerHTML =
           '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
-          '<div class="relative h-48 sm:h-64 w-full bg-black">' +
+          '<div class="relative h-48 sm:h-64 w-full bg-[#17171c]">' +
           '<img src="' +
           escapeHtml(imgSrc) +
           '" alt="' +
           escapeHtml(prayer.categoryLabel) +
           '" class="w-full h-full object-cover opacity-90" />' +
-          '<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-5 sm:p-6">' +
+          '<div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/35 to-transparent flex items-end p-5 sm:p-6">' +
           '<div>' +
-          '<span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-950 mb-1.5">' +
+          '<span class="font-mono-label inline-block px-3 py-1 rounded-full bg-white/95 text-[#17171c] mb-2">' +
           escapeHtml(prayer.categoryLabel) +
           "</span>" +
           '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl text-white leading-tight">' +
@@ -1550,7 +1550,7 @@
           '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir artigo completo</span>' +
           "</button>" +
           "</div>" +
-          '<span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded mb-2" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+          '<span class="coral-badge mb-2">' +
           escapeHtml(activePost.category) +
           "</span>" +
           '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2">' +
@@ -1581,11 +1581,11 @@
       cardsHtml +=
         '<article class="surface-card p-6 flex flex-col justify-between">' +
         "<div>" +
-        '<div class="flex items-center justify-between gap-2 mb-2">' +
-        '<span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">' +
+        '<div class="flex items-center justify-between gap-2 mb-3">' +
+        '<span class="coral-badge">' +
         escapeHtml(post.category) +
         "</span>" +
-        '<span class="text-xs" style="color: var(--text-muted);">' +
+        '<span class="font-mono-label" style="color: var(--text-muted);">' +
         escapeHtml(post.readTime) +
         "</span>" +
         "</div>" +
@@ -2173,16 +2173,16 @@
     }
 
     container.innerHTML =
-      '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
-      '<div class="relative h-56 sm:h-72 w-full bg-black">' +
+      '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
+      '<div class="relative h-56 sm:h-72 w-full bg-[#17171c]">' +
       '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
-      '<span class="inline-block text-xs font-bold uppercase tracking-wider text-amber-200 mb-1">' +
+      '<div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/40 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
+      '<span class="font-mono-label text-[#ffad9b] mb-1">' +
       escapeHtml(formatTodayPtBr()) +
       " • Devocional Diário" +
       "</span>" +
       '<h2 id="cafe-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">☕ Café Espiritual do Dia</h2>' +
-      '<p class="text-sm sm:text-base text-amber-50/95 mt-1">' +
+      '<p class="text-sm sm:text-base text-white/90 mt-1">' +
       escapeHtml(tradition ? tradition.greeting : "Paz e bem para a sua manhã!") +
       "</p>" +
       "</div>" +
@@ -2474,21 +2474,21 @@
     }
 
     container.innerHTML =
-      '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
-      '<div class="relative h-64 sm:h-80 w-full bg-black">' +
+      '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
+      '<div class="relative h-64 sm:h-80 w-full bg-[#17171c]">' +
       '<img src="' +
       escapeHtml(data.imagePath) +
       '" onerror="this.src=\'' +
       escapeHtml(data.fallbackImagePath) +
       '\'" alt="São Miguel Arcanjo" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
-      '<span class="inline-block text-xs font-bold uppercase tracking-wider text-amber-200 mb-1">' +
+      '<div class="absolute inset-0 bg-gradient-to-t from-[#17171c]/90 via-[#17171c]/35 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">' +
+      '<span class="font-mono-label text-[#ffad9b] mb-1">' +
       escapeHtml(data.imageCaption) +
       "</span>" +
       '<h2 id="miguel-main-heading" class="font-serif-sacred font-bold text-2xl sm:text-4xl text-white">⚔️ ' +
       escapeHtml(data.title) +
       "</h2>" +
-      '<p class="text-sm sm:text-base text-amber-50/95 mt-1">' +
+      '<p class="text-sm sm:text-base text-white/90 mt-1">' +
       escapeHtml(data.subtitle) +
       "</p>" +
       "</div>" +
@@ -3153,6 +3153,9 @@
       var action = actionBtn.getAttribute("data-action");
       if (action === "toggle-theme") {
         applyTheme(state.theme === "dark" ? "light" : "dark");
+      } else if (action === "close-announcement") {
+        var topAnnounce = document.getElementById("top-announcement-bar");
+        if (topAnnounce) topAnnounce.classList.add("hidden");
       } else if (action === "toggle-drawer-menu") {
         toggleDrawerMenu();
       } else if (action === "close-drawer-menu") {
