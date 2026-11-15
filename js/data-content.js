@@ -164,6 +164,72 @@ window.STRONG_PRAYERS = [
     text: "Alma de Cristo, santificai-me.\nCorpo de Cristo, salvai-me.\nSangue de Cristo, inebriai-me.\nÁgua do lado de Cristo, lavai-me.\nPaixão de Cristo, confortai-me.\nÓ bom Jesus, ouvi-me.\n\nDentro de vossas chagas escondei-me.\nNão permitais que me aparte de Vós.\nDo inimigo maligno defendei-me.\nNa hora da minha morte chamai-me e mandai-me ir para Vós, para que com os vossos santos Vos louve por todos os séculos dos séculos. Amém.",
     usageNote: "Uma das orações católicas mais consoladoras em momentos de enfermidade e medo."
   },
+  {
+    id: "sao-judas-tadeu-causas-dificeis",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    imagePath: "assets/sacred/daniel-cova-leoes.jpg",
+    title: "Oração a São Judas Tadeu (Aflições e Causas Desesperadoras)",
+    subtitle: "Amparo nos momentos em que o coração precisa de saída rápida e firmeza",
+    salutation: "São Judas Tadeu, rogai por nós em toda tribulação!",
+    text: "Ó glorioso Apóstolo São Judas Tadeu, fiel servo e amigo de Jesus, que recebeis na Igreja a graça de socorrer quem se encontra diante de causas quase desesperadoras, olhai por mim nesta hora difícil.\n\nAlcançai-me junto a Deus alívio imediato na minha aflição, sabedoria nas decisões, saúde para a minha família e portas abertas no sustento honesto.\n\nPrometo agradecer sempre a Deus pelas graças alcançadas e testemunhar o bem em meu lar. Por Cristo Nosso Senhor. Amém.",
+    usageNote: "Muito rezada ao longo de 9 ou 21 dias diante de situações familiares ou financeiras delicadas."
+  },
+  {
+    id: "santo-antonio-paz-familia",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    imagePath: "assets/sacred/anunciacao-maria.jpg",
+    title: "Oração a Santo Antônio pela Paz no Casamento e no Lar",
+    subtitle: "Para restaurar o diálogo, a paciência mútua e o sustento da casa",
+    salutation: "Glorioso Santo Antônio, guardai o amor na nossa família!",
+    text: "Amado Santo Antônio, modelo de sabedoria simples e carinho com os pobres, intercedei pela paz dentro da minha casa.\n\nAcalmai discussões antigas entre cônjuges, pais e filhos, restaurai o diálogo manso à mesa das refeições e conservai unido o que Deus abençoou no amor.\n\nNão deixeis faltar o pão honesto, a saúde nem a reconciliação em nossa família. Amém.",
+    usageNote: "Prece acolhedora para abençoar casamentos, noivados e a concórdia familiar."
+  },
+  {
+    id: "oracao-cirurgia-exames-catolica",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    imagePath: "assets/sacred/jesus-bom-pastor.jpg",
+    title: "Oração Antes de Cirurgia, Exames ou Tratamento Médico",
+    subtitle: "Entregando as mãos dos médicos e a própria recuperação a Jesus Cristo",
+    salutation: "Senhor Jesus, minha saúde e meu descanso estão em Vossas mãos!",
+    text: "Senhor Jesus Cristo, Médico dos corpos e das almas, entro nesta sala de exames e tratamentos acompanhado pela Vossa presença amorosa.\n\nGuias as mãos e a mente de cada médico, enfermeiro e cuidador que vai me atender. Afastai de mim o pânico, equilibrando os meus batimentos, a minha pressão e a minha respiração.\n\nQue Nossa Senhora da Saúde segure a minha mão esquerda e o Senhor segure a minha mão direita até a plena recuperação. Amém.",
+    usageNote: "Ideal para ler ou ouvir na véspera e na manhã de cirurgias ou consultas delicadas."
+  },
+  {
+    id: "oracao-pelos-netos-catolica",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    imagePath: "assets/sacred/sermao-montanha-jesus.jpg",
+    title: "Oração dos Avós pelos Netos e Netas (São Joaquim e Sant'Ana)",
+    subtitle: "Consagrando a vida, a saúde e os caminhos dos mais jovens da família",
+    salutation: "São Joaquim e Sant'Ana, abençoai os nossos netos!",
+    text: "Ó Deus da Vida, com coração agradecido coloco hoje diante de Ti os nomes de todos os meus netos e netas.\n\nPor intercessão de São Joaquim e Sant'Ana, avós de Jesus, protegei estas crianças e jovens dos maus caminhos, dos acidentes e das tristezas do mundo.\n\nDai a eles saúde perfeita, amizades boas, honestidade no trabalho e um coração sempre atento ao amor de Deus e ao respeito com os pais e avós. Amém.",
+    usageNote: "Uma das orações mais amadas pelos avós antes de dormir."
+  },
+  {
+    id: "oracao-viagem-sao-cristovao",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    imagePath: "assets/sacred/arca-noe-alianca.jpg",
+    title: "Oração de Viagem Segura e Proteção nas Estradas (São Cristóvão)",
+    subtitle: "Para pedir direção tranquila e retorno em paz ao lar",
+    salutation: "Senhor, protegei nossa ida e nossa volta!",
+    text: "Ó Deus Todo-Poderoso, que conduzistes com segurança o povo pelo deserto e enviastes o Arcanjo Rafael como companheiro de estrada, abençoai esta viagem e todos os que pegam a estrada hoje.\n\nPor intercessão de São Cristóvão, dai atenção calma ao motorista, livrai os caminhos de imprudências, buracos, acidentes e assaltos, e conduzi cada viajante de volta ao abraço seguro da família. Amém.",
+    usageNote: "Rezada dentro do carro, ônibus ou antes de visitar filhos que moram em outra cidade."
+  },
+  {
+    id: "oracao-alivio-solidao-catolica",
+    category: "catolica",
+    categoryLabel: "Fé Católica",
+    imagePath: "assets/sacred/tempestade-acalmada.jpg",
+    title: "Oração para Vencer a Solidão e Renovar a Alegria de Viver",
+    subtitle: "Quando a casa parece silenciosa demais ao entardecer",
+    salutation: "Ficai conosco, Senhor, porque já se faz tarde!",
+    text: "Senhor Jesus, como os discípulos de Emaús disseram ao entardecer, hoje também Te convido: fica comigo dentro desta casa.\n\nQuando a saudade aperta no silêncio da sala ou os filhos estão longe em suas tarefas, lembra ao meu coração que eu nunca estou sozinho sob o Teu olhar.\n\nEnvia boas visitas, telefonemas carinhosos e paz profunda para que eu viva cada dia com gratidão e bom ânimo. Amém.",
+    usageNote: "Excelente companhia para o final da tarde ou fins de semana tranquilos."
+  },
 
   // FÉ EVANGÉLICA / BÍBLICA (16 ORAÇÕES COMPLETAS E CLÁSSICAS)
   {
@@ -325,6 +391,72 @@ window.STRONG_PRAYERS = [
     salutation: "Até à vossa velhice Eu serei o mesmo, e até às cãs Eu vos carregarei!",
     text: "Senhor meu Deus, em Ti tenho confiado desde a minha juventude. Obrigado por cada ano vencido, por cada livramento e pela família que construí sob os Teus olhos.\n\nHoje me apoio com alegria na Tua promessa de Isaías 46:4: até à velhice e aos cabelos brancos Tu me carregas no colo, proteges e amparas.\n\nConserva lúcida a minha mente, grato o meu coração, serenos os meus dias e abençoada a herança espiritual que deixo aos mais jovens. Em nome de Jesus, Amém!",
     usageNote: "Escrita especialmente para celebrar a força e o valor espiritual da maturidade."
+  },
+  {
+    id: "oracao-pai-nosso-meditado-evangelica",
+    category: "evangelica",
+    categoryLabel: "Fé Evangélica",
+    imagePath: "assets/sacred/sermao-montanha-jesus.jpg",
+    title: "Oração do Pai Nosso Meditado (Mateus 6:9-13)",
+    subtitle: "Conversa serena com o Pai seguindo exatamente o modelo deixado por Jesus",
+    salutation: "Pai nosso que estás nos céus, santificado seja o Teu nome!",
+    text: "Pai nosso que estás nos céus, eu santifico o Teu nome dentro desta casa logo ao amanhecer.\nVenha o Teu Reino sobre a saúde, o trabalho e o coração de toda a minha família. Seja feita a Tua vontade, que é sempre boa, perfeita e agradável.\n\nO pão nosso de cada dia dá-nos hoje com fartura e honestidade.\nPerdoa as nossas falhas assim como eu decido perdoar quem me ofendeu no passado.\nNão nos deixes cair em tentação, nem em enganos, nem em desânimo, mas livra-nos de todo mal hoje e sempre. Em nome de Jesus, Amém!",
+    usageNote: "Para rezar devagar meditando frase por frase do Pai Nosso."
+  },
+  {
+    id: "oracao-espirito-santo-consolador-evangelica",
+    category: "evangelica",
+    categoryLabel: "Fé Evangélica",
+    imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
+    title: "Oração ao Espírito Santo Consolador (João 14:16-26)",
+    subtitle: "Pedindo renovo espiritual, paz na mente e companhia diária",
+    salutation: "Vem, Espírito Santo Consolador, renovar a nossa casa!",
+    text: "Espírito Santo de Deus, Jesus prometeu em João 14 que não nos deixaria órfãos neste mundo, mas enviaria o Consolador para estar conosco para sempre.\n\nHoje abro as portas da minha mente e da minha casa para a Tua presença mansa. Traz calma onde havia nervosismo, clareza onde havia dúvida, cura onde havia saudade e união onde havia distância.\n\nRenova minha alegria de ler a Bíblia e orar todos os dias. Em nome de Jesus Cristo, Amém!",
+    usageNote: "Ótima oração para abrir a leitura da Bíblia Online ou um dia de propósito."
+  },
+  {
+    id: "oracao-salmo-37-confianca-evangelica",
+    category: "evangelica",
+    categoryLabel: "Fé Evangélica",
+    imagePath: "assets/sacred/davi-salmos-harpa.jpg",
+    title: "Oração do Salmo 37 (Entrega o Teu Caminho ao Senhor)",
+    subtitle: "Descansar sem inveja, pressa ou medo das injustiças",
+    salutation: "Entrega o teu caminho ao Senhor, confia Nele e Ele tudo fará!",
+    text: "Senhor Deus fiel, assim como ensinaste no Salmo 37, eu entrego hoje todos os meus caminhos e preocupações diante do Teu altar.\n\nDescanso no Senhor e espero com calma a Tua resposta justa. Não vou me apressar nem me desgastar diante de problemas que só o Senhor sabe resolver.\n\nObrigado porque nunca vi o justo desamparado nem os seus descendentes mendigando o pão. Sustenta meu lar em nome de Jesus! Amém.",
+    usageNote: "Recomendada quando aguardamos aposentadoria, causas judiciais ou respostas demoradas."
+  },
+  {
+    id: "oracao-pelos-netos-biblica-evangelica",
+    category: "evangelica",
+    categoryLabel: "Fé Evangélica",
+    imagePath: "assets/sacred/jesus-bom-pastor.jpg",
+    title: "Oração Bíblica pelos Netos e Jovens da Família (Provérbios 22:6)",
+    subtitle: "Orando pela proteção, amizades boas e salvação dos descendentes",
+    salutation: "Ensina a criança no caminho em que deve andar!",
+    text: "Pai Celestial, apresento hoje a vida de cada neto, neta, sobrinho e jovem da nossa parentela.\n\nCerca a mente deles com a Tua verdade para que não sejam enganados por más influências, vícios ou caminhos perigosos. Dá proteção nas escolas, nos estudos, no trânsito e no trabalho.\n\nQue eles se lembrem do amor de Jesus em toda a vida e carreguem a bênção do Senhor de geração em geração. Em nome de Jesus, Amém!",
+    usageNote: "Pode ser compartilhada no grupo da família para abençoar os mais novos."
+  },
+  {
+    id: "oracao-cirurgia-exames-evangelica",
+    category: "evangelica",
+    categoryLabel: "Fé Evangélica",
+    imagePath: "assets/sacred/tempestade-acalmada.jpg",
+    title: "Oração Antes de Cirurgia, Internação ou Exame Médico",
+    subtitle: "Firmeza na promessa de que Cristo acalma os temores e guarda o corpo",
+    salutation: "O Senhor é a minha força e o meu escudo; Nele o meu coração confia!",
+    text: "Senhor Jesus, antes deste exame, internação ou cirurgia, entrego o meu corpo nas Tuas mãos criadoras.\n\nTu acalmaste o mar da Galileia com apenas uma palavra; acalma agora os meus batimentos, a minha pressão e qualquer medo do futuro. Dá mãos firmes e sabedoria celestial a toda a equipe médica.\n\nPrometo testemunhar o Teu cuidado fiel quando voltar tranquilamente para casa. Em nome de Jesus, Amém!",
+    usageNote: "Curta e reconfortante para ouvir no celular antes de entrar para atendimento médico."
+  },
+  {
+    id: "oracao-criacao-gratidao-genesis-evangelica",
+    category: "evangelica",
+    categoryLabel: "Fé Evangélica",
+    imagePath: "assets/sacred/criacao-luz.jpg",
+    title: "Oração de Louvor ao Deus Criador dos Céus e da Terra (Salmo 19)",
+    subtitle: "Agradecendo pela luz do sol, pelo ar, pelo alimento e por mais um dia",
+    salutation: "Os céus proclamam a glória de Deus e o firmamento anuncia Suas obras!",
+    text: "Eterno Deus Criador, que disseste 'Haja luz' e tudo passou a existir com beleza e ordem, bendigo o Teu santo nome nesta hora.\n\nObrigado pelo ar que entra em meus pulmões, pela claridade que entra pela janela, pelas águas, pelas flores e pela minha família.\n\nQue as palavras da minha boca e a meditação do meu coração sejam sempre agradáveis diante de Ti, Rocha minha e Redentor meu. Amém!",
+    usageNote: "Bela prece para fazer contemplando a manhã ou a natureza."
   }
 ];
 
@@ -511,6 +643,7 @@ window.BLOG_POSTS = [
     category: "Fé & Bem-Estar na Maturidade",
     readTime: "4 min de leitura",
     date: "10 de novembro de 2026",
+    imagePath: "assets/sacred/jesus-bom-pastor.jpg",
     title: "Como cultivar a serenidade após os 50 anos com o auxílio da leitura bíblica e da oração diária",
     excerpt: "Reservar dez minutos silenciosos pela manhã ou antes de dormir fortalece o coração, reduz a inquietação e renova a esperança em Deus.",
     content: [
@@ -525,6 +658,7 @@ window.BLOG_POSTS = [
     category: "Trilhas & Devoção Cristã",
     readTime: "5 min de leitura",
     date: "08 de novembro de 2026",
+    imagePath: "assets/sacred/daniel-cova-leoes.jpg",
     title: "Por que fazer uma Trilha de 21 Dias com São Miguel Arcanjo e Orações da Bíblia transforma o hábito de orar",
     excerpt: "Caminhar um dia por vez fortalece a perseverança espiritual, afasta o desânimo e ensina a consagrar o lar em família.",
     content: [
@@ -539,6 +673,7 @@ window.BLOG_POSTS = [
     category: "Vida de Oração & Família",
     readTime: "4 min de leitura",
     date: "05 de novembro de 2026",
+    imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
     title: "O significado da luz na oração cristã e o cuidado ao interceder pela família",
     excerpt: "Acender uma Vela Virtual de 7 dias lembra que Jesus Cristo é a Luz do mundo e mantém viva a intercessão pelos nossos entes queridos.",
     content: [
@@ -552,6 +687,7 @@ window.BLOG_POSTS = [
     category: "Acessibilidade & Descanso",
     readTime: "3 min de leitura",
     date: "01 de novembro de 2026",
+    imagePath: "assets/sacred/tempestade-acalmada.jpg",
     title: "Leitura bíblica antes de dormir: como descansar a vista e acalmar o coração",
     excerpt: "Ajustar o tamanho da fonte e alternar entre o fundo claro e o Modo Noturno torna a leitura da Bíblia e das orações muito mais confortável.",
     content: [
@@ -589,5 +725,100 @@ window.INITIAL_CANDLES = [
     city: "Recife, PE",
     daysRemaining: 7,
     createdAt: "Hoje"
+  }
+];
+
+window.SACRED_RENAISSANCE_GALLERY = [
+  {
+    id: "obra-criacao",
+    era: "Gênesis • O Início de Tudo",
+    title: "A Criação da Luz e do Mundo",
+    scriptureRef: "Gênesis 1:1-5",
+    imagePath: "assets/sacred/criacao-luz.jpg",
+    summary: "No princípio criou Deus os céus e a terra, separando as trevas com a primeira manhã luminosa.",
+    targetSection: "escrituras",
+    targetBookMatch: "Gênesis"
+  },
+  {
+    id: "obra-arca-noe",
+    era: "Antiga Aliança • Fidelidade",
+    title: "A Arca de Noé e o Arco da Aliança",
+    scriptureRef: "Gênesis 9:13-16",
+    imagePath: "assets/sacred/arca-noe-alianca.jpg",
+    summary: "Depois da tormenta, Deus firmou o arco de paz nos céus lembrando Sua aliança eterna com as famílias.",
+    targetSection: "trilhas"
+  },
+  {
+    id: "obra-moises-sinai",
+    era: "Êxodo • Direção de Deus",
+    title: "Moisés no Monte Sinai Diante da Luz Divina",
+    scriptureRef: "Êxodo 33:14",
+    imagePath: "assets/sacred/moises-monte-sinai.jpg",
+    summary: "Na montanha sagrada, Moisés recebeu a promessa: 'A minha presença irá contigo, e eu te darei descanso'.",
+    targetSection: "escrituras",
+    targetBookMatch: "Êxodo"
+  },
+  {
+    id: "obra-davi-salmos",
+    era: "Reino de Israel • Louvor e Confiança",
+    title: "O Rei Davi Tocando Harpa nos Salmos",
+    scriptureRef: "Salmo 23 e Salmo 91",
+    imagePath: "assets/sacred/davi-salmos-harpa.jpg",
+    summary: "Nos momentos de alegria ou aperto, o rei salmista erguia a harpa entregando suas preces em cânticos.",
+    targetSection: "oracoes"
+  },
+  {
+    id: "obra-daniel-leoes",
+    era: "Profetas • Firmeza na Prova",
+    title: "Daniel em Oração na Cova dos Leões",
+    scriptureRef: "Daniel 6:10-22",
+    imagePath: "assets/sacred/daniel-cova-leoes.jpg",
+    summary: "Fiel três vezes ao dia em oração, Daniel experimentou o livramento do anjo diante dos leões.",
+    targetSection: "arcanjo-miguel"
+  },
+  {
+    id: "obra-anunciacao",
+    era: "Evangelhos • Humildade e Graça",
+    title: "A Anunciação do Anjo Gabriel a Maria",
+    scriptureRef: "São Lucas 1:26-38",
+    imagePath: "assets/sacred/anunciacao-maria.jpg",
+    summary: "A saudação angelical abriu a nova era da salvação quando Maria respondeu com fé serena.",
+    targetSection: "oracoes"
+  },
+  {
+    id: "obra-sermao-montanha",
+    era: "Ministério de Cristo • Bem-Aventuranças",
+    title: "Jesus no Sermão da Montanha",
+    scriptureRef: "São Mateus 5:1-12",
+    imagePath: "assets/sacred/sermao-montanha-jesus.jpg",
+    summary: "À beira do mar da Galileia, Jesus ensinou o Pai Nosso, a mansidão e o consolo aos aflitos.",
+    targetSection: "cafe-diario"
+  },
+  {
+    id: "obra-bom-pastor",
+    era: "Cuidado Pastoral • Cura e Amparo",
+    title: "Jesus, o Bom Pastor das Ovelhas",
+    scriptureRef: "São João 10:11",
+    imagePath: "assets/sacred/jesus-bom-pastor.jpg",
+    summary: "Cristo carrega com ternura cada ovelha cansada junto às águas tranquilas e pastos seguros.",
+    targetSection: "trilhas"
+  },
+  {
+    id: "obra-tempestade-acalmada",
+    era: "Milagres • Vitória Sobre o Medo",
+    title: "Jesus Acalmando a Tempestade no Mar",
+    scriptureRef: "São Marcos 4:39",
+    imagePath: "assets/sacred/tempestade-acalmada.jpg",
+    summary: "Diante das ondas agitadas, a voz serena de Jesus ordenou: 'Acalma-te!', trazendo bonança ao barco.",
+    targetSection: "alento"
+  },
+  {
+    id: "obra-pentecostes",
+    era: "Atos dos Apóstolos • Consolação",
+    title: "Pentecostes no Cenáculo (Espírito Santo)",
+    scriptureRef: "Atos 2:1-4",
+    imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
+    summary: "Unidos em oração no cenáculo, os discípulos receberam coragem, paz e força renovada pelo Espírito.",
+    targetSection: "trilhas"
   }
 ];

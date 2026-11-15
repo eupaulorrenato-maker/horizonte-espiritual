@@ -9,7 +9,8 @@
     candles: "he_user_candles",
     cafeHistory: "he_cafe_history_v1",
     tracksProgress: "he_tracks_progress_v1",
-    whatsappSubscriber: "he_whatsapp_subscriber_v1"
+    whatsappSubscriber: "he_whatsapp_subscriber_v1",
+    selectedPurposeId: "he_selected_purpose_id_v1"
   };
 
   var state = {
@@ -47,6 +48,8 @@
     whatsappEditing: false,
     activeTrackId: null,
     activeTrackSelectedDay: 1,
+    selectedPurposeId: "proposito-paz-vida-40",
+    purposeSelectedDay: 1,
     deferredPwaPrompt: null,
 
     // Alento, Quiz & Blog
@@ -343,6 +346,7 @@
     inicio: "Tela Inicial",
     vertente: "Fé & Mensagem",
     "cafe-diario": "Café com Deus (Mensagem da Manhã)",
+    propositos: "40 Dias de Propósitos",
     "arcanjo-miguel": "São Miguel Arcanjo (21 Dias)",
     trilhas: "Trilhas de Oração",
     "salvar-app": "Como Receber Todo Dia",
@@ -644,6 +648,131 @@
     ];
   }
 
+  function getSacredArtForBibleBook(bookTitle) {
+    var name = String(bookTitle || "").toLowerCase();
+    if (name.indexOf("gênesis") !== -1 || name.indexOf("genesis") !== -1) {
+      return {
+        imagePath: "assets/sacred/criacao-luz.jpg",
+        caption: "A Criação da Luz e da Aliança Bíblica (Gênesis)"
+      };
+    }
+    if (name.indexOf("êxodo") !== -1 || name.indexOf("levítico") !== -1 || name.indexOf("números") !== -1 || name.indexOf("deuteronômio") !== -1) {
+      return {
+        imagePath: "assets/sacred/moises-monte-sinai.jpg",
+        caption: "Moisés Diante da Luz Divina no Monte Sinai"
+      };
+    }
+    if (name.indexOf("salmo") !== -1 || name.indexOf("provérbios") !== -1 || name.indexOf("eclesiastes") !== -1 || name.indexOf("cânticos") !== -1 || name.indexOf("sabedoria") !== -1 || name.indexOf("jó") !== -1) {
+      return {
+        imagePath: "assets/sacred/davi-salmos-harpa.jpg",
+        caption: "O Rei Davi Tocando Harpa nos Salmos"
+      };
+    }
+    if (name.indexOf("daniel") !== -1 || name.indexOf("isaías") !== -1 || name.indexOf("jeremias") !== -1 || name.indexOf("ezequiel") !== -1) {
+      return {
+        imagePath: "assets/sacred/daniel-cova-leoes.jpg",
+        caption: "Fidelidade dos Profetas: Daniel na Cova dos Leões"
+      };
+    }
+    if (name.indexOf("lucas") !== -1) {
+      return {
+        imagePath: "assets/sacred/anunciacao-maria.jpg",
+        caption: "A Anunciação do Anjo Gabriel a Maria (São Lucas 1)"
+      };
+    }
+    if (name.indexOf("mateus") !== -1) {
+      return {
+        imagePath: "assets/sacred/sermao-montanha-jesus.jpg",
+        caption: "Jesus no Sermão da Montanha (São Mateus 5)"
+      };
+    }
+    if (name.indexOf("marcos") !== -1) {
+      return {
+        imagePath: "assets/sacred/tempestade-acalmada.jpg",
+        caption: "Jesus Acalmando a Tempestade no Mar (São Marcos 4)"
+      };
+    }
+    if (name.indexOf("joão") !== -1 || name.indexOf("joao") !== -1) {
+      return {
+        imagePath: "assets/sacred/jesus-bom-pastor.jpg",
+        caption: "Jesus, o Bom Pastor das Ovelhas (São João 10)"
+      };
+    }
+    if (name.indexOf("atos") !== -1 || name.indexOf("apocalipse") !== -1 || name.indexOf("romanos") !== -1 || name.indexOf("coríntios") !== -1 || name.indexOf("filipenses") !== -1 || name.indexOf("efésios") !== -1) {
+      return {
+        imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
+        caption: "Pentecostes no Cenáculo (Atos dos Apóstolos)"
+      };
+    }
+    return {
+      imagePath: "assets/sacred/arca-noe-alianca.jpg",
+      caption: "Aliança Sagrada da Bíblia ao Longo das Gerações"
+    };
+  }
+
+  function getSacredArtForPrayer(prayer) {
+    if (prayer && prayer.imagePath) return prayer.imagePath;
+    var titleLower = String((prayer && prayer.title) || "").toLowerCase();
+    if (titleLower.indexOf("miguel") !== -1 || titleLower.indexOf("jorge") !== -1) return "assets/sacred/daniel-cova-leoes.jpg";
+    if (titleLower.indexOf("salmo") !== -1) return "assets/sacred/davi-salmos-harpa.jpg";
+    if (titleLower.indexOf("maria") !== -1 || titleLower.indexOf("senhora") !== -1 || titleLower.indexOf("rainha") !== -1) return "assets/sacred/anunciacao-maria.jpg";
+    if (titleLower.indexOf("cura") !== -1 || titleLower.indexOf("pastor") !== -1 || titleLower.indexOf("família") !== -1 || titleLower.indexOf("filhos") !== -1) return "assets/sacred/jesus-bom-pastor.jpg";
+    if (titleLower.indexOf("espírito") !== -1 || titleLower.indexOf("misericórdia") !== -1 || titleLower.indexOf("alma") !== -1) return "assets/sacred/pentecostes-cenaculo.jpg";
+    if (titleLower.indexOf("ansiedade") !== -1 || titleLower.indexOf("noite") !== -1 || titleLower.indexOf("luto") !== -1) return "assets/sacred/tempestade-acalmada.jpg";
+    if (titleLower.indexOf("sabedoria") !== -1 || titleLower.indexOf("armadura") !== -1) return "assets/sacred/moises-monte-sinai.jpg";
+    return prayer && prayer.category === "evangelica" ? "assets/sacred/sermao-montanha-jesus.jpg" : "assets/sacred/anunciacao-maria.jpg";
+  }
+
+  function renderHomeSacredGallery() {
+    var grid = document.getElementById("home-sacred-gallery-grid");
+    if (!grid) return;
+    var items = window.SACRED_RENAISSANCE_GALLERY || [];
+    var html = "";
+    for (var i = 0; i < items.length; i++) {
+      var art = items[i];
+      html +=
+        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
+        "<div>" +
+        '<div class="relative h-48 w-full overflow-hidden bg-[#272729]">' +
+        '<img src="' +
+        escapeHtml(art.imagePath) +
+        '" alt="' +
+        escapeHtml(art.title) +
+        '" class="w-full h-full object-cover" loading="lazy" />' +
+        '<span class="absolute top-3 left-3 font-mono-label px-2.5 py-1 rounded-full bg-white text-[#1d1d1f]">' +
+        escapeHtml(art.scriptureRef) +
+        "</span>" +
+        "</div>" +
+        '<div class="p-5 space-y-2">' +
+        '<span class="font-mono-label block" style="color: var(--accent-blue);">' +
+        escapeHtml(art.era) +
+        "</span>" +
+        '<h3 class="font-display text-xl leading-snug" style="color: var(--text-main);">' +
+        escapeHtml(art.title) +
+        "</h3>" +
+        '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
+        escapeHtml(art.summary) +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        '<div class="px-5 pb-5 pt-2 flex flex-wrap gap-2">' +
+        '<button type="button" class="btn-secondary text-sm flex-1 justify-center" data-open-sacred-art="' +
+        escapeHtml(art.id) +
+        '">Abrir Passagem →</button>' +
+        '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="sacred-art-' +
+        escapeHtml(art.id) +
+        '" data-speak-sacred-art="' +
+        escapeHtml(art.id) +
+        '" data-default-label="Ouvir" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        "</button>" +
+        "</div>" +
+        "</article>";
+    }
+    grid.innerHTML = html;
+    updateSpeechButtons();
+  }
+
   function renderSacredLibrary() {
     var selectEl = document.getElementById("library-tradition-select");
     var bookWrapperEl = document.getElementById("library-book-select-wrapper");
@@ -718,6 +847,26 @@
 
     var activeChapter = chapters[state.libraryChapterIndex];
     if (!activeChapter) return;
+
+    var bannerEl = document.getElementById("library-artwork-banner");
+    if (bannerEl) {
+      var artInfo = getSacredArtForBibleBook(activeBook.bookTitle);
+      bannerEl.innerHTML =
+        '<div class="relative h-48 sm:h-60 w-full bg-[#272729]">' +
+        '<img src="' +
+        escapeHtml(artInfo.imagePath) +
+        '" alt="' +
+        escapeHtml(artInfo.caption) +
+        '" class="w-full h-full object-cover" />' +
+        '<div class="absolute inset-x-0 bottom-0 px-4 py-2.5 text-white" style="background: rgba(0, 0, 0, 0.56);">' +
+        '<span class="font-mono-label text-[#2997ff] block">Arte Sacra Renascentista</span>' +
+        '<p class="text-sm font-semibold text-white">' +
+        escapeHtml(artInfo.caption) +
+        "</p>" +
+        "</div>" +
+        "</div>";
+      bannerEl.classList.remove("hidden");
+    }
 
     if (workTitleEl) {
       workTitleEl.textContent = activeTradition.canonicalWorkTitle + " • " + activeBook.bookTitle;
@@ -813,13 +962,7 @@
       if (foundIndex !== -1) {
         var prayer = allPrayers[foundIndex];
         var nextPrayer = allPrayers[(foundIndex + 1) % allPrayers.length];
-        var prayerTrad = findTradition(prayer.category);
-        var imgSrc =
-          (prayerTrad &&
-            window.EMBEDDED_TRADITION_IMAGES &&
-            window.EMBEDDED_TRADITION_IMAGES[prayerTrad.id]) ||
-          (prayerTrad && prayerTrad.imagePath) ||
-          "assets/traditions/catolica.jpg";
+        var imgSrc = getSacredArtForPrayer(prayer);
 
         var paragraphs = prayer.text.split("\n\n");
         var bodyHtml = "";
@@ -937,20 +1080,30 @@
     var html = "";
     for (var j = 0; j < pageItems.length; j++) {
       var item = pageItems[j];
+      var cardImg = getSacredArtForPrayer(item);
       html +=
-        '<article class="surface-card p-5 flex flex-col justify-between">' +
+        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
-        '<span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider mb-2" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+        '<div class="relative h-40 w-full overflow-hidden bg-[#272729]">' +
+        '<img src="' +
+        escapeHtml(cardImg) +
+        '" alt="' +
+        escapeHtml(item.title) +
+        '" class="w-full h-full object-cover" loading="lazy" />' +
+        '<span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white text-[#1d1d1f]">' +
         escapeHtml(item.categoryLabel) +
         "</span>" +
+        "</div>" +
+        '<div class="p-5">' +
         '<h3 class="font-serif-sacred font-bold text-lg mb-1" style="color: var(--text-main);">' +
         escapeHtml(item.title) +
         "</h3>" +
-        '<p class="text-sm mb-4" style="color: var(--text-secondary);">' +
+        '<p class="text-sm" style="color: var(--text-secondary);">' +
         escapeHtml(item.subtitle) +
         "</p>" +
         "</div>" +
-        '<div class="flex flex-wrap gap-2 mt-2">' +
+        "</div>" +
+        '<div class="flex flex-wrap gap-2 px-5 pb-5">' +
         '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-prayer="' +
         escapeHtml(item.id) +
         '">Abrir Oração →</button>' +
@@ -1453,7 +1606,17 @@
         }
         listEl.classList.add("hidden");
         readerEl.innerHTML =
-          '<article class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">' +
+          '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
+          (activePost.imagePath
+            ? '<div class="relative h-56 sm:h-72 w-full bg-[#272729]">' +
+              '<img src="' +
+              escapeHtml(activePost.imagePath) +
+              '" alt="' +
+              escapeHtml(activePost.title) +
+              '" class="w-full h-full object-cover" />' +
+              "</div>"
+            : "") +
+          '<div class="p-6 sm:p-10">' +
           '<div class="flex flex-wrap items-center justify-between gap-2 mb-4">' +
           '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-blog-post">← Voltar para a lista de artigos</button>' +
           '<button type="button" class="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2" data-speech-id="blog-full-' +
@@ -1478,6 +1641,7 @@
           '<div class="border-t pt-5" style="border-color: var(--border-color);">' +
           paragraphsHtml +
           "</div>" +
+          "</div>" +
           "</article>";
         readerEl.classList.remove("hidden");
         updateSpeechButtons();
@@ -1493,8 +1657,18 @@
     for (var j = 0; j < posts.length; j++) {
       var post = posts[j];
       cardsHtml +=
-        '<article class="surface-card p-6 flex flex-col justify-between">' +
+        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
+        (post.imagePath
+          ? '<div class="h-44 w-full overflow-hidden bg-[#272729]">' +
+            '<img src="' +
+            escapeHtml(post.imagePath) +
+            '" alt="' +
+            escapeHtml(post.title) +
+            '" class="w-full h-full object-cover" loading="lazy" />' +
+            "</div>"
+          : "") +
+        '<div class="p-6 pb-2">' +
         '<div class="flex items-center justify-between gap-2 mb-3">' +
         '<span class="coral-badge">' +
         escapeHtml(post.category) +
@@ -1510,7 +1684,8 @@
         escapeHtml(post.excerpt) +
         "</p>" +
         "</div>" +
-        '<div class="flex flex-wrap gap-2 mt-2">' +
+        "</div>" +
+        '<div class="flex flex-wrap gap-2 px-6 pb-6">' +
         '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-blog="' +
         escapeHtml(post.id) +
         '">Abrir Artigo →</button>' +
@@ -1627,10 +1802,26 @@
     return window.PRAYER_TRACKS || [];
   }
 
+  function getAllPurposes() {
+    return window.FORTY_DAY_PURPOSES || [];
+  }
+
+  function findPurpose(purposeId) {
+    var list = getAllPurposes();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === purposeId) return list[i];
+    }
+    return list[0] || null;
+  }
+
   function findPrayerTrack(trackId) {
     var tracks = getAllPrayerTracks();
     for (var i = 0; i < tracks.length; i++) {
       if (tracks[i].id === trackId) return tracks[i];
+    }
+    var purposes = getAllPurposes();
+    for (var p = 0; p < purposes.length; p++) {
+      if (purposes[p].id === trackId) return purposes[p];
     }
     return null;
   }
@@ -1685,11 +1876,14 @@
       state.miguelSelectedDay = nextDay;
     } else if (idx === -1 && dayNum < track.durationDays && state.activeTrackId === trackId) {
       state.activeTrackSelectedDay = nextDay;
+    } else if (idx === -1 && dayNum < track.durationDays && state.selectedPurposeId === trackId) {
+      state.purposeSelectedDay = nextDay;
     }
 
     renderHomeRetentionWidgets();
     renderArcanjoMiguelPage();
     renderTrilhasView();
+    renderPropositosView();
   }
 
   /* =========================================================
@@ -1902,6 +2096,7 @@
     var slots = [
       { id: "home-whatsapp-slot", prefix: "home" },
       { id: "cafe-whatsapp-slot", prefix: "cafe" },
+      { id: "propositos-whatsapp-slot", prefix: "propositos" },
       { id: "salvar-whatsapp-slot", prefix: "salvar" }
     ];
     for (var i = 0; i < slots.length; i++) {
@@ -2037,12 +2232,30 @@
     var waBadge = document.getElementById("home-whatsapp-badge");
     var waTeaser = document.getElementById("home-whatsapp-teaser");
     if (waBadge) {
-      waBadge.textContent = waSub ? "✅ WhatsApp Salvo neste Celular" : "💬 Devocional no Seu Número";
+      waBadge.textContent = waSub ? "✅ WhatsApp Salvo neste Celular" : "Passo 3 de 3 • Receber Todo Dia";
     }
     if (waTeaser) {
       waTeaser.textContent = waSub
-        ? "Número cadastrado: " + waSub.formatted + ". Toque aqui para receber o Café de hoje."
-        : "Cadastre seu número com DDD para receber e salvar seu devocional diário no WhatsApp.";
+        ? "Número cadastrado: " + waSub.formatted + ". Toque no botão verde abaixo para abrir ou receber sua mensagem diária."
+        : "Preencha seu nome, seu WhatsApp com DDD e o melhor horário logo abaixo. É 100% gratuito, sem propaganda e sem precisar de senha.";
+    }
+
+    var purposeObj = findPurpose(state.selectedPurposeId);
+    var purposeDone = purposeObj ? getTrackCompletedDays(purposeObj.id) : [];
+    var purposeNext = purposeObj ? getNextPendingDay(purposeObj) : 1;
+    var pBadge = document.getElementById("home-purpose-badge");
+    var pTeaser = document.getElementById("home-purpose-teaser");
+    if (pBadge) {
+      pBadge.textContent =
+        purposeDone.length > 0
+          ? "🕊 Em andamento: " + purposeDone.length + " de 40 dias"
+          : "🕊 Jornada de 40 Dias";
+    }
+    if (pTeaser && purposeObj) {
+      pTeaser.textContent =
+        purposeDone.length > 0
+          ? "Seu propósito ativo (" + purposeObj.shortTitle + "): continue pelo Dia " + purposeNext + " de 40."
+          : "Escolha um propósito de vida (Paz, Família, Saúde ou Sabedoria) com mensagem bíblica diária por 40 dias.";
     }
   }
 
@@ -2080,6 +2293,9 @@
         escapeHtml(dObj.theme) +
         "</option>";
     }
+
+    var gallery = window.SACRED_RENAISSANCE_GALLERY || [];
+    var cafeArt = gallery.length > 0 ? gallery[(item.day - 1) % gallery.length] : null;
 
     var bodyParagraphs = item.message.split("\n\n");
     var msgHtml = "";
@@ -2119,6 +2335,23 @@
         : "") +
       "</div>" +
       "</div>" +
+      (cafeArt
+        ? '<div class="rounded-2xl overflow-hidden border" style="border-color: var(--border-color);">' +
+          '<img src="' +
+          escapeHtml(cafeArt.imagePath) +
+          '" alt="' +
+          escapeHtml(cafeArt.title) +
+          '" class="w-full h-48 sm:h-64 object-cover" />' +
+          '<div class="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2" style="background-color: var(--bg-subtle);">' +
+          '<span class="text-sm font-semibold" style="color: var(--text-main);">🎨 ' +
+          escapeHtml(cafeArt.title) +
+          "</span>" +
+          '<span class="font-mono-label" style="color: var(--accent-blue);">' +
+          escapeHtml(cafeArt.scriptureRef) +
+          "</span>" +
+          "</div>" +
+          "</div>"
+        : "") +
       '<div class="text-center space-y-2">' +
       '<span class="inline-block px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">Dia ' +
       item.day +
@@ -2439,7 +2672,17 @@
       if (activeTrack) {
         container.innerHTML =
           '<div class="space-y-6 max-w-3xl mx-auto">' +
-          '<div class="surface-card p-6 sm:p-8">' +
+          '<div class="surface-card overflow-hidden">' +
+          (activeTrack.imagePath
+            ? '<div class="relative h-52 sm:h-64 w-full bg-[#272729]">' +
+              '<img src="' +
+              escapeHtml(activeTrack.imagePath) +
+              '" alt="' +
+              escapeHtml(activeTrack.title) +
+              '" class="w-full h-full object-cover" />' +
+              "</div>"
+            : "") +
+          '<div class="p-6 sm:p-8">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
           '<button type="button" class="btn-secondary text-sm" data-action="back-to-trilhas-list">← Ver Todas as Trilhas</button>' +
           '<span class="px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
@@ -2463,6 +2706,7 @@
           "</div>" +
           buildTrackInteractiveViewHtml(activeTrack, state.activeTrackSelectedDay) +
           "</div>" +
+          "</div>" +
           "</div>";
         updateSpeechButtons();
         return;
@@ -2477,8 +2721,18 @@
       var nextD = getNextPendingDay(tr);
 
       cardsHtml +=
-        '<article class="surface-card p-6 flex flex-col justify-between">' +
+        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
         "<div>" +
+        (tr.imagePath
+          ? '<div class="h-44 w-full overflow-hidden bg-[#272729]">' +
+            '<img src="' +
+            escapeHtml(tr.imagePath) +
+            '" alt="' +
+            escapeHtml(tr.title) +
+            '" class="w-full h-full object-cover" loading="lazy" />' +
+            "</div>"
+          : "") +
+        '<div class="p-6 pb-2">' +
         '<div class="flex flex-wrap items-center justify-between gap-2 mb-2">' +
         '<span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">' +
         escapeHtml(tr.badge) +
@@ -2498,11 +2752,12 @@
         '<p class="text-sm mb-4" style="color: var(--text-secondary);">' +
         escapeHtml(tr.description) +
         "</p>" +
-        '<div class="progress-track-bar mb-4"><div class="progress-track-fill" style="width: ' +
+        '<div class="progress-track-bar mb-3"><div class="progress-track-fill" style="width: ' +
         pct +
         '%;"></div></div>' +
         "</div>" +
-        '<div class="flex flex-wrap gap-2 mt-1">' +
+        "</div>" +
+        '<div class="flex flex-wrap gap-2 px-6 pb-6 pt-1">' +
         '<button type="button" class="btn-primary flex-1 justify-center text-sm" data-open-track="' +
         escapeHtml(tr.id) +
         '">' +
@@ -2524,17 +2779,225 @@
     container.innerHTML =
       '<div class="space-y-6">' +
       '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto space-y-3">' +
-      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold">Trilhas de Oração Multi-Dias (7, 9 e 21 Dias)</h2>' +
-      '<p class="text-sm" style="color: var(--text-secondary);">Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho.</p>' +
+      '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold">Trilhas de Oração Multi-Dias (7 a 21 Dias)</h2>' +
+      '<p class="text-base" style="color: var(--text-secondary);">Escolha uma jornada abaixo para cultivar constância diária na fé. Quer fazer uma jornada de 40 dias com um propósito de vida? <button type="button" class="underline font-semibold" style="color: var(--accent-blue);" data-nav-target="propositos">Abrir 40 Dias de Propósitos →</button></p>' +
       '<div>' +
       '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-action="speak-trilhas-intro" data-speech-id="trilhas-intro" data-default-label="Ouvir orientações em áudio" aria-pressed="false">' +
       '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir orientações em áudio</span>' +
       "</button>" +
       "</div>" +
       "</div>" +
-      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">' +
       cardsHtml +
       "</div>" +
+      "</div>";
+
+    updateSpeechButtons();
+  }
+
+  function renderPropositosView() {
+    var container = document.getElementById("propositos-container");
+    if (!container) return;
+
+    var purposes = getAllPurposes();
+    if (purposes.length === 0) return;
+
+    var active = findPurpose(state.selectedPurposeId);
+    if (!active) return;
+
+    var doneList = getTrackCompletedDays(active.id);
+    var totalDays = active.durationDays || 40;
+    var activeDayNum = Math.max(1, Math.min(totalDays, Number(state.purposeSelectedDay) || 1));
+    var dayObj = active.days[activeDayNum - 1] || active.days[0];
+    var pct = Math.round((doneList.length / totalDays) * 100);
+    var isDayDone = doneList.indexOf(dayObj.day) !== -1;
+
+    var choiceCardsHtml = "";
+    for (var p = 0; p < purposes.length; p++) {
+      var pr = purposes[p];
+      var prDone = getTrackCompletedDays(pr.id);
+      var isSelected = pr.id === active.id;
+      choiceCardsHtml +=
+        '<button type="button" class="surface-card overflow-hidden text-left flex flex-col justify-between transition ' +
+        (isSelected ? "ring-2 ring-[#0066cc]" : "") +
+        '" data-select-purpose="' +
+        escapeHtml(pr.id) +
+        '" aria-pressed="' +
+        (isSelected ? "true" : "false") +
+        '">' +
+        "<div>" +
+        '<div class="relative h-36 w-full overflow-hidden bg-[#272729]">' +
+        '<img src="' +
+        escapeHtml(pr.imagePath) +
+        '" alt="' +
+        escapeHtml(pr.title) +
+        '" class="w-full h-full object-cover" loading="lazy" />' +
+        '<span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-white text-[#1d1d1f]">' +
+        prDone.length +
+        "/40 dias</span>" +
+        "</div>" +
+        '<div class="p-4 space-y-1.5">' +
+        '<span class="font-mono-label block" style="color: var(--accent-blue);">' +
+        (isSelected ? "✓ Propósito Escolhido" : "Toque para Escolher") +
+        "</span>" +
+        '<h3 class="font-display text-lg leading-snug" style="color: var(--text-main);">' +
+        escapeHtml(pr.shortTitle) +
+        "</h3>" +
+        '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
+        escapeHtml(pr.description) +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        "</button>";
+    }
+
+    var dayGridHtml = "";
+    for (var d = 1; d <= totalDays; d++) {
+      var doneD = doneList.indexOf(d) !== -1;
+      var curD = d === dayObj.day;
+      dayGridHtml +=
+        '<button type="button" class="day-step-btn ' +
+        (curD ? "is-active" : doneD ? "is-completed" : "") +
+        '" data-purpose-day="' +
+        d +
+        '" aria-label="Dia ' +
+        d +
+        ' de 40">' +
+        (doneD ? "✓ " + d : String(d)) +
+        "</button>";
+    }
+
+    var spId = "purpose-" + active.id + "-day-" + dayObj.day;
+
+    container.innerHTML =
+      '<div class="space-y-6 max-w-4xl mx-auto">' +
+      '<div class="surface-card p-6 sm:p-8 text-center space-y-3">' +
+      '<span class="coral-badge">Caminhada Bíblica • 40 Dias de Propósitos</span>' +
+      '<h2 id="propositos-main-heading" class="font-display heading-section" style="color: var(--text-main);">' +
+      "40 Dias de Propósitos com Deus" +
+      "</h2>" +
+      '<p class="text-base max-w-2xl mx-auto" style="color: var(--text-secondary);">' +
+      "Passo 1: escolha abaixo qual propósito de vida você deseja consagrar pelos próximos 40 dias. Passo 2: leia ou ouça a mensagem da Bíblia de cada dia e marque como concluída." +
+      "</p>" +
+      '<div class="pt-1">' +
+      '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-action="speak-propositos-guide" data-speech-id="propositos-guide" data-default-label="Ouvir orientações dos 40 Dias" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir orientações dos 40 Dias</span>' +
+      "</button>" +
+      "</div>" +
+      "</div>" +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">' +
+      choiceCardsHtml +
+      "</div>" +
+      '<article class="surface-card overflow-hidden">' +
+      '<div class="relative h-52 sm:h-64 w-full bg-[#272729]">' +
+      '<img src="' +
+      escapeHtml(active.imagePath) +
+      '" alt="' +
+      escapeHtml(active.imageCaption || active.title) +
+      '" class="w-full h-full object-cover" />' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-7 text-white" style="background: rgba(0, 0, 0, 0.48);">' +
+      '<span class="font-mono-label text-[#2997ff] mb-1">' +
+      escapeHtml(dayObj.phase) +
+      "</span>" +
+      '<h3 class="font-display text-2xl sm:text-3xl text-white">' +
+      escapeHtml(active.title) +
+      "</h3>" +
+      '<p class="text-sm text-white/90 mt-0.5">' +
+      escapeHtml(active.imageCaption || "") +
+      "</p>" +
+      "</div>" +
+      "</div>" +
+      '<div class="p-6 sm:p-8 space-y-6">' +
+      '<div class="p-4 sm:p-5 rounded-2xl border space-y-3" style="background-color: var(--bg-subtle); border-color: var(--border-color);">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2">' +
+      '<span class="font-bold text-sm" style="color: var(--text-main);">Seu Progresso: ' +
+      doneList.length +
+      " de 40 dias concluídos (" +
+      pct +
+      "%)</span>" +
+      '<span class="text-xs font-semibold" style="color: var(--accent-blue);">Toque no número para ler qualquer dia (1 a 40)</span>' +
+      "</div>" +
+      '<div class="progress-track-bar" role="progressbar" aria-valuenow="' +
+      pct +
+      '" aria-valuemin="0" aria-valuemax="100">' +
+      '<div class="progress-track-fill" style="width: ' +
+      pct +
+      '%;"></div>' +
+      "</div>" +
+      '<div class="grid grid-cols-5 sm:grid-cols-8 gap-2 pt-2">' +
+      dayGridHtml +
+      "</div>" +
+      "</div>" +
+      '<div class="p-6 sm:p-8 rounded-2xl border space-y-5" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+      '<div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3" style="border-color: var(--border-color);">' +
+      '<h4 class="font-serif-sacred font-bold text-xl sm:text-2xl" style="color: var(--accent-wine);">' +
+      escapeHtml(dayObj.title) +
+      "</h4>" +
+      '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: ' +
+      (isDayDone ? "var(--accent-green)" : "var(--text-muted)") +
+      '; border: 1px solid var(--border-color);">' +
+      (isDayDone ? "✓ Dia Concluído" : "Leitura de Hoje") +
+      "</span>" +
+      "</div>" +
+      '<div class="p-5 rounded-xl" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-blue);">Mensagem da Bíblia (' +
+      escapeHtml(dayObj.verseRef) +
+      ")</p>" +
+      '<p class="font-serif-sacred font-semibold text-lg leading-relaxed" style="color: var(--text-main);">“' +
+      escapeHtml(dayObj.verseText) +
+      '”</p>' +
+      "</div>" +
+      '<p class="font-serif-sacred text-body-sacred leading-relaxed" style="color: var(--text-main);">' +
+      escapeHtml(dayObj.message) +
+      "</p>" +
+      '<div class="p-4 rounded-xl" style="background-color: var(--bg-subtle); border-left: 4px solid var(--accent-blue);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-blue);">🌿 Aplicação Prática no Dia ' +
+      dayObj.day +
+      "</p>" +
+      '<p class="text-base font-medium" style="color: var(--text-main);">' +
+      escapeHtml(dayObj.action) +
+      "</p>" +
+      "</div>" +
+      '<div class="p-5 rounded-xl" style="background-color: var(--bg-surface); border-left: 4px solid var(--accent-wine);">' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--accent-wine);">🙏 Oração do Propósito (Dia ' +
+      dayObj.day +
+      ")</p>" +
+      '<p class="font-serif-sacred text-body-sacred italic leading-relaxed" style="color: var(--text-main);">' +
+      escapeHtml(dayObj.prayer) +
+      "</p>" +
+      "</div>" +
+      '<div class="flex flex-wrap items-center justify-between gap-3 pt-2">' +
+      '<button type="button" class="' +
+      (isDayDone ? "btn-secondary" : "btn-primary") +
+      ' inline-flex items-center gap-2" data-toggle-purpose-day="' +
+      dayObj.day +
+      '" data-toggle-purpose-id="' +
+      escapeHtml(active.id) +
+      '">' +
+      (isDayDone ? "✓ Dia " + dayObj.day + " Concluído (Desmarcar)" : "✓ Concluir Dia " + dayObj.day + " do Propósito") +
+      "</button>" +
+      '<div class="flex flex-wrap gap-2">' +
+      '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-speech-id="' +
+      escapeHtml(spId) +
+      '" data-speak-purpose-id="' +
+      escapeHtml(active.id) +
+      '" data-speak-purpose-day="' +
+      dayObj.day +
+      '" data-default-label="Ouvir mensagem de hoje" aria-pressed="false">' +
+      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir mensagem de hoje</span>' +
+      "</button>" +
+      '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-share-purpose-id="' +
+      escapeHtml(active.id) +
+      '" data-share-purpose-day="' +
+      dayObj.day +
+      '">' +
+      '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+      "</button>" +
+      "</div>" +
+      "</div>" +
+      "</div>" +
+      "</div>" +
+      "</article>" +
       "</div>";
 
     updateSpeechButtons();
@@ -2885,6 +3348,129 @@
               shDayObj.prayer +
               "\n\nHorizonte Espiritual"
           );
+        }
+        return;
+      }
+
+      var selectPurposeBtn = target.closest("[data-select-purpose]");
+      if (selectPurposeBtn) {
+        var selPId = selectPurposeBtn.getAttribute("data-select-purpose");
+        var foundP = findPurpose(selPId);
+        if (foundP) {
+          state.selectedPurposeId = foundP.id;
+          state.purposeSelectedDay = getNextPendingDay(foundP);
+          safeStorageSet(STORAGE_KEYS.selectedPurposeId, foundP.id);
+          stopSpeech();
+          renderPropositosView();
+          renderHomeRetentionWidgets();
+        }
+        return;
+      }
+
+      var purposeDayBtn = target.closest("[data-purpose-day]");
+      if (purposeDayBtn) {
+        state.purposeSelectedDay = Number(purposeDayBtn.getAttribute("data-purpose-day")) || 1;
+        stopSpeech();
+        renderPropositosView();
+        return;
+      }
+
+      var togglePurposeDayBtn = target.closest("[data-toggle-purpose-day][data-toggle-purpose-id]");
+      if (togglePurposeDayBtn) {
+        var tgPId = togglePurposeDayBtn.getAttribute("data-toggle-purpose-id");
+        var tgPDay = Number(togglePurposeDayBtn.getAttribute("data-toggle-purpose-day")) || 1;
+        toggleTrackDayCompletion(tgPId, tgPDay);
+        return;
+      }
+
+      var speakPurposeDayBtn = target.closest("[data-speak-purpose-id][data-speak-purpose-day]");
+      if (speakPurposeDayBtn) {
+        var spPId = speakPurposeDayBtn.getAttribute("data-speak-purpose-id");
+        var spPDay = Number(speakPurposeDayBtn.getAttribute("data-speak-purpose-day")) || 1;
+        var spPObj = findPurpose(spPId);
+        var spPDayObj = spPObj && spPObj.days && spPObj.days[spPDay - 1];
+        if (spPDayObj) {
+          speakText(
+            "purpose-" + spPId + "-day-" + spPDay,
+            spPDayObj.title +
+              ". Mensagem da Bíblia em " +
+              spPDayObj.verseRef +
+              ": " +
+              spPDayObj.verseText +
+              ". " +
+              spPDayObj.message +
+              ". Aplicação prática: " +
+              spPDayObj.action +
+              ". Oração: " +
+              spPDayObj.prayer
+          );
+        }
+        return;
+      }
+
+      var sharePurposeDayBtn = target.closest("[data-share-purpose-id][data-share-purpose-day]");
+      if (sharePurposeDayBtn) {
+        var shrPId = sharePurposeDayBtn.getAttribute("data-share-purpose-id");
+        var shrPDay = Number(sharePurposeDayBtn.getAttribute("data-share-purpose-day")) || 1;
+        var shrPObj = findPurpose(shrPId);
+        var shrPDayObj = shrPObj && shrPObj.days && shrPObj.days[shrPDay - 1];
+        if (shrPObj && shrPDayObj) {
+          shareViaWhatsApp(
+            "🕊 *" +
+              shrPObj.shortTitle +
+              " - " +
+              shrPDayObj.title +
+              "*\n\n“" +
+              shrPDayObj.verseText +
+              "” (" +
+              shrPDayObj.verseRef +
+              ")\n\n" +
+              shrPDayObj.message +
+              "\n\n🙏 *Oração:* " +
+              shrPDayObj.prayer +
+              "\n\nHorizonte Espiritual"
+          );
+        }
+        return;
+      }
+
+      var speakSacredArtBtn = target.closest("[data-speak-sacred-art]");
+      if (speakSacredArtBtn) {
+        var saId = speakSacredArtBtn.getAttribute("data-speak-sacred-art");
+        var saList = window.SACRED_RENAISSANCE_GALLERY || [];
+        for (var sai = 0; sai < saList.length; sai++) {
+          if (saList[sai].id === saId) {
+            speakText(
+              "sacred-art-" + saId,
+              saList[sai].era + ". " + saList[sai].title + ", em " + saList[sai].scriptureRef + ". " + saList[sai].summary
+            );
+            break;
+          }
+        }
+        return;
+      }
+
+      var openSacredArtBtn = target.closest("[data-open-sacred-art]");
+      if (openSacredArtBtn) {
+        var oaId = openSacredArtBtn.getAttribute("data-open-sacred-art");
+        var oaList = window.SACRED_RENAISSANCE_GALLERY || [];
+        for (var oai = 0; oai < oaList.length; oai++) {
+          var oa = oaList[oai];
+          if (oa.id === oaId) {
+            if (oa.targetSection === "escrituras" && oa.targetBookMatch) {
+              var libBooks = getLibraryBooksForTradition(state.libraryTraditionId);
+              for (var lb = 0; lb < libBooks.length; lb++) {
+                if (libBooks[lb].bookTitle.toLowerCase().indexOf(oa.targetBookMatch.toLowerCase()) !== -1) {
+                  state.libraryBookIndex = lb;
+                  state.libraryChapterIndex = 0;
+                  break;
+                }
+              }
+              renderSacredLibrary();
+            }
+            navigateToSection(oa.targetSection || "oracoes", true);
+            break;
+          }
         }
         return;
       }
@@ -3346,7 +3932,12 @@
       } else if (action === "speak-trilhas-intro") {
         speakText(
           "trilhas-intro",
-          "Trilhas de Oração Multi-Dias de 7, 9 e 21 Dias. Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho."
+          "Trilhas de Oração Multi-Dias de 7, 9, 12, 14 e 21 Dias. Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho."
+        );
+      } else if (action === "speak-propositos-guide") {
+        speakText(
+          "propositos-guide",
+          "40 Dias de Propósitos com Deus. Primeiro, escolha um dos 4 propósitos de vida: Vida em Deus, Família Abençoada, Saúde e Cura, ou Sabedoria e Fé. Depois toque em qualquer número de 1 a 40 para ler ou ouvir a mensagem da Bíblia e marcar cada dia concluído."
         );
       } else if (action === "speak-quiz-question") {
         var qList = window.QUIZ_QUESTIONS || [];
@@ -3550,12 +4141,26 @@
       state.libraryTraditionId = resolvedSavedTrad.id;
     }
 
+    var savedPurposeId = safeStorageGet(STORAGE_KEYS.selectedPurposeId);
+    if (savedPurposeId) {
+      var foundSavedPurpose = findPurpose(savedPurposeId);
+      if (foundSavedPurpose) {
+        state.selectedPurposeId = foundSavedPurpose.id;
+      }
+    }
+    var activePurposeBoot = findPurpose(state.selectedPurposeId);
+    if (activePurposeBoot) {
+      state.purposeSelectedDay = getNextPendingDay(activePurposeBoot);
+    }
+
     renderDailyPanel();
+    renderHomeSacredGallery();
     renderHomeRetentionWidgets();
     renderCafeDiario();
-    renderAllWhatsappWidgets();
     renderArcanjoMiguelPage();
     renderTrilhasView();
+    renderPropositosView();
+    renderAllWhatsappWidgets();
     renderPrayersView();
     populateCandleTraditionSelect();
     renderCandleSubPages();

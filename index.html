@@ -62,9 +62,11 @@
         },
         "about": [
           "Devocional Cristão Diário",
+          "40 Dias de Propósitos com Mensagens da Bíblia",
           "Orações Católicas e Evangélicas em Áudio",
           "Bíblia Online Completa",
-          "Oração de São Miguel Arcanjo 21 Dias"
+          "Oração de São Miguel Arcanjo 21 Dias",
+          "Arte Sacra Renascentista Bíblica"
         ],
         "speakable": {
           "@type": "SpeakableSpecification",
@@ -101,7 +103,7 @@
             "name": "A Bíblia Online e as orações em áudio são gratuitas?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sim. Toda a Bíblia Online Católica (73 livros) e Evangélica (66 livros), as mais de 30 orações fortes, a jornada de 21 dias de São Miguel Arcanjo e o recurso de ouvir em voz calma são 100% gratuitos."
+              "text": "Sim. Toda a Bíblia Online Católica (73 livros) e Evangélica (66 livros), as mais de 40 orações fortes, os 40 Dias de Propósitos, a jornada de 21 dias de São Miguel Arcanjo e o recurso de ouvir em voz calma são 100% gratuitos."
             }
           },
           {
@@ -168,6 +170,7 @@
       <nav class="hidden lg:flex items-center gap-1" aria-label="Atalhos Principais Desktop">
         <button type="button" class="nav-tab-btn" data-nav-target="inicio" aria-current="page">Início</button>
         <button type="button" class="nav-tab-btn" data-nav-target="cafe-diario">Café de Hoje</button>
+        <button type="button" class="nav-tab-btn" data-nav-target="propositos">40 Dias</button>
         <button type="button" class="nav-tab-btn" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
         <button type="button" class="nav-tab-btn" data-nav-target="oracoes">Orações</button>
         <button type="button" class="nav-tab-btn" data-nav-target="escrituras">Bíblia Online</button>
@@ -202,13 +205,14 @@
       <div class="max-w-6xl mx-auto px-3 sm:px-6 py-1.5 flex lg:hidden flex-wrap items-center justify-center gap-1.5 border-b" style="border-color: var(--border-light);">
         <button type="button" class="nav-tab-btn text-sm" data-nav-target="inicio" aria-current="page">🏠 Início</button>
         <button type="button" class="nav-tab-btn text-sm" data-nav-target="cafe-diario">☕ Café</button>
-        <button type="button" class="nav-tab-btn text-sm" data-nav-target="arcanjo-miguel">⚔️ Arcanjo Miguel</button>
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="propositos">🕊 40 Dias</button>
+        <button type="button" class="nav-tab-btn text-sm" data-nav-target="arcanjo-miguel">⚔️ Miguel</button>
         <button type="button" class="nav-tab-btn text-sm" data-nav-target="oracoes">🙏 Orações</button>
         <button type="button" class="nav-tab-btn text-sm" data-nav-target="escrituras">📖 Bíblia Online</button>
       </div>
       <div class="max-w-6xl mx-auto py-1 px-3 flex flex-wrap items-center justify-center gap-1 sm:gap-3">
         <button type="button" class="nav-inst-btn" data-nav-target="vela">🕯 Vela 7 Dias</button>
-        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Trilhas 21 Dias</button>
+        <button type="button" class="nav-inst-btn" data-nav-target="trilhas">🗓 Mais Trilhas</button>
         <button type="button" class="nav-inst-btn" data-nav-target="blog">📰 Blog</button>
         <button type="button" class="nav-inst-btn" data-nav-target="quem-somos">Quem Somos</button>
         <button type="button" class="nav-inst-btn" data-nav-target="privacidade">Privacidade</button>
@@ -229,8 +233,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="inicio">🏠 Início (Tela Principal)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="cafe-diario">☕ Café Espiritual do Dia</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="propositos">🕊 40 Dias de Propósitos (Escolha Seu Propósito)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="arcanjo-miguel">⚔️ São Miguel Arcanjo (21 Dias)</button>
-          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7, 9 e 21 Dias)</button>
+          <button type="button" class="btn-secondary justify-start text-left" data-nav-target="trilhas">🗓 Trilhas de Oração (7 a 21 Dias)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vertente">✝ Espaço da Minha Fé</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="oracoes">🙏 Orações Fortes (Católica e Evangélica)</button>
           <button type="button" class="btn-secondary justify-start text-left" data-nav-target="vela">🕯 Vela Virtual de 7 Dias</button>
@@ -527,6 +532,23 @@
             </span>
           </button>
 
+          <button type="button" class="door-card-btn" data-nav-target="propositos">
+            <div>
+              <span id="home-purpose-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-accent-soft); color: var(--accent-blue); border-color: var(--border-color);">
+                🕊 Jornada de 40 Dias
+              </span>
+              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
+                🕊 40 Dias de Propósitos
+              </h3>
+              <p id="home-purpose-teaser" class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+                Escolha um propósito de vida (Paz, Família, Saúde ou Sabedoria) com mensagem bíblica diária por 40 dias.
+              </p>
+            </div>
+            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
+              Escolher meu propósito ›
+            </span>
+          </button>
+
           <button type="button" class="door-card-btn" data-nav-target="arcanjo-miguel">
             <div>
               <span id="home-miguel-badge" class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
@@ -547,13 +569,13 @@
           <button type="button" class="door-card-btn" data-nav-target="oracoes">
             <div>
               <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
-                🙏 Católicas &amp; Evangélicas
+                🙏 Mais de 40 Orações com Áudio
               </span>
               <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
                 🙏 Ler e Ouvir Orações Fortes
               </h3>
               <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
-                Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, Cura e Família.
+                Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, São Judas Tadeu, Cura e Netos.
               </p>
             </div>
             <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
@@ -594,23 +616,6 @@
               Toque aqui para abrir ›
             </span>
           </button>
-
-          <button type="button" class="door-card-btn" data-nav-target="salvar-app">
-            <div>
-              <span class="font-mono-label inline-block mb-3 px-2.5 py-1 rounded-full border" style="background-color: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color);">
-                📲 Ícone na Tela do Celular
-              </span>
-              <h3 class="font-display text-xl mb-1.5" style="color: var(--text-main);">
-                📲 Colocar Atalho no Meu Celular
-              </h3>
-              <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
-                Salve como ícone igual aplicativo ou baixe o lembrete diário na agenda.
-              </p>
-            </div>
-            <span class="text-sm hover:underline pt-3 border-t w-full" style="color: var(--accent-blue); border-color: var(--border-color);">
-              Ver como salvar ›
-            </span>
-          </button>
         </div>
 
         <!-- Step 3 Inline Section: How to receive the daily message (WhatsApp Form + Clear Guidance) -->
@@ -625,9 +630,33 @@
             <p id="home-whatsapp-teaser" class="text-base leading-relaxed" style="color: var(--text-secondary);">
               Preencha seu nome, seu WhatsApp com DDD e o melhor horário logo abaixo. É 100% gratuito, sem propaganda e sem precisar de senha.
             </p>
+            <div class="flex flex-wrap gap-3 pt-1">
+              <button type="button" class="btn-secondary text-sm" data-nav-target="salvar-app">
+                📲 Ver Como Salvar Ícone na Tela do Celular ›
+              </button>
+              <button type="button" class="btn-secondary text-sm" data-nav-target="trilhas">
+                🗓 Ver Todas as Trilhas de 7 a 21 Dias ›
+              </button>
+            </div>
           </div>
           <div id="home-whatsapp-slot"></div>
         </div>
+      </section>
+
+      <!-- Sacred Biblical Renaissance Art Gallery Section -->
+      <section id="home-sacred-gallery-section" class="max-w-5xl mx-auto space-y-6" aria-labelledby="home-sacred-gallery-heading">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b pb-4" style="border-color: var(--border-color);">
+          <div>
+            <span class="font-mono-label block mb-1" style="color: var(--accent-blue);">Arte Sacra Renascentista • Passagens da Bíblia</span>
+            <h2 id="home-sacred-gallery-heading" class="font-display heading-section" style="color: var(--text-main);">
+              Épocas e Cenas da Bíblia Sagrada em Quadros Clássicos
+            </h2>
+            <p class="text-base mt-1" style="color: var(--text-secondary);">
+              Contemple pinturas clássicas da Criação até Pentecostes, ouça cada história bíblica em voz calma e abra a passagem correspondente.
+            </p>
+          </div>
+        </div>
+        <div id="home-sacred-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </section>
 
       <!-- Visible FAQ Section matching Schema FAQPage (SEO + GEO + Senior Help) -->
@@ -655,7 +684,7 @@
           <details class="faq-details">
             <summary>3. A Bíblia Online e as orações em áudio são gratuitas?</summary>
             <p class="pt-2 text-base leading-relaxed" style="color: var(--text-secondary);">
-              Sim. Toda a Bíblia Online Católica (73 livros) e Evangélica (66 livros), as mais de 30 orações fortes, a jornada de 21 dias de São Miguel Arcanjo e o recurso de ouvir em voz calma são 100% gratuitos.
+              Sim. Toda a Bíblia Online Católica (73 livros) e Evangélica (66 livros), as mais de 40 orações fortes, os 40 Dias de Propósitos, a jornada de 21 dias de São Miguel Arcanjo e o recurso de ouvir em voz calma são 100% gratuitos.
             </p>
           </details>
           <details class="faq-details">
@@ -804,10 +833,18 @@
     </section>
 
     <!-- =========================================================
-         SECTION 1E: TRILHAS DE ORAÇÃO (JORNADAS DE 7, 9 E 21 DIAS)
+         SECTION 1E: TRILHAS DE ORAÇÃO (JORNADAS DE 7, 9, 12, 14 E 21 DIAS)
          ========================================================= -->
     <section data-section-view="trilhas" class="hidden space-y-6" aria-labelledby="trilhas-main-heading">
       <div id="trilhas-container"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 1G: 40 DIAS DE PROPÓSITOS (PROPÓSITO DE VIDA COM MENSAGENS DA BÍBLIA)
+         ========================================================= -->
+    <section data-section-view="propositos" class="hidden space-y-6" aria-labelledby="propositos-main-heading">
+      <div id="propositos-container"></div>
+      <div id="propositos-whatsapp-slot" class="max-w-3xl mx-auto"></div>
     </section>
 
     <!-- =========================================================
@@ -1130,6 +1167,7 @@
 
       <!-- Focused Full-Chapter Reader Card -->
       <article id="library-reader-card" class="surface-card p-6 sm:p-10 max-w-3xl mx-auto">
+        <div id="library-artwork-banner" class="hidden mb-6 overflow-hidden rounded-[14px] border" style="border-color: var(--border-color);"></div>
         <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b" style="border-color: var(--border-color);">
           <div>
             <p id="library-canonical-title" class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-wine);"></p>
@@ -1398,6 +1436,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-2 text-[15px] leading-[1.9]">
           <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="inicio">Início</button>
           <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="cafe-diario">Café Diário</button>
+          <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="propositos">40 Dias de Propósitos</button>
           <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="arcanjo-miguel">Arcanjo Miguel</button>
           <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="trilhas">Trilhas 21 Dias</button>
           <button type="button" class="text-left hover:underline" style="color: var(--text-secondary);" data-nav-target="oracoes">Orações Fortes</button>
@@ -1448,6 +1487,7 @@
   <script src="js/data-traditions.js"></script>
   <script src="js/data-content.js"></script>
   <script src="js/data-retention.js"></script>
+  <script src="js/data-purposes.js"></script>
   <script src="js/data-bible-full.js"></script>
   <script src="js/data-catolica-deutero.js"></script>
   <script src="js/app.js"></script>

@@ -523,6 +523,7 @@ window.PRAYER_TRACKS = [
     traditionId: "evangelica",
     traditionLabel: "Fé Evangélica e Cristã Bíblica",
     badge: "Jornada Bíblica de 7 Dias",
+    imagePath: "assets/sacred/davi-salmos-harpa.jpg",
     description: "Uma semana completa meditando nos sete grandes Salmos de proteção, livramento, saúde emocional e confiança no Bom Pastor.",
     days: [
       {
@@ -598,6 +599,7 @@ window.PRAYER_TRACKS = [
     traditionId: "catolica",
     traditionLabel: "Fé Católica",
     badge: "Novena Tradicional de 9 Dias",
+    imagePath: "assets/sacred/anunciacao-maria.jpg",
     description: "Nove dias de oração serena entregando às mãos maternas de Maria os nós de conflitos familiares, preocupações de saúde ou causas difíceis.",
     days: [
       {
@@ -691,6 +693,7 @@ window.PRAYER_TRACKS = [
     traditionId: "evangelica",
     traditionLabel: "Fé Evangélica e Bíblica",
     badge: "Trilha Bíblica da Família (7 Dias)",
+    imagePath: "assets/sacred/arca-noe-alianca.jpg",
     description: "Sete dias de clamores bíblicos pela proteção do casamento, sabedoria dos filhos, saúde dos pais idosos e futuro abençoado dos netos.",
     days: [
       {
@@ -766,6 +769,7 @@ window.PRAYER_TRACKS = [
     traditionId: "catolica",
     traditionLabel: "Fé Católica e Esperança",
     badge: "Novena Cristã de Cura (9 Dias)",
+    imagePath: "assets/sacred/jesus-bom-pastor.jpg",
     description: "Nove dias serenos de oração para quem enfrenta tratamentos de saúde, cirurgias, dores crônicas, cansaço da mente ou cuida de um familiar doente.",
     days: [
       {
@@ -849,6 +853,78 @@ window.PRAYER_TRACKS = [
         meditation: "Agradeça hoje por cada passo superado e continue firme na fé e nos cuidados diários.",
         prayer: "Obrigado, Senhor Jesus, por me sustentar até aqui! Entrego minha saúde em Tuas mãos hoje e sempre. Amém!"
       }
+    ]
+  },
+  {
+    id: "sabedoria-proverbios-14",
+    title: "14 Dias de Sabedoria em Provérbios e Evangelhos",
+    shortTitle: "Sabedoria Bíblica (14 Dias)",
+    durationDays: 14,
+    traditionId: "evangelica",
+    traditionLabel: "Fé Católica e Evangélica",
+    badge: "Trilha Bíblica de 14 Dias",
+    imagePath: "assets/sacred/moises-monte-sinai.jpg",
+    description: "Duas semanas de conselhos claros da Bíblia sobre calma, decisões familiares, honestidade, prudência financeira e paz no falar.",
+    days: [
+      { day: 1, title: "Dia 1 de 14 - O Princípio da Luz", intention: "Pedir sabedoria divina antes de agir.", scriptureRef: "Provérbios 9:10", scriptureText: "O temor do Senhor é o princípio da sabedoria.", meditation: "Começar o dia consultando Deus em uma prece breve evita arrependimentos futuros.", prayer: "Senhor, dá-me um coração sábio e atento à Tua voz neste primeiro dia. Amém." },
+      { day: 2, title: "Dia 2 de 14 - Caminhos Endireitados", intention: "Confiar nas decisões guiadas por Cristo.", scriptureRef: "Provérbios 3:5-6", scriptureText: "Confia no Senhor de todo o teu coração; reconhece-o em todos os teus caminhos.", meditation: "Quando apresentamos nossas dúvidas a Deus, a clareza chega na hora certa.", prayer: "Entrego meus planos e decisões familiares diante de Ti, Senhor. Amém." },
+      { day: 3, title: "Dia 3 de 14 - Palavras Mansamente Escolhidas", intention: "Cuidar do tom ao falar em família.", scriptureRef: "Provérbios 15:1", scriptureText: "A resposta branda desvia o furor.", meditation: "A palavra branda cura discussões antes mesmo que cresçam dentro de casa.", prayer: "Guarda meus lábios hoje para que levem ternura e respeito. Amém." },
+      { day: 4, title: "Dia 4 de 14 - Evitar a Pressa Ansiosa", intention: "Decidir com paciência e equilíbrio.", scriptureRef: "Provérbios 19:2", scriptureText: "Quem se apressa com os seus pés, peca.", meditation: "Não precisamos responder tudo no calor do momento; a serenidade protege.", prayer: "Ensina-me a esperar o tempo certo sem ansiedade, Senhor. Amém." },
+      { day: 5, title: "Dia 5 de 14 - Conselhos Sábios", intention: "Ouvir pessoas íntegras e experientes.", scriptureRef: "Provérbios 11:14", scriptureText: "Na multidão de conselheiros há segurança.", meditation: "Partilhar dúvidas com quem ama Deus nos guarda de enganos.", prayer: "Aproxima de mim pessoas honestas e sábias na fé. Amém." },
+      { day: 6, title: "Dia 6 de 14 - Proteger o Próprio Coração", intention: "Filtrar preocupações e boatos.", scriptureRef: "Provérbios 4:23", scriptureText: "Sobre tudo o que se deve guardar, guarda o teu coração.", meditation: "Aquilo que alimenta nossos olhos e ouvidos molda nossa paz interior.", prayer: "Guarda minha mente de notícias ruins e ressentimentos, Senhor. Amém." },
+      { day: 7, title: "Dia 7 de 14 - Casa Edificada com Prudência", intention: "Abençoar o lar com firmeza espiritual.", scriptureRef: "Mateus 7:24", scriptureText: "Todo aquele que ouve estas minhas palavras e as pratica será comparado ao homem prudente sobre a rocha.", meditation: "Fechando a primeira semana, a obediência simples sustenta toda a casa.", prayer: "Edifica minha família sobre a Tua Rocha firme, Jesus. Amém." },
+      { day: 8, title: "Dia 8 de 14 - Equilíbrio nos Recursos", intention: "Gratidão pelo sustento diário.", scriptureRef: "Provérbios 21:20", scriptureText: "Tesouro desejável e azeite há na casa do sábio.", meditation: "A paz financeira começa com tranquilidade, organização simples e ação de graças.", prayer: "Dá-nos prudência para administrar com calma o pão de cada dia. Amém." },
+      { day: 9, title: "Dia 9 de 14 - Alegria que Cura", intention: "Cultivar ânimo sereno em casa.", scriptureRef: "Provérbios 17:22", scriptureText: "O coração alegre serve de bom remédio.", meditation: "Um coração grato ajuda o corpo inteiro a atravessar os dias com saúde.", prayer: "Derrama alegria serena e bom humor santo em nosso lar. Amém." },
+      { day: 10, title: "Dia 10 de 14 - Humildade Antes da Honra", intention: "Manter simplicidade nos relacionamentos.", scriptureRef: "Provérbios 15:33", scriptureText: "Diante da honra vai a humildade.", meditation: "Quem reconhece seus limites vive mais leve e mais perto de Deus.", prayer: "Conserva sempre simples e manso o meu coração. Amém." },
+      { day: 11, title: "Dia 11 de 14 - Ouvir Mais e Falar Depois", intention: "Dar atenção verdadeira aos mais próximos.", scriptureRef: "Tiago 1:19", scriptureText: "Todo homem seja pronto para ouvir, tardio para falar.", meditation: "Escutar um filho ou neto com paciência vale mais que mil discursos.", prayer: "Dá-me ouvidos atentos e coração acolhedor hoje. Amém." },
+      { day: 12, title: "Dia 12 de 14 - Luz que Cresce na Maturidade", intention: "Valorizar a sabedoria dos anos.", scriptureRef: "Provérbios 4:18", scriptureText: "A vereda dos justos é como a luz da aurora, que vai brilhando mais e mais.", meditation: "Cada ano vivido na fé acrescenta profundidade ao nosso olhar.", prayer: "Obrigado pela lucidez e pela luz crescente em meu caminhar. Amém." },
+      { day: 13, title: "Dia 13 de 14 - Sabedoria que Traz Paz", intention: "Semear concórdia entre parentes.", scriptureRef: "Tiago 3:17", scriptureText: "A sabedoria que do alto vem é primeiramente pura, depois pacífica, moderada.", meditation: "Onde há sabedoria de Deus, não sobram intrigas nem amarguras.", prayer: "Faz de mim um instrumento de paz em cada conversa hoje. Amém." },
+      { day: 14, title: "Dia 14 de 14 - Gratidão pela Luz Recebida", intention: "Encerrar abençoando os passos futuros.", scriptureRef: "Tiago 1:5", scriptureText: "Se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente.", meditation: "Concluímos estes 14 dias lembrando que Deus continua pronto a nos guiar todo dia.", prayer: "Obrigado, Senhor, pela sabedoria concedida nestes 14 dias! Amém!" }
+    ]
+  },
+  {
+    id: "consolo-saudade-7",
+    title: "7 Dias de Consolo na Saudade e Renovação da Esperança",
+    shortTitle: "Consolo e Esperança (7 Dias)",
+    durationDays: 7,
+    traditionId: "catolica",
+    traditionLabel: "Fé Católica e Evangélica",
+    badge: "Trilha de Consolo (7 Dias)",
+    imagePath: "assets/sacred/tempestade-acalmada.jpg",
+    description: "Sete dias delicados de acolhimento cristão para quem enfrenta luto, saudade silenciosa em casa ou dias em que a tristeza aperta.",
+    days: [
+      { day: 1, title: "Dia 1 de 7 - O Senhor Perto dos Que Choram", intention: "Permitir-se ser consolado pelo amor de Deus.", scriptureRef: "Salmo 34:18", scriptureText: "Perto está o Senhor dos que têm o coração quebrantado.", meditation: "Você não precisa esconder sua saudade diante de Deus; Ele acolhe cada lágrima.", prayer: "Senhor, aproxima-Te do meu coração hoje e derrama consolo suave. Amém." },
+      { day: 2, title: "Dia 2 de 7 - Muitas Moradas na Casa do Pai", intention: "Renovar a esperança na eternidade em Cristo.", scriptureRef: "João 14:2", scriptureText: "Na casa de meu Pai há muitas moradas.", meditation: "O amor vivido em família permanece guardado nas mãos eternas do Criador.", prayer: "Jesus, sustenta minha esperança nas Tuas promessas eternas. Amém." },
+      { day: 3, title: "Dia 3 de 7 - Lágrimas Enxugadas Por Deus", intention: "Entregar a dor mais profunda ao Consolador.", scriptureRef: "Apocalipse 21:4", scriptureText: "E Deus limpará de seus olhos toda a lágrima.", meditation: "Um dia toda dor dará lugar ao abraço eterno sem despedidas.", prayer: "Espírito Santo Consolador, enxuga com ternura as minhas lágrimas hoje. Amém." },
+      { day: 4, title: "Dia 4 de 7 - O Bom Pastor Pelo Vale", intention: "Sentir a companhia divina nas horas silenciosas.", scriptureRef: "Salmo 23:4", scriptureText: "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo.", meditation: "Mesmo quando a casa parece quieta demais, o Pastor caminha junto contigo.", prayer: "Obrigado por não me deixares atravessar este vale sozinho, Senhor. Amém." },
+      { day: 5, title: "Dia 5 de 7 - Memórias Bonitas com Gratidão", intention: "Honrar em oração a história vivida com quem partiu.", scriptureRef: "Filipenses 1:3", scriptureText: "Dou graças ao meu Deus todas as vezes que me lembro de vós.", meditation: "A saudade aos poucos se transforma em gratidão pelo amor compartilhado.", prayer: "Obrigado pelas lembranças bonitas que permanecem vivas no coração. Amém." },
+      { day: 6, title: "Dia 6 de 7 - Alegria que Volta ao Amanhecer", intention: "Abrir espaço suave para novos sorrisos e convívio.", scriptureRef: "Salmo 30:5", scriptureText: "O choro pode durar uma noite, mas a alegria vem pela manhã.", meditation: "Deus respeita o tempo do coração e traz delicadamente novas manhãs de paz.", prayer: "Renova aos poucos meu ânimo e minha vontade de conviver em paz. Amém." },
+      { day: 7, title: "Dia 7 de 7 - Abraçado Pelo Amor Eterno", intention: "Seguir em frente em paz e comunhão familiar.", scriptureRef: "Mateus 5:4", scriptureText: "Bem-aventurados os que choram, porque eles serão consolados.", meditation: "Encerramos esta semana certos de que o Consolador segue segurando nossa mão.", prayer: "Amém! Obrigado, Pai de misericórdia, pelo consolo destes 7 dias." }
+    ]
+  },
+  {
+    id: "gratidao-salmos-12",
+    title: "12 Dias de Gratidão e Louvor nos Salmos de Davi",
+    shortTitle: "Salmos de Gratidão (12 Dias)",
+    durationDays: 12,
+    traditionId: "evangelica",
+    traditionLabel: "Fé Católica e Evangélica",
+    badge: "Trilha de Louvor (12 Dias)",
+    imagePath: "assets/sacred/davi-salmos-harpa.jpg",
+    description: "Doze dias recitando os Salmos mais luminosos de ação de graças para transformar o ambiente do lar com paz e esperança.",
+    days: [
+      { day: 1, title: "Dia 1 de 12 - Entrar Pelas Portas com Ação de Graças", scriptureRef: "Salmo 100:4", scriptureText: "Entrai pelas portas dele com gratidão, e em seus átrios com louvor.", intention: "Abrir o dia agradecendo.", meditation: "A gratidão abre o coração para enxergar bênçãos antes escondidas.", prayer: "Bendigo o Teu nome desde o despertar deste dia, Senhor. Amém." },
+      { day: 2, title: "Dia 2 de 12 - Não Esquecer Nenhum Benefício", scriptureRef: "Salmo 103:2", scriptureText: "Bendize, ó minha alma, ao Senhor, e não te esqueças de nenhum de seus benefícios.", intention: "Recordar livramentos passados.", meditation: "Lembrar o que Deus já fez no passado fortalece a fé no presente.", prayer: "Obrigado por cada livramento vivido até hoje em minha vida. Amém." },
+      { day: 3, title: "Dia 3 de 12 - Este é o Dia que o Senhor Fez", scriptureRef: "Salmo 118:24", scriptureText: "Este é o dia que fez o Senhor; regozijemo-nos, e alegremo-nos nele.", intention: "Celebrar o presente simples.", meditation: "Cada manhã é milagre renovado diante dos nossos olhos.", prayer: "Alegro-me pelo dom de viver este dia na Tua presença. Amém." },
+      { day: 4, title: "Dia 4 de 12 - Os Céus Proclamam a Glória", scriptureRef: "Salmo 19:1", scriptureText: "Os céus declaram a glória de Deus e o firmamento anuncia a obra das suas mãos.", intention: "Contemplar a criação com admiração.", meditation: "O sol, as nuvens e as árvores testemunham o amor do Criador.", prayer: "Louvo-Te pela beleza da criação diante dos meus olhos hoje. Amém." },
+      { day: 5, title: "Dia 5 de 12 - A Mão Que Sustenta Tudo", scriptureRef: "Salmo 145:16", scriptureText: "Abres a tua mão, e fartas os desejos de todos os viventes.", intention: "Agradecer pelo alimento e moradia.", meditation: "Do menor grão na cozinha ao teto que abriga, tudo vem da bondade divina.", prayer: "Obrigado pelo pão, pela água e pela proteção sobre nossa casa. Amém." },
+      { day: 6, title: "Dia 6 de 12 - Louvor Nas Horas Calmas", scriptureRef: "Salmo 34:1", scriptureText: "Louvarei ao Senhor em todo o tempo; o seu louvor estará continuamente na minha boca.", intention: "Trocar murmuração por gratidão.", meditation: "Falar palavras de agradecimento acalma quem fala e quem escuta.", prayer: "Que minha boca pronuncie bênçãos e gratidão o dia inteiro. Amém." },
+      { day: 7, title: "Dia 7 de 12 - O Amor Que Dura Para Sempre", scriptureRef: "Salmo 136:1", scriptureText: "Louvai ao Senhor, porque ele é bom; porque a sua benignidade dura para sempre.", intention: "Confiar na misericórdia eterna.", meditation: "A bondade de Deus nunca vence prazo nem perde validade.", prayer: "Obrigado pela Tua misericórdia constante sobre minha família. Amém." },
+      { day: 8, title: "Dia 8 de 12 - Agradecer Pelo Descanso", scriptureRef: "Salmo 127:2", scriptureText: "Assim dá ele aos seus amados o sono.", intention: "Valorizar o repouso noturno.", meditation: "Dormir tranquilo sabendo que Deus vigia é motivo de louvor.", prayer: "Obrigado pelo descanso que restaura minhas forças todas as noites. Amém." },
+      { day: 9, title: "Dia 9 de 12 - Cântico Novo no Coração", scriptureRef: "Salmo 96:1", scriptureText: "Cantai ao Senhor um cântico novo.", intention: "Renovar o ânimo com esperança.", meditation: "Nunca ficamos velhos demais para celebrar uma nova graça de Deus.", prayer: "Coloca um cântico novo de esperança em meu coração hoje. Amém." },
+      { day: 10, title: "Dia 10 de 12 - União Abençoada", scriptureRef: "Salmo 133:1", scriptureText: "Oh! quão bom e quão suave é que os irmãos vivam em união!", intention: "Agradecer pelos familiares e amigos.", meditation: "Cada telefonema ou visita amiga merece um obrigado sincero a Deus.", prayer: "Obrigado pelas pessoas queridas que alegram minha caminhada. Amém." },
+      { day: 11, title: "Dia 11 de 12 - Proteção Que Merece Louvor", scriptureRef: "Salmo 91:2", scriptureText: "Direi do Senhor: Ele é o meu Deus, o meu refúgio, a minha fortaleza.", intention: "Reconhecer os livramentos ocultos.", meditation: "Quantos perigos silenciosos foram desviados sem que sequer notássemos.", prayer: "Obrigado por tantos livramentos visíveis e invisíveis, Senhor. Amém." },
+      { day: 12, title: "Dia 12 de 12 - Tudo O Que Respira Louve Ao Senhor", scriptureRef: "Salmo 150:6", scriptureText: "Tudo quanto tem fôlego louve ao Senhor. Louvai ao Senhor.", intention: "Encerrar em pura adoração grata.", meditation: "Enquanto houver fôlego de vida, há razão para agradecer e esperar o bem.", prayer: "Aleluia e amém! Obrigado por estes 12 dias de louvor nos Salmos!" }
     ]
   }
 ];
