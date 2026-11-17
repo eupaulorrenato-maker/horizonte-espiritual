@@ -1,8 +1,8 @@
 {
   "id": "./index.html",
-  "name": "Horizonte Espiritual - Devocional Cristão e Bíblia Online",
+  "name": "Horizonte Espiritual - Devocional, Bíblia Online e Obras Espíritas",
   "short_name": "Horizonte",
-  "description": "Café Espiritual do Dia, Perguntas Bíblicas Respondidas, 40 Dias de Propósitos, São Miguel Arcanjo (21 Dias), orações católicas e evangélicas em áudio, vela virtual de 7 dias e Bíblia Online completa.",
+  "description": "Café Espiritual do Dia, Perguntas Bíblicas Respondidas, 40 Dias de Propósitos, São Miguel Arcanjo (21 Dias), 56 orações católicas, evangélicas e espíritas em áudio, vela virtual de 7 dias, Bíblia Online completa e Obras Espíritas de Allan Kardec.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

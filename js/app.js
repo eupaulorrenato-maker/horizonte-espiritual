@@ -22,8 +22,9 @@
     theme: "light",
     readerFontSizePx: 20,
 
-    // Perguntas Bíblicas (JW.ORG Q&A)
+    // Perguntas Bíblicas (JW.ORG Q&A) & Conteúdos para Edificar o Lar
     activeBibleQuestionId: null,
+    activeEdifyingArtId: null,
 
     // Orações Fortes (Paginated directory + dedicated single-prayer page)
     prayerCategory: "todas",
@@ -39,10 +40,12 @@
     candlesPerPage: 4,
     flamePaused: false,
 
-    // Biblioteca Sagrada (Unified local complete works engine: Book Index + Chapter Index)
+    // Biblioteca Sagrada (Bíblia Completa) + Obras Espíritas Completas
     libraryTraditionId: "catolica",
     libraryBookIndex: 0,
     libraryChapterIndex: 0,
+    spiritistWorkIndex: 0,
+    spiritistChapterIndex: 0,
 
     // Retenção Diária ("Café Espiritual", "Arcanjo Miguel 21 Dias", "Trilhas", "WhatsApp", "PWA")
     cafeSelectedDay: new Date().getDate(),
@@ -276,8 +279,8 @@
       setAudioBanner(
         true,
         chunks.length > 1
-          ? "🔊 Lendo em voz calma (" + (index + 1) + " de " + chunks.length + "). Toque em Parar Áudio Agora se desejar."
-          : "🔊 Lendo em voz calma para você. Toque no botão ao lado para parar."
+          ? "Lendo em voz calma (" + (index + 1) + " de " + chunks.length + "). Toque em Parar Áudio se desejar."
+          : "Lendo em voz calma para você. Toque no botão ao lado para parar."
       );
 
       try {
@@ -349,7 +352,7 @@
     inicio: "Página Inicial",
     "perguntas-biblicas": "Perguntas Bíblicas Respondidas",
     vertente: "Fé & Mensagem",
-    "cafe-diario": "Texto Diário (Café com Deus)",
+    "cafe-diario": "Texto Diário (Café Espiritual)",
     propositos: "40 Dias de Propósitos",
     "arcanjo-miguel": "São Miguel Arcanjo (21 Dias)",
     trilhas: "Trilhas de Oração",
@@ -357,6 +360,7 @@
     oracoes: "Orações Fortes",
     vela: "Vela Virtual de 7 Dias",
     escrituras: "Bíblia Online Completa",
+    "obras-espiritas": "Obras Espíritas Completas",
     alento: "Palavras para Momentos Difíceis",
     quiz: "Perguntas sobre a Bíblia",
     blog: "Artigos e Reflexões",
@@ -377,6 +381,7 @@
     oracoes: "oracoes",
     vela: "vela-7-dias",
     escrituras: "biblia-online",
+    "obras-espiritas": "obras-espiritas",
     alento: "alento",
     quiz: "quiz",
     blog: "blog",
@@ -387,8 +392,8 @@
 
   var SECTION_SEO_META = {
     inicio: {
-      title: "Horizonte Espiritual | Perguntas Bíblicas, Texto Diário, 40 Dias e Bíblia Online",
-      description: "Portal bíblico gratuito em português com letras grandes e leitura em áudio: Perguntas Bíblicas Respondidas, Texto Diário (Café com Deus), 40 Dias de Propósitos, São Miguel Arcanjo e Bíblia Online completa."
+      title: "Horizonte Espiritual | Bíblia Online, Obras Espíritas, Texto Diário e 40 Dias",
+      description: "Portal espiritual e bíblico gratuito em português com letras grandes e áudio: Perguntas Bíblicas Respondidas, Texto Diário, 40 Dias de Propósitos, 56 Orações Fortes, Bíblia Online completa e Obras Espíritas de Allan Kardec."
     },
     "perguntas-biblicas": {
       title: "Perguntas Bíblicas Respondidas com Áudio | Horizonte Espiritual",
@@ -400,7 +405,7 @@
     },
     propositos: {
       title: "40 Dias de Propósitos com Deus | Horizonte Espiritual",
-      description: "Escolha seu propósito (Vida em Deus, Família Abençoada, Saúde e Cura ou Sabedoria e Fé) e caminhe 40 dias com passagens da Bíblia e leitura em áudio."
+      description: "Escolha seu propósito (Vida em Deus, Família Abençoada, Saúde e Cura, Sabedoria e Fé ou Caridade e Reforma Íntima) e caminhe 40 dias com leitura e áudio."
     },
     "arcanjo-miguel": {
       title: "Oração de São Miguel Arcanjo 21 Dias | Horizonte Espiritual",
@@ -408,11 +413,11 @@
     },
     trilhas: {
       title: "Trilhas de Oração de 7 a 21 Dias | Horizonte Espiritual",
-      description: "Caminhadas diárias de oração com Salmos, Provérbios, Família, Cura, Consolo e Nossa Senhora Desatadora dos Nós em letras grandes."
+      description: "10 caminhadas diárias de oração com Salmos, Provérbios, Família, Cura, Consolo, Evangelho no Lar e Nossa Senhora Desatadora dos Nós em letras grandes."
     },
     oracoes: {
-      title: "Mais de 40 Orações Fortes Católicas e Evangélicas em Áudio | Horizonte Espiritual",
-      description: "Leia e escute em voz calma Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, orações pela saúde, filhos e netos."
+      title: "56 Orações Fortes Católicas, Evangélicas e Espíritas em Áudio | Horizonte Espiritual",
+      description: "Leia e escute em voz calma Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, Prece de Cáritas, Evangelho no Lar e orações pela saúde e família."
     },
     vela: {
       title: "Vela Virtual de 7 Dias Gratuita pela Família | Horizonte Espiritual",
@@ -422,13 +427,17 @@
       title: "Bíblia Online Completa Católica (73 Livros) e Evangélica (66) | Horizonte Espiritual",
       description: "Leia na íntegra todos os capítulos da Bíblia Católica (73 livros) e Evangélica (66 livros) com fonte ampliável e narração contínua em áudio."
     },
+    "obras-espiritas": {
+      title: "Obras Espíritas Completas (Allan Kardec e Domínio Público) | Horizonte Espiritual",
+      description: "Leia e ouça gratuitamente 10 obras completas da Doutrina Espírita em domínio público, incluindo O Livro dos Espíritos e O Evangelho Segundo o Espiritismo."
+    },
     blog: {
-      title: "Blog Cristão e Reflexões Bíblicas | Horizonte Espiritual",
+      title: "Blog Espiritual e Reflexões | Horizonte Espiritual",
       description: "Artigos sobre oração na maturidade, Salmos de proteção, esperança em Cristo e vida devocional diária em áudio."
     },
     "quem-somos": {
       title: "Quem Somos e Transparência Editorial | Horizonte Espiritual",
-      description: "Conheça a missão cristã, o compromisso com acessibilidade para idosos e os princípios editoriais do Horizonte Espiritual."
+      description: "Conheça a missão espiritual, o compromisso com acessibilidade para idosos e os princípios editoriais do Horizonte Espiritual."
     },
     privacidade: {
       title: "Política de Privacidade e LGPD | Horizonte Espiritual",
@@ -506,6 +515,7 @@
     if (sectionId === "inicio") {
       renderHomeVisualDoors();
       renderHomeQuestionsPreview();
+      renderHomeSacredGallery();
       renderHomeRetentionWidgets();
     } else if (sectionId === "perguntas-biblicas") {
       renderBibleQuestionsView();
@@ -527,6 +537,8 @@
       renderTraditionPage();
     } else if (sectionId === "escrituras") {
       renderSacredLibrary();
+    } else if (sectionId === "obras-espiritas") {
+      renderSpiritistLibrary();
     }
 
     var navButtons = document.querySelectorAll("[data-nav-target]");
@@ -562,7 +574,7 @@
           '<option value="' +
           escapeHtml(t.id) +
           '">' +
-          escapeHtml(t.symbol + " " + t.name) +
+          escapeHtml((t.symbol ? t.symbol + " " : "") + t.name) +
           "</option>";
       }
       tradSelect.innerHTML = tHtml;
@@ -599,12 +611,12 @@
 
     var headerBadge = document.getElementById("active-tradition-badge");
     if (headerBadge) {
-      headerBadge.textContent = tradition.symbol + " " + tradition.name;
+      headerBadge.textContent = (tradition.symbol ? tradition.symbol + " " : "") + tradition.name;
     }
 
     var enterTraditionBtn = document.getElementById("home-enter-tradition-btn");
     if (enterTraditionBtn) {
-      enterTraditionBtn.textContent = "✝ Abrir Espaço da Fé (" + tradition.name + ") →";
+      enterTraditionBtn.textContent = "Abrir Espaço da Fé (" + tradition.name + ") >";
     }
 
     var faithChoiceBtns = document.querySelectorAll("[data-home-trad-choice]");
@@ -615,7 +627,7 @@
       btn.classList.toggle("is-active", isChosen);
       var statusBadge = btn.querySelector("[data-choice-status]");
       if (statusBadge) {
-        statusBadge.textContent = isChosen ? "✓ Marcada" : "Toque para marcar";
+        statusBadge.textContent = isChosen ? "Selecionada" : "Selecionar";
       }
     }
 
@@ -676,13 +688,16 @@
       captionEl.textContent = tradition.imageCaption || tradition.tag;
     }
     if (titleEl) {
-      titleEl.textContent = tradition.symbol + " " + tradition.name;
+      titleEl.textContent = (tradition.symbol ? tradition.symbol + " " : "") + tradition.name;
     }
     if (subtitleEl) {
       subtitleEl.textContent = tradition.greeting;
     }
     if (workBtnLabel) {
-      workBtnLabel.textContent = "📖 Ler " + tradition.canonicalWorkTitle;
+      workBtnLabel.textContent =
+        tradition.id === "espirita"
+          ? "Ler Obras Espíritas Completas"
+          : "Ler " + tradition.canonicalWorkTitle;
     }
   }
 
@@ -691,9 +706,13 @@
     if (!found) return;
 
     state.selectedTraditionId = found.id;
-    state.libraryTraditionId = found.id;
-    state.libraryBookIndex = 0;
-    state.libraryChapterIndex = 0;
+    if (found.usesFullBibleIndex !== false) {
+      state.libraryTraditionId = found.id;
+      state.libraryBookIndex = 0;
+      state.libraryChapterIndex = 0;
+    } else if (state.libraryTraditionId !== "catolica" && state.libraryTraditionId !== "evangelica") {
+      state.libraryTraditionId = "catolica";
+    }
     state.prayerCategory = found.id;
     state.prayerPage = 1;
 
@@ -702,7 +721,10 @@
     }
 
     renderDailyPanel();
+    renderCafeDiario();
+    renderPrayersView();
     renderSacredLibrary();
+    renderSpiritistLibrary();
     populateCandleTraditionSelect();
 
     if (openTraditionPage) {
@@ -758,6 +780,10 @@
         protBooks.push(formatBibleBook(bible66[p]));
       }
       if (protBooks.length > 0) return protBooks;
+    }
+
+    if (traditionId === "espirita" && window.SPIRITIST_COMPLETE_WORKS && window.SPIRITIST_COMPLETE_WORKS.length > 0) {
+      return window.SPIRITIST_COMPLETE_WORKS;
     }
 
     return [
@@ -879,7 +905,7 @@
         escapeHtml(d.navTarget) +
         '">' +
         escapeHtml(d.ctaLabel || "Abrir Seção") +
-        " →</button>" +
+        " &gt;</button>" +
         "</div>" +
         "</article>";
     }
@@ -926,13 +952,13 @@
         '<div class="px-5 pb-5 pt-2 flex flex-wrap gap-2">' +
         '<button type="button" class="btn-secondary text-sm flex-1 justify-center" data-open-bible-question="' +
         escapeHtml(q.id) +
-        '">Ler Resposta →</button>' +
+        '">Ler Resposta &gt;</button>' +
         '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="bible-q-' +
         escapeHtml(q.id) +
         '" data-speak-bible-question="' +
         escapeHtml(q.id) +
         '" data-default-label="Ouvir" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        '<span data-speech-label>Ouvir</span>' +
         "</button>" +
         "</div>" +
         "</article>";
@@ -982,13 +1008,13 @@
         '<div class="px-5 pb-5 pt-2 flex flex-wrap gap-2">' +
         '<button type="button" class="btn-secondary text-sm flex-1 justify-center" data-open-bible-question="' +
         escapeHtml(q.id) +
-        '">Ler Resposta Completa →</button>' +
+        '">Ler Resposta Completa &gt;</button>' +
         '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="bible-q-' +
         escapeHtml(q.id) +
         '" data-speak-bible-question="' +
         escapeHtml(q.id) +
         '" data-default-label="Ouvir" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        '<span data-speech-label>Ouvir</span>' +
         "</button>" +
         "</div>" +
         "</article>";
@@ -1012,7 +1038,9 @@
         for (var kp = 0; kp < kpList.length; kp++) {
           keyPointsHtml +=
             '<li class="flex items-start gap-2.5 text-base leading-relaxed" style="color: var(--text-main);">' +
-            '<span class="font-bold shrink-0" style="color: var(--accent-primary);">✓</span>' +
+            '<span class="font-bold shrink-0" style="color: var(--accent-primary);">' +
+            (kp + 1) +
+            ".</span>" +
             "<span>" +
             escapeHtml(kpList[kp]) +
             "</span>" +
@@ -1042,7 +1070,7 @@
           '<div class="p-6 sm:p-10 space-y-6">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b" style="border-color: var(--border-color);">' +
           '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-bible-question">' +
-          "← Voltar para Todas as Perguntas" +
+          "Voltar para Todas as Perguntas" +
           "</button>" +
           '<div class="flex flex-wrap gap-2">' +
           '<button type="button" class="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2" data-speech-id="bible-q-' +
@@ -1050,12 +1078,12 @@
           '" data-speak-bible-question="' +
           escapeHtml(activeQ.id) +
           '" data-default-label="Ouvir Resposta em Áudio" aria-pressed="false">' +
-          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir Resposta em Áudio</span>' +
+          '<span data-speech-label>Ouvir Resposta em Áudio</span>' +
           "</button>" +
           '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-share-bible-question="' +
           escapeHtml(activeQ.id) +
           '">' +
-          '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+          "Enviar no WhatsApp" +
           "</button>" +
           "</div>" +
           "</div>" +
@@ -1094,7 +1122,7 @@
           "</div>" +
           (activeQ.prayerText
             ? '<div class="p-5 rounded border-l-4 space-y-2" style="background-color: var(--bg-accent-soft); border-color: var(--accent-primary);">' +
-              '<span class="jw-kicker">🙏 ORAÇÃO DE CONFIANÇA BASEADA NESTE ENSINO</span>' +
+              '<span class="jw-kicker">ORAÇÃO DE CONFIANÇA BASEADA NESTE ENSINO</span>' +
               '<p class="font-serif-sacred text-body-sacred italic leading-relaxed" style="color: var(--text-main);">' +
               escapeHtml(activeQ.prayerText) +
               "</p>" +
@@ -1102,14 +1130,14 @@
             : "") +
           '<div class="flex flex-wrap items-center justify-between gap-3 pt-5 border-t" style="border-color: var(--border-color);">' +
           '<button type="button" class="btn-secondary text-sm" data-action="close-bible-question">' +
-          "← Voltar para Todas as Perguntas" +
+          "Voltar para Todas as Perguntas" +
           "</button>" +
           (nextQ
             ? '<button type="button" class="btn-primary text-sm" data-open-bible-question="' +
               escapeHtml(nextQ.id) +
               '">Próxima Pergunta: ' +
               escapeHtml(nextQ.question) +
-              " →</button>"
+              " &gt;</button>"
             : "") +
           "</div>" +
           "</div>" +
@@ -1127,13 +1155,124 @@
 
   function renderHomeSacredGallery() {
     var grid = document.getElementById("home-sacred-gallery-grid");
+    var reader = document.getElementById("edifying-home-reader");
     if (!grid) return;
+
     var items = window.SACRED_RENAISSANCE_GALLERY || [];
+    var activeArt = null;
+    if (state.activeEdifyingArtId) {
+      for (var a = 0; a < items.length; a++) {
+        if (items[a].id === state.activeEdifyingArtId) {
+          activeArt = items[a];
+          break;
+        }
+      }
+    }
+
+    if (reader) {
+      if (activeArt) {
+        var studyParagraphs = "";
+        var paraList = activeArt.paragraphs || [];
+        for (var sp = 0; sp < paraList.length; sp++) {
+          studyParagraphs +=
+            '<p class="mb-4 font-serif-sacred text-body-sacred leading-relaxed" style="color: var(--text-main);">' +
+            escapeHtml(paraList[sp]) +
+            "</p>";
+        }
+
+        reader.classList.remove("hidden");
+        reader.innerHTML =
+          '<article class="edifying-reader-panel mb-6">' +
+          '<div class="relative h-60 sm:h-80 w-full" style="background-color: var(--bg-tile-dark);">' +
+          '<img src="' +
+          escapeHtml(activeArt.imagePath) +
+          '" alt="' +
+          escapeHtml(activeArt.title) +
+          '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+          '<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-7 text-white" style="background: linear-gradient(to top, rgba(20, 34, 61, 0.92) 0%, rgba(20, 34, 61, 0.4) 65%, transparent 100%);">' +
+          '<span class="text-xs font-bold uppercase tracking-wider text-white/90 mb-1">' +
+          escapeHtml(activeArt.era) +
+          "</span>" +
+          '<h3 class="font-display font-bold text-2xl sm:text-3xl text-white leading-snug">' +
+          escapeHtml(activeArt.title) +
+          "</h3>" +
+          "</div>" +
+          "</div>" +
+          '<div class="p-6 sm:p-9 space-y-6">' +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-sacred-art">' +
+          "Fechar Leitura" +
+          "</button>" +
+          '<div class="flex flex-wrap gap-2">' +
+          '<button type="button" class="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2" data-speech-id="sacred-art-' +
+          escapeHtml(activeArt.id) +
+          '" data-speak-sacred-art="' +
+          escapeHtml(activeArt.id) +
+          '" data-default-label="Ouvir Estudo Completo" aria-pressed="false">' +
+          '<span data-speech-label>Ouvir Estudo Completo</span>' +
+          "</button>" +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-open-sacred-bible="' +
+          escapeHtml(activeArt.id) +
+          '">' +
+          "Ver Texto Bíblico Relacionado" +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          (activeArt.quoteText
+            ? '<div class="p-5 sm:p-6 rounded border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+              '<blockquote class="font-serif-sacred text-body-sacred font-semibold mb-2" style="color: var(--text-main);">“' +
+              escapeHtml(activeArt.quoteText) +
+              "”</blockquote>" +
+              '<p class="font-mono-label font-bold" style="color: var(--accent-primary);">' +
+              escapeHtml(activeArt.scriptureRef) +
+              "</p>" +
+              "</div>"
+            : "") +
+          '<div class="pt-1">' +
+          studyParagraphs +
+          "</div>" +
+          (activeArt.homeAction
+            ? '<div class="p-5 rounded border-l-4 space-y-1.5" style="background-color: var(--bg-subtle); border-color: var(--accent-amber);">' +
+              '<span class="jw-kicker" style="color: var(--accent-amber);">GESTO PRÁTICO PARA EDIFICAR O LAR</span>' +
+              '<p class="text-base font-medium leading-relaxed" style="color: var(--text-main);">' +
+              escapeHtml(activeArt.homeAction) +
+              "</p>" +
+              "</div>"
+            : "") +
+          (activeArt.prayerText
+            ? '<div class="p-5 rounded border-l-4 space-y-1.5" style="background-color: var(--bg-accent-soft); border-color: var(--accent-primary);">' +
+              '<span class="jw-kicker">ORAÇÃO PELA SUA CASA E FAMÍLIA</span>' +
+              '<p class="font-serif-sacred text-body-sacred italic leading-relaxed" style="color: var(--text-main);">' +
+              escapeHtml(activeArt.prayerText) +
+              "</p>" +
+              "</div>"
+            : "") +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm" data-open-sacred-bible="' +
+          escapeHtml(activeArt.id) +
+          '">' +
+          "Ver Texto Bíblico Relacionado" +
+          "</button>" +
+          '<button type="button" class="btn-secondary text-sm" data-action="close-sacred-art">' +
+          "Fechar Leitura" +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          "</article>";
+      } else {
+        reader.classList.add("hidden");
+        reader.innerHTML = "";
+      }
+    }
+
     var html = "";
     for (var i = 0; i < items.length; i++) {
       var art = items[i];
+      var isActive = activeArt && activeArt.id === art.id;
       html +=
-        '<article class="jw-photo-card">' +
+        '<article class="jw-photo-card' +
+        (isActive ? " is-active" : "") +
+        '">' +
         "<div>" +
         '<div class="relative overflow-hidden" style="background-color: var(--bg-tile-dark);">' +
         '<img src="' +
@@ -1160,13 +1299,13 @@
         '<div class="px-5 pb-5 pt-2 flex flex-wrap gap-2">' +
         '<button type="button" class="btn-secondary text-sm flex-1 justify-center" data-open-sacred-art="' +
         escapeHtml(art.id) +
-        '">Abrir Passagem →</button>' +
+        '">Ler Conteúdo Completo</button>' +
         '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="sacred-art-' +
         escapeHtml(art.id) +
         '" data-speak-sacred-art="' +
         escapeHtml(art.id) +
         '" data-default-label="Ouvir" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        '<span data-speech-label>Ouvir</span>' +
         "</button>" +
         "</div>" +
         "</article>";
@@ -1186,17 +1325,29 @@
     var progressLabelEl = document.getElementById("library-progress-label");
 
     var traditions = getTraditions();
+    var bibleTraditions = [];
+    for (var bt = 0; bt < traditions.length; bt++) {
+      if (traditions[bt].usesFullBibleIndex !== false) {
+        bibleTraditions.push(traditions[bt]);
+      }
+    }
+    if (bibleTraditions.length === 0) bibleTraditions = traditions;
+
     if (selectEl && selectEl.options.length === 0) {
       var optsHtml = "";
-      for (var i = 0; i < traditions.length; i++) {
+      for (var i = 0; i < bibleTraditions.length; i++) {
         optsHtml +=
           '<option value="' +
-          escapeHtml(traditions[i].id) +
+          escapeHtml(bibleTraditions[i].id) +
           '">' +
-          escapeHtml(traditions[i].symbol + " " + traditions[i].canonicalWorkTitle + " (" + traditions[i].name + ")") +
+          escapeHtml(bibleTraditions[i].canonicalWorkTitle + " (" + bibleTraditions[i].name + ")") +
           "</option>";
       }
       selectEl.innerHTML = optsHtml;
+    }
+
+    if (state.libraryTraditionId !== "catolica" && state.libraryTraditionId !== "evangelica") {
+      state.libraryTraditionId = "catolica";
     }
 
     if (selectEl) {
@@ -1299,15 +1450,163 @@
     }
   }
 
+  function getSpiritistWorks() {
+    return window.SPIRITIST_COMPLETE_WORKS || [];
+  }
+
+  function renderSpiritistLibrary() {
+    var shelfEl = document.getElementById("spiritist-works-shelf");
+    var workSelectEl = document.getElementById("spiritist-work-select");
+    var chapterSelectEl = document.getElementById("spiritist-chapter-select");
+    var progressLabelEl = document.getElementById("spiritist-progress-label");
+    var bannerEl = document.getElementById("spiritist-artwork-banner");
+    var canonicalTitleEl = document.getElementById("spiritist-canonical-title");
+    var chapterHeadingEl = document.getElementById("spiritist-chapter-heading");
+    var versesContainerEl = document.getElementById("spiritist-verses-container");
+
+    var works = getSpiritistWorks();
+    if (works.length === 0) return;
+
+    if (state.spiritistWorkIndex >= works.length || state.spiritistWorkIndex < 0) {
+      state.spiritistWorkIndex = 0;
+    }
+
+    if (shelfEl) {
+      var shelfHtml = "";
+      for (var s = 0; s < works.length; s++) {
+        var wk = works[s];
+        var isCurrent = s === state.spiritistWorkIndex;
+        var wkChCount = (wk.chapters || []).length;
+        shelfHtml +=
+          '<button type="button" class="bookshelf-card' +
+          (isCurrent ? " is-active" : "") +
+          '" data-select-spiritist-work="' +
+          s +
+          '" aria-pressed="' +
+          (isCurrent ? "true" : "false") +
+          '">' +
+          '<div class="w-full space-y-1">' +
+          '<span class="jw-kicker m-0">' +
+          escapeHtml(wk.category || "Obra Espírita") +
+          "</span>" +
+          '<span class="block font-display text-base font-bold leading-snug" style="color: var(--text-main);">' +
+          escapeHtml(wk.bookTitle) +
+          "</span>" +
+          '<span class="block text-xs" style="color: var(--text-secondary);">' +
+          escapeHtml((wk.author || "Allan Kardec") + (wk.year ? " (" + wk.year + ")" : "")) +
+          "</span>" +
+          "</div>" +
+          '<span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-primary);">' +
+          (isCurrent ? "Lendo agora • " : "") +
+          wkChCount +
+          (wkChCount === 1 ? " capítulo" : " capítulos") +
+          "</span>" +
+          "</button>";
+      }
+      shelfEl.innerHTML = shelfHtml;
+    }
+
+    if (workSelectEl) {
+      var wOpts = "";
+      for (var w = 0; w < works.length; w++) {
+        var itemW = works[w];
+        var chLen = (itemW.chapters || []).length;
+        wOpts +=
+          '<option value="' +
+          w +
+          '">' +
+          escapeHtml(itemW.bookTitle + " - " + (itemW.author || "Domínio Público") + " (" + chLen + " cap.)") +
+          "</option>";
+      }
+      workSelectEl.innerHTML = wOpts;
+      workSelectEl.value = String(state.spiritistWorkIndex);
+    }
+
+    var activeWork = works[state.spiritistWorkIndex];
+    if (!activeWork) return;
+
+    var chapters = activeWork.chapters || [];
+    if (state.spiritistChapterIndex >= chapters.length || state.spiritistChapterIndex < 0) {
+      state.spiritistChapterIndex = 0;
+    }
+
+    if (chapterSelectEl) {
+      var cOpts = "";
+      for (var c = 0; c < chapters.length; c++) {
+        cOpts += '<option value="' + c + '">' + escapeHtml(chapters[c].title) + "</option>";
+      }
+      chapterSelectEl.innerHTML = cOpts;
+      chapterSelectEl.value = String(state.spiritistChapterIndex);
+    }
+
+    var activeChapter = chapters[state.spiritistChapterIndex];
+    if (!activeChapter) return;
+
+    if (bannerEl) {
+      var artPath = activeWork.imagePath || "assets/traditions/espirita.jpg";
+      bannerEl.innerHTML =
+        '<div class="relative h-48 sm:h-60 w-full" style="background-color: var(--bg-tile-dark);">' +
+        '<img src="' +
+        escapeHtml(artPath) +
+        '" alt="' +
+        escapeHtml(activeWork.bookTitle) +
+        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+        '<div class="absolute inset-x-0 bottom-0 px-4 py-2.5 text-white" style="background: rgba(20, 34, 61, 0.85);">' +
+        '<span class="text-xs font-bold uppercase tracking-wider text-white/85 block">' +
+        escapeHtml((activeWork.author || "Domínio Público") + (activeWork.year ? " (" + activeWork.year + ")" : "")) +
+        "</span>" +
+        '<p class="text-sm font-medium text-white">' +
+        escapeHtml(activeWork.description || activeWork.bookTitle) +
+        "</p>" +
+        "</div>" +
+        "</div>";
+      bannerEl.classList.remove("hidden");
+    }
+
+    if (canonicalTitleEl) {
+      canonicalTitleEl.textContent = (activeWork.category || "Obras Espíritas Completas") + " • " + activeWork.bookTitle;
+    }
+
+    if (chapterHeadingEl) {
+      chapterHeadingEl.textContent = activeChapter.title;
+    }
+
+    if (progressLabelEl) {
+      progressLabelEl.textContent =
+        "Capítulo " +
+        (state.spiritistChapterIndex + 1) +
+        " de " +
+        chapters.length +
+        " • Obra " +
+        (state.spiritistWorkIndex + 1) +
+        " de " +
+        works.length;
+    }
+
+    if (versesContainerEl) {
+      var vHtml = "";
+      var verses = activeChapter.verses || [];
+      for (var v = 0; v < verses.length; v++) {
+        vHtml +=
+          '<p class="mb-4 leading-relaxed font-serif-sacred text-body-sacred">' +
+          escapeHtml(verses[v]) +
+          "</p>";
+      }
+      versesContainerEl.innerHTML = vHtml;
+    }
+
+    updateSpeechButtons();
+  }
+
   function populatePrayerCategorySelect() {
     var selectEl = document.getElementById("prayer-category-select");
     if (!selectEl || selectEl.options.length > 0) return;
 
     var traditions = getTraditions();
-    var html = '<option value="todas">Todas as Orações (Católica e Evangélica)</option>';
+    var html = '<option value="todas">Todas as Orações (Católica, Evangélica e Espírita)</option>';
     for (var i = 0; i < traditions.length; i++) {
       var t = traditions[i];
-      html += '<option value="' + escapeHtml(t.id) + '">' + escapeHtml(t.symbol + " " + t.name) + "</option>";
+      html += '<option value="' + escapeHtml(t.id) + '">' + escapeHtml(t.name) + "</option>";
     }
     selectEl.innerHTML = html;
   }
@@ -1400,7 +1699,7 @@
           "</div>" +
           '<div class="p-6 sm:p-10">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
-          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="back-to-prayers-list">← Voltar para a lista de orações</button>' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="back-to-prayers-list">Voltar para a lista de orações</button>' +
           '<span class="text-xs font-semibold" style="color: var(--text-muted);">' +
           escapeHtml(prayer.salutation) +
           "</span>" +
@@ -1413,8 +1712,8 @@
           "</div>" +
           (prayer.specialSection === "arcanjo-miguel"
             ? '<div class="p-4 rounded mb-6 flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-accent-soft); border: 1px solid var(--accent-primary);">' +
-              '<span class="text-sm font-semibold" style="color: var(--accent-primary);">⚔️ Quer fazer a caminhada de 21 dias desta oração?</span>' +
-              '<button type="button" class="btn-primary text-sm" data-action="open-miguel-21dias">Abrir Página Especial (21 Dias) →</button>' +
+              '<span class="text-sm font-semibold" style="color: var(--accent-primary);">Quer fazer a caminhada de 21 dias desta oração?</span>' +
+              '<button type="button" class="btn-primary text-sm" data-action="open-miguel-21dias">Abrir Página Especial (21 Dias) &gt;</button>' +
               "</div>"
             : "") +
           '<p class="text-sm italic mb-6" style="color: var(--text-muted);">' +
@@ -1427,17 +1726,17 @@
           '" data-speech-prayer="' +
           escapeHtml(prayer.id) +
           '" data-default-label="Ouvir oração em voz calma" aria-pressed="false">' +
-          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir oração em voz calma</span>' +
+          '<span data-speech-label>Ouvir oração em voz calma</span>' +
           "</button>" +
           '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-share-prayer="' +
           escapeHtml(prayer.id) +
           '">' +
-          '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+          "Enviar no WhatsApp" +
           "</button>" +
           "</div>" +
           '<button type="button" class="btn-secondary text-sm" data-open-prayer="' +
           escapeHtml(nextPrayer.id) +
-          '">Próxima Oração →</button>' +
+          '">Próxima Oração &gt;</button>' +
           "</div>" +
           "</div>" +
           "</article>";
@@ -1469,7 +1768,7 @@
       listContainer.innerHTML =
         '<div class="surface-card p-6 text-center col-span-full">' +
         '<p class="font-semibold text-lg mb-2">Nenhuma oração encontrada com esse filtro.</p>' +
-        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Toque abaixo para mostrar novamente todas as orações católicas e evangélicas.</p>' +
+        '<p class="text-sm mb-4" style="color: var(--text-secondary);">Toque abaixo para mostrar novamente todas as orações católicas, evangélicas e espíritas.</p>' +
         '<button type="button" class="btn-secondary" data-action="reset-prayer-filters">Mostrar todas as orações</button>' +
         "</div>";
       if (paginationContainer) paginationContainer.innerHTML = "";
@@ -1508,13 +1807,13 @@
         '<div class="flex flex-wrap gap-2 px-5 pb-5 pt-2">' +
         '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-prayer="' +
         escapeHtml(item.id) +
-        '">Abrir Oração →</button>' +
+        '">Abrir Oração &gt;</button>' +
         '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="prayer-' +
         escapeHtml(item.id) +
         '" data-speech-prayer="' +
         escapeHtml(item.id) +
         '" data-default-label="Ouvir" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        '<span data-speech-label>Ouvir</span>' +
         "</button>" +
         "</div>" +
         "</article>";
@@ -1531,7 +1830,7 @@
           '<div class="flex flex-wrap items-center justify-between gap-3 surface-card p-4">' +
           '<button type="button" class="btn-secondary" data-action="prayer-prev-page" ' +
           (state.prayerPage <= 1 ? 'disabled="disabled"' : "") +
-          ">← Página Anterior</button>" +
+          ">Voltar Página Anterior</button>" +
           '<span class="text-sm font-semibold" style="color: var(--text-secondary);">Página ' +
           state.prayerPage +
           " de " +
@@ -1539,7 +1838,7 @@
           "</span>" +
           '<button type="button" class="btn-secondary" data-action="prayer-next-page" ' +
           (state.prayerPage >= totalPages ? 'disabled="disabled"' : "") +
-          ">Próxima Página →</button>" +
+          ">Próxima Página &gt;</button>" +
           "</div>";
       }
     }
@@ -1678,11 +1977,11 @@
         '" data-speak-candle="' +
         escapeHtml(c.id) +
         '" data-default-label="Ouvir prece" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir prece</span>' +
+        '<span data-speech-label>Ouvir prece</span>' +
         "</button>" +
         '<button type="button" class="btn-secondary text-xs py-2 px-3" data-share-candle="' +
         escapeHtml(c.id) +
-        '">📲 Enviar no WhatsApp</button>' +
+        '">Enviar no WhatsApp</button>' +
         "</div>" +
         "</article>";
     }
@@ -1698,7 +1997,7 @@
           '<div class="flex flex-wrap items-center justify-between gap-3 surface-card p-4 mt-4">' +
           '<button type="button" class="btn-secondary" data-action="candle-prev-page" ' +
           (state.candleWallPage <= 1 ? 'disabled="disabled"' : "") +
-          ">← Página Anterior</button>" +
+          ">Voltar Página Anterior</button>" +
           '<span class="text-sm font-semibold" style="color: var(--text-secondary);">Página ' +
           state.candleWallPage +
           " de " +
@@ -1706,7 +2005,7 @@
           "</span>" +
           '<button type="button" class="btn-secondary" data-action="candle-next-page" ' +
           (state.candleWallPage >= totalPages ? 'disabled="disabled"' : "") +
-          ">Próxima Página →</button>" +
+          ">Próxima Página &gt;</button>" +
           "</div>";
       }
     }
@@ -1755,9 +2054,9 @@
     if (cityInput) cityInput.value = "";
 
     feedbackEl.innerHTML =
-      '✓ Sua Vela Virtual de 7 dias foi acesa com sucesso para <strong>' +
+      'Sua Vela Virtual de 7 dias foi acesa com sucesso para <strong>' +
       escapeHtml(honoree) +
-      '</strong>! <button type="button" class="underline font-bold ml-2" data-candle-subpage="wall">Ver minha vela acesa no Mural →</button>';
+      '</strong>! <button type="button" class="underline font-bold ml-2" data-candle-subpage="wall">Ver minha vela acesa no Mural &gt;</button>';
     feedbackEl.style.backgroundColor = "var(--bg-amber-soft)";
     feedbackEl.style.color = "var(--text-main)";
     feedbackEl.classList.remove("hidden");
@@ -1780,7 +2079,7 @@
           '<option value="' +
           escapeHtml(topics[i].id) +
           '">' +
-          escapeHtml(topics[i].icon + " " + topics[i].title) +
+          escapeHtml((topics[i].icon ? topics[i].icon + " " : "") + topics[i].title) +
           "</option>";
       }
       selectEl.innerHTML = sHtml;
@@ -1814,7 +2113,7 @@
         '" data-speak-comfort-index="' +
         r +
         '" data-default-label="Ouvir leitura" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir leitura</span>' +
+        '<span data-speech-label>Ouvir leitura</span>' +
         "</button>" +
         "</div>" +
         '<blockquote class="font-serif-sacred text-body-sacred font-medium" style="color: var(--text-main);">“' +
@@ -1832,7 +2131,7 @@
       '<div class="flex flex-wrap items-start justify-between gap-3">' +
       '<div>' +
       '<h3 class="font-serif-sacred font-bold text-2xl mb-1">' +
-      escapeHtml(activeTopic.icon + " " + activeTopic.title) +
+      escapeHtml((activeTopic.icon ? activeTopic.icon + " " : "") + activeTopic.title) +
       "</h3>" +
       '<p class="text-base" style="color: var(--text-secondary);">' +
       escapeHtml(activeTopic.summary) +
@@ -1843,7 +2142,7 @@
       '" data-speak-comfort-topic="' +
       escapeHtml(activeTopic.id) +
       '" data-default-label="Ouvir reflexão completa" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir reflexão completa</span>' +
+      '<span data-speech-label>Ouvir reflexão completa</span>' +
       "</button>" +
       "</div>" +
       '<div class="p-4 rounded-xl text-sm" style="background-color: var(--bg-amber-soft); color: var(--text-main);">' +
@@ -1869,7 +2168,7 @@
     if (state.quizIndex >= questions.length) {
       container.innerHTML =
         '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto">' +
-        '<span class="inline-block text-4xl mb-3" aria-hidden="true">🕊</span>' +
+        '<span class="jw-kicker mb-2">CONHECIMENTO BÍBLICO</span>' +
         '<h3 class="font-serif-sacred font-bold text-2xl mb-2">Sabedoria Concluída!</h3>' +
         '<p class="text-lg mb-4" style="color: var(--text-secondary);">Você acertou <strong>' +
         state.quizScore +
@@ -1880,7 +2179,7 @@
         '<div class="flex flex-wrap items-center justify-center gap-3">' +
         '<button type="button" class="btn-primary" data-action="restart-quiz">Jogar Novamente</button>' +
         '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="speak-quiz-result" data-speech-id="quiz-result" data-default-label="Ouvir resultado" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir resultado</span>' +
+        '<span data-speech-label>Ouvir resultado</span>' +
         "</button>" +
         "</div>" +
         "</div>";
@@ -1921,7 +2220,7 @@
       '<button type="button" class="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1.5" data-action="speak-quiz-question" data-speech-id="quiz-q-' +
       state.quizIndex +
       '" data-default-label="Ouvir pergunta" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir pergunta</span>' +
+      '<span data-speech-label>Ouvir pergunta</span>' +
       "</button>" +
       "</div>" +
       "</div>" +
@@ -1964,19 +2263,19 @@
       feedbackBox.style.backgroundColor = isCorrect ? "var(--bg-amber-soft)" : "var(--bg-accent-soft)";
       feedbackBox.innerHTML =
         '<p class="font-bold text-base mb-1">' +
-        (isCorrect ? "✓ Resposta Correta!" : "Explicação Histórica:") +
+        (isCorrect ? "Resposta Correta!" : "Explicação Histórica:") +
         "</p>" +
         '<p class="text-sm mb-4" style="color: var(--text-main);">' +
         escapeHtml(q.explanation) +
         "</p>" +
         '<div class="flex flex-wrap gap-2">' +
         '<button type="button" class="btn-primary" data-action="next-quiz-question">' +
-        (state.quizIndex + 1 < questions.length ? "Próxima Pergunta →" : "Ver Resultado Final") +
+        (state.quizIndex + 1 < questions.length ? "Próxima Pergunta &gt;" : "Ver Resultado Final") +
         "</button>" +
         '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-1.5" data-action="speak-quiz-explanation" data-speech-id="quiz-exp-' +
         state.quizIndex +
         '" data-default-label="Ouvir explicação" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir explicação</span>' +
+        '<span data-speech-label>Ouvir explicação</span>' +
         "</button>" +
         "</div>";
       feedbackBox.classList.remove("hidden");
@@ -2020,13 +2319,13 @@
             : "") +
           '<div class="p-6 sm:p-10">' +
           '<div class="flex flex-wrap items-center justify-between gap-2 mb-4">' +
-          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-blog-post">← Voltar para a lista de artigos</button>' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-blog-post">Voltar para a lista de artigos</button>' +
           '<button type="button" class="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2" data-speech-id="blog-full-' +
           escapeHtml(activePost.id) +
           '" data-speak-blog-post="' +
           escapeHtml(activePost.id) +
           '" data-default-label="Ouvir artigo completo" aria-pressed="false">' +
-          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir artigo completo</span>' +
+          '<span data-speech-label>Ouvir artigo completo</span>' +
           "</button>" +
           "</div>" +
           '<span class="jw-kicker">' +
@@ -2090,13 +2389,13 @@
         '<div class="flex flex-wrap gap-2 px-6 pb-6">' +
         '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-blog="' +
         escapeHtml(post.id) +
-        '">Abrir Artigo →</button>' +
+        '">Abrir Artigo &gt;</button>' +
         '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="blog-card-' +
         escapeHtml(post.id) +
         '" data-speak-blog-excerpt="' +
         escapeHtml(post.id) +
         '" data-default-label="Ouvir" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        '<span data-speech-label>Ouvir</span>' +
         "</button>" +
         "</div>" +
         "</article>";
@@ -2342,10 +2641,10 @@
         ? window.location.href
         : "https://eupaulorrenato-maker.github.io/horizonte-espiritual/";
     if (!todayObj) {
-      return "☕ *Café Espiritual do Dia*\n\nAcesse seu devocional gratuito de hoje:\n" + currentHref;
+      return "*Café Espiritual do Dia*\n\nAcesse seu devocional gratuito de hoje:\n" + currentHref;
     }
     return (
-      "☕ *Café Espiritual de Hoje* (" +
+      "*Café Espiritual de Hoje* (" +
       formatTodayPtBr() +
       ")\n\n" +
       (greetingName ? "Bom dia, " + greetingName + "que Deus abençoe sua casa!\n\n" : "") +
@@ -2355,7 +2654,7 @@
       todayObj.verse +
       "”\n(" +
       todayObj.reference +
-      ")\n\n🙏 *Oração:* " +
+      ")\n\n*Oração:* " +
       todayObj.shortPrayer +
       "\n\nAcesse o texto completo e áudio aqui:\n" +
       currentHref
@@ -2384,17 +2683,17 @@
         primaryActionBtnHtml =
           '<a href="' +
           escapeHtml(cfg.whatsappChannelUrl) +
-          '" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-2">📢 Entrar no Canal Oficial do WhatsApp →</a>';
+          '" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-2">Entrar no Canal Oficial do WhatsApp &gt;</a>';
       } else if (cfg.ownerWhatsappE164) {
         primaryActionBtnHtml =
-          '<button type="button" class="btn-primary inline-flex items-center gap-2" data-send-wa-owner="true">💬 Confirmar Cadastro no WhatsApp do Portal →</button>';
+          '<button type="button" class="btn-primary inline-flex items-center gap-2" data-send-wa-owner="true">Confirmar Cadastro no WhatsApp do Portal &gt;</button>';
       }
 
       return (
         '<article class="surface-card p-6 sm:p-8 border-2 space-y-5" style="background-color: var(--bg-amber-soft); border-color: var(--accent-green);">' +
         '<div class="space-y-2">' +
         '<span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-surface); color: var(--accent-green);">' +
-        "✅ WhatsApp Salvo neste Celular" +
+        "WhatsApp Salvo neste Celular" +
         "</span>" +
         '<h3 class="font-serif-sacred font-bold text-2xl" style="color: var(--text-main);">' +
         "Café Espiritual no Seu WhatsApp" +
@@ -2412,11 +2711,11 @@
         primaryActionBtnHtml +
         '<button type="button" class="' +
         (primaryActionBtnHtml ? "btn-secondary" : "btn-primary") +
-        ' inline-flex items-center gap-2" data-send-wa-self="true">☕ Receber o Café de Hoje Agora no Meu WhatsApp</button>' +
-        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-edit-whatsapp-sub="true">✏️ Trocar Número ou Horário</button>' +
+        ' inline-flex items-center gap-2" data-send-wa-self="true">Receber o Café de Hoje Agora no Meu WhatsApp</button>' +
+        '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-edit-whatsapp-sub="true">Trocar Número ou Horário</button>' +
         '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-speech-id="wa-widget-' +
         escapeHtml(slotPrefix) +
-        '" data-speak-whatsapp-widget="saved" data-default-label="Ouvir instruções" aria-pressed="false"><span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir instruções</span></button>' +
+        '" data-speak-whatsapp-widget="saved" data-default-label="Ouvir instruções" aria-pressed="false"><span data-speech-label>Ouvir instruções</span></button>' +
         "</div>" +
         '<p class="text-xs leading-relaxed p-3 rounded-xl" style="background-color: var(--bg-surface); color: var(--text-secondary);">' +
         "Transparência: seu número fica guardado com segurança apenas neste aparelho para facilitar o envio direto do devocional ao tocar no botão acima. Para disparos automáticos diários em lista, o administrador pode conectar um Webhook ou Canal Oficial em PORTAL_WHATSAPP_CONFIG." +
@@ -2429,7 +2728,7 @@
       '<article class="surface-card p-6 sm:p-8 border-2 space-y-5" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
       '<div class="space-y-2">' +
       '<span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-surface); color: var(--accent-wine);">' +
-      "💬 Receba o Devocional Diário" +
+      "Receba o Devocional Diário" +
       "</span>" +
       '<h3 class="font-serif-sacred font-bold text-2xl" style="color: var(--text-main);">' +
       "Quer Receber o Café Espiritual no Seu WhatsApp?" +
@@ -2441,7 +2740,7 @@
       '<button type="button" class="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1.5" data-speech-id="wa-widget-' +
       escapeHtml(slotPrefix) +
       '" data-speak-whatsapp-widget="form" data-default-label="Ouvir instruções em áudio" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir instruções em áudio</span>' +
+      '<span data-speech-label>Ouvir instruções em áudio</span>' +
       "</button>" +
       "</div>" +
       "</div>" +
@@ -2483,7 +2782,7 @@
       '<div data-wa-feedback="true" class="hidden p-4 rounded-xl text-base font-semibold" role="status" aria-live="polite"></div>' +
       '<div class="flex flex-wrap items-center gap-3 pt-1">' +
       '<button type="submit" class="btn-primary w-full sm:w-auto px-8">' +
-      "📲 Salvar Meu WhatsApp Agora" +
+      "Salvar Meu WhatsApp Agora" +
       "</button>" +
       (sub && state.whatsappEditing
         ? '<button type="button" class="btn-secondary text-sm" data-cancel-whatsapp-edit="true">Cancelar Alteração</button>'
@@ -2574,16 +2873,16 @@
       if (cafeHistory.completedDates.length > 0 || miguelDone.length > 0 || userCandles.length > 0 || waSub) {
         var parts = [];
         if (cafeHistory.completedDates.length > 0) {
-          parts.push("☕ " + cafeHistory.completedDates.length + (cafeHistory.completedDates.length === 1 ? " manhã no Café" : " manhãs no Café"));
+          parts.push(cafeHistory.completedDates.length + (cafeHistory.completedDates.length === 1 ? " manhã no Café" : " manhãs no Café"));
         }
         if (miguelDone.length > 0) {
-          parts.push("⚔️ São Miguel: " + miguelDone.length + "/21 dias");
+          parts.push("São Miguel: " + miguelDone.length + "/21 dias");
         }
         if (userCandles.length > 0) {
-          parts.push("🕯 " + userCandles.length + (userCandles.length === 1 ? " vela acesa" : " velas acesas"));
+          parts.push(userCandles.length + (userCandles.length === 1 ? " vela acesa" : " velas acesas"));
         }
         if (waSub) {
-          parts.push("💬 WhatsApp: " + waSub.formatted);
+          parts.push("WhatsApp: " + waSub.formatted);
         }
         banner.innerHTML =
           '<div class="text-sm font-semibold" style="color: var(--text-main);">' +
@@ -2591,7 +2890,7 @@
           escapeHtml(parts.join("  |  ")) +
           "</div>" +
           '<button type="button" class="btn-secondary text-xs py-1.5 px-3" data-nav-target="cafe-diario">' +
-          (doneToday ? "✓ Café de hoje feito" : "Abrir Café de Hoje →") +
+          (doneToday ? "Café de hoje concluído" : "Abrir Café de Hoje &gt;") +
           "</button>";
         banner.classList.remove("hidden");
       } else {
@@ -2603,9 +2902,9 @@
     var cafeTeaser = document.getElementById("home-cafe-teaser");
     if (cafeBadge) {
       if (doneToday) {
-        cafeBadge.textContent = "✅ Concluído hoje" + (streak > 1 ? " • " + streak + " dias seguidos" : "");
+        cafeBadge.textContent = "Concluído hoje" + (streak > 1 ? " • " + streak + " dias seguidos" : "");
       } else {
-        cafeBadge.textContent = "☕ Palavra de Hoje (Dia " + new Date().getDate() + ")";
+        cafeBadge.textContent = "Palavra de Hoje (Dia " + new Date().getDate() + ")";
       }
     }
     if (cafeTeaser && todayDayObj) {
@@ -2616,9 +2915,9 @@
     var miguelTeaser = document.getElementById("home-miguel-teaser");
     if (miguelBadge) {
       if (miguelDone.length > 0) {
-        miguelBadge.textContent = "⚔️ Em andamento: " + miguelDone.length + " de 21 dias";
+        miguelBadge.textContent = "Em andamento: " + miguelDone.length + " de 21 dias";
       } else {
-        miguelBadge.textContent = "⚔️ Página Especial • 21 Dias";
+        miguelBadge.textContent = "Página Especial • 21 Dias";
       }
     }
     if (miguelTeaser) {
@@ -2634,7 +2933,7 @@
     var waBadge = document.getElementById("home-whatsapp-badge");
     var waTeaser = document.getElementById("home-whatsapp-teaser");
     if (waBadge) {
-      waBadge.textContent = waSub ? "✅ WhatsApp Salvo neste Celular" : "Passo 3 de 3 • Receber Todo Dia";
+      waBadge.textContent = waSub ? "WhatsApp Salvo neste Celular" : "Passo 3 de 3 • Receber Todo Dia";
     }
     if (waTeaser) {
       waTeaser.textContent = waSub
@@ -2650,14 +2949,14 @@
     if (pBadge) {
       pBadge.textContent =
         purposeDone.length > 0
-          ? "🕊 Em andamento: " + purposeDone.length + " de 40 dias"
-          : "🕊 Jornada de 40 Dias";
+          ? "Em andamento: " + purposeDone.length + " de 40 dias"
+          : "Jornada de 40 Dias";
     }
     if (pTeaser && purposeObj) {
       pTeaser.textContent =
         purposeDone.length > 0
           ? "Seu propósito ativo (" + purposeObj.shortTitle + "): continue pelo Dia " + purposeNext + " de 40."
-          : "Escolha um propósito de vida (Paz, Família, Saúde ou Sabedoria) com mensagem bíblica diária por 40 dias.";
+          : "Escolha um propósito de vida (Paz, Família, Saúde, Sabedoria ou Caridade) com mensagem diária por 40 dias.";
     }
   }
 
@@ -2714,7 +3013,7 @@
       escapeHtml(formatTodayPtBr()) +
       " • Examine as Escrituras Hoje" +
       "</span>" +
-      '<h2 id="cafe-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">☕ Texto Diário (Café Espiritual)</h2>' +
+      '<h2 id="cafe-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">Texto Diário (Café Espiritual)</h2>' +
       '<p class="text-sm sm:text-base text-white/90 mt-1">' +
       escapeHtml(tradition ? tradition.greeting : "Paz e bem para a sua manhã!") +
       "</p>" +
@@ -2724,8 +3023,8 @@
       '<div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl" style="background-color: var(--bg-subtle); border: 1px solid var(--border-color);">' +
       '<div class="text-sm font-semibold" style="color: var(--text-main);">' +
       (completedToday
-        ? "✅ Café de hoje concluído! (" + history.completedDates.length + (history.completedDates.length === 1 ? " dia lido" : " dias lidos") + (streak > 1 ? " • " + streak + " seguidos" : "") + ")"
-        : "☀️ Reflexão de hoje pronta para o seu coração" + (history.completedDates.length > 0 ? " (" + history.completedDates.length + " manhãs registradas)" : "")) +
+        ? "Café de hoje concluído! (" + history.completedDates.length + (history.completedDates.length === 1 ? " dia lido" : " dias lidos") + (streak > 1 ? " • " + streak + " seguidos" : "") + ")"
+        : "Reflexão de hoje pronta para o seu coração" + (history.completedDates.length > 0 ? " (" + history.completedDates.length + " manhãs registradas)" : "")) +
       "</div>" +
       '<div class="flex flex-wrap items-center gap-2">' +
       '<label for="cafe-day-select" class="sr-only">Escolher dia do Café Espiritual</label>' +
@@ -2745,7 +3044,7 @@
           escapeHtml(cafeArt.title) +
           '" class="w-full h-48 sm:h-64 object-cover" />' +
           '<div class="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2" style="background-color: var(--bg-subtle);">' +
-          '<span class="text-sm font-semibold" style="color: var(--text-main);">🎨 ' +
+          '<span class="text-sm font-semibold" style="color: var(--text-main);">' +
           escapeHtml(cafeArt.title) +
           "</span>" +
           '<span class="font-mono-label" style="color: var(--accent-blue);">' +
@@ -2773,14 +3072,22 @@
       '<div class="font-serif-sacred text-body-sacred" style="color: var(--text-main);">' +
       msgHtml +
       "</div>" +
+      (item.espiritaInsight && state.selectedTraditionId === "espirita"
+        ? '<div class="p-5 rounded-xl space-y-2" style="background-color: var(--bg-accent-soft); border-left: 4px solid var(--accent-primary);">' +
+          '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-primary);">Visão Espírita (Evangelho e Caridade)</p>' +
+          '<p class="text-base leading-relaxed" style="color: var(--text-main);">' +
+          escapeHtml(item.espiritaInsight) +
+          "</p>" +
+          "</div>"
+        : "") +
       '<div class="p-5 rounded-xl space-y-2" style="background-color: var(--bg-subtle); border-left: 4px solid var(--accent-amber);">' +
-      '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-amber);">🌿 Gesto Prático de Fé para Hoje</p>' +
+      '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-amber);">Gesto Prático de Fé para Hoje</p>' +
       '<p class="text-base font-medium" style="color: var(--text-main);">' +
       escapeHtml(item.dailyAction) +
       "</p>" +
       "</div>" +
       '<div class="p-5 rounded-xl space-y-2" style="background-color: var(--bg-accent-soft); border: 1px solid var(--border-color);">' +
-      '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">🙏 Oração Breve desta Manhã</p>' +
+      '<p class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-wine);">Oração Breve desta Manhã</p>' +
       '<p class="font-serif-sacred text-body-sacred italic" style="color: var(--text-main);">' +
       escapeHtml(item.shortPrayer) +
       "</p>" +
@@ -2789,20 +3096,20 @@
       '<button type="button" class="' +
       (completedToday ? "btn-secondary" : "btn-primary") +
       ' inline-flex items-center gap-2" data-action="cafe-mark-done">' +
-      (completedToday ? "✅ Café de Hoje Concluído" : "☕ Concluir meu Café Espiritual de Hoje") +
+      (completedToday ? "Café de Hoje Concluído" : "Concluir meu Café Espiritual de Hoje") +
       "</button>" +
       '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="speak-cafe-today" data-speech-id="cafe-today" data-default-label="Ouvir devocional em voz calma" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir devocional em voz calma</span>' +
+      '<span data-speech-label>Ouvir devocional em voz calma</span>' +
       "</button>" +
       '<button type="button" class="btn-secondary inline-flex items-center gap-2" data-action="share-cafe-whatsapp">' +
-      '<span aria-hidden="true">📲</span> Bom Dia no WhatsApp' +
+      "Bom Dia no WhatsApp" +
       "</button>" +
       "</div>" +
       (tomorrowItem
         ? '<div class="p-4 rounded-xl text-center text-sm" style="background-color: var(--bg-subtle); color: var(--text-secondary);">' +
           '<strong>Amanhã no seu Café Espiritual:</strong> “' +
           escapeHtml(tomorrowItem.theme) +
-          '”. <button type="button" class="underline font-bold ml-1" style="color: var(--accent-wine);" data-nav-target="salvar-app">Salvar atalho no celular para não perder →</button>' +
+          '”. <button type="button" class="underline font-bold ml-1" style="color: var(--accent-wine);" data-nav-target="salvar-app">Salvar atalho no celular para não perder &gt;</button>' +
           "</div>"
         : "") +
       "</div>" +
@@ -2838,8 +3145,7 @@
         d.day +
         (checked ? " (concluído)" : "") +
         '">' +
-        (checked ? "✓ " : "") +
-        d.day +
+        (checked ? "Dia " + d.day : String(d.day)) +
         "</button>";
     }
 
@@ -2857,7 +3163,7 @@
       pct +
       "%)</span>" +
       '<span class="text-xs font-semibold" style="color: var(--accent-wine);">' +
-      (doneList.length >= total ? "🎉 Jornada concluída com fé!" : "Toque no número abaixo para escolher o dia") +
+      (doneList.length >= total ? "Jornada concluída com fé!" : "Toque no número abaixo para escolher o dia") +
       "</span>" +
       "</div>" +
       '<div class="progress-track-bar" role="progressbar" aria-valuenow="' +
@@ -2877,7 +3183,7 @@
       escapeHtml(dayObj.title) +
       "</h3>" +
       (isDayDone
-        ? '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: var(--accent-green); border: 1px solid var(--accent-green);">✓ Dia Concluído</span>'
+        ? '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: var(--accent-green); border: 1px solid var(--accent-green);">Dia Concluído</span>'
         : '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: var(--text-muted);">Pendente hoje</span>') +
       "</div>" +
       '<p class="text-sm font-semibold" style="color: var(--text-secondary);"><strong>Intenção do Dia:</strong> ' +
@@ -2910,7 +3216,7 @@
       '" data-toggle-track-id="' +
       escapeHtml(track.id) +
       '">' +
-      (isDayDone ? "✓ Dia " + dayObj.day + " Concluído (Desmarcar)" : "✓ Concluir Oração do Dia " + dayObj.day) +
+      (isDayDone ? "Dia " + dayObj.day + " Concluído (Desmarcar)" : "Concluir Oração do Dia " + dayObj.day) +
       "</button>" +
       '<div class="flex flex-wrap gap-2">' +
       '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-speech-id="' +
@@ -2920,14 +3226,14 @@
       '" data-speak-track-day="' +
       dayObj.day +
       '" data-default-label="Ouvir em voz calma" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir em voz calma</span>' +
+      '<span data-speech-label>Ouvir em voz calma</span>' +
       "</button>" +
       '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-share-track-id="' +
       escapeHtml(track.id) +
       '" data-share-track-day="' +
       dayObj.day +
       '">' +
-      '<span aria-hidden="true">📲</span> WhatsApp' +
+      "WhatsApp" +
       "</button>" +
       "</div>" +
       "</div>" +
@@ -2979,12 +3285,12 @@
         '" data-speak-miguel-prayer="' +
         escapeHtml(pr.id) +
         '" data-default-label="Ouvir Oração" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir Oração</span>' +
+        '<span data-speech-label>Ouvir Oração</span>' +
         "</button>" +
         '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-share-miguel-prayer="' +
         escapeHtml(pr.id) +
         '">' +
-        '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+        "Enviar no WhatsApp" +
         "</button>" +
         "</div>" +
         "</div>";
@@ -3009,14 +3315,14 @@
         doneDays.length +
         "/21 concluídos).</p>" +
         "</div>" +
-        '<button type="button" class="btn-primary text-sm" data-miguel-tab="21dias">⚔️ Abrir Checklist dos 21 Dias →</button>' +
+        '<button type="button" class="btn-primary text-sm" data-miguel-tab="21dias">Abrir Checklist dos 21 Dias &gt;</button>' +
         "</div>" +
         '<p class="text-base leading-relaxed" style="color: var(--text-secondary);">' +
         escapeHtml(data.introText) +
         "</p>" +
         '<div>' +
         '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-action="speak-miguel-intro" data-speech-id="miguel-intro" data-default-label="Ouvir apresentação de São Miguel" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir apresentação de São Miguel</span>' +
+        '<span data-speech-label>Ouvir apresentação de São Miguel</span>' +
         "</button>" +
         "</div>" +
         prayersHtml +
@@ -3035,7 +3341,7 @@
       '<span class="text-xs font-bold uppercase tracking-wider text-white/90 mb-1">' +
       escapeHtml(data.imageCaption) +
       "</span>" +
-      '<h2 id="miguel-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">⚔️ ' +
+      '<h2 id="miguel-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">' +
       escapeHtml(data.title) +
       "</h2>" +
       '<p class="text-sm sm:text-base text-white/90 mt-1">' +
@@ -3048,14 +3354,14 @@
       '<div class="flex flex-wrap gap-2" role="group" aria-label="Páginas de São Miguel Arcanjo">' +
       '<button type="button" class="feeling-chip" data-miguel-tab="prayers" aria-pressed="' +
       (state.miguelSubTab === "prayers" ? "true" : "false") +
-      '">🙏 Orações Completas</button>' +
+      '">Orações Completas</button>' +
       '<button type="button" class="feeling-chip" data-miguel-tab="21dias" aria-pressed="' +
       (state.miguelSubTab === "21dias" ? "true" : "false") +
-      '">🗓 Trilha dos 21 Dias (' +
+      '">Trilha dos 21 Dias (' +
       doneDays.length +
       "/21)</button>" +
       "</div>" +
-      '<button type="button" class="btn-secondary text-xs py-2 px-3" data-nav-target="vela">🕯 Acender Vela de 7 Dias</button>' +
+      '<button type="button" class="btn-secondary text-xs py-2 px-3" data-nav-target="vela">Acender Vela de 7 Dias</button>' +
       "</div>" +
       tabContentHtml +
       "</div>" +
@@ -3086,7 +3392,7 @@
             : "") +
           '<div class="p-6 sm:p-8">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
-          '<button type="button" class="btn-secondary text-sm" data-action="back-to-trilhas-list">← Ver Todas as Trilhas</button>' +
+          '<button type="button" class="btn-secondary text-sm" data-action="back-to-trilhas-list">Voltar para Todas as Trilhas</button>' +
           '<span class="jw-kicker m-0">' +
           escapeHtml(activeTrack.badge) +
           "</span>" +
@@ -3103,7 +3409,7 @@
           '" data-speak-track-desc="' +
           escapeHtml(activeTrack.id) +
           '" data-default-label="Ouvir apresentação da trilha" aria-pressed="false">' +
-          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir apresentação da trilha</span>' +
+          '<span data-speech-label>Ouvir apresentação da trilha</span>' +
           "</button>" +
           "</div>" +
           buildTrackInteractiveViewHtml(activeTrack, state.activeTrackSelectedDay) +
@@ -3164,15 +3470,15 @@
         escapeHtml(tr.id) +
         '">' +
         (done.length > 0 && done.length < tr.durationDays
-          ? "Continuar no Dia " + nextD + " →"
-          : "Abrir Trilha Completa →") +
+          ? "Continuar no Dia " + nextD + " &gt;"
+          : "Abrir Trilha Completa &gt;") +
         "</button>" +
         '<button type="button" class="btn-secondary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="track-desc-' +
         escapeHtml(tr.id) +
         '" data-speak-track-desc="' +
         escapeHtml(tr.id) +
         '" data-default-label="Ouvir" aria-pressed="false">' +
-        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        '<span data-speech-label>Ouvir</span>' +
         "</button>" +
         "</div>" +
         "</article>";
@@ -3182,10 +3488,10 @@
       '<div class="space-y-6">' +
       '<div class="surface-card p-6 sm:p-8 text-center max-w-2xl mx-auto space-y-3">' +
       '<h2 id="trilhas-main-heading" class="font-serif-sacred heading-section font-bold">Trilhas de Oração Multi-Dias (7 a 21 Dias)</h2>' +
-      '<p class="text-base" style="color: var(--text-secondary);">Escolha uma jornada abaixo para cultivar constância diária na fé. Quer fazer uma jornada de 40 dias com um propósito de vida? <button type="button" class="underline font-semibold" style="color: var(--accent-blue);" data-nav-target="propositos">Abrir 40 Dias de Propósitos →</button></p>' +
+      '<p class="text-base" style="color: var(--text-secondary);">Escolha uma jornada abaixo para cultivar constância diária na fé. Quer fazer uma jornada de 40 dias com um propósito de vida? <button type="button" class="underline font-semibold" style="color: var(--accent-blue);" data-nav-target="propositos">Abrir 40 Dias de Propósitos &gt;</button></p>' +
       '<div>' +
       '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-action="speak-trilhas-intro" data-speech-id="trilhas-intro" data-default-label="Ouvir orientações em áudio" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir orientações em áudio</span>' +
+      '<span data-speech-label>Ouvir orientações em áudio</span>' +
       "</button>" +
       "</div>" +
       "</div>" +
@@ -3221,7 +3527,7 @@
       var isSelected = pr.id === active.id;
       choiceCardsHtml +=
         '<button type="button" class="jw-photo-card text-left transition ' +
-        (isSelected ? "ring-2 ring-[#4a6da7] border-[#4a6da7]" : "") +
+        (isSelected ? "is-active ring-2 ring-[#4a6da7] border-[#4a6da7]" : "") +
         '" data-select-purpose="' +
         escapeHtml(pr.id) +
         '" aria-pressed="' +
@@ -3240,7 +3546,7 @@
         "</div>" +
         '<div class="p-4 space-y-1.5">' +
         '<span class="jw-kicker">' +
-        (isSelected ? "✓ PROPÓSITO ESCOLHIDO" : "TOQUE PARA ESCOLHER") +
+        (isSelected ? "PROPÓSITO SELECIONADO" : "TOQUE PARA ESCOLHER") +
         "</span>" +
         '<h3 class="font-display text-lg font-bold leading-snug" style="color: var(--text-main);">' +
         escapeHtml(pr.shortTitle) +
@@ -3265,7 +3571,7 @@
         '" aria-label="Dia ' +
         d +
         ' de 40">' +
-        (doneD ? "✓ " + d : String(d)) +
+        (doneD ? "Dia " + d : String(d)) +
         "</button>";
     }
 
@@ -3274,20 +3580,20 @@
     container.innerHTML =
       '<div class="space-y-6 max-w-4xl mx-auto">' +
       '<div class="surface-card p-6 sm:p-8 space-y-3">' +
-      '<span class="jw-kicker">CAMINHADA BÍBLICA • 40 DIAS DE PROPÓSITOS</span>' +
+      '<span class="jw-kicker">CAMINHADA ESPIRITUAL • 40 DIAS DE PROPÓSITOS</span>' +
       '<h2 id="propositos-main-heading" class="jw-section-heading font-display heading-section" style="color: var(--text-main);">' +
       "40 Dias de Propósitos com Deus" +
       "</h2>" +
       '<p class="text-base max-w-2xl" style="color: var(--text-secondary);">' +
-      "Passo 1: escolha abaixo qual propósito de vida você deseja consagrar pelos próximos 40 dias. Passo 2: leia ou ouça a mensagem da Bíblia de cada dia e marque como concluída." +
+      "Passo 1: escolha abaixo qual propósito de vida você deseja consagrar pelos próximos 40 dias. Passo 2: leia ou ouça a mensagem de cada dia e marque como concluída." +
       "</p>" +
       '<div class="pt-1">' +
       '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-action="speak-propositos-guide" data-speech-id="propositos-guide" data-default-label="Ouvir orientações dos 40 Dias" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir orientações dos 40 Dias</span>' +
+      '<span data-speech-label>Ouvir orientações dos 40 Dias</span>' +
       "</button>" +
       "</div>" +
       "</div>" +
-      '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">' +
       choiceCardsHtml +
       "</div>" +
       '<article class="surface-card overflow-hidden">' +
@@ -3338,11 +3644,11 @@
       '<span class="px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--bg-surface); color: ' +
       (isDayDone ? "var(--accent-green)" : "var(--text-muted)") +
       '; border: 1px solid var(--border-color);">' +
-      (isDayDone ? "✓ Dia Concluído" : "Leitura de Hoje") +
+      (isDayDone ? "Dia Concluído" : "Leitura de Hoje") +
       "</span>" +
       "</div>" +
       '<div class="p-5 rounded-xl" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">' +
-      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-blue);">Mensagem da Bíblia (' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-blue);">Mensagem Sagrada (' +
       escapeHtml(dayObj.verseRef) +
       ")</p>" +
       '<p class="font-serif-sacred font-semibold text-lg leading-relaxed" style="color: var(--text-main);">“' +
@@ -3350,18 +3656,18 @@
       '”</p>' +
       "</div>" +
       '<p class="font-serif-sacred text-body-sacred leading-relaxed" style="color: var(--text-main);">' +
-      escapeHtml(dayObj.message) +
+      escapeHtml(dayObj.message || dayObj.reflection || "") +
       "</p>" +
       '<div class="p-4 rounded-xl" style="background-color: var(--bg-subtle); border-left: 4px solid var(--accent-blue);">' +
-      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-blue);">🌿 Aplicação Prática no Dia ' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--accent-blue);">Aplicação Prática no Dia ' +
       dayObj.day +
       "</p>" +
       '<p class="text-base font-medium" style="color: var(--text-main);">' +
-      escapeHtml(dayObj.action) +
+      escapeHtml(dayObj.action || dayObj.practice || "") +
       "</p>" +
       "</div>" +
       '<div class="p-5 rounded-xl" style="background-color: var(--bg-surface); border-left: 4px solid var(--accent-wine);">' +
-      '<p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--accent-wine);">🙏 Oração do Propósito (Dia ' +
+      '<p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--accent-wine);">Oração do Propósito (Dia ' +
       dayObj.day +
       ")</p>" +
       '<p class="font-serif-sacred text-body-sacred italic leading-relaxed" style="color: var(--text-main);">' +
@@ -3376,7 +3682,7 @@
       '" data-toggle-purpose-id="' +
       escapeHtml(active.id) +
       '">' +
-      (isDayDone ? "✓ Dia " + dayObj.day + " Concluído (Desmarcar)" : "✓ Concluir Dia " + dayObj.day + " do Propósito") +
+      (isDayDone ? "Dia " + dayObj.day + " Concluído (Desmarcar)" : "Concluir Dia " + dayObj.day + " do Propósito") +
       "</button>" +
       '<div class="flex flex-wrap gap-2">' +
       '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-speech-id="' +
@@ -3386,14 +3692,14 @@
       '" data-speak-purpose-day="' +
       dayObj.day +
       '" data-default-label="Ouvir mensagem de hoje" aria-pressed="false">' +
-      '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir mensagem de hoje</span>' +
+      '<span data-speech-label>Ouvir mensagem de hoje</span>' +
       "</button>" +
       '<button type="button" class="btn-secondary text-sm inline-flex items-center gap-2" data-share-purpose-id="' +
       escapeHtml(active.id) +
       '" data-share-purpose-day="' +
       dayObj.day +
       '">' +
-      '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+      "Enviar no WhatsApp" +
       "</button>" +
       "</div>" +
       "</div>" +
@@ -3423,7 +3729,7 @@
 
     if (feedbackEl) {
       feedbackEl.textContent =
-        "No celular: toque no menu (⋮ no Chrome do Android) ou no botão Compartilhar (Safari do iPhone) e escolha 'Adicionar à tela inicial'. Assim nosso ícone fica salvo junto aos seus aplicativos!";
+        "No celular: toque no menu (três pontos no Chrome do Android) ou no botão Compartilhar (Safari do iPhone) e escolha 'Adicionar à tela inicial'. Assim nosso ícone fica salvo junto aos seus aplicativos!";
       feedbackEl.classList.remove("hidden");
     }
   }
@@ -3472,7 +3778,7 @@
 
     var feedback = document.getElementById("ics-feedback");
     if (feedback) {
-      feedback.textContent = "✓ Lembrete criado! Abra o arquivo baixado no seu celular para ativar o aviso às 07:30 na agenda.";
+      feedback.textContent = "Lembrete criado! Abra o arquivo baixado no seu celular para ativar o aviso às 07:30 na agenda.";
       feedback.classList.remove("hidden");
     }
   }
@@ -3483,7 +3789,7 @@
 
     function showSuccess() {
       if (feedbackEl) {
-        feedbackEl.textContent = "✓ Chave PIX eupaulorrenato@gmail.com copiada! Agora basta colar no aplicativo do seu banco.";
+        feedbackEl.textContent = "Chave PIX eupaulorrenato@gmail.com copiada! Agora basta colar no aplicativo do seu banco.";
         feedbackEl.classList.remove("hidden");
       }
     }
@@ -3595,7 +3901,7 @@
           if (sbqList[sbqi].id === sbqId) {
             var sbq = sbqList[sbqi];
             shareViaWhatsApp(
-              "📖 *Pergunta Bíblica Respondida*\n\n*" +
+              "*Pergunta Bíblica Respondida*\n\n*" +
                 sbq.question +
                 "*\n\n" +
                 sbq.shortAnswer +
@@ -3619,6 +3925,18 @@
           state.activeBibleQuestionId = null;
         }
         navigateToSection(targetSec, true);
+        return;
+      }
+
+      var selectSpiritistWorkBtn = target.closest("[data-select-spiritist-work]");
+      if (selectSpiritistWorkBtn) {
+        event.preventDefault();
+        state.spiritistWorkIndex = Number(selectSpiritistWorkBtn.getAttribute("data-select-spiritist-work")) || 0;
+        state.spiritistChapterIndex = 0;
+        stopSpeech();
+        renderSpiritistLibrary();
+        var spReaderCard = document.getElementById("spiritist-reader-card");
+        if (spReaderCard) spReaderCard.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 
@@ -3681,7 +3999,7 @@
         for (var k = 0; k < allCandles.length; k++) {
           if (allCandles[k].id === cId) {
             shareViaWhatsApp(
-              "🕯 Acendi uma Vela Virtual de 7 dias no *Horizonte Espiritual* em intenção de *" +
+              "Acendi uma Vela Virtual de 7 dias no *Horizonte Espiritual* em intenção de *" +
                 allCandles[k].honoree +
                 "*:\n\n“" +
                 allCandles[k].intention +
@@ -3736,7 +4054,7 @@
         for (var sm = 0; sm < smpList.length; sm++) {
           if (smpList[sm].id === smId) {
             shareViaWhatsApp(
-              "⚔️ *" + smpList[sm].title + "*\n\n" + smpList[sm].text + "\n\nHorizonte Espiritual"
+              "*" + smpList[sm].title + "*\n\n" + smpList[sm].text + "\n\nHorizonte Espiritual"
             );
             break;
           }
@@ -3811,7 +4129,7 @@
         var shDayObj = shObj && shObj.days && shObj.days[shDay - 1];
         if (shObj && shDayObj) {
           shareViaWhatsApp(
-            "🗓 *" +
+            "*" +
               shObj.shortTitle +
               " - " +
               shDayObj.title +
@@ -3868,14 +4186,14 @@
           speakText(
             "purpose-" + spPId + "-day-" + spPDay,
             spPDayObj.title +
-              ". Mensagem da Bíblia em " +
+              ". Mensagem Sagrada em " +
               spPDayObj.verseRef +
               ": " +
               spPDayObj.verseText +
               ". " +
-              spPDayObj.message +
+              (spPDayObj.message || spPDayObj.reflection || "") +
               ". Aplicação prática: " +
-              spPDayObj.action +
+              (spPDayObj.action || spPDayObj.practice || "") +
               ". Oração: " +
               spPDayObj.prayer
           );
@@ -3891,7 +4209,7 @@
         var shrPDayObj = shrPObj && shrPObj.days && shrPObj.days[shrPDay - 1];
         if (shrPObj && shrPDayObj) {
           shareViaWhatsApp(
-            "🕊 *" +
+            "*" +
               shrPObj.shortTitle +
               " - " +
               shrPDayObj.title +
@@ -3900,8 +4218,8 @@
               "” (" +
               shrPDayObj.verseRef +
               ")\n\n" +
-              shrPDayObj.message +
-              "\n\n🙏 *Oração:* " +
+              (shrPDayObj.message || shrPDayObj.reflection || "") +
+              "\n\n*Oração:* " +
               shrPDayObj.prayer +
               "\n\nHorizonte Espiritual"
           );
@@ -3915,9 +4233,23 @@
         var saList = window.SACRED_RENAISSANCE_GALLERY || [];
         for (var sai = 0; sai < saList.length; sai++) {
           if (saList[sai].id === saId) {
+            var saItem = saList[sai];
+            var bodyVoice =
+              saItem.paragraphs && saItem.paragraphs.length > 0
+                ? saItem.paragraphs.join(" ")
+                : saItem.summary;
             speakText(
               "sacred-art-" + saId,
-              saList[sai].era + ". " + saList[sai].title + ", em " + saList[sai].scriptureRef + ". " + saList[sai].summary
+              saItem.era +
+                ". " +
+                saItem.title +
+                ", em " +
+                saItem.scriptureRef +
+                ". " +
+                (saItem.quoteText ? "Passagem bíblica: " + saItem.quoteText + ". " : "") +
+                bodyVoice +
+                (saItem.homeAction ? " Gesto prático para o lar: " + saItem.homeAction + "." : "") +
+                (saItem.prayerText ? " Oração pela família: " + saItem.prayerText : "")
             );
             break;
           }
@@ -3928,22 +4260,39 @@
       var openSacredArtBtn = target.closest("[data-open-sacred-art]");
       if (openSacredArtBtn) {
         var oaId = openSacredArtBtn.getAttribute("data-open-sacred-art");
-        var oaList = window.SACRED_RENAISSANCE_GALLERY || [];
-        for (var oai = 0; oai < oaList.length; oai++) {
-          var oa = oaList[oai];
-          if (oa.id === oaId) {
-            if (oa.targetSection === "escrituras" && oa.targetBookMatch) {
-              var libBooks = getLibraryBooksForTradition(state.libraryTraditionId);
+        state.activeEdifyingArtId = oaId;
+        stopSpeech();
+        renderHomeSacredGallery();
+        var edifyingReader = document.getElementById("edifying-home-reader");
+        if (edifyingReader) {
+          edifyingReader.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
+
+      var openSacredBibleBtn = target.closest("[data-open-sacred-bible]");
+      if (openSacredBibleBtn) {
+        var obId = openSacredBibleBtn.getAttribute("data-open-sacred-bible");
+        var obList = window.SACRED_RENAISSANCE_GALLERY || [];
+        for (var obi = 0; obi < obList.length; obi++) {
+          var ob = obList[obi];
+          if (ob.id === obId) {
+            var bibleTrad =
+              state.libraryTraditionId === "evangelica" ? "evangelica" : "catolica";
+            state.libraryTraditionId = bibleTrad;
+            var bookKey = ob.targetBookMatch || ob.bookHint || "";
+            if (bookKey) {
+              var libBooks = getLibraryBooksForTradition(bibleTrad);
               for (var lb = 0; lb < libBooks.length; lb++) {
-                if (libBooks[lb].bookTitle.toLowerCase().indexOf(oa.targetBookMatch.toLowerCase()) !== -1) {
+                if (libBooks[lb].bookTitle.toLowerCase().indexOf(bookKey.toLowerCase()) !== -1) {
                   state.libraryBookIndex = lb;
-                  state.libraryChapterIndex = 0;
+                  state.libraryChapterIndex = ob.chapterIndex || 0;
                   break;
                 }
               }
-              renderSacredLibrary();
             }
-            navigateToSection(oa.targetSection || "oracoes", true);
+            renderSacredLibrary();
+            navigateToSection(ob.targetSection || "escrituras", true);
             break;
           }
         }
@@ -4164,13 +4513,20 @@
       } else if (action === "open-tradition-page") {
         navigateToSection("vertente", true);
       } else if (action === "open-tradition-library") {
-        state.libraryTraditionId = state.selectedTraditionId;
-        state.libraryBookIndex = 0;
-        state.libraryChapterIndex = 0;
-        renderSacredLibrary();
-        navigateToSection("escrituras", true);
-      } else if (action === "open-tradition-prayers") {
-        state.prayerCategory = state.selectedTraditionId;
+        if (state.selectedTraditionId === "espirita") {
+          state.spiritistWorkIndex = 0;
+          state.spiritistChapterIndex = 0;
+          renderSpiritistLibrary();
+          navigateToSection("obras-espiritas", true);
+        } else {
+          state.libraryTraditionId = state.selectedTraditionId;
+          state.libraryBookIndex = 0;
+          state.libraryChapterIndex = 0;
+          renderSacredLibrary();
+          navigateToSection("escrituras", true);
+        }
+      } else if (action === "open-tradition-prayers" || action === "open-spiritist-prayers") {
+        state.prayerCategory = action === "open-spiritist-prayers" ? "espirita" : state.selectedTraditionId;
         state.prayerPage = 1;
         state.activePrayerId = null;
         renderPrayersView();
@@ -4227,7 +4583,7 @@
           heroFlame.classList.toggle("paused", state.flamePaused);
         }
         actionBtn.setAttribute("aria-pressed", state.flamePaused ? "true" : "false");
-        actionBtn.textContent = state.flamePaused ? "▶ Retomar movimento da chama" : "⏸ Pausar animação da chama";
+        actionBtn.textContent = state.flamePaused ? "Retomar movimento da chama" : "Pausar animação da chama";
         renderCandlesWall();
       } else if (action === "speak-library-chapter") {
         var books = getLibraryBooksForTradition(state.libraryTraditionId);
@@ -4278,6 +4634,64 @@
         renderSacredLibrary();
         var readerTopNext = document.getElementById("library-reader-card");
         if (readerTopNext) readerTopNext.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (action === "speak-spiritist-guide") {
+        speakText(
+          "spiritist-guide",
+          "Obras Espíritas Completas de Allan Kardec e Domínio Público. Aqui você encontra 10 livros espíritas clássicos gratuitos: O Livro dos Espíritos com 29 capítulos, O Evangelho Segundo o Espiritismo com os 28 capítulos completos, O Livro dos Médiuns, O Céu e o Inferno, A Gênese, O Que é o Espiritismo, Obras Póstumas e obras de Léon Denis e Camille Flammarion. Escolha um livro na estante ou nas listas abaixo e toque em Ouvir capítulo em áudio."
+        );
+      } else if (action === "speak-spiritist-chapter") {
+        var spWorks = getSpiritistWorks();
+        var curWork = spWorks[state.spiritistWorkIndex];
+        var curSpCh = curWork && curWork.chapters && curWork.chapters[state.spiritistChapterIndex];
+        if (curSpCh) {
+          speakText(
+            "spiritist-chapter",
+            (curWork.bookTitle ? curWork.bookTitle + ". " : "") +
+              curSpCh.title +
+              ". " +
+              (curSpCh.verses || []).join(" ")
+          );
+        }
+      } else if (action === "prev-spiritist-chapter") {
+        var spListPrev = getSpiritistWorks();
+        if (spListPrev.length === 0) return;
+        if (state.spiritistChapterIndex > 0) {
+          state.spiritistChapterIndex -= 1;
+        } else if (state.spiritistWorkIndex > 0) {
+          state.spiritistWorkIndex -= 1;
+          var prevSpChaps = spListPrev[state.spiritistWorkIndex].chapters || [];
+          state.spiritistChapterIndex = Math.max(0, prevSpChaps.length - 1);
+        } else {
+          state.spiritistWorkIndex = spListPrev.length - 1;
+          var lastSpChaps = spListPrev[state.spiritistWorkIndex].chapters || [];
+          state.spiritistChapterIndex = Math.max(0, lastSpChaps.length - 1);
+        }
+        stopSpeech();
+        renderSpiritistLibrary();
+        var spTopPrev = document.getElementById("spiritist-reader-card");
+        if (spTopPrev) spTopPrev.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (action === "next-spiritist-chapter") {
+        var spListNext = getSpiritistWorks();
+        if (spListNext.length === 0) return;
+        var activeSpW = spListNext[state.spiritistWorkIndex];
+        var spChCount = (activeSpW && activeSpW.chapters && activeSpW.chapters.length) || 0;
+        if (state.spiritistChapterIndex + 1 < spChCount) {
+          state.spiritistChapterIndex += 1;
+        } else if (state.spiritistWorkIndex + 1 < spListNext.length) {
+          state.spiritistWorkIndex += 1;
+          state.spiritistChapterIndex = 0;
+        } else {
+          state.spiritistWorkIndex = 0;
+          state.spiritistChapterIndex = 0;
+        }
+        stopSpeech();
+        renderSpiritistLibrary();
+        var spTopNext = document.getElementById("spiritist-reader-card");
+        if (spTopNext) spTopNext.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (action === "close-sacred-art") {
+        state.activeEdifyingArtId = null;
+        stopSpeech();
+        renderHomeSacredGallery();
       } else if (action === "next-quiz-question") {
         state.quizIndex += 1;
         state.quizAnswered = false;
@@ -4324,6 +4738,9 @@
               cDay.reference +
               ". Reflexão: " +
               cDay.message +
+              (cDay.espiritaInsight && state.selectedTraditionId === "espirita"
+                ? ". Visão Espírita: " + cDay.espiritaInsight
+                : "") +
               ". Gesto prático de hoje: " +
               cDay.dailyAction +
               ". Oração: " +
@@ -4334,7 +4751,7 @@
         var cw = getCafeDayObj(state.cafeSelectedDay);
         if (cw) {
           shareViaWhatsApp(
-            "☕ *Café Espiritual do Dia (" +
+            "*Café Espiritual do Dia (" +
               cw.theme +
               ")*\n\n“" +
               cw.verse +
@@ -4354,7 +4771,7 @@
       } else if (action === "share-bookmark-whatsapp") {
         var currentHref = window.location.href && window.location.href.indexOf("http") === 0 ? window.location.href : "https://eupaulorrenato-maker.github.io/horizonte-espiritual/";
         shareViaWhatsApp(
-          "🌅 *Horizonte Espiritual* - Meu refúgio diário gratuito para Café Espiritual do Dia, 21 Dias de São Miguel Arcanjo, Velas de 7 Dias e Obras Sagradas Completas:\n\n" +
+          "*Horizonte Espiritual* - Meu refúgio diário gratuito para Café Espiritual do Dia, 21 Dias de São Miguel Arcanjo, Velas de 7 Dias, Bíblia Online e Obras Espíritas Completas:\n\n" +
             currentHref
         );
       } else if (action === "download-daily-ics") {
@@ -4370,11 +4787,11 @@
             : "";
         speakText(
           "home-guide",
-          "Bem-vindo ao Horizonte Espiritual, seu espaço diário gratuito para falar com Deus. Funciona em 3 passos simples. Passo 1: toque no botão grande de Fé Católica ou Fé Evangélica para marcar sua opção" +
+          "Bem-vindo ao Horizonte Espiritual, seu espaço diário gratuito para fé e paz no lar. Funciona em 3 passos simples. Passo 1: toque no cartão grande de Fé Católica, Fé Evangélica ou Doutrina Espírita para marcar sua opção" +
             (selTrad ? ". Opção marcada agora: " + selTrad.name : "") +
             ". Passo 2: escolha na lista como o seu coração se sente hoje" +
             (selFeelLabel ? ". Sentimento escolhido: " + selFeelLabel : "") +
-            ", e a Palavra de Deus aparece logo abaixo para ler ou ouvir. Passo 3: logo mais abaixo na página inicial você cadastra seu WhatsApp gratuitamente para receber a mensagem toda manhã, ou abre a Bíblia Online Completa e as orações a qualquer momento."
+            ", e a passagem aparece logo abaixo para ler ou ouvir. Passo 3: nesta página inicial você também encontra Conteúdos para Edificar a Sua Casa, cadastra seu WhatsApp gratuitamente e acessa a Bíblia Online Completa e as 10 Obras Espíritas Completas a qualquer momento."
         );
       } else if (action === "speak-vertente-overview") {
         var vt = findTradition(state.selectedTraditionId);
@@ -4396,7 +4813,7 @@
       } else if (action === "speak-prayers-guide") {
         speakText(
           "prayers-guide",
-          "Orações Fortes Católicas e Evangélicas. Escolha na lista abaixo entre Fé Católica, Fé Evangélica ou todas, ou pesquise pelo nome da oração. Em qualquer cartão abaixo, toque em Ouvir para escutar direto, ou em Abrir Oração para ler em letras grandes e enviar no WhatsApp."
+          "56 Orações Fortes Católicas, Evangélicas e Espíritas. Escolha na lista abaixo entre Fé Católica, Fé Evangélica, Doutrina Espírita ou todas, ou pesquise pelo nome da oração. Em qualquer cartão abaixo, toque em Ouvir para escutar direto, ou em Abrir Oração para ler em letras grandes e enviar no WhatsApp."
         );
       } else if (action === "speak-candle-guide") {
         speakText(
@@ -4416,12 +4833,12 @@
       } else if (action === "speak-trilhas-intro") {
         speakText(
           "trilhas-intro",
-          "Trilhas de Oração Multi-Dias de 7, 9, 12, 14 e 21 Dias. Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho."
+          "Trilhas de Oração Multi-Dias de 7, 9, 10, 12, 14 e 21 Dias. Escolha uma jornada abaixo para cultivar constância diária na fé. Seu progresso fica salvo automaticamente neste aparelho."
         );
       } else if (action === "speak-propositos-guide") {
         speakText(
           "propositos-guide",
-          "40 Dias de Propósitos com Deus. Primeiro, escolha um dos 4 propósitos de vida: Vida em Deus, Família Abençoada, Saúde e Cura, ou Sabedoria e Fé. Depois toque em qualquer número de 1 a 40 para ler ou ouvir a mensagem da Bíblia e marcar cada dia concluído."
+          "40 Dias de Propósitos com Deus. Primeiro, escolha um dos 5 propósitos de vida: Vida em Deus, Família Abençoada, Saúde e Cura, Sabedoria e Fé, ou Caridade e Reforma Íntima. Depois toque em qualquer número de 1 a 40 para ler ou ouvir a mensagem e marcar cada dia concluído."
         );
       } else if (action === "speak-quiz-question") {
         var qList = window.QUIZ_QUESTIONS || [];
@@ -4570,6 +4987,25 @@
       });
     }
 
+    var spiritistWorkSelect = document.getElementById("spiritist-work-select");
+    if (spiritistWorkSelect) {
+      spiritistWorkSelect.addEventListener("change", function () {
+        state.spiritistWorkIndex = Number(spiritistWorkSelect.value) || 0;
+        state.spiritistChapterIndex = 0;
+        stopSpeech();
+        renderSpiritistLibrary();
+      });
+    }
+
+    var spiritistChapterSelect = document.getElementById("spiritist-chapter-select");
+    if (spiritistChapterSelect) {
+      spiritistChapterSelect.addEventListener("change", function () {
+        state.spiritistChapterIndex = Number(spiritistChapterSelect.value) || 0;
+        stopSpeech();
+        renderSpiritistLibrary();
+      });
+    }
+
     var comfortSelect = document.getElementById("comfort-topic-select");
     if (comfortSelect) {
       comfortSelect.addEventListener("change", function () {
@@ -4587,6 +5023,9 @@
       if (event.key === "Escape") {
         if (state.drawerMenuOpen) {
           toggleDrawerMenu(false);
+        } else if (state.activeEdifyingArtId) {
+          state.activeEdifyingArtId = null;
+          renderHomeSacredGallery();
         } else if (state.activeBibleQuestionId) {
           state.activeBibleQuestionId = null;
           renderBibleQuestionsView();
@@ -4627,7 +5066,10 @@
     var resolvedSavedTrad = savedTradition ? findTradition(savedTradition) : null;
     if (resolvedSavedTrad) {
       state.selectedTraditionId = resolvedSavedTrad.id;
-      state.libraryTraditionId = resolvedSavedTrad.id;
+      if (resolvedSavedTrad.usesFullBibleIndex !== false) {
+        state.libraryTraditionId = resolvedSavedTrad.id;
+      }
+      state.prayerCategory = resolvedSavedTrad.id;
     }
 
     var savedPurposeId = safeStorageGet(STORAGE_KEYS.selectedPurposeId);
@@ -4657,6 +5099,7 @@
     populateCandleTraditionSelect();
     renderCandleSubPages();
     renderSacredLibrary();
+    renderSpiritistLibrary();
     renderThematicComfort();
     renderQuiz();
     renderBlogList();

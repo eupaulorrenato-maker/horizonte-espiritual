@@ -1,5 +1,5 @@
-// Jornada "40 Dias de Propósitos" com mensagens diárias da Bíblia Sagrada
-// Quatro propósitos de vida completos do Dia 1 ao Dia 40 para Fé Católica e Evangélica.
+// Jornada "40 Dias de Propósitos" com mensagens diárias da Bíblia Sagrada e da Doutrina Espírita
+// Cinco propósitos de vida completos do Dia 1 ao Dia 40 para Fé Católica, Fé Evangélica e Doutrina Espírita.
 
 (function () {
   var WEEKLY_PHASES = [
@@ -25,29 +25,34 @@
     for (var i = 0; i < rawItems.length; i++) {
       var d = i + 1;
       var item = rawItems[i];
+      var msg =
+        item[3] +
+        " Ao aplicar este ensinamento no seu propósito de " +
+        baseName +
+        ", dê apenas o passo sereno de hoje, confiando que Deus acompanha toda a caminhada.";
+      var act = item[4] || actionFocus;
+      var pr =
+        prayerOpening +
+        " Neste Dia " +
+        d +
+        " do meu propósito de " +
+        baseName +
+        ", firma o meu coração na leitura de " +
+        item[1] +
+        ". " +
+        item[5] +
+        " Amém.";
       list.push({
         day: d,
         phase: getPhaseForDay(d),
         title: "Dia " + d + " de 40 - " + item[0],
         verseRef: item[1],
         verseText: item[2],
-        message:
-          item[3] +
-          " Ao aplicar este versículo no seu propósito de " +
-          baseName +
-          ", dê apenas o passo sereno de hoje, confiando que Deus acompanha toda a caminhada.",
-        action: item[4] || actionFocus,
-        prayer:
-          prayerOpening +
-          " Neste Dia " +
-          d +
-          " do meu propósito de " +
-          baseName +
-          ", firma o meu coração na Tua Palavra de " +
-          item[1] +
-          ". " +
-          item[5] +
-          " Amém."
+        message: msg,
+        reflection: msg,
+        action: act,
+        practice: act,
+        prayer: pr
       });
     }
     return list;
@@ -225,6 +230,49 @@
     ["Dia 40: Propósito De Fé Concluído!", "Filipenses 1:6", "Aquele que em vós começou a boa obra a aperfeiçoará até ao dia de Jesus Cristo.", "Parabéns por completar 40 dias de sabedoria e vitória na Palavra!", "Compartilhe esta conquista no WhatsApp e continue seu propósito diário.", "Glória a Deus! Continua aperfeiçoando Tua obra em mim!"]
   ];
 
+  var caridadeReformaItems = [
+    ["Fora da Caridade Não Há Salvação", "O Evangelho Segundo o Espiritismo, Cap. XV", "Benevolência para com todos, indulgência para com as imperfeições dos outros, perdão das ofensas.", "Iniciamos esta jornada lembrando a maior síntese moral de Jesus: amar a Deus e ao próximo em atitudes concretas.", "Pratique hoje um gesto discreto de bondade dentro ou fora de casa sem buscar elogios.", "Desperta em mim a verdadeira caridade."],
+    ["O Convite à Reforma Íntima", "Mateus 5:48", "Sede vós pois perfeitos, como é perfeito o vosso Pai que está nos céus.", "Transformar o mundo começa na paciência silenciosa de corrigir um hábito nosso a cada dia.", "Observe hoje um ponto pessoal para melhorar, como a pressa ao responder ou a reclamação.", "Ajuda-me a renovar meus sentimentos hoje."],
+    ["A Benevolência Que Acolhe", "O Livro dos Espíritos, Questão 886", "A verdadeira caridade é sempre branda e benévola; ela está tanto nas palavras quanto nos atos.", "Um sorriso acolhedor e uma escuta respeitosa aliviam fardos invisíveis no coração de quem chega.", "Cumprimente hoje alguém com atenção genuína, perguntando como a pessoa realmente está.", "Faz da minha presença um abraço de paz."],
+    ["A Indulgência Fraterna", "Mateus 7:1-2", "Não julgueis, para que não sejais julgados.", "Desculpar pequenas falhas alheias traz liberdade ao nosso espírito e suavidade ao convívio familiar.", "Quando notar um erro pequeno de alguém hoje, escolha compreender antes de criticar.", "Ensina-me a julgar menos e amar mais."],
+    ["Orai e Vigiai na Rotina", "Marcos 14:38", "Vigiai e orai, para que não entreis em tentação.", "Vigiar os pensamentos evita que a irritação ou o desânimo tomem conta da casa ao longo do dia.", "Faça três pausas breves durante o dia para elevar o pensamento a Deus em silêncio.", "Guarda a porta dos meus pensamentos hoje."],
+    ["Fé Raciocinada e Lúcida", "O Evangelho Segundo o Espiritismo, Cap. XIX", "Fé inabalável é somente aquela que pode encarar de frente a razão em todas as épocas da humanidade.", "Estudar o Evangelho com clareza afasta superstições e traz confiança serena nas leis divinas.", "Leia hoje um trecho de O Evangelho Segundo o Espiritismo na seção Obras Espíritas.", "Ilumina minha fé com lucidez e verdade."],
+    ["Abrindo o Evangelho no Lar", "Mateus 18:20", "Onde estiverem dois ou três reunidos em meu nome, ali estou no meio deles.", "Fechando a primeira semana, reunir o lar em prece serena e leitura edificante renova a proteção espiritual da casa.", "Separe hoje 15 minutos em casa com um copo de água limpa para ler e orar em família.", "Abençoa nosso lar com Tua luz suave."],
+    ["A Resposta Branda em Família", "Provérbios 15:1", "A resposta branda desvia o furor, mas a palavra dura suscita a ira.", "A doçura no tom de voz preserva a paz doméstica e protege a saúde emocional de todos.", "Conte até cinco antes de responder se alguma conversa ficar agitada hoje.", "Coloca mansidão serena em meus lábios."],
+    ["Os Brandos e Pacíficos", "O Evangelho Segundo o Espiritismo, Cap. IX", "Bem-aventurados os brandos e pacíficos, porque possuirão a terra.", "A verdadeira força espiritual não impõe vontades aos gritos, mas conquista corações pela calma.", "Substitua hoje qualquer impaciência doméstica por um gesto de paciência tranquila.", "Cultiva em mim a brandura de espírito."],
+    ["Superando a Impaciência Diária", "Lucas 21:19", "Na vossa paciência possuireis as vossas almas.", "Esperar em filas, atrasos ou processos médicos com serenidade fortalece o autodomínio da alma.", "Transforme qualquer espera inesperada de hoje em um momento de oração silenciosa.", "Fortalece minha paciência nas horas lentas."],
+    ["Luz Que Brilha Sem Barulho", "Mateus 5:16", "Assim resplandeça a vossa luz diante dos homens, para que vejam as vossas boas obras.", "O bom exemplo silencioso dentro da própria família educa gerações inteiras melhor do que longos conselhos.", "Mostre hoje tranquilidade e bom ânimo ao cumprir um dever simples de casa.", "Que minhas atitudes testemunhem Teu amor."],
+    ["Caridade Sem Ostentação", "Mateus 6:3", "Quando tu deres esmola, não saiba a tua mão esquerda o que faz a tua direita.", "O bem feito em silêncio preserva a dignidade de quem recebe e a humildade de quem ajuda.", "Pratique hoje um auxílio discreto, uma doação ou uma prece secreta por alguém necessitado.", "Conserva simples e puro o meu coração."],
+    ["Paz Entre Pais, Filhos e Netos", "O Evangelho Segundo o Espiritismo, Cap. XIV", "Os laços do espírito se fortalecem quando os laços do sangue são vividos no amor.", "Cada geração traz aprendizagens próprias; o respeito mútuo mantém a ponte afetiva aberta.", "Envie hoje uma mensagem carinhosa ou áudio abençoando um filho, neto ou familiar.", "Une todas as gerações desta família."],
+    ["Honra aos Mais Velhos e à História", "Êxodo 20:12", "Honra a teu pai e a tua mãe, para que se prolonguem os teus dias.", "Ao concluir duas semanas, honramos a sabedoria dos pais, avós e antepassados que abriram nosso caminho.", "Agradeça hoje em oração pelos ensinamentos bons recebidos dos seus pais e avós.", "Abençoa e honra a memória dos nossos."],
+    ["Muitas Moradas na Casa do Pai", "João 14:2", "Na casa de meu Pai há muitas moradas; se assim não fora, eu vo-lo teria dito.", "A certeza da vida imortal amplia o horizonte diante das limitações passageiras do corpo físico.", "Olhe para o céu hoje lembrando que somos cidadãos do universo infinito de Deus.", "Firma meu coração na esperança eterna."],
+    ["A Alma Sobrevive ao Corpo", "O Livro dos Espíritos, Questão 149", "A alma sobrevive ao corpo e conserva sua individualidade e afetos após a desencarnação.", "A saudade de quem partiu torna-se mais suave quando sabemos que a vida prossegue em luz.", "Eleve hoje uma prece grata e tranquila por um ente querido já desencarnado.", "Envolve em paz eterna os que partiram."],
+    ["Justiça nas Aflições Presentes", "O Evangelho Segundo o Espiritismo, Cap. V", "Bem-aventurados os aflitos, porque serão consolados.", "Nenhuma dor sincera passa sem propósito educativo; Deus sustenta cada espírito nas provas necessárias.", "Entregue hoje sem revolta uma dificuldade antiga à sabedoria amorosa do Pai.", "Dá-me luz para compreender cada prova."],
+    ["Prece Pelos Entes Desencarnados", "O Evangelho Segundo o Espiritismo, Cap. XXVIII", "A prece pelos que já não estão na Terra leva-lhes consolo, coragem e vibrações de paz.", "Orar com serenidade e gratidão por quem partiu alivia nosso peito e fortalece quem está no plano espiritual.", "Reze hoje a Prece pelos Entes Queridos Desencarnados aqui do portal.", "Leva consolo e claridade aos meus amados."],
+    ["O Amparo do Anjo Guardião", "O Livro dos Espíritos, Questão 491", "O Anjo Guardião acompanha o ser humano por afeição sincera e missão de amor.", "Jamais caminhamos desamparados; bons Espíritos velam pelo nosso sono e inspiram nossas escolhas.", "Agradeça logo pela manhã ao seu Anjo Guardião pela proteção invisível de cada hora.", "Obrigado pela companhia constante de luz."],
+    ["Resignação Ativa e Coragem", "Salmo 37:5", "Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará.", "Resignação cristã não é cruzar os braços, e sim trabalhar no bem com serenidade enquanto Deus provê.", "Dê hoje um passo prático e calmo em direção a algo bom que estava adiado.", "Sustenta minha coragem serena neste dia."],
+    ["Dia 21: A Força da Prece de Cáritas", "Prece de Cáritas", "Que a vossa bondade permita aos espíritos consoladores derramarem por toda parte a paz, a esperança e a fé.", "Metade da caminhada superada: a Prece de Cáritas resume compaixão, perdão, progresso e humildade.", "Leia ou ouça hoje a Prece de Cáritas completa na seção de Orações Fortes.", "Derrama compaixão e esperança no mundo."],
+    ["Consolar os Enfermos e Solitários", "Mateus 25:36", "Estive enfermo, e visitastes-me; estive na prisão, e fostes ver-me.", "Uma ligação amiga ou uma visita breve a quem enfrenta doença ou solidão vale como remédio da alma.", "Ligue hoje para um amigo idoso, doente ou que mora sozinho apenas para conversar com carinho.", "Faz-me instrumento de alívio ao próximo."],
+    ["Amar e Orar Pelos Adversários", "Mateus 5:44", "Amai a vossos inimigos, bendizei os que vos maldizem, orai pelos que vos caluniam.", "Desejar o bem a quem nos feriu quebra o ciclo de ódio e pacifica imediatamente nossa própria consciência.", "Envie hoje uma prece curta desejando paz e equilíbrio a alguém difícil de conviver.", "Liberta meu peito de todo ressentimento."],
+    ["O Cuidado com as Palavras", "Tiago 1:26", "Se alguém cuida ser religioso e não refreia a sua língua, engana o seu próprio coração.", "Evitar comentários maldosos e fofocas protege a harmonia das amizades e do lar inteiro.", "Recuse participar de conversas sobre defeitos alheios hoje, mudando o assunto para o bem.", "Guarda minha boca para só abençoar."],
+    ["O Bom Samaritano na Vizinhança", "Lucas 10:33-34", "Vendo-o, moveu-se de íntima compaixão e aproximou-se dele.", "Não precisamos ir longe para servir: o próximo necessitado muitas vezes mora na mesma rua ou família.", "Preste atenção se algum vizinho ou parente precisa de ajuda simples hoje.", "Abre meus olhos para servir sem preguiça."],
+    ["Pureza de Intenção no Bem", "O Evangelho Segundo o Espiritismo, Cap. XVI", "A verdadeira esmola não humilha quem recebe e nasce da empatia sincera de irmãos.", "Todo auxílio material ganha valor redobrado quando vem acompanhado de respeito e sorriso amigo.", "Separe um alimento, roupa ou contribuição para auxiliar quem atravessa necessidade.", "Ensina-me a partilhar com respeito fraterno."],
+    ["Equilíbrio Diante dos Bens Terrenos", "O Evangelho Segundo o Espiritismo, Cap. XVI", "Não se pode servir a Deus e às riquezas; os bens materiais são empréstimos para o bem comum.", "Administrar os recursos da casa sem avareza nem desperdício traz tranquilidade para todas as contas.", "Agradeça hoje pelo teto, pela comida e pelas roupas, evitando preocupações excessivas.", "Dá-me sobriedade e gratidão pelos bens."],
+    ["O Trabalho Como Lei de Progresso", "O Livro dos Espíritos, Questão 674", "A necessidade do trabalho é uma lei da natureza, útil tanto ao corpo quanto ao espírito.", "Fechando a quarta semana, toda ocupação útil, inclusive cuidar da casa e da família, dignifica o espírito.", "Realize hoje seus afazeres com capricho e gratidão pela saúde que permite agir.", "Abençoa o trabalho honesto de cada lar."],
+    ["Higiene Mental Contra Inquietações", "Filipenses 4:8", "Tudo o que é verdadeiro, tudo o que é honesto, tudo o que é puro, nisso pensai.", "Cultivar pensamentos elevados atrai companhias espirituais luminosas e protege contra angústias.", "Escolha leituras calmas e evite consumir notícias pesadas antes de dormir hoje.", "Enche minha mente do que traz serenidade."],
+    ["Afastando Influências Perturbadoras", "O Evangelho Segundo o Espiritismo, Cap. XXVIII", "Bons Espíritos que vos dignais de assistir-me, dai-me a força de resistir à influência dos maus Espíritos.", "A melhor defesa contra vibrações negativas é a prece sincera unida ao perdão e à prática da caridade.", "Reze hoje a Prece para Afastar os Maus Espíritos mantendo a mente calma.", "Cerca meu lar com bons mentores de luz."],
+    ["Água Fluidificada e Harmonia do Lar", "O Evangelho Segundo o Espiritismo, Cap. XXVII", "A prece sincera atrai fluidos salutares que auxiliam o equilíbrio do organismo e do ambiente.", "Ao orar com fé diante de um copo de água limpa, pedimos aos bons Espíritos o bálsamo para a saúde da casa.", "Coloque um copo de água durante sua prece de hoje e beba agradecendo pela saúde.", "Derrama fluidos de paz sobre nossa saúde."],
+    ["Calma e Resignação na Dor", "2 Coríntios 12:9", "A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza.", "Mesmo diante de tratamentos médicos ou limitações físicas, a serenidade interior coopera com a recuperação.", "Agradeça hoje pelos cuidados médicos e pelos pequenos avanços diários da sua saúde.", "Renova meu vigor físico e espiritual."],
+    ["Solidariedade Aos Que Cuidam", "Gálatas 6:2", "Levai as cargas uns dos outros, e assim cumprireis a lei de Cristo.", "Quem acompanha familiares idosos ou doentes realiza uma das formas mais nobres de caridade cristã.", "Ofereça uma palavra de reconhecimento ou ore hoje por médicos, enfermeiros e cuidadores.", "Fortalece todos os que cuidam com amor."],
+    ["Gratidão Pelos Anos Vividos", "Salmo 92:14", "Na velhice ainda darão frutos; serão viçosos e florescentes.", "Cada década traz amadurecimento afetivo e lucidez espiritual que abençoam filhos, netos e amigos.", "Recorde hoje uma vitória antiga da sua família e agradeça a Deus por cada etapa.", "Obrigado por cada lição dos anos vividos."],
+    ["O Espírito Nunca Envelhece", "O Evangelho Segundo o Espiritismo, Cap. XVII", "O corpo desgasta-se com os anos, mas o espírito imortal conserva sua juventude no amor e no aprendizado.", "Fechando a quinta semana, celebramos que sempre é tempo de aprender algo bom, perdoar e fazer novos amigos.", "Retome hoje uma leitura edificante ou atividade leve que lhe traga alegria ao espírito.", "Mantém jovem e esperançoso meu espírito."],
+    ["Amar a Deus e ao Próximo", "Mateus 22:37-39", "Amarás ao Senhor teu Deus de todo o teu coração, e ao teu próximo como a ti mesmo.", "Toda a moral do Evangelho resume-se nestes dois mandamentos inseparáveis de adoração a Deus e serviço fraterno.", "Pergunte ao acordar hoje: 'A quem posso estender a mão com carinho neste dia?'.", "Ensina-me a amar a Ti servindo ao próximo."],
+    ["Os Obreiros da Última Hora", "O Evangelho Segundo o Espiritismo, Cap. XX", "Os últimos serão os primeiros quando trabalham com sinceridade e humildade no bem.", "Nunca é tarde para iniciar a reforma íntima e cultivar a paz dentro da família; toda hora é abençoada para servir.", "Dedique hoje um tempo especial de escuta paciente a alguém que precisa desabafar.", "Recebe meu esforço humilde de servir no bem."],
+    ["Tesouros Imperecíveis da Alma", "Mateus 6:20", "Ajuntai tesouros no céu, onde nem a traça nem a ferrugem consomem.", "O único bem que levamos para além da vida terrena são as virtudes conquistadas e o amor que distribuímos.", "Valorize hoje um momento de afeto familiar acima de qualquer preocupação passageira.", "Faz-me rico em amor, perdão e sabedoria."],
+    ["Semeadura de Luz para o Amanhã", "Gálatas 6:9", "E não nos cansemos de fazer bem, porque a seu tempo ceifaremos, se não houvermos desfalecido.", "Véspera do Dia 40: cada prece feita e cada palavra mansa semeada nestes dias já transformou seu lar para melhor.", "Agradeça pela constância mantida até este Dia 39 e prepare sua prece de gratidão.", "Sustenta minha perseverança contínua no bem."],
+    ["Dia 40: Propósito de Caridade e Paz Cumprido!", "O Evangelho Segundo o Espiritismo, Cap. XV e XXVIII", "Glória a Deus nas alturas, paz na terra aos homens de boa vontade!", "Parabéns por concluir 40 dias de Caridade, Reforma Íntima e Evangelho no Lar! Que a luz deste propósito permaneça acesa em sua casa.", "Continue o Evangelho no Lar semanal e compartilhe uma mensagem de paz com sua família hoje.", "Obrigado, Pai Eterno e Mestre Jesus, por estes 40 dias de amor, caridade e renovação!"]
+  ];
+
   window.FORTY_DAY_PURPOSES = [
     {
       id: "proposito-paz-vida-40",
@@ -292,6 +340,23 @@
         "Reflita no conselho bíblico de hoje antes de decidir ou responder algo importante.",
         "Deus de toda sabedoria e força!",
         sabedoriaFeItems
+      )
+    },
+    {
+      id: "proposito-caridade-reforma-40",
+      title: "40 Dias de Caridade, Reforma Íntima e Evangelho no Lar",
+      shortTitle: "Caridade e Reforma Íntima",
+      durationDays: 40,
+      traditionLabel: "Doutrina Espírita e Evangelho Cristão",
+      badge: "40 Dias de Propósitos • Caridade e Luz",
+      imagePath: "assets/traditions/espirita.jpg",
+      imageCaption: "Caridade, Reforma Íntima e Evangelho no Lar",
+      description: "Jornada de 40 dias inspirada no Evangelho de Jesus e em O Evangelho Segundo o Espiritismo: indulgência, perdão, paz no lar e prática diária da caridade.",
+      days: buildPurposeDays(
+        "Caridade, Reforma Íntima e Evangelho no Lar",
+        "Pratique hoje a benevolência no falar e dedique um momento tranquilo para o Evangelho no Lar.",
+        "Pai Eterno de bondade e luz!",
+        caridadeReformaItems
       )
     }
   ];

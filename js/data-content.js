@@ -457,6 +457,140 @@ window.STRONG_PRAYERS = [
     salutation: "Os céus proclamam a glória de Deus e o firmamento anuncia Suas obras!",
     text: "Eterno Deus Criador, que disseste 'Haja luz' e tudo passou a existir com beleza e ordem, bendigo o Teu santo nome nesta hora.\n\nObrigado pelo ar que entra em meus pulmões, pela claridade que entra pela janela, pelas águas, pelas flores e pela minha família.\n\nQue as palavras da minha boca e a meditação do meu coração sejam sempre agradáveis diante de Ti, Rocha minha e Redentor meu. Amém!",
     usageNote: "Bela prece para fazer contemplando a manhã ou a natureza."
+  },
+
+  // DOUTRINA ESPÍRITA (12 PRECES DE DOMÍNIO PÚBLICO E CONSOLO CRISTÃO)
+  {
+    id: "prece-de-caritas-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece de Cáritas",
+    subtitle: "Clássica prece cristã recebida em 1873 pelo médium W. Krell",
+    salutation: "Deus nosso Pai, que sois todo poder e bondade!",
+    text: "Deus nosso Pai, que sois todo poder e bondade, dai a força àquele que passa pela provação, dai a luz àquele que procura a verdade, ponde no coração do homem a compaixão e a caridade.\n\nDeus! Dai ao viajor a estrela guia, ao aflito a consolação, ao doente o repouso.\n\nPai! Dai ao culpado o arrependimento, ao espírito a verdade, à criança o guia, ao órfão o pai.\n\nSenhor, que a vossa bondade se estenda sobre tudo o que criastes. Piedade, Senhor, para aqueles que vos não conhecem, esperança para aqueles que sofrem. Que a vossa bondade permita aos espíritos consoladores derramarem por toda parte a paz, a esperança e a fé.\n\nDeus! Um raio, uma faísca do vosso amor pode abrasar a Terra; deixai-nos beber nas fontes dessa bondade fecunda e infinita, e todas as lágrimas secarão, todas as dores se acalmarão. Um só coração, um só pensamento subirá até vós, como um grito de reconhecimento e de amor.\n\nComo Moisés sobre a montanha, nós vos esperamos com os braços abertos, ó Poder, ó Bondade, ó Beleza, ó Perfeição, e queremos de alguma sorte merecer a vossa misericórdia.\n\nDeus, dai-nos a força de ajudar o progresso a fim de subirmos até vós; dai-nos a caridade pura, dai-nos a fé e a razão; dai-nos a simplicidade que fará de nossas almas o espelho onde se refletirá a vossa santa e divina imagem.",
+    usageNote: "Rezada no início e no encerramento do Evangelho no Lar e nos momentos em que se pede amparo espiritual."
+  },
+  {
+    id: "prece-afastar-maus-espiritos-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece para Afastar os Maus Espíritos",
+    subtitle: "Prece clássica de O Evangelho Segundo o Espiritismo (Capítulo XXVIII)",
+    salutation: "Em nome de Deus Todo-Poderoso, reine a paz neste lar!",
+    text: "Em nome de Deus Todo-Poderoso, afastem-se de mim os maus Espíritos, e que os bons Espíritos me sirvam de proteção contra eles.\n\nEspíritos malfazejos, que inspirais maus pensamentos aos homens; Espíritos velhacos e mentirosos que os enganais; Espíritos zombeteiros que brincais com a sua credulidade, eu vos repilo com todas as forças da minha alma e fecho o ouvido às vossas sugestões; mas desejo sobre vós a misericórdia de Deus.\n\nBons Espíritos que vos dignais de assistir-me, dai-me a força de resistir à influência dos maus Espíritos e as luzes necessárias para não ser iludido por seus embustes. Preservai-me do orgulho e da presunção; afastai do meu coração o ciúme, o ódio, a malevolência e todo sentimento contrário à caridade, porque são outras tantas portas abertas ao Espírito do mal.",
+    usageNote: "Indicada para higienização espiritual dos pensamentos e proteção psíquica da casa (O Evangelho Segundo o Espiritismo, Cap. XXVIII)."
+  },
+  {
+    id: "prece-pelos-doentes-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece pelos Doentes",
+    subtitle: "Prece de O Evangelho Segundo o Espiritismo por quem enfrenta enfermidades",
+    salutation: "Senhor, que os Vossos bons Espíritos derramem bálsamo sobre este enfermo!",
+    text: "Meu Deus, os vossos desígnios são impenetráveis, e na vossa sabedoria julgastes dever afligir este nosso irmão pela enfermidade. Lançai, eu vos suplico, um olhar de compaixão sobre os seus sofrimentos, e dignai-vos de pôr-lhes um termo.\n\nBons Espíritos, ministros do Todo-Poderoso, secundai, eu vo-lo peço, o meu desejo de aliviá-lo; dirigi o meu pensamento a fim de que vá derramar um bálsamo salutar sobre o seu corpo e a consolação em sua alma.\n\nInspirai-lhe a paciência e a submissão à vontade de Deus; dai-lhe a força de suportar suas dores com resignação cristã, a fim de que não perca o fruto desta provação.",
+    usageNote: "Prece para ler ou ouvir ao lado de um familiar doente, antes de consultas médicas ou durante o passe espiritual."
+  },
+  {
+    id: "prece-evangelho-no-lar-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece pelo Evangelho no Lar",
+    subtitle: "Para abrir o culto semanal do Evangelho em família e fluidificar a água",
+    salutation: "Mestre Jesus, entrai com Vossa luz no recinto desta família!",
+    text: "Senhor Jesus, Mestre amado e guia de nossas almas, reunimo-nos nesta hora com singeleza de coração para estudar os ensinamentos do Teu Evangelho e renovar a paz dentro do nosso lar.\n\nPedimos aos bons Espíritos, aos nossos Anjos Guardiões e aos mentores amigos desta família que envolvam todos os cômodos da casa em vibrações de concórdia, saúde, paciência e entendimento fraterno.\n\nDerrama sobre a água que preparamos e sobre todos os presentes o Teu fluido salutar de equilíbrio para o corpo físico e serenidade para o espírito. Afastai da nossa morada as discórdias, as inquietações e a impaciência, ajudando-nos a praticar diariamente o amor ao próximo e o perdão sincero. Que a Tua paz permaneça conosco hoje e sempre. Assim seja.",
+    usageNote: "Ideal para realizar uma vez por semana em dia e horário fixos com a família, com um copo de água limpa sobre a mesa."
+  },
+  {
+    id: "prece-entes-queridos-desencarnados-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece pelos Entes Queridos Desencarnados",
+    subtitle: "Inspirada em O Evangelho Segundo o Espiritismo para saudade e prece pelos que partiram",
+    salutation: "Senhor, acolhei na luz eterna a alma querida que partiu!",
+    text: "Senhor Deus Todo-Poderoso, que o vosso amor envolva em luz serena a alma do ente querido a quem a morte do corpo chamou de volta à Pátria Espiritual.\n\nSabemos pela fé raciocinada que a morte é apenas a libertação dos envoltórios materiais e que os laços do verdadeiro afeto jamais se rompem no sepulcro. Enviai, Pai de misericórdia, os Vossos mensageiros consoladores para ampará-lo na nova morada, ajudando-o a compreender a continuidade da vida com paz e gratidão.\n\nE a nós que permanecemos na jornada terrena, dai-nos consolo diante da saudade, serenidade para aceitar os Vossos desígnios e coragem para honrar sua memória praticando o bem e a caridade até o dia do reencontro em espírito. Assim seja.",
+    usageNote: "Para rezar com o pensamento sereno dirigido aos pais, cônjuges, familiares e amigos desencarnados."
+  },
+  {
+    id: "prece-serenidade-reforma-intima-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece pela Serenidade e Reformulação Íntima",
+    subtitle: "Vigilância dos pensamentos, mansidão e superação do orgulho e da impaciência",
+    salutation: "Senhor, ajudai-me a vencer minhas próprias imperfeições!",
+    text: "Pai Eterno e compassivo, reconheço que a verdadeira paz que procuro fora de mim começa na transformação silenciosa do meu próprio coração.\n\nDai-me forças neste dia para vigiar os meus pensamentos e palavras. Quando o orgulho tentar levantar a minha voz, lembrai-me da humildade de Jesus. Quando a impaciência ou a mágoa quiserem dominar a minha casa, colocai nos meus lábios a resposta branda e no meu peito a indulgência para com as faltas alheias.\n\nEnsinai-me a corrigir em mim aquilo que ainda me afasta do bem, dando-me um novo passo na minha reforma íntima a cada amanhecer. Que os meus gestos de hoje sejam mais suaves do que os de ontem. Assim seja.",
+    usageNote: "Prece recomendada para a manhã ou para o exame sereno de consciência antes de dormir."
+  },
+  {
+    id: "oracao-sao-francisco-visao-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Oração de São Francisco de Assis (Visão Espírita da Paz)",
+    subtitle: "Clássica prece de fraternidade, perdão e renovação moral pelo serviço ao próximo",
+    salutation: "Senhor, fazei-me instrumento da Vossa paz e da Vossa caridade!",
+    text: "Senhor, fazei-me instrumento de vossa paz.\nOnde houver ódio, que eu leve o amor;\nOnde houver ofensa, que eu leve o perdão;\nOnde houver discórdia, que eu leve a união;\nOnde houver dúvida, que eu leve a fé;\nOnde houver erro, que eu leve a verdade;\nOnde houver desespero, que eu leve a esperança;\nOnde houver tristeza, que eu leve a alegria;\nOnde houver trevas, que eu leve a luz.\n\nÓ Mestre, fazei que eu procure mais consolar que ser consolado; compreender que ser compreendido; amar que ser amado.\n\nPois é dando que se recebe, é perdoando que se é perdoado e é morrendo para o egoísmo que o espírito desperta para a vida eterna. Assim seja.",
+    usageNote: "Muito querida nos lares espíritas como síntese prática da moral cristã ensinada por Jesus."
+  },
+  {
+    id: "prece-dominical-caridade-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece Dominical da Caridade",
+    subtitle: "Inspirada no lema 'Fora da Caridade não há Salvação' (Allan Kardec)",
+    salutation: "Deus de bondade, ensinai-me a benevolência, a indulgência e o perdão!",
+    text: "Senhor Deus, Criador justo e amoroso, que nos ensinastes pelo Evangelho de Jesus que fora da caridade não há salvação para a alma humana, abri os nossos olhos neste domingo para enxergar as necessidades de quem caminha ao nosso lado.\n\nEnsinai-nos a praticar a verdadeira caridade como a definiram os bons Espíritos: benevolência para com todos, indulgência para as imperfeições alheias e perdão das ofensas.\n\nQue as nossas mãos saibam repartir o pão material com quem tem fome, e que o nosso coração nunca negue uma palavra amiga, uma visita carinhosa ou uma prece sincera a quem sofre na solidão. Abençoai nossa semana que se inicia na luz do serviço fraterno. Assim seja.",
+    usageNote: "Excelente leitura espiritual aos domingos ou antes de atividades de auxílio e caridade."
+  },
+  {
+    id: "prece-idosos-solitarios-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece pelos Idosos e Solitários",
+    subtitle: "Acolhimento espiritual na maturidade e certeza da companhia dos Mentores de Luz",
+    salutation: "Nunca caminhamos sozinhos sob o amparo do nosso Anjo Guardião!",
+    text: "Pai Celestial, que acompanhastes cada passo de nossa existência desde o berço terreno até os dias serenos da maturidade, agradecemos pelas experiências vividas, pelas lutas vencidas e pela lucidez que nos permite continuar aprendendo e servindo no bem.\n\nNos momentos em que a casa fica silenciosa ou a saudade visita o coração dos idosos e dos que moram sós, fazei sentir de modo suave a presença amiga do nosso Anjo da Guarda e dos bons Espíritos que velam por nós.\n\nFortalecei o corpo cansado, preservai a alegria de conversar com filhos, netos e amigos, e lembrai a cada coração maduro que o espírito não envelhece e tem sempre utilidade preciosa no amor de Deus. Assim seja.",
+    usageNote: "Prece especial de acolhimento para quem vive na terceira idade ou atravessa momentos de solidão."
+  },
+  {
+    id: "prece-trabalho-honesto-sustento-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece pelo Trabalho Honesto e Sustento",
+    subtitle: "Harmonia, dignidade nas tarefas diárias e equilíbrio nas provações materiais",
+    salutation: "Senhor, abençoai o esforço digno e o pão de cada dia!",
+    text: "Deus de sabedoria e providência, que instituístes a lei do trabalho como caminho de progresso para o espírito e de serviço útil à sociedade, abençoai as nossas ocupações honestas e os esforços de todos os membros da nossa família.\n\nInspirai-nos lucidez para administrar com equilíbrio os recursos de nossa casa, paciência diante das dificuldades econômicas e portas abertas para quem busca ocupação digna.\n\nAfastai a ansiedade exagerada pelos bens transitórios e dai-nos o necessário para o sustento tranquilo do corpo, conservando a paz de consciência e o desejo de partilhar com os que têm menos. Assim seja.",
+    usageNote: "Para rezar antes de iniciar o trabalho, organizar as contas da casa ou interceder por emprego familiar."
+  },
+  {
+    id: "prece-agradecimento-mais-um-dia-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece de Agradecimento por Mais um Dia",
+    subtitle: "Ação de graças inspirada no Capítulo XXVIII de O Evangelho Segundo o Espiritismo",
+    salutation: "Graças Vos dou, Senhor, pela vida, pelo ar e pelas lições deste dia!",
+    text: "Deus infinitamente bom, agradeço-Vos de todo o coração pelo dom precioso de mais um dia vivido na escola abençoada da Terra.\n\nObrigado pelo ar que respiramos, pelo teto que nos abriga, pelo alimento sobre a mesa e pelo convívio das pessoas que colocastes em nosso caminho familiar para nosso aprendizado mútuo.\n\nObrigado ainda pelas forças que nos sustentaram nos deveres cumpridos e pelas advertências recebidas quando estávamos prestes a errar. Ao entregarmos agora o repouso do corpo físico durante o sono, permiti que nosso espírito busque junto aos bons instrutores novos ensinamentos de paz para o amanhecer. Assim seja.",
+    usageNote: "Prece acolhedora para o fim da tarde ou antes de deitar-se em gratidão."
+  },
+  {
+    id: "prece-pedir-forcas-provacoes-espirita",
+    category: "espirita",
+    categoryLabel: "Doutrina Espírita",
+    imagePath: "assets/traditions/espirita.jpg",
+    title: "Prece para Pedir Forças nas Provações",
+    subtitle: "Resignação ativa, coragem moral e confiança na Justiça Divina (Cap. XXVIII)",
+    salutation: "Senhor, dai-me coragem e clareza para vencer esta provação!",
+    text: "Meu Deus, Vós conheceis a grandeza da prova que hoje pesa sobre os meus ombros e as lágrimas silenciosas que só o Vosso olhar paterno alcança.\n\nNão peço que me poupeis de aprender o que for necessário à evolução da minha alma, mas suplico-Vos força moral, paciência e discernimento para atravessar este momento sem revolta nem desânimo.\n\nLembrai ao meu espírito que toda provação é passageira diante da eternidade, e que nenhum sofrimento é inútil quando aceito com fé raciocinada e esperança em Jesus. Enviai os Vossos bons Espíritos para segurar minhas mãos hoje e renovar meu ânimo para seguir praticando o bem. Assim seja.",
+    usageNote: "Baseada nas preces nas aflições da vida de O Evangelho Segundo o Espiritismo, Cap. XXVIII."
   }
 ];
 
@@ -464,7 +598,7 @@ window.THEMATIC_COMFORT = [
   {
     id: "luto-saudade",
     title: "Luto, Saudade e Despedida",
-    icon: "🕊",
+    icon: "",
     summary: "Palavras bíblicas de amparo quando a ausência de quem amamos pesa no peito.",
     breathGuide: "Inspire lentamente contando até 4, acolha a lembrança querida em oração e solte o ar sentindo a presença consoladora de Deus.",
     readings: [
@@ -488,7 +622,7 @@ window.THEMATIC_COMFORT = [
   {
     id: "ansiedade-insonia",
     title: "Ansiedade, Aflição e Noites em Claro",
-    icon: "🌙",
+    icon: "",
     summary: "Leituras calmas das Escrituras para desacelerar a mente antes do repouso noturno.",
     breathGuide: "Relaxe os ombros, apoie as mãos sobre o colo e repita suavemente: 'O Senhor guarda a minha casa enquanto eu descanso'.",
     readings: [
@@ -512,7 +646,7 @@ window.THEMATIC_COMFORT = [
   {
     id: "saude-recuperacao",
     title: "Saúde Frágil, Tratamento e Esperança",
-    icon: "🌿",
+    icon: "",
     summary: "Fortalecimento cristão aos enfermos, idosos e familiares cuidadores.",
     breathGuide: "Inspire devagar e peça ao Senhor Jesus que derrame calma sobre cada parte do seu corpo e confiança nos cuidados médicos.",
     readings: [
@@ -536,7 +670,7 @@ window.THEMATIC_COMFORT = [
   {
     id: "harmonia-familiar",
     title: "Paz no Lar e Reconciliação Familiar",
-    icon: "🏡",
+    icon: "",
     summary: "Sabedoria bíblica para cultivar concórdia entre filhos, cônjuges e netos.",
     breathGuide: "Antes de responder a uma palavra dura, respire por três segundos em silêncio e peça mansidão a Deus.",
     readings: [
@@ -560,7 +694,7 @@ window.THEMATIC_COMFORT = [
   {
     id: "sustento-portas-abertas",
     title: "Sustento Digno e Portas Abertas",
-    icon: "🌾",
+    icon: "",
     summary: "Firmeza e coragem cristã nas preocupações financeiras ou de trabalho.",
     breathGuide: "Agradeça pelas capacidades que Deus lhe deu até hoje e entregue em oração o pão diário da sua família.",
     readings: [
@@ -731,95 +865,203 @@ window.INITIAL_CANDLES = [
 window.SACRED_RENAISSANCE_GALLERY = [
   {
     id: "obra-criacao",
-    era: "Gênesis • O Início de Tudo",
-    title: "A Criação da Luz e do Mundo",
+    era: "LAR E ROTINA • GÊNESIS 1:1-5",
+    title: "A Criação e a Ordem no Lar: Começando o Dia com Deus",
     scriptureRef: "Gênesis 1:1-5",
     imagePath: "assets/sacred/criacao-luz.jpg",
-    summary: "No princípio criou Deus os céus e a terra, separando as trevas com a primeira manhã luminosa.",
+    summary: "Assim como Deus trouxe luz e ordem no princípio, consagrar as primeiras horas da manhã organiza a casa, acalma o coração e prepara a família para um dia sereno.",
+    bookHint: "Gênesis",
+    chapterIndex: 0,
     targetSection: "escrituras",
-    targetBookMatch: "Gênesis"
+    targetBookMatch: "Gênesis",
+    quoteText: "No princípio criou Deus os céus e a terra. E disse Deus: Haja luz. E houve luz.",
+    paragraphs: [
+      "O relato de Gênesis nos mostra que antes de qualquer coisa existir com beleza e fruto, o Criador estabeleceu luz e ordem onde havia vazio e confusão. Dentro da nossa própria casa acontece algo muito parecido: quando acordamos já agitados, reclamando dos problemas ou correndo atrás de notícias ruins, todo o ambiente familiar sente o peso da pressa.",
+      "Começar o dia com Deus não exige longas horas de silêncio distante dos afazeres domésticos. Basta abrir as janelas da sala para a claridade da manhã, agradecer pelo fôlego de vida enquanto prepara o café e pronunciar uma palavra de bênção sobre os cômodos da casa, sobre os filhos e sobre os netos.",
+      "Na maturidade, esse ritmo ordenado torna-se um exemplo luminoso para toda a família. Quando os mais jovens percebem que o lar tem horários de oração, gratidão à mesa e calma no falar, descobrem na prática o que significa viver sob a luz do Criador."
+    ],
+    homeAction: "Ao acordar ou logo após ler este estudo, abra as cortinas da casa, agradeça por três bênçãos presentes hoje e organize um pequeno canto limpo para sua leitura diária.",
+    prayerText: "Deus Criador da luz e da ordem, entra hoje na minha casa logo ao amanhecer. Afasta a confusão, organiza nossos pensamentos, abençoa a rotina da nossa família e mantém a Tua claridade sobre cada conversa à mesa. Amém."
   },
   {
     id: "obra-arca-noe",
-    era: "Antiga Aliança • Fidelidade",
-    title: "A Arca de Noé e o Arco da Aliança",
+    era: "ALIANÇA NA FAMÍLIA • GÊNESIS 9:13-16",
+    title: "A Aliança de Noé: Protegendo a Família nas Tempestades",
     scriptureRef: "Gênesis 9:13-16",
     imagePath: "assets/sacred/arca-noe-alianca.jpg",
-    summary: "Depois da tormenta, Deus firmou o arco de paz nos céus lembrando Sua aliança eterna com as famílias.",
-    targetSection: "trilhas"
+    summary: "A história de Noé ensina que a fidelidade constante dentro do lar constrói um abrigo seguro capaz de atravessar crises financeiras, enfermidades e mudanças dos tempos.",
+    bookHint: "Gênesis",
+    chapterIndex: 8,
+    targetSection: "escrituras",
+    targetBookMatch: "Gênesis",
+    quoteText: "O meu arco tenho posto nas nuvens; este será por sinal da aliança entre mim e a terra.",
+    paragraphs: [
+      "Noé não construiu a arca depois que a chuva começou a cair: ele cuidou de cada tábua com paciência nos dias comuns, enquanto muitos ao redor zombavam da sua fé. Da mesma forma, uma família protegida não se constrói apenas na hora do susto, mas no carinho diário, no respeito mútuo e na oração silenciosa mantida mesmo nos dias tranquilos.",
+      "Todas as casas enfrentam tempestades ao longo dos anos: dificuldades de saúde, apertos financeiros, preocupações com o futuro dos netos ou fases de saudade. Nessas horas, a união familiar e a confiança nas promessas de Deus funcionam como um verdadeiro abrigo onde ninguém fica desamparado.",
+      "Quando a tempestade passa, o arco da aliança nos lembra que Deus continua fiel de geração em geração. Nunca desanime de orar pelos seus familiares, mesmo quando parece que os resultados demoram: a fidelidade dos pais e avós ergue uma cobertura de paz que permanece."
+    ],
+    homeAction: "Mande hoje uma mensagem simples ou ligue para um familiar que anda preocupado dizendo: 'Nossa família está protegida em Deus; estou orando por você hoje'.",
+    prayerText: "Senhor Deus da Aliança, faz da nossa casa uma arca de proteção, fé e cuidado mútuo. Quando vierem dias de vento forte ou preocupação, mantém nossos laços unidos em Ti e renova o arco da Tua esperança sobre nossos filhos e netos. Amém."
   },
   {
     id: "obra-moises-sinai",
-    era: "Êxodo • Direção de Deus",
-    title: "Moisés no Monte Sinai Diante da Luz Divina",
-    scriptureRef: "Êxodo 33:14",
+    era: "VALORES DO LAR • ÊXODO 20:12 E 33:14",
+    title: "Os Dez Mandamentos em Casa: Respeito aos Pais e Verdade",
+    scriptureRef: "Êxodo 20:12 • Êxodo 33:14",
     imagePath: "assets/sacred/moises-monte-sinai.jpg",
-    summary: "Na montanha sagrada, Moisés recebeu a promessa: 'A minha presença irá contigo, e eu te darei descanso'.",
+    summary: "Os princípios dados no Sinai trazem segurança para o convívio diário: honrar os mais velhos, falar com verdade e descansar na promessa de que Deus caminha conosco.",
+    bookHint: "Êxodo",
+    chapterIndex: 19,
     targetSection: "escrituras",
-    targetBookMatch: "Êxodo"
+    targetBookMatch: "Êxodo",
+    quoteText: "Honra a teu pai e a tua mãe, para que se prolonguem os teus dias na terra que o Senhor teu Deus te dá.",
+    paragraphs: [
+      "Os mandamentos entregues a Moisés no Monte Sinai nunca foram regras frias para tirar a alegria humana; pelo contrário, são cercas protetoras que garantem dignidade dentro da casa. Entre eles está a promessa especial ligada ao cuidado e à honra devida aos pais, aos avós e aos cabelos brancos.",
+      "Em um mundo apressado onde muitas vezes se esquece a sabedoria de quem já construiu muito pela família, resgatar o respeito às histórias dos mais velhos fortalece as raízes dos mais jovens. Ao mesmo tempo, cultivar a verdade nas conversas e evitar comentários que dividem parentes traz confiança profunda à mesa familiar.",
+      "Em Êxodo 33:14, Deus assegurou a Moisés: 'A minha presença irá contigo, e eu te darei descanso'. Quando a família respeita os valores da honestidade, da honra entre gerações e da verdade, a presença divina transforma o lar em lugar de descanso verdadeiro."
+    ],
+    homeAction: "Pratique hoje a honra familiar: agradeça a Deus pelo exemplo dos seus pais e avós ou conte uma história de fé e superação da sua família para um filho ou neto.",
+    prayerText: "Senhor da Verdade, grava os Teus mandamentos de amor e respeito no coração de todos os da nossa casa. Ensina as gerações mais novas a honrar os mais velhos, e dá aos pais e avós paciência e ternura para ensinar o caminho reto. Amém."
   },
   {
     id: "obra-davi-salmos",
-    era: "Reino de Israel • Louvor e Confiança",
-    title: "O Rei Davi Tocando Harpa nos Salmos",
-    scriptureRef: "Salmo 23 e Salmo 91",
+    era: "PROVISÃO E PAZ • SALMO 23 E SALMO 91",
+    title: "O Salmo 23 na Mesa da Família: Superando a Escassez e o Medo",
+    scriptureRef: "Salmo 23:1-6 • Salmo 91:1",
     imagePath: "assets/sacred/davi-salmos-harpa.jpg",
-    summary: "Nos momentos de alegria ou aperto, o rei salmista erguia a harpa entregando suas preces em cânticos.",
-    targetSection: "oracoes"
+    summary: "Como os cânticos de Davi ensinam o lar a substituir a ansiedade pelo pão de amanhã pela certeza serena de que o Bom Pastor cuida da mesa e do descanso da família.",
+    bookHint: "Salmos",
+    chapterIndex: 22,
+    targetSection: "escrituras",
+    targetBookMatch: "Salmos",
+    quoteText: "O Senhor é o meu pastor; nada me faltará. Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas.",
+    paragraphs: [
+      "Antes de ser rei, Davi conheceu de perto a solidão dos campos, o medo diante de perigos reais e a responsabilidade de zelar por ovelhas indefesas. Por isso o Salmo 23 não é uma poesia distante da realidade: ele nasce da certeza experimentada na prática de que Deus supre, orienta e consola nos vales mais escuros.",
+      "Muitas vezes o medo das contas do mês, das notícias econômicas ou da fragilidade física tira o sono da família inteira. Abrir o Salmo 23 ou o Salmo 91 junto à mesa da cozinha lembra ao coração que o nosso sustento final não depende apenas das forças limitadas do mundo, mas da providência constante do Bom Pastor.",
+      "Adotar o hábito de agradecer pelo alimento antes das refeições e ler um Salmo em voz calma quando o ambiente ficar tenso muda a atmosfera do lar. A harpa espiritual do louvor transforma a escassez em gratidão e o medo em descanso seguro."
+    ],
+    homeAction: "Antes do almoço ou do jantar de hoje, leia em voz serena os versículos do Salmo 23 agradecendo pelo alimento na mesa e pela provisão honesta da casa.",
+    prayerText: "Bom Pastor Jesus, abençoa o pão da nossa mesa, o trabalho dos nossos familiares e o repouso da nossa noite. Afasta o medo da falta e ensina nosso coração a descansar na certeza de que Tua bondade e misericórdia nos acompanham todos os dias. Amém."
   },
   {
     id: "obra-daniel-leoes",
-    era: "Profetas • Firmeza na Prova",
-    title: "Daniel em Oração na Cova dos Leões",
+    era: "EXEMPLO DOS MAIS VELHOS • DANIEL 6:10-22",
+    title: "A Oração Constante de Daniel: Firmeza que Protege Gerações",
     scriptureRef: "Daniel 6:10-22",
     imagePath: "assets/sacred/daniel-cova-leoes.jpg",
-    summary: "Fiel três vezes ao dia em oração, Daniel experimentou o livramento do anjo diante dos leões.",
-    targetSection: "arcanjo-miguel"
+    summary: "Mesmo na maturidade avançada e cercado de pressões injustas, Daniel manteve suas três orações diárias e viu o livramento do Senhor abençoar toda a sua história.",
+    bookHint: "Daniel",
+    chapterIndex: 5,
+    targetSection: "escrituras",
+    targetBookMatch: "Daniel",
+    quoteText: "Entrou em sua casa, e em seu quarto havia janelas abertas; três vezes no dia se punha de joelhos, e orava, e dava graças diante do seu Deus.",
+    paragraphs: [
+      "Quando Daniel enfrentou a cova dos leões, ele já era um homem idoso, experiente e cheio de responsabilidades. Sua força naquele momento extremo não surgiu de improviso: era fruto de décadas mantendo o hábito diário de abrir a janela e conversar com Deus três vezes ao dia com gratidão.",
+      "Esse exemplo bíblico fala diretamente ao coração dos pais, avós e pessoas na maturidade. Quando os desafios chegam, sejam injustiças, problemas de saúde ou dificuldades na família, uma vida de oração constante sustenta a coragem interior e impede o desespero.",
+      "Além disso, a fidelidade silenciosa dos mais velhos protege as gerações seguintes. Mesmo que filhos ou netos estejam ocupados com a correria do trabalho e dos estudos, saber que existe na família alguém que ora por eles todos os dias é uma herança espiritual de valor incalculável."
+    ],
+    homeAction: "Escolha hoje três breves momentos do dia (manhã, tarde e antes de dormir) para fazer uma prece curta de 30 segundos apresentando o nome de cada familiar a Deus.",
+    prayerText: "Deus fiel que livraste Daniel na hora da provação, dá-me constância serena na oração diária. Que minha fidelidade na maturidade seja abrigo para meus filhos e netos e testemunho de que Tu nunca falhas com quem confia em Ti. Amém."
   },
   {
     id: "obra-anunciacao",
-    era: "Evangelhos • Humildade e Graça",
-    title: "A Anunciação do Anjo Gabriel a Maria",
+    era: "ACOLHIMENTO E HUMILDADE • SÃO LUCAS 1:26-38",
+    title: "O Sim de Maria no Lar: Humildade que Transforma a Casa em Abrigo",
     scriptureRef: "São Lucas 1:26-38",
     imagePath: "assets/sacred/anunciacao-maria.jpg",
-    summary: "A saudação angelical abriu a nova era da salvação quando Maria respondeu com fé serena.",
-    targetSection: "oracoes"
+    summary: "Diante de uma mudança inesperada, Maria respondeu com fé serena e humildade, mostrando como a mansidão e a confiança em Deus transformam o ambiente doméstico.",
+    bookHint: "Lucas",
+    chapterIndex: 0,
+    targetSection: "escrituras",
+    targetBookMatch: "Lucas",
+    quoteText: "E disse Maria: Eis aqui a serva do Senhor; cumpra-se em mim segundo a tua palavra. Porque para Deus nada é impossível.",
+    paragraphs: [
+      "A anunciação registrada em São Lucas capítulo 1 mostra que Deus não escolheu um palácio barulhento para iniciar a maior obra da história, mas a simplicidade de um lar humilde em Nazaré. A resposta confiante de Maria diante do inesperado revelou uma fé que não entra em pânico quando os planos da vida mudam.",
+      "Dentro das nossas casas, muitas vezes surgem situações que não planejamos: uma mudança na rotina de saúde, a chegada de um familiar que precisa de apoio ou uma decisão difícil que envolve os filhos. Nessas horas, a humildade e a confiança tranquila valem muito mais do que a irritação ou a tentativa de controlar tudo à força.",
+      "Cultivar no lar o espírito de acolhimento, escuta gentil e disponibilidade para ajudar quem convive conosco transforma paredes simples em um verdadeiro santuário de paz. Onde há humildade e serviço amoroso, a graça de Deus encontra espaço para florescer."
+    ],
+    homeAction: "Pratique hoje um gesto humilde de acolhimento dentro de casa: escute alguém da família sem interromper e demonstre disponibilidade com palavras gentis.",
+    prayerText: "Senhor Deus de graça e mansidão, ensina-nos a acolher os planos da vida com humildade e confiança, como Maria em Nazaré. Faz da nossa casa um abrigo tranquilo onde ninguém tenha medo de ser ouvido e amado. Amém."
   },
   {
     id: "obra-sermao-montanha",
-    era: "Ministério de Cristo • Bem-Aventuranças",
-    title: "Jesus no Sermão da Montanha",
+    era: "CONCÓRDIA FAMILIAR • SÃO MATEUS 5:1-12",
+    title: "As Bem-Aventuranças na Sala de Casa: Mansidão, Perdão e Paz",
     scriptureRef: "São Mateus 5:1-12",
     imagePath: "assets/sacred/sermao-montanha-jesus.jpg",
-    summary: "À beira do mar da Galileia, Jesus ensinou o Pai Nosso, a mansidão e o consolo aos aflitos.",
-    targetSection: "cafe-diario"
+    summary: "No Sermão da Montanha, Jesus entregou a receita prática da felicidade familiar: mansidão ao falar, coração misericordioso e coragem para promover a paz entre parentes.",
+    bookHint: "Mateus",
+    chapterIndex: 4,
+    targetSection: "escrituras",
+    targetBookMatch: "Mateus",
+    quoteText: "Bem-aventurados os mansos, porque herdarão a terra. Bem-aventurados os pacificadores, porque serão chamados filhos de Deus.",
+    paragraphs: [
+      "Quando Jesus subiu ao monte para ensinar as Bem-Aventuranças, Ele não descreveu uma fé impossível, mas atitudes concretas para viver em paz com Deus e com as pessoas mais próximas. Ser manso, misericordioso, limpo de coração e pacificador começa exatamente dentro da sala da nossa própria casa.",
+      "Nenhuma família está livre de diferenças de personalidade entre pais, filhos, cônjuges, genros, noras e irmãos. No entanto, o Sermão da Montanha nos convida a sermos pacificadores em vez de alimentar discussões antigas. Uma palavra branda pronunciada no momento certo apaga fogueiras que poderiam durar meses.",
+      "Praticar a misericórdia no lar significa relevar pequenos defeitos cotidianos, perdoar falhas passadas sem ficar cobrando erros antigos e lembrar que cada pessoa dentro de casa está aprendendo a viver. Quem semeia paz na própria família colhe alegria duradoura."
+    ],
+    homeAction: "Decida hoje ser um pacificador na sua parentela: evite comentários críticos sobre algum familiar e, se possível, envie uma palavra de reconciliação e carinho.",
+    prayerText: "Mestre Jesus, que ensinaste o caminho das Bem-Aventuranças, faze de cada morador desta casa um pacificador. Tira todo ressentimento antigo do nosso peito e enche nosso convívio de mansidão, misericórdia e alegria verdadeira. Amém."
   },
   {
     id: "obra-bom-pastor",
-    era: "Cuidado Pastoral • Cura e Amparo",
-    title: "Jesus, o Bom Pastor das Ovelhas",
-    scriptureRef: "São João 10:11",
+    era: "CUIDADO COM IDOSOS E NETOS • SÃO JOÃO 10:11",
+    title: "Jesus, o Bom Pastor: Cuidando dos Idosos, Enfermos e Netos com Ternura",
+    scriptureRef: "São João 10:11-14",
     imagePath: "assets/sacred/jesus-bom-pastor.jpg",
-    summary: "Cristo carrega com ternura cada ovelha cansada junto às águas tranquilas e pastos seguros.",
-    targetSection: "trilhas"
+    summary: "A imagem do Bom Pastor revela o valor de cada pessoa na família, do neto recém-nascido ao idoso que caminha devagar, lembrando que ninguém é esquecido por Cristo.",
+    bookHint: "João",
+    chapterIndex: 9,
+    targetSection: "escrituras",
+    targetBookMatch: "João",
+    quoteText: "Eu sou o bom Pastor; o bom Pastor dá a sua vida pelas ovelhas. Eu conheço as minhas ovelhas, e das minhas sou conhecido.",
+    paragraphs: [
+      "Jesus afirmou que o Bom Pastor conhece cada ovelha pelo nome e não abandona nenhuma delas quando o caminho fica mais íngreme. Em nossa vida familiar, existem fases em que os mais velhos precisam de atenção mais próxima com remédios e consultas, e outras em que os netos e jovens precisam de conselho seguro e proteção.",
+      "Para quem chegou à maturidade ou convive com alguma limitação física, este ensinamento traz um consolo imenso: diante de Cristo, o seu valor não diminui com o passar dos anos. Ele continua carregando cada ovelha nos ombros com o mesmo carinho, ouvindo suas orações e fortalecendo sua lucidez e esperança.",
+      "Ao mesmo tempo, a família que imita o Bom Pastor aprende a cuidar com paciência tanto dos idosos quanto das crianças, reservando tempo para visitar, telefonar, acompanhar exames médicos e ensinar aos pequenos o caminho do bem e da bondade."
+    ],
+    homeAction: "Ligue hoje ou faça uma visita afetuosa a um idoso da família, a um amigo solitário ou abençoe seus netos dizendo o quanto são amados e cuidados por Deus.",
+    prayerText: "Senhor Jesus, Bom Pastor das nossas almas, cuida com ternura dos idosos, dos enfermos e das crianças da nossa família. Dá paciência a quem cuida, alívio a quem sente dores e proteção constante sobre cada geração do nosso lar. Amém."
   },
   {
     id: "obra-tempestade-acalmada",
-    era: "Milagres • Vitória Sobre o Medo",
-    title: "Jesus Acalmando a Tempestade no Mar",
-    scriptureRef: "São Marcos 4:39",
+    era: "SERENIDADE NA CRISE • SÃO MARCOS 4:35-41",
+    title: "A Tempestade Acalmando no Lar: Como Agir em Paz Durante Conflitos",
+    scriptureRef: "São Marcos 4:35-41",
     imagePath: "assets/sacred/tempestade-acalmada.jpg",
-    summary: "Diante das ondas agitadas, a voz serena de Jesus ordenou: 'Acalma-te!', trazendo bonança ao barco.",
-    targetSection: "alento"
+    summary: "Quando problemas repentinos sacodem a casa como ondas no mar da Galileia, convidar Jesus para o centro da conversa traz serenidade antes de tomar decisões.",
+    bookHint: "Marcos",
+    chapterIndex: 3,
+    targetSection: "escrituras",
+    targetBookMatch: "Marcos",
+    quoteText: "E ele, despertando, repreendeu o vento, e disse ao mar: Cala-te, aquieta-te. E o vento se aquietou, e houve grande bonança.",
+    paragraphs: [
+      "Até mesmo os discípulos que navegavam na companhia de Jesus enfrentaram uma tempestade súbita que quase encheu o barco de água. Ter fé não significa que a família nunca enfrentará imprevistos, sustos médicos, desemprego ou desentendimentos: significa saber que Cristo está dentro do barco conosco.",
+      "Na hora do nervosismo, o medo faz a gente gritar, responder com dureza ou tomar decisões precipitadas que aumentam o estrago. O exemplo de Jesus em Marcos 4 nos ensina primeiro a acalmar o próprio coração, respirando em oração para depois falar e agir com equilíbrio.",
+      "Quando convidamos a paz de Cristo para o centro de uma crise familiar, a agitação perde força e a clareza retorna. Mesmo problemas que pareciam impossíveis encontram saída serena quando entregues com confiança em oração antes de qualquer discussão."
+    ],
+    homeAction: "Se surgir hoje alguma notícia preocupante ou momento de irritação em casa, faça uma pausa de 1 minuto em silêncio dizendo: 'Jesus, acalma este momento e dá bonança ao nosso lar'.",
+    prayerText: "Senhor Jesus, Tu que ordenaste ao vento e ao mar que se calassem, entra hoje nas inquietações da nossa casa. Acalma os batimentos acelerados, serena os ânimos em discussão e estabelece a Tua grande bonança em toda a nossa família. Amém."
   },
   {
     id: "obra-pentecostes",
-    era: "Atos dos Apóstolos • Consolação",
-    title: "Pentecostes no Cenáculo (Espírito Santo)",
-    scriptureRef: "Atos 2:1-4",
+    era: "UNIÃO ESPIRITUAL • ATOS 2:1-4",
+    title: "Pentecostes na Família: Orando Juntos e Superando Divisões",
+    scriptureRef: "Atos dos Apóstolos 2:1-4",
     imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
-    summary: "Unidos em oração no cenáculo, os discípulos receberam coragem, paz e força renovada pelo Espírito.",
-    targetSection: "trilhas"
+    summary: "Os primeiros cristãos permaneceram reunidos em concórdia e oração, mostrando que famílias que oram juntas recebem força espiritual para superar mágoas e seguir unidas.",
+    bookHint: "Atos",
+    chapterIndex: 1,
+    targetSection: "escrituras",
+    targetBookMatch: "Atos",
+    quoteText: "E cumprindo-se o dia de Pentecostes, estavam todos reunidos no mesmo lugar, perseverando unânimes em oração.",
+    paragraphs: [
+      "Antes do derramamento do Espírito no Cenáculo, os discípulos tinham medos, dúvidas e diferenças entre si. O livro de Atos destaca que eles decidiram permanecer reunidos em oração e concórdia, e foi exatamente nessa unidade fraterna que receberam força renovada para seguir adiante.",
+      "Em nossos dias, muitas famílias se sentem divididas pela distância geográfica, pela correria do celular ou por antigas opiniões diferentes. Reservar um momento simples na semana para orar juntos, seja na sala de casa ou enviando uma oração por áudio no grupo da família, reconstrói pontes de afeto.",
+      "Não é preciso esperar que todos concordem em todos os assuntos do mundo para viver em paz. Quando a família coloca o amor de Deus acima das divergências pequenas, o Espírito Consolador renova o diálogo, aquece a esperança e protege o lar inteiro."
+    ],
+    homeAction: "Convide hoje um familiar que mora com você ou à distância para lerem juntos um versículo deste portal e fazerem uma oração breve pela união da casa.",
+    prayerText: "Espírito Santo Consolador, derrama Tua unidade sobre toda a nossa família, os de perto e os que moram longe. Cura divisões, renova nossa disposição para conversar com respeito e mantém viva a chama da fé em nosso lar. Amém."
   }
 ];
 
@@ -843,11 +1085,20 @@ window.JW_PORTAL_DOORS = [
     imagePath: "assets/jw/hero-paz-biblia.jpg"
   },
   {
+    id: "door-obras-espiritas",
+    navTarget: "obras-espiritas",
+    kicker: "CODIFICAÇÃO KARDECISTA • 10 OBRAS",
+    title: "Obras Espíritas Completas para Ler e Ouvir",
+    summary: "Leia O Livro dos Espíritos, O Evangelho Segundo o Espiritismo e clássicos do Espiritismo com letras grandes e narração em áudio.",
+    ctaLabel: "Abrir Obras Espíritas",
+    imagePath: "assets/traditions/espirita.jpg"
+  },
+  {
     id: "door-propositos",
     navTarget: "propositos",
     kicker: "CURSO E PROPÓSITOS • 40 DIAS",
     title: "40 Dias de Propósitos com a Palavra de Deus",
-    summary: "Escolha um propósito prático (Paz, Família, Saúde ou Sabedoria) e caminhe um dia por vez com leitura e áudio.",
+    summary: "Escolha um propósito prático (Paz, Família, Saúde, Sabedoria ou Caridade e Reforma Íntima) e caminhe um dia por vez.",
     ctaLabel: "Começar os 40 Dias",
     imagePath: "assets/jw/estudo-propositos.jpg"
   },
@@ -863,11 +1114,20 @@ window.JW_PORTAL_DOORS = [
   {
     id: "door-oracoes",
     navTarget: "oracoes",
-    kicker: "ORAÇÕES E DEVOÇÃO",
-    title: "44 Orações Fortes para Ouvir e Rezar",
-    summary: "Salmo 91, Salmo 23, São Miguel Arcanjo, proteção da casa, saúde, filhos e netos com leitura em áudio.",
+    kicker: "ORAÇÕES E PRECES",
+    title: "56 Orações Fortes para Ouvir e Rezar",
+    summary: "Salmo 91, Salmo 23, São Miguel Arcanjo, Prece de Cáritas, Evangelho no Lar, saúde, filhos e netos com leitura em áudio.",
     ctaLabel: "Abrir Orações",
     imagePath: "assets/jw/oracao-fe.jpg"
+  },
+  {
+    id: "door-arcanjo-miguel",
+    navTarget: "arcanjo-miguel",
+    kicker: "JORNADA DE 21 DIAS • PROTEÇÃO",
+    title: "São Miguel Arcanjo e Oração dos 21 Dias",
+    summary: "Acompanhe a oração clássica de Papa Leão XIII, a purificação espiritual e o painel diário dos 21 dias pela proteção do lar.",
+    ctaLabel: "Abrir Página de São Miguel",
+    imagePath: "assets/traditions/arcanjo-miguel.jpg"
   },
   {
     id: "door-familia",
@@ -877,6 +1137,15 @@ window.JW_PORTAL_DOORS = [
     summary: "Textos bíblicos selecionados para vencer a ansiedade, o luto, a solidão e fortalecer a união no lar.",
     ctaLabel: "Receber Consolo",
     imagePath: "assets/jw/familia-feliz.jpg"
+  },
+  {
+    id: "door-vela",
+    navTarget: "vela",
+    kicker: "VIGÍLIA DE FÉ • 7 DIAS GRÁTIS",
+    title: "Acender Vela Virtual de 7 Dias pela Família",
+    summary: "Registre gratuitamente o nome dos seus familiares, enfermos ou intenções de agradecimento no mural de orações.",
+    ctaLabel: "Acender Vela Virtual",
+    imagePath: "assets/sacred/jesus-bom-pastor.jpg"
   }
 ];
 

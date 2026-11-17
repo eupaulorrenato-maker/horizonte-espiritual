@@ -1,5 +1,5 @@
-﻿// Dados de retenção diária ("Café Espiritual do Dia"), Trilha dos 21 Dias de São Miguel Arcanjo
-// e Trilhas Multi-dias Cristãs (Fé Católica e Fé Evangélica - Horizonte Espiritual).
+// Dados de retenção diária ("Café Espiritual do Dia"), Trilha dos 21 Dias de São Miguel Arcanjo
+// e Trilhas Multi-dias Cristãs (Fé Católica, Fé Evangélica e Doutrina Espírita - Horizonte Espiritual).
 
 window.CAFE_ESPIRITUAL_DAYS = [
   {
@@ -8,6 +8,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim; renovam-se cada manhã.",
     reference: "Lamentações 3:22-23",
     message: "Bom dia! Enquanto você prepara o seu primeiro café e a casa ainda desperta em silêncio, receba esta certeza serena: o ontem já passou, e nenhum erro ou cansaço do passado limita a graça que Deus preparou para este dia de hoje.\n\nA vida não exige que você resolva todo o mês de uma só vez. Respire fundo, entregue a sua saúde, os seus filhos e os seus passos nas mãos do Criador e caminhe apenas o trecho de hoje com tranquilidade.",
+    espiritaInsight: "Na visão espírita, cada amanhecer renova a oportunidade abençoada de progresso moral e reforma íntima, permitindo ao espírito reparar faltas passadas pela prática serena do bem hoje.",
     dailyAction: "Antes de sair de casa ou ligar a televisão, agradeça em voz alta por três bênçãos simples presentes ao seu redor agora.",
     shortPrayer: "Senhor da Vida, consagro este primeiro dia em Tuas mãos. Renova minhas forças, guarda minha casa e dá calma aos meus pensamentos ao longo de todo o dia. Amém."
   },
@@ -17,6 +18,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "O Senhor é o meu pastor; nada me faltará. Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas.",
     reference: "Salmo 23:1-2",
     message: "Bom dia! Quantas vezes acordamos já carregando na mente uma lista interminável de problemas que sequer aconteceram? O Bom Pastor não empurra o rebanho aos gritos; Ele vai à frente, escolhendo caminhos seguros e fontes limpas.\n\nSe hoje alguma notícia ou saudade tentar apertar o seu peito, lembre-se de que você não caminha sem guia. Há uma presença amorosa vigiando o seu descanso e protegendo sua família.",
+    espiritaInsight: "A Doutrina Espírita lembra que nunca estamos sós: nosso Anjo Guardião e os bons Espíritos velam pelo nosso equilíbrio mental e sintonizam conosco quando elevamos o pensamento em prece calma.",
     dailyAction: "Beba um copo de água devagar e separe 5 minutos de silêncio longe de notícias agitadas no celular.",
     shortPrayer: "Bom Pastor, conduz minha mente às águas tranquilas da Tua paz. Afasta o medo do futuro e ensina-me a confiar no Teu cuidado silencioso. Assim seja."
   },
@@ -26,6 +28,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Quem é fiel no mínimo, também é fiel no muito.",
     reference: "Lucas 16:10",
     message: "Bom dia! Às vezes pensamos que servir ao bem exige grandes gestos diante de multidões. Contudo, o verdadeiro santuário acontece na cozinha da nossa casa, na paciência ao telefone, no cuidado com um neto ou no sorriso oferecido ao vizinho.\n\nCada gesto feito com amor tem peso eterno. Não subestime o valor do bem simples que suas mãos espalham hoje.",
+    espiritaInsight: "Como ensina O Evangelho Segundo o Espiritismo, o mérito não está na grandeza visível do ato, mas na intenção pura e na caridade moral praticada nos deveres humildes do lar.",
     dailyAction: "Faça hoje uma pequena gentileza sem esperar elogios: prepare um agrado, mande uma palavra amiga ou abrace quem mora com você.",
     shortPrayer: "Deus de bondade, abençoa as tarefas simples das minhas mãos hoje. Que minha palavra leve concórdia e meu sorriso seja abrigo para quem precisa."
   },
@@ -35,6 +38,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Elevo os meus olhos para os montes: de onde me virá o socorro? O meu socorro vem do Senhor, que fez o céu e a terra.",
     reference: "Salmo 121:1-2",
     message: "Bom dia! Quando olhamos só para o tamanho do obstáculo dentro do quarto, ele parece gigante. Quando erguemos o olhar para o céu aberto, lembramos quem sustenta as estrelas e conhece cada detalhe da nossa história.\n\nVocê não precisa carregar tudo sozinho nas costas. Peça ajuda ao Alto com humildade e confiança de filho amado.",
+    espiritaInsight: "A prece sincera não muda as leis imutáveis de Deus, mas atrai auxílio espiritual e renova nossas forças íntimas para enxergar saídas onde antes víamos desânimo.",
     dailyAction: "Olhe pela janela para o céu por alguns instantes e entregue o problema que mais tira seu sono à sabedoria divina.",
     shortPrayer: "Criador dos céus e da terra, ergo meus olhos até Ti nesta manhã. Tu conheces minhas forças e limites; envia Teu socorro e ampara minha família."
   },
@@ -44,6 +48,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Suportando-vos uns aos outros, e perdoando-vos uns aos outros, se alguém tiver queixa contra outro.",
     reference: "Colossenses 3:13",
     message: "Bom dia! Guardar mágoas antigas é como beber veneno achando que vai atingir quem nos feriu. O perdão não apaga a justiça nem obriga a aprovar o erro alheio; o perdão apenas corta a corrente que prendia a sua alma ao sofrimento passado.\n\nSolte hoje esse peso antigo. O seu coração merece dormir leve e livre de amarguras.",
+    espiritaInsight: "No capítulo X de O Evangelho Segundo o Espiritismo, Jesus ensina que perdoar é condição de paz espiritual: o ressentimento retém a alma em vibrações pesadas e impede a própria renovação.",
     dailyAction: "Lembre-se de alguém com quem houve atrito no passado e faça uma breve prece silenciosa desejando paz e luz àquela pessoa.",
     shortPrayer: "Pai de misericórdia, limpa meu coração de todo ressentimento antigo. Dá-me coragem para soltar o passado e viver em paz com todos ao meu redor."
   },
@@ -53,6 +58,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará.",
     reference: "Salmo 91:1",
     message: "Bom dia! Existe um lugar de abrigo onde nenhuma palavra áspera nem inquietação pode destruir a sua fé: a intimidade diária com Deus dentro do próprio coração.\n\nConsagre os cômodos da sua casa antes de iniciar os compromissos. Que a serenidade seja a anfitriã de todas as conversas à mesa hoje.",
+    espiritaInsight: "A prática semanal do Evangelho no Lar harmoniza os fluidos da morada, afasta influências espirituais perturbadoras e cria um ambiente de luz para todos os familiares.",
     dailyAction: "Caminhe pela sua sala ou cozinha pronunciando uma bênção de paz e proteção sobre todos que entram e saem pela porta.",
     shortPrayer: "Altíssimo Deus, cobre minha casa e meus familiares sob o Teu abrigo seguro. Afasta todo perigo, inveja e desarmonia deste lar."
   },
@@ -62,6 +68,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei.",
     reference: "Mateus 11:28",
     message: "Bom dia! Ao longo dos anos acumulamos muitas responsabilidades pelos filhos, netos e compromissos da vida. Hoje o convite espiritual não pede pressa nem cobrança: pede descanso.\n\nPermita-se diminuir o ritmo sem culpa. Cuidar da própria serenidade é cuidar também daqueles que dependem do seu carinho.",
+    espiritaInsight: "Na perspectiva espírita, o jugo leve de Cristo consiste na aceitação serena dos deveres e na confiança de que Deus não exige de ninguém além de suas forças atuais.",
     dailyAction: "Separe pelo menos quinze minutos tranquilos à tarde para ouvir uma música suave, ler um salmo ou descansar os olhos.",
     shortPrayer: "Senhor, coloco diante de Ti o cansaço acumulado da semana. Troca minhas preocupações pela Tua paz que renova a alma e o corpo."
   },
@@ -71,6 +78,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará.",
     reference: "Salmo 37:5",
     message: "Bom dia! Uma semente não faz barulho enquanto cria raízes debaixo da terra, mas no tempo certo rompe o solo e dá frutos. Da mesma forma agem as respostas sinceras às nossas orações.\n\nMesmo quando você não vê movimento imediato nos acontecimentos ao seu redor, a Providência já está trabalhando em silêncio a seu favor.",
+    espiritaInsight: "A lei divina de progresso opera sem saltos bruscos, mas com justiça perfeita: todo esforço sincero no bem amadurece e produz frutos no tempo certo da Providência.",
     dailyAction: "Escreva em um papel ou guarde no pensamento uma intenção especial para este mês e confie sem ansiedade na resposta do tempo.",
     shortPrayer: "Deus fiel, entrego meus caminhos e os planos da minha família em Tuas mãos. Firma minha fé mesmo quando o resultado ainda não aparece."
   },
@@ -80,6 +88,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "A resposta branda desvia o furor, mas a palavra dura suscita a ira.",
     reference: "Provérbios 15:1",
     message: "Bom dia! Quem já viveu muitas estações sabe o quanto uma frase dita com pressa pode machucar por semanas, e o quanto uma palavra mansa pode apagar um incêndio familiar em segundos.\n\nAntes de responder a alguém nervoso hoje, respire devagar por três segundos. Sua calma é um presente precioso para quem está à sua volta.",
+    espiritaInsight: "A afabilidade e a doçura recomendadas no Evangelho Segundo o Espiritismo traduzem verdadeira superioridade moral, pois pacificam os ânimos sem ferir ninguém.",
     dailyAction: "Ao conversar hoje com alguém difícil ou agitado, responda com tom sereno e pause alguns segundos antes de falar.",
     shortPrayer: "Fonte de sabedoria, guarda meus lábios e dá-me escuta paciente. Que minhas palavras levem cura, respeito e mansidão neste dia."
   },
@@ -89,6 +98,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo.",
     reference: "Isaías 41:10",
     message: "Bom dia! O medo adora inventar histórias terríveis sobre o amanhã, tentando roubar a alegria de viver o presente. Mas a promessa divina é clara: você jamais enfrentará uma batalha sozinho.\n\nOnde faltarem suas forças físicas, a graça espiritual completará o vigor. Dê o primeiro passo deste dia com firmeza.",
+    espiritaInsight: "A fé raciocinada dissipa o medo porque compreende que somos espíritos imortais amparados pela sabedoria e pelo amor inalterável de Deus.",
     dailyAction: "Quando surgir um pensamento de medo hoje, substitua-o dizendo em voz baixa: 'Deus caminha comigo neste momento'.",
     shortPrayer: "Senhor forte e bondoso, expulsa todo temor do meu peito. Toma minha mão direita hoje e guia meus passos pela senda do bem."
   },
@@ -98,6 +108,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Em tudo dai graças, porque esta é a vontade de Deus.",
     reference: "1 Tessalonicenses 5:18",
     message: "Bom dia! A gratidão não depende de a vida estar perfeita sem nenhum problema. Ela nasce quando aprendemos a enxergar que, no meio das tempestades, ainda há ar nos pulmões, um teto sobre a cabeça e pessoas queridas na memória.\n\nUm coração agradecido transforma até um café simples na mesa da cozinha em um banquete de paz.",
+    espiritaInsight: "Agradecer pelas bênçãos simples eleva o padrão vibratório da alma e sintoniza o lar com os mensageiros da alegria e da serenidade.",
     dailyAction: "Mande uma mensagem de agradecimento sincero a alguém que lhe ajudou recentemente ou que faz bem à sua vida.",
     shortPrayer: "Obrigado, Senhor, pelo dom da vida, pela visão, pelo alimento e pelas memórias bonitas que trago no coração. Faz-me um instrumento de gratidão."
   },
@@ -107,6 +118,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Acima de tudo, porém, revistam-se do amor, que é o elo perfeito.",
     reference: "Colossenses 3:14",
     message: "Bom dia! Nenhuma família é livre de diferenças de pensamento entre gerações. Avós, filhos e netos olham o mundo com lentes próprias de cada tempo.\n\nO segredo da harmonia no lar não é todo mundo concordar em tudo, e sim manter a mesa aberta para o respeito, a oração e o afeto acima de qualquer opinião.",
+    espiritaInsight: "A Doutrina Espírita explica que os laços familiares são oportunidades sagradas de reajuste, auxílio mútuo e exercício diário da paciência e da fraternidade.",
     dailyAction: "Envie uma mensagem curta dizendo 'Estou orando pelo seu dia hoje' a um filho, neto, irmão ou amigo querido.",
     shortPrayer: "Pai Celestial, derrama união e paciência sobre a minha família. Que nossas diferenças nunca sejam maiores do que o amor que nos une."
   },
@@ -116,6 +128,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Lâmpada para os meus pés é tua palavra, e luz para o meu caminho.",
     reference: "Salmo 119:105",
     message: "Bom dia! Antigamente as lamparinas não iluminavam quilômetros inteiros à frente na estrada escura: clareavam apenas os dois ou três passos imediatamente adiante dos pés. E isso bastava para chegar ao destino sem tropeçar.\n\nVocê não precisa enxergar o ano inteiro hoje. Peça luz apenas para a decisão que precisa tomar hoje.",
+    espiritaInsight: "O estudo sereno do Evangelho esclarece a consciência, permitindo que a fé raciocinada ilumine cada escolha cotidiana com prudência e retidão.",
     dailyAction: "Abra hoje um capítulo na Biblioteca Sagrada aqui do portal e leia cinco versículos com calma e atenção.",
     shortPrayer: "Senhor, envia Tua luz sobre as decisões que preciso tomar hoje. Afasta toda confusão e mostra-me com clareza o caminho do bem."
   },
@@ -125,6 +138,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "No sossego e na confiança estará a vossa força.",
     reference: "Isaías 30:15",
     message: "Bom dia! O mundo moderno tenta convencer você de que quem não corre o tempo inteiro está ficando para trás. No entanto, a verdadeira força espiritual brota do sossego, não do desespero.\n\nQuando a água do copo está agitada, não conseguimos ver através dela. Acalme o coração hoje para perceber as soluções sábias que já estão diante de você.",
+    espiritaInsight: "A prece recolhida e o domínio sobre a própria agitação mental tornam a alma receptiva às boas intuições de seus protetores espirituais.",
     dailyAction: "Evite entrar em discussões de política ou fofocas hoje; preserve sua energia espiritual para o que edifica.",
     shortPrayer: "Divina Presença, ensina-me o valor do silêncio e da confiança. Aquieta meus pensamentos e fortalece minha saúde emocional."
   },
@@ -134,6 +148,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Cria em mim, ó Deus, um coração puro, e renova em mim um espírito reto.",
     reference: "Salmo 51:10",
     message: "Bom dia! Chegamos à metade do mês. Assim como abrimos as janelas pela manhã para deixar o ar fresco renovar a casa, nossa alma também precisa ventilar.\n\nSe nos últimos dias a impaciência ou o desânimo entraram, hoje é o momento exato de abrir as cortinas da fé e recomeçar com suavidade.",
+    espiritaInsight: "Renovar os pensamentos diariamente é o exercício vivo da reforma íntima: reconhecer a própria imperfeição sem desânimo e recomeçar no bem.",
     dailyAction: "Arrume hoje um pequeno canto da sua casa - uma mesa, gaveta ou altar - como gesto externo de clareza interior.",
     shortPrayer: "Senhor compassivo, renova meu espírito neste meio de mês. Lava o cansaço e devolve ao meu coração o entusiasmo sereno de viver."
   },
@@ -143,6 +158,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Porque aos seus anjos dará ordem a teu respeito, para te guardarem em todos os teus caminhos.",
     reference: "Salmo 91:11",
     message: "Bom dia! Você não entra nem sai de nenhum ambiente sem a proteção de Deus. Por trás da rotina visível do cotidiano, os santos anjos do Senhor velam pelos que buscam o bem e invocam o nome de Jesus com sinceridade.\n\nCaminhe pelas ruas e tarefas de hoje com o coração firme, sabendo que anjos guardiões cercam sua casa e quem você ama.",
+    espiritaInsight: "O Livro dos Espíritos confirma a presença amorosa dos Anjos Guardiões e Espíritos protetores que nos inspiram bons conselhos e nos amparam nos caminhos difíceis.",
     dailyAction: "Antes de sair pela porta hoje, faça uma breve oração pelo seu Anjo da Guarda e pelos anjos que protegem sua família.",
     shortPrayer: "Senhor dos Exércitos, agradeço pelos mensageiros de luz que me guardam nos caminhos visíveis e invisíveis. Mantém o mal distante do meu lar."
   },
@@ -152,6 +168,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Mais bem-aventurada coisa é dar do que receber.",
     reference: "Atos 20:35",
     message: "Bom dia! Quando estamos tristes ou preocupados com nossas próprias dores, o remédio mais surpreendente é sair um pouco de si e aliviar a dor de outra pessoa.\n\nUma escuta atenta, uma doação simples ou uma prece feita pelo vizinho doente trazem alegria imediata para a alma de quem pratica o bem.",
+    espiritaInsight: "Fora da caridade não há salvação: a benevolência para com todos, a indulgência e o perdão transformam o coração triste em fonte viva de paz.",
     dailyAction: "Dedique uma intenção especial ou uma Vela Virtual aqui do site hoje por alguém que passa por momentos difíceis.",
     shortPrayer: "Pai de amor, abre meus olhos para enxergar quem hoje precisa do meu conforto, da minha prece ou da minha ajuda fraterna."
   },
@@ -161,6 +178,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Para tudo há uma ocasião certa; há um tempo certo para cada propósito debaixo do céu.",
     reference: "Eclesiastes 3:1",
     message: "Bom dia! Cada fase da existência guarda beleza própria. A juventude tem o vigor da corrida; a maturidade conquista a sabedoria do olhar profundo, da ternura com os netos e da fé que não se abala por qualquer vento.\n\nAcolha com carinho a estação da vida que você vive hoje. Deus honra cada cabelo branco e cada cicatriz superada.",
+    espiritaInsight: "O espírito é imortal e não envelhece com o corpo físico; a maturidade terrena oferece serenidade valiosa para a síntese das lições desta existência.",
     dailyAction: "Olhe com carinho para uma fotografia antiga da sua família e agradeça pelo caminho que Deus lhe permitiu trilhar até aqui.",
     shortPrayer: "Senhor do tempo, agradeço por cada estação vencida em minha vida. Continua sendo minha rocha hoje e em todos os dias que virão."
   },
@@ -170,6 +188,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias.",
     reference: "Isaías 40:31",
     message: "Bom dia! Esperar em Deus não significa cruzar os braços em desânimo, mas trabalhar com calma e sem desespero enquanto a resposta se forma.\n\nMesmo que você sinta as forças cansadas esta semana, o Alto renova o vigor na medida certa do dia presente.",
+    espiritaInsight: "A resignação cristã não é passividade: é aceitar com calma o que não podemos mudar hoje enquanto trabalhamos com perseverança pelo bem.",
     dailyAction: "Se algo atrasar hoje no banco, na fila ou no atendimento médico, transforme a espera em dois minutos de prece silenciosa.",
     shortPrayer: "Senhor, renova minhas energias físicas e espirituais. Dá-me asas de paciência e esperança para atravessar as exigências deste dia."
   },
@@ -179,6 +198,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente.",
     reference: "Tiago 1:5",
     message: "Bom dia! Ninguém precisa saber todas as respostas por conta própria. Quando surgir uma dúvida familiar, financeira ou de saúde, não decida no calor do susto.\n\nPeça discernimento em oração. A sabedoria divina costuma falar através de paz interior, conselhos sensatos e portas que se confirmam naturalmente.",
+    espiritaInsight: "Orar antes de decidir acalma as paixões do momento e permite ouvir com lucidez a voz da própria consciência e a inspiração dos bons mentores.",
     dailyAction: "Adie por algumas horas qualquer decisão importante que esteja causando pressa; ore primeiro por clareza.",
     shortPrayer: "Espírito de Sabedoria, esclarece meus pensamentos antes que eu tome qualquer decisão hoje. Guia-me pelo caminho justo e seguro."
   },
@@ -188,6 +208,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.",
     reference: "Salmo 46:1",
     message: "Bom dia! Casas construídas sobre areia balançam quando o temporal aperta, mas casas firmadas na rocha permanecem de pé até o amanhecer.\n\nSua fé cultivada todos os dias pelas manhãs é essa rocha firme dentro da sua casa. Continue firme nesse bom propósito.",
+    espiritaInsight: "A fé sólida é aquela que enfrenta a razão face a face e se traduz em exemplos concretos de amor, paciência e honestidade dentro do lar.",
     dailyAction: "Leia uma das Orações Fortes em voz audível hoje para firmar sua manhã na fé em Deus.",
     shortPrayer: "Tu és meu refúgio e minha fortaleza, ó Deus! Mesmo que tudo mude lá fora, minha confiança permanece firmada em Ti."
   },
@@ -197,6 +218,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "A oração feita por um justo pode muito em seus efeitos.",
     reference: "Tiago 5:16",
     message: "Bom dia! Nunca pense que rezar no silêncio do seu quarto tem pouco valor. As preces dos pais, avós e amigos sinceros sustentam casas inteiras contra perigos invisíveis.\n\nSuas palavras ditas com humildade tocam o coração do Criador e levam alívio real àqueles cujos nomes você apresenta.",
+    espiritaInsight: "Na explicação espírita da prece, o pensamento sincero é uma irradiação fluídica real que leva consolo, paz e alívio verdadeiro tanto aos encarnados quanto aos desencarnados.",
     dailyAction: "Interceda hoje nominalmente por três pessoas: um familiar, um amigo e alguém enfermo de quem soube.",
     shortPrayer: "Senhor que ouves o clamor sincero, acolhe os nomes que hoje apresento no altar do meu coração. Envia saúde e alívio sobre cada um."
   },
@@ -206,6 +228,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Tudo o que é verdadeiro, tudo o que é respeitável, tudo o que é justo, tudo o que é puro... seja isso o que ocupe o vosso pensamento.",
     reference: "Filipenses 4:8",
     message: "Bom dia! Nossa mente se parece com uma casa: aquilo que deixamos entrar pela porta da manhã decide o clima que teremos até a noite. Se consumirmos apenas notícias de medo, o coração se entristece.\n\nEscolha hoje alimentar os olhos e ouvidos com beleza, verdade, música calma e boas lembranças.",
+    espiritaInsight: "Vigiar os próprios pensamentos é essencial para manter a saúde espiritual: sintonizamos com o plano espiritual correspondente àquilo que cultivamos na mente.",
     dailyAction: "Desligue noticiários repetitivos por hoje à noite e substitua por uma leitura serena ou conversa afetuosa.",
     shortPrayer: "Deus da Verdade, guarda a porta dos meus pensamentos hoje. Enche minha memória de tudo que é justo, puro e amável."
   },
@@ -215,6 +238,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e as vossas mentes.",
     reference: "Filipenses 4:7",
     message: "Bom dia! Existe uma tranquilidade humana que só aparece quando todas as contas estão pagas e todos estão sãos. Mas há uma paz divina que permanece intacta mesmo enquanto aguardamos uma solução.\n\nQue essa serenidade maior faça morada no seu peito nesta manhã.",
+    espiritaInsight: "A serenidade diante das provas testemunha que a alma compreende o caráter passageiro das dificuldades materiais ante a grandeza da vida eterna.",
     dailyAction: "Inspire fundo contando até quatro, segure dois segundos e solte devagar, entregando cada preocupação nas mãos de Deus.",
     shortPrayer: "Senhor, envia sobre mim a Tua paz que vai além da lógica humana e protege meus sentimentos de toda ansiedade."
   },
@@ -224,6 +248,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Não vos esqueçais da hospitalidade, porque por ela alguns, não o sabendo, hospedaram anjos.",
     reference: "Hebreus 13:2",
     message: "Bom dia! No Brasil aprendemos desde cedo que o café passado na hora é convite ao abraço. A mesa simples servida com carinho cria lembranças eternas nos corações dos que passam pela nossa vida.\n\nSeja hoje uma porta aberta de acolhimento para quem conversar com você.",
+    espiritaInsight: "O acolhimento fraterno no lar é uma das expressões mais doces da caridade, pois oferece escuta, respeito e alimento para a alma de quem se sente solitário.",
     dailyAction: "Compartilhe esta reflexão do Café Espiritual de Hoje com alguém no grupo da família no WhatsApp.",
     shortPrayer: "Abençoa, Senhor, a mesa desta casa e todos os que por ela passam. Que nunca nos falte o pão diário nem o carinho para repartir."
   },
@@ -233,6 +258,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Eis que eu estou convosco todos os dias, até a consumação dos séculos.",
     reference: "Mateus 28:20",
     message: "Bom dia! Em algumas fases da vida a casa parece silenciosa demais depois que os filhos crescem ou após perdas queridas. Nesses instantes, a sensação de solidão tenta bater à porta.\n\nLembre-se com ternura: você pertence a uma grande família espiritual e caminha diariamente na companhia do Criador que jamais abandona.",
+    espiritaInsight: "Pela comunhão dos pensamentos em oração, nenhum espírito está realmente isolado: o amor mantém vivos os laços com os amigos espirituais e entes queridos.",
     dailyAction: "Ligue hoje apenas para ouvir a voz de um amigo antigo ou familiar distante, em vez de só mandar texto.",
     shortPrayer: "Senhor companheiro fiel, preenche todo vazio desta casa com a Tua doce presença. Aproxima corações amigos do meu caminho."
   },
@@ -242,6 +268,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Esforçai-vos, e ele fortalecerá o vosso coração, vós todos que esperais no Senhor.",
     reference: "Salmo 31:24",
     message: "Bom dia! Nunca é tarde para aprender algo bonito, cultivar uma nova amizade, retomar um hábito de leitura sagrada ou cuidar melhor da própria saúde.\n\nEnquanto há sopro de vida dentro do peito, há propósito novo esperando para desabrochar.",
+    espiritaInsight: "Cada dia encarnado é um tesouro precioso concedido por Deus para aprender, servir e avançar na jornada eterna do espírito.",
     dailyAction: "Faça hoje uma caminhada leve, alongue os braços ou retome um projeto simples que lhe traz alegria.",
     shortPrayer: "Deus da Vida, sopra ânimo e coragem sobre o meu coração. Renova meus projetos e guarda minha saúde a cada passo."
   },
@@ -251,6 +278,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Ele te declarou, ó homem, o que é bom: que pratiques a justiça, e ames a misericórdia, e andes humildemente com o teu Deus.",
     reference: "Miqueias 6:8",
     message: "Bom dia! As Sagradas Escrituras resumem a caminhada com Deus em três joias simples: agir com retidão no que fazemos, ter misericórdia com as falhas alheias e andar em humildade diante do Senhor.\n\nNão é complicado agradar a Deus: basta ser honesto, compassivo e humilde hoje.",
+    espiritaInsight: "A máxima evangélica de amar a Deus sobre todas as coisas e ao próximo como a si mesmo reúne toda a lei de justiça, amor e caridade ensinada pelos Espíritos.",
     dailyAction: "Observe hoje uma situação ao seu redor pelos olhos da compaixão antes de emitir qualquer julgamento.",
     shortPrayer: "Senhor justo e misericordioso, ensina-me a ser íntegro nas minhas escolhas e compassivo diante das fraquezas dos outros."
   },
@@ -260,6 +288,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Fui moço, e agora sou velho; mas nunca vi desamparado o justo.",
     reference: "Salmo 37:25",
     message: "Bom dia! Olhando para trás, quantos momentos você imaginou que não ia aguentar - e aqui está, firme, tendo atravessado cada vale até hoje? Esse mesmo Deus que sustentou seus passos na mocidade sustenta suas mãos hoje.\n\nDescanse nessa fidelidade comprovada pela sua própria história.",
+    espiritaInsight: "A misericórdia e a justiça de Deus jamais falham: cada prova superada com fé amplia a lucidez moral e a paz da consciência.",
     dailyAction: "Relembre uma grande vitória ou livramento da sua vida no passado e agradeça novamente a Deus por ela hoje.",
     shortPrayer: "Deus de fidelidade eterna, agradeço por tantos livramentos do meu passado e confio a Ti todos os meus dias futuros."
   },
@@ -269,6 +298,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "Perseverai na oração, velando nela com ação de graças.",
     reference: "Colossenses 4:2",
     message: "Bom dia! Um jardim bonito não nasce regando as plantas uma única vez por mês com um balde gigante; nasce da pequena água fresca regada com carinho dia após dia.\n\nA leitura simples de cada manhã transforma aos poucos a paisagem inteira da sua mente e da sua família.",
+    espiritaInsight: "O cultivo diário da prece e da leitura edificante mantém o equilíbrio espiritual do lar como um hábito luminoso de higiene da alma.",
     dailyAction: "Convide hoje um ente querido para também ler o Café Espiritual do Dia sempre pela manhã.",
     shortPrayer: "Senhor, mantém firme em mim a alegria de conversar Contigo diariamente. Que este altar silencioso jamais se apague na minha casa."
   },
@@ -278,6 +308,7 @@ window.CAFE_ESPIRITUAL_DAYS = [
     verse: "O Senhor te abençoe e te guarde; o Senhor faça resplandecer o seu rosto sobre ti, e tenha misericórdia de ti.",
     reference: "Números 6:24-25",
     message: "Bom dia! Ao fechar um ciclo de dias, olhe com ternura para tudo o que aprendeu e superou. Toda lágrima que secou e toda risada sincera fazem parte do tecido sagrado da vida.\n\nReceba esta antiga bênção sobre você, sobre os seus descendentes e sobre tudo o que suas mãos tocarem neste novo ciclo que amanhece.",
+    espiritaInsight: "Encerrar um ciclo em ação de graças prepara o espírito para novas colheitas de fraternidade, estudo e progresso no amor cristão.",
     dailyAction: "Encerre o mês acendendo uma Vela Virtual de Gratidão ou rezando um Pai-Nosso em favor da paz da sua família.",
     shortPrayer: "O Senhor nos abençoe e nos guarde; faça resplandecer sobre nós a Sua paz e nos conceda serenidade em cada novo amanhecer. Amém."
   }
@@ -925,6 +956,185 @@ window.PRAYER_TRACKS = [
       { day: 10, title: "Dia 10 de 12 - União Abençoada", scriptureRef: "Salmo 133:1", scriptureText: "Oh! quão bom e quão suave é que os irmãos vivam em união!", intention: "Agradecer pelos familiares e amigos.", meditation: "Cada telefonema ou visita amiga merece um obrigado sincero a Deus.", prayer: "Obrigado pelas pessoas queridas que alegram minha caminhada. Amém." },
       { day: 11, title: "Dia 11 de 12 - Proteção Que Merece Louvor", scriptureRef: "Salmo 91:2", scriptureText: "Direi do Senhor: Ele é o meu Deus, o meu refúgio, a minha fortaleza.", intention: "Reconhecer os livramentos ocultos.", meditation: "Quantos perigos silenciosos foram desviados sem que sequer notássemos.", prayer: "Obrigado por tantos livramentos visíveis e invisíveis, Senhor. Amém." },
       { day: 12, title: "Dia 12 de 12 - Tudo O Que Respira Louve Ao Senhor", scriptureRef: "Salmo 150:6", scriptureText: "Tudo quanto tem fôlego louve ao Senhor. Louvai ao Senhor.", intention: "Encerrar em pura adoração grata.", meditation: "Enquanto houver fôlego de vida, há razão para agradecer e esperar o bem.", prayer: "Aleluia e amém! Obrigado por estes 12 dias de louvor nos Salmos!" }
+    ]
+  },
+  {
+    id: "evangelho-no-lar-7",
+    title: "7 Dias de Evangelho no Lar, Paz Espiritual e Harmonia",
+    shortTitle: "Evangelho no Lar (7 Dias)",
+    durationDays: 7,
+    traditionId: "espirita",
+    traditionLabel: "Doutrina Espírita",
+    badge: "Trilha Espírita do Lar (7 Dias)",
+    imagePath: "assets/traditions/espirita.jpg",
+    description: "Sete dias de estudos serenos inspirados em O Evangelho Segundo o Espiritismo para higienizar pensamentos, fortalecer o diálogo familiar e cultivar a caridade dentro de casa.",
+    days: [
+      {
+        day: 1,
+        title: "Dia 1 de 7 - Abertura do Santuário do Lar",
+        intention: "Convidar os bons Espíritos e Jesus para o recinto da casa.",
+        scriptureRef: "Mateus 18:20 • Evangelho Segundo o Espiritismo, Cap. XXVII",
+        scriptureText: "Onde estiverem dois ou três reunidos em meu nome, ali estou no meio deles.",
+        meditation: "O Evangelho no Lar transforma a casa em um posto de socorro espiritual. Basta um copo de água limpa, leitura sincera e alguns minutos de recolhimento sereno para renovar o ambiente doméstico.",
+        prayer: "Mestre Jesus e bons Espíritos amigos desta casa, entrai hoje em nosso lar com vossa luz suave, abençoando cada cômodo e cada morador. Assim seja."
+      },
+      {
+        day: 2,
+        title: "Dia 2 de 7 - Afabilidade e Doçura nas Conversas",
+        intention: "Substituir respostas ríspidas por serenidade e paciência no lar.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. IX",
+        scriptureText: "Bem-aventurados os brandos e pacíficos, porque possuirão a terra.",
+        meditation: "A doçura no falar não é sinal de fraqueza, mas de espírito que já aprendeu a dominar seus impulsos. Uma voz tranquila desarma a impaciência dentro da família.",
+        prayer: "Pai Celestial, inspirai-nos palavras mansas ao conversar com pais, filhos, cônjuges e netos, para que a paz reine em nossa mesa. Assim seja."
+      },
+      {
+        day: 3,
+        title: "Dia 3 de 7 - Indulgência com as Imperfeições Alheias",
+        intention: "Olhar as falhas dos familiares com paciência e compreensão fraterna.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. X",
+        scriptureText: "A indulgência consiste em não julgar com severidade e desculpar nos outros aquilo que desculpamos em nós mesmos.",
+        meditation: "Todos os moradores do lar encontram-se na escola da vida aprendendo lições diferentes. Quando substituímos a crítica dura pela indulgência, a convivência torna-se leve.",
+        prayer: "Senhor, ajudai-nos a enxergar primeiro o que devemos melhorar em nós mesmos, oferecendo paciência sincera a quem convive conosco. Assim seja."
+      },
+      {
+        day: 4,
+        title: "Dia 4 de 7 - Os Laços de Família e a Fraternidade",
+        intention: "Valorizar a reencarnação familiar como oportunidade de amor mútuo.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. IV e Cap. XIV",
+        scriptureText: "Honrai a vosso pai e a vossa mãe; os verdadeiros laços do espírito completam os laços do sangue pelo amor.",
+        meditation: "Deus aproxima corações no mesmo lar para que cresçam juntos em tolerância, cuidado e perdão. Cada cuidado com um idoso ou neto fortalece os laços espirituais para a eternidade.",
+        prayer: "Deus de bondade, abençoai os laços que unem nossa família visível e nossa grande família espiritual, mantendo vivo o respeito entre gerações. Assim seja."
+      },
+      {
+        day: 5,
+        title: "Dia 5 de 7 - Caridade Dentro das Próprias Paredes",
+        intention: "Praticar o auxílio silencioso e a atenção carinhosa com os de casa.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. XV",
+        scriptureText: "Fora da caridade não há salvação; a benevolência para com todos começa pelos mais próximos.",
+        meditation: "Antes de buscar grandes tarefas fora, há sempre alguém perto de nós precisando de um ouvido atento, de paciência na enfermidade ou de uma palavra de ânimo.",
+        prayer: "Mestre querido, abri os nossos olhos para praticar hoje a caridade discreta em gestos simples de cuidado dentro do próprio lar. Assim seja."
+      },
+      {
+        day: 6,
+        title: "Dia 6 de 7 - Higienização dos Pensamentos e Prece",
+        intention: "Afastar inquietações, medo e influências negativas pela vigilância mental.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. XXVII e XXVIII",
+        scriptureText: "Orai e vigiai, para que a prece eleve o pensamento acima das agitações passageiras.",
+        meditation: "A prece sincera funciona como janela aberta para o ar puro espiritual. Ao orar pela casa e por quem está aflito, fechamos a porta ao desânimo e acolhemos paz.",
+        prayer: "Em nome de Deus Todo-Poderoso, que os bons Espíritos afastem toda sombra de desânimo ou discórdia, conservando nosso lar sereno. Assim seja."
+      },
+      {
+        day: 7,
+        title: "Dia 7 de 7 - Gratidão, Água Fluidificada e Perseverança",
+        intention: "Agradecer pela semana de Evangelho no Lar e manter o hábito semanal.",
+        scriptureRef: "Prece de Cáritas • O Evangelho Segundo o Espiritismo, Cap. XXVIII",
+        scriptureText: "Que a vossa bondade permita aos espíritos consoladores derramarem por toda parte a paz, a esperança e a fé.",
+        meditation: "Concluímos estes sete dias lembrando que a constância é o segredo do equilíbrio no lar. Preserve um dia fixo na semana para reunir a família em prece e estudo.",
+        prayer: "Obrigado, Senhor Jesus e amigos espirituais, por esta semana de luz em nossa casa. Conservai em nós a alegria da fé raciocinada e da caridade. Assim seja."
+      }
+    ]
+  },
+  {
+    id: "consolo-imortalidade-10",
+    title: "10 Dias de Consolo, Imortalidade da Alma e Fé Raciocinada",
+    shortTitle: "Consolo e Imortalidade (10 Dias)",
+    durationDays: 10,
+    traditionId: "espirita",
+    traditionLabel: "Doutrina Espírita",
+    badge: "Trilha Espírita de Consolo (10 Dias)",
+    imagePath: "assets/traditions/espirita.jpg",
+    description: "Dez dias de acolhimento fraterno à luz da imortalidade da alma, da pluralidade das moradas na casa do Pai e da esperança consoladora diante da saudade e das provações.",
+    days: [
+      {
+        day: 1,
+        title: "Dia 1 de 10 - A Casa do Pai Tem Muitas Moradas",
+        intention: "Compreender o universo espiritual como pátria eterna da alma.",
+        scriptureRef: "João 14:2 • O Evangelho Segundo o Espiritismo, Cap. III",
+        scriptureText: "Na casa de meu Pai há muitas moradas; se assim não fora, eu vo-lo teria dito.",
+        meditation: "Não fomos criados para desaparecer na poeira do tempo. A Terra é uma escola de aprendizado moral, e a vida prossegue em planos de crescente beleza e progresso.",
+        prayer: "Senhor da Vida Eterna, abri nossa compreensão para descansar na certeza de que pertencemos à Vossa família imortal. Assim seja."
+      },
+      {
+        day: 2,
+        title: "Dia 2 de 10 - A Morte é Apenas a Libertação do Corpo",
+        intention: "Consolar a saudade lembrando que o espírito permanece vivo e consciente.",
+        scriptureRef: "O Livro dos Espíritos, Perguntas 149-165",
+        scriptureText: "A alma sobrevive ao corpo físico e conserva sua individualidade, suas lembranças e seus afetos verdadeiros.",
+        meditation: "Quando um ente querido desencarna, rompe-se apenas a vestimenta física gasta pelo tempo. A essência do ser amado continua viva sob os cuidados misericordiosos de Deus.",
+        prayer: "Pai amoroso, consolai hoje todo coração que chora de saudade e envolvei em luz tranquila os entes queridos que já voltaram à Pátria Espiritual. Assim seja."
+      },
+      {
+        day: 3,
+        title: "Dia 3 de 10 - A Justiça Divina e a Esperança nas Provações",
+        intention: "Transformar a dor sem revolta em confiança na sabedoria de Deus.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. V",
+        scriptureText: "Bem-aventurados os aflitos, porque serão consolados; toda dor aceita com paciência educa o espírito.",
+        meditation: "Deus nunca envia sofrimento por capricho ou vingança. Toda prova oferece ao espírito a chance de desenvolver coragem, humildade e sensibilidade para com a dor alheia.",
+        prayer: "Deus justo e bom, dai-nos paciência nas horas nubladas e confiança serena para aprender com cada lição desta jornada. Assim seja."
+      },
+      {
+        day: 4,
+        title: "Dia 4 de 10 - O Valor Consolador da Prece pelos que Partiram",
+        intention: "Enviar pensamentos luminosos de gratidão e paz aos desencarnados.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. XXVII",
+        scriptureText: "A prece sincera atravessa as distâncias invisíveis e leva conforto verdadeiro àqueles por quem oramos.",
+        meditation: "Em vez de lágrimas desesperadas que perturbam quem partiu, uma oração tranquila cheia de gratidão e votos de paz torna-se um abraço luminoso no mundo espiritual.",
+        prayer: "Senhor, recebei os pensamentos de carinho que hoje envio aos que partiram antes de nós; que encontrem paz, consolo e amparo fraterno. Assim seja."
+      },
+      {
+        day: 5,
+        title: "Dia 5 de 10 - Nunca Caminhamos Sozinhos: O Anjo Guardião",
+        intention: "Sentir a companhia fiel dos Espíritos protetores na maturidade e solidão.",
+        scriptureRef: "O Livro dos Espíritos, Perguntas 489-500",
+        scriptureText: "Cada ser humano conta com um Espírito protetor dedicado que o acompanha desde o nascimento até o retorno à vida espiritual.",
+        meditation: "Nos dias silenciosos em que a casa parece vazia, lembre-se de que um amigo invisível e devotado está sempre próximo, pronto a inspirar calma e bons conselhos.",
+        prayer: "Meu Anjo Guardião e bons mentores, agradeço pela vigilância silenciosa e peço inspiração serena para todas as horas do meu dia. Assim seja."
+      },
+      {
+        day: 6,
+        title: "Dia 6 de 10 - O Perdão Que Liberta a Alma",
+        intention: "Desfazer ressentimentos para caminhar leve no presente e no futuro.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. X",
+        scriptureText: "Reconciliai-vos depressa com o vosso adversário enquanto estais com ele no caminho.",
+        meditation: "Guardar rancor atrasa a própria paz espiritual. Perdoar não obriga a aprovar o erro, mas liberta o espírito da prisão do passado.",
+        prayer: "Pai de misericórdia, dissolvei toda mágoa antiga no meu coração e dai-me liberdade espiritual para abençoar e seguir em paz. Assim seja."
+      },
+      {
+        day: 7,
+        title: "Dia 7 de 10 - O Espírito Não Envelhece",
+        intention: "Celebrar a lucidez, a sabedoria e a utilidade espiritual da terceira idade.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. XVII",
+        scriptureText: "O corpo é um instrumento temporário; o espírito conserva sua capacidade de amar, aprender e servir em qualquer idade.",
+        meditation: "Mesmo quando os joelhos cansam e os cabelos embranquecem, o espírito continua jovem para amar os netos, perdoar, ensinar e sustentar a família em prece.",
+        prayer: "Senhor, agradeço pelos anos vividos até aqui e peço serenidade, lucidez e alegria para continuar sendo luz em meu lar. Assim seja."
+      },
+      {
+        day: 8,
+        title: "Dia 8 de 10 - A Fé Que Enfrenta a Razão Face a Face",
+        intention: "Unir sentimento cristão e clareza de consciência contra superstições.",
+        scriptureRef: "O Evangelho Segundo o Espiritismo, Cap. XIX",
+        scriptureText: "A fé inabalável é somente aquela que pode encarar de frente a razão em todas as épocas da humanidade.",
+        meditation: "Conhecer as leis divinas de amor, justiça e progresso liberta o coração de medos supersticiosos e enche o dia de confiança racional em Deus.",
+        prayer: "Fonte de eterna sabedoria, iluminai o nosso entendimento para unir razão lúcida e caridade sincera em cada passo da vida. Assim seja."
+      },
+      {
+        day: 9,
+        title: "Dia 9 de 10 - Amar e Servir para Encontrar Consolo",
+        intention: "Descobrir que aliviar a dor do próximo cicatriza nossas próprias tristezas.",
+        scriptureRef: "Prece de Cáritas • Mateus 25:40",
+        scriptureText: "Tudo quanto fizerdes a um destes meus pequeninos irmãos, a mim o fizestes.",
+        meditation: "Sempre que a tristeza ameaçar nosso ânimo, olhar para alguém que precisa de uma palavra amiga, uma visita ou uma prece devolve sentido imediato ao coração.",
+        prayer: "Senhor, mostrai-nos hoje quem podemos consolar com um telefonema amigo, uma prece dedicada ou um gesto generoso de carinho. Assim seja."
+      },
+      {
+        day: 10,
+        title: "Dia 10 de 10 - Paz Raciocinada e Esperança no Reencontro",
+        intention: "Encerrar a jornada de 10 dias com serenidade, gratidão e confiança eterna.",
+        scriptureRef: "João 16:22 • O Evangelho Segundo o Espiritismo, Cap. II",
+        scriptureText: "Vós agora estais tristes, mas outra vez vos verei, e o vosso coração se alegrará.",
+        meditation: "A morte jamais separa os corações que se amam verdadeiramente. Caminhe os próximos dias com o coração calmo, fazendo o bem e confiando na bondade de Deus.",
+        prayer: "Obrigado, Pai Eterno e Mestre Jesus, pelo consolo destes 10 dias. Guardai nossa esperança viva até o reencontro luminoso na eternidade. Assim seja."
+      }
     ]
   }
 ];

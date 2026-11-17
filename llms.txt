@@ -1,6 +1,6 @@
 # Horizonte Espiritual
 
-> Portal bíblico e cristão brasileiro 100% gratuito, sem login e estruturado com clareza editorial (inspirado na arquitetura limpa de leitura bíblica do JW.ORG), projetado especialmente para idosos, famílias, católicos e evangélicos. Oferece Perguntas Bíblicas Respondidas, Texto Diário (Café Espiritual), 40 Dias de Propósitos com Deus, Oração de São Miguel Arcanjo (21 dias), mais de 40 orações fortes com leitura em voz calma (PT-BR), Vela Virtual de 7 dias, Bíblia Online completa na íntegra e quadros de arte sacra renascentista.
+> Portal espiritual e bíblico brasileiro 100% gratuito, sem login e estruturado com clareza editorial, projetado especialmente para idosos, famílias, católicos, evangélicos e espíritas. Oferece Perguntas Bíblicas Respondidas, Texto Diário (Café Espiritual), Conteúdos para Edificar a Sua Casa, 40 Dias de Propósitos com Deus (5 jornadas), Oração de São Miguel Arcanjo (21 dias), 56 orações e preces fortes com leitura em voz calma (PT-BR), Vela Virtual de 7 dias, Bíblia Online completa (73 e 66 livros) e Obras Espíritas Completas (10 livros em domínio público).
 
 - URL Oficial: https://eupaulorrenato-maker.github.io/horizonte-espiritual/
 - Idioma: pt-BR (Português do Brasil)
@@ -9,21 +9,22 @@
 
 ## Principais Seções e Links Diretos
 
-- [Início e Escolha de Fé (Católica ou Evangélica)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#inicio): Escolha em 1 clique entre Fé Católica ou Fé Evangélica, explore cartões de arte sacra renascentista por assunto, receba uma passagem bíblica personalizada para o estado de espírito do dia e ative o recebimento gratuito no WhatsApp.
+- [Início e Escolha de Fé (Católica, Evangélica ou Espírita)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#inicio): Escolha em 1 clique entre Fé Católica, Fé Evangélica ou Doutrina Espírita, leia os Conteúdos para Edificar a Sua Casa com ilustrações renascentistas, receba uma passagem para o estado de espírito do dia e ative o recebimento gratuito no WhatsApp.
 - [Perguntas Bíblicas Respondidas](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#perguntas-biblicas): Respostas diretas e acolhedoras da Bíblia Sagrada sobre sofrimento, ansiedade, oração, paz na família e como entender as Escrituras, com pontos principais, versículos em destaque, pinturas sacras renascentistas e leitura em áudio.
-- [Texto Diário • Café Espiritual do Dia](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#cafe-diario): Devocional matinal com 31 mensagens bíblicas diárias, reflexão simples, oração guiada e narração em voz calma.
-- [40 Dias de Propósitos com Deus](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#40-dias): 4 trilhas completas de 40 dias cada (160 leituras bíblicas ao todo): Vida em Deus, Família Abençoada, Saúde e Cura e Sabedoria e Fé, com progresso salvo no navegador.
+- [Texto Diário - Café Espiritual do Dia](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#cafe-diario): Devocional matinal com 31 mensagens diárias, reflexão simples, oração guiada e narração em voz calma.
+- [40 Dias de Propósitos com Deus](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#40-dias): 5 trilhas completas de 40 dias cada (200 leituras diárias ao todo): Vida em Deus, Família Abençoada, Saúde e Cura, Sabedoria e Fé e Caridade e Reforma Íntima, com progresso salvo no navegador.
 - [São Miguel Arcanjo (21 Dias)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#sao-miguel): Página dedicada com oração tradicional católica, lista interativa do Dia 1 ao Dia 21, áudio completo e acompanhamento de progresso.
-- [Trilhas de Oração (7 a 21 Dias)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#trilhas): 8 trilhas devocionais organizadas por dias (incluindo Salmos, Nossa Senhora Desatadora dos Nós, Família, Cura, Provérbios, Consolo e Gratidão).
-- [Orações Fortes Católicas e Evangélicas](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#oracoes): Biblioteca com 44 orações tradicionais comentadas e narradas em áudio (Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, São Judas Tadeu, Cura e Família).
+- [Trilhas de Oração (7 a 21 Dias)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#trilhas): 10 trilhas devocionais organizadas por dias (incluindo Salmos, Nossa Senhora Desatadora dos Nós, Família, Cura, Provérbios, Consolo, Gratidão, Evangelho no Lar e Imortalidade).
+- [Orações Fortes Católicas, Evangélicas e Espíritas](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#oracoes): Biblioteca com 56 orações e preces tradicionais comentadas e narradas em áudio (Salmo 91, Salmo 23, São Bento, Nossa Senhora, São José, São Judas Tadeu, Prece de Cáritas, Evangelho no Lar, Cura e Família).
 - [Bíblia Online Completa](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#biblia-online): Texto bíblico completo na íntegra, capítulo por capítulo, na tradição Católica (73 livros) e Evangélica (66 livros), com leitura contínua em voz calma PT-BR.
+- [Obras Espíritas Completas (Allan Kardec e Domínio Público)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#obras-espiritas): Biblioteca com 10 livros espíritas clássicos em domínio público, incluindo O Livro dos Espíritos (29 capítulos / 1.019 questões), O Evangelho Segundo o Espiritismo (28 capítulos), O Livro dos Médiuns, O Céu e o Inferno, A Gênese, O Que é o Espiritismo, Obras Póstumas e obras de Léon Denis e Camille Flammarion, todos com áudio em voz calma.
 - [Vela Virtual de 7 Dias](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#vela-7-dias): Acendimento gratuito de vela de intenção pela família e saúde com duração de 7 dias no aparelho.
-- [Quem Somos e Missão Editorial](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#quem-somos): Diretrizes de transparência, domínio público bíblico e aviso de que leituras espirituais não substituem acompanhamento médico profissional.
+- [Quem Somos e Missão Editorial](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#quem-somos): Diretrizes de transparência, domínio público bíblico e espírita e aviso de que leituras espirituais não substituem acompanhamento médico profissional.
 - [Política de Privacidade (LGPD)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#privacidade): Conformidade com a Lei Federal nº 13.709/2018 e uso exclusivo de armazenamento local opcional.
 
 ## Diferenciais de Acessibilidade e Experiência
 
 - Tema claro editorial padrão de alta legibilidade (`#f7f7f5` / `#ffffff` / `#4a6da7`) com Modo Noturno opcional para leitura confortável à noite.
 - Botões grandes (mínimo de 46px a 48px), letras ajustáveis entre 18px e 28px (botões A- / A+) e cartões visuais clicáveis por assunto.
-- Leitura em áudio PT-BR integrada via Web Speech API em todas as perguntas bíblicas, mensagens, orações, artigos e capítulos completos da Bíblia.
-- 16 pinturas sacras em estilo renascentista (`assets/jw/*.jpg` e `assets/sacred/*.jpg`) criadas exclusivamente para ilustrar os temas e épocas bíblicas da Criação até Pentecostes.
+- Leitura em áudio PT-BR integrada via Web Speech API em todas as perguntas bíblicas, mensagens, orações, estudos para o lar, capítulos completos da Bíblia e obras espíritas.
+- 16 pinturas sacras em estilo renascentista (`assets/jw/*.jpg` e `assets/sacred/*.jpg`) além de artes devocionais dedicadas (`assets/traditions/*.jpg`).

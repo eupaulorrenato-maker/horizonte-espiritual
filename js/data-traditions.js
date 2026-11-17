@@ -1,4 +1,4 @@
-﻿// Caminhos cristãos disponíveis no portal (Fé Católica e Fé Evangélica),
+﻿// Caminhos espirituais disponíveis no portal (Fé Católica, Fé Evangélica e Doutrina Espírita),
 // 12 estados emocionais para a Palavra do Dia e índice completo dos livros bíblicos.
 
 window.FEELINGS_LIST = [
@@ -92,7 +92,7 @@ window.TRADITIONS_DATA = [
     imageCaption: "Jesus Cristo, Luz e Bom Pastor da Fé Católica",
     name: "Fé Católica",
     tag: "Fé Cristã Católica",
-    symbol: "✝",
+    symbol: "",
     greeting: "A paz de Cristo esteja no seu lar",
     canonicalWorkTitle: "Bíblia Católica Completa",
     usesFullBibleIndex: true,
@@ -173,7 +173,7 @@ window.TRADITIONS_DATA = [
     imageCaption: "A Bíblia Sagrada aberta sob a luz da Graça Divina",
     name: "Fé Evangélica",
     tag: "Fé Cristã Evangélica",
-    symbol: "📖",
+    symbol: "",
     greeting: "A Graça e a Paz do Senhor Jesus",
     canonicalWorkTitle: "Bíblia Online Completa",
     usesFullBibleIndex: true,
@@ -223,6 +223,109 @@ window.TRADITIONS_DATA = [
           "31. Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?",
           "38. Porque estou certo de que, nem a morte, nem a vida, nem os anjos, nem os principados, nem as potestades, nem o presente, nem o porvir,",
           "39. Nem a altura, nem a profundidade, nem alguma outra criatura nos poderá separar do amor de Deus, que está em Cristo Jesus nosso Senhor."
+        ]
+      }
+    ]
+  },
+  {
+    id: "espirita",
+    imagePath: "assets/traditions/espirita.jpg",
+    imageCaption: "Doutrina Espírita: Fé Raciocinada, Evangelho e Caridade",
+    name: "Doutrina Espírita",
+    tag: "Doutrina Espírita (Kardecista)",
+    symbol: "",
+    greeting: "Muita paz, luz e serenidade em seu coração",
+    canonicalWorkTitle: "Obras Espíritas Completas",
+    usesFullBibleIndex: false,
+    dedicatedLibrarySection: "obras-espiritas",
+    dailyPassages: {
+      ansiedade: {
+        text: "A fé inabalável só o é a que pode encarar frente a frente a razão, em todas as épocas da humanidade. Sede pacientes; a paciência também é uma caridade.",
+        reference: "O Evangelho Segundo o Espiritismo - Cap. 19 e Cap. 9",
+        reflection: "Quando a mente se agita com o dia de amanhã, eleve o pensamento em prece calma e confie nas leis justas de Deus."
+      },
+      luto: {
+        text: "O Espiritismo nos faz enxergar a morte como passagem libertadora; aqueles que amamos não nos deixam para sempre, pois a alma sobrevive e conserva suas afeições sinceras.",
+        reference: "O Livro dos Espíritos - Questão 934 e O Evangelho Segundo o Espiritismo - Cap. 5",
+        reflection: "Transforme a saudade em prece amorosa de gratidão e paz; o amor verdadeiro vence a distância entre os dois planos da vida."
+      },
+      desanimo: {
+        text: "Coragem, pois, soldados da fé! Tendes nos vossos corações a centelha divina; acendei-a pelo dever cumprido e pela esperança na misericórdia de Deus.",
+        reference: "O Evangelho Segundo o Espiritismo - Cap. 5 e Cap. 20",
+        reflection: "Cada pequeno passo dado no bem, mesmo em meio ao cansaço, renova as forças espirituais e atrai bons Espíritos ao seu lar."
+      },
+      saude: {
+        text: "A prece atrai os bons Espíritos que nos sustentam nas boas resoluções e nos inspiram pensamentos salutares; unida ao tratamento médico, devolve a calma à alma e auxilia o corpo.",
+        reference: "O Livro dos Espíritos - Questão 659 e O Evangelho Segundo o Espiritismo - Cap. 27",
+        reflection: "Cuide do corpo como templo sagrado do Espírito e cultive pensamentos serenos de confiança e recuperação."
+      },
+      gratidao: {
+        text: "Louvai a Deus de todo o coração pelos benefícios que cada dia vos traz; reconhecer a bondade do Pai é abrir a alma para receber luz ainda maior.",
+        reference: "O Evangelho Segundo o Espiritismo - Cap. 28 (Coletânea de Preces)",
+        reflection: "Agradeça hoje pela vida, pelo pão na mesa, pelos familiares e pelas lições que o tempo ensinou."
+      },
+      solidao: {
+        text: "Os Espíritos protetores acompanham os homens com solicitude constante; nunca o ser humano caminha verdadeiramente só quando eleva o pensamento a Deus.",
+        reference: "O Livro dos Espíritos - Questões 489 e 495",
+        reflection: "No recolhimento da casa, faça uma prece silenciosa e sinta a presença fraterna do seu anjo guardião."
+      },
+      medo: {
+        text: "Quem confia na soberana justiça e na bondade infinita de Deus não teme os acidentes da jornada, pois sabe que nada acontece sem permissão sábia do Criador.",
+        reference: "O Livro dos Espíritos - Questões 13 e 964",
+        reflection: "Substitua o receio pela vigilância tranquila e pela prece sincera; a luz interior dissipa toda sombra."
+      },
+      insonia: {
+        text: "Durante o sono do corpo, o Espírito recobra parcialmente a sua liberdade e pode entrar em relação com os Espíritos amigos, buscando consolo, conselho e repouso.",
+        reference: "O Livro dos Espíritos - Questões 400 e 402",
+        reflection: "Antes de dormir, perdoe as ofensas do dia, ore em paz e entregue seu descanso aos mentores espirituais."
+      },
+      familia: {
+        text: "Os laços de família não se destroem com o tempo; os Espíritos que se amam reúnem-se pela afinidade moral para se auxiliarem mutuamente no caminho do progresso.",
+        reference: "O Evangelho Segundo o Espiritismo - Cap. 14 (Honrai a vosso Pai e a vossa Mãe)",
+        reflection: "Ore por seus filhos, netos e antepassados; o Evangelho no Lar fortalece a harmonia e protege toda a casa."
+      },
+      sustento: {
+        text: "O trabalho é lei da Natureza; o homem encontra nele não somente o pão para o corpo, mas também o aperfeiçoamento da inteligência e a disciplina da alma.",
+        reference: "O Livro dos Espíritos - Questões 674 e 676",
+        reflection: "Peça discernimento, ânimo e serenidade para cumprir com dignidade os deveres de cada dia."
+      },
+      perdao: {
+        text: "Perdoar aos inimigos é pedir perdão para si mesmo; fazer o bem pelo mal é mostrar-se superior ao agravo e conquistar a verdadeira paz de consciência.",
+        reference: "O Evangelho Segundo o Espiritismo - Cap. 10 e Cap. 12",
+        reflection: "Desarme o coração de mágoas antigas; quem perdoa primeiro alcança leveza e liberdade espiritual."
+      },
+      paz: {
+        text: "Reconhece-se o verdadeiro espírita pela sua transformação moral e pelos esforços que emprega para domar suas más inclinações, praticando a benevolência para com todos.",
+        reference: "O Evangelho Segundo o Espiritismo - Cap. 17 (Sede Perfeitos)",
+        reflection: "Dedique alguns instantes hoje ao silêncio, à leitura edificante e à reforma íntima na presença de Deus."
+      }
+    },
+    chapters: [
+      {
+        title: "O Evangelho Segundo o Espiritismo - Cap. 5: Bem-Aventurados os Aflitos",
+        verses: [
+          "1. Bem-aventurados os que choram, porque serão consolados. Bem-aventurados os que têm fome e sede de justiça, porque serão fartos.",
+          "2. As vicissitudes da vida têm causas justas: umas resultam das imperfeições do próprio Espírito encarnado, e outras são provas escolhidas para o adiantamento moral e a purificação da alma.",
+          "3. Se, em vez de vos revoltardes contra a provação, a suportardes com coragem e resignação cristã, ela se torna fonte de méritos e abre caminho para uma felicidade duradoura.",
+          "4. Na calma da prece e na certeza da vida futura, a dor perde o amargor do desespero e transforma-se em escola de sabedoria, humildade e amor ao próximo."
+        ]
+      },
+      {
+        title: "O Evangelho Segundo o Espiritismo - Cap. 15: Fora da Caridade não há Salvação",
+        verses: [
+          "1. Toda a moral de Jesus resume-se na caridade e na humildade, isto é, nas duas virtudes contrárias ao egoísmo e ao orgulho.",
+          "2. A verdadeira caridade não consiste apenas na esmola material: ela está na benevolência para com todos, na indulgência para as imperfeições alheias e no perdão das ofensas.",
+          "3. Fora da caridade não há salvação, porque nenhuma criatura pode alcançar a paz celeste sem aprender a amar e servir aos seus irmãos sem distinção.",
+          "4. Praticar o bem dentro do próprio lar, com paciência, escuta e respeito aos mais velhos e aos mais jovens, é a primeira forma de caridade ensinada pelo Cristo."
+        ]
+      },
+      {
+        title: "O Livro dos Espíritos - Livro I, Cap. 1: Deus e a Prece",
+        verses: [
+          "Questão 1. Que é Deus? Deus é a inteligência suprema, causa primária de todas as coisas.",
+          "Questão 13. Deus é eterno, infinito, imutável, imaterial, único, onipotente, soberanamente justo e bom.",
+          "Questão 659. A prece torna o homem melhor; quem ora com fervor e confiança se fortalece contra as tentações do mal, e Deus lhe envia bons Espíritos para o assistir.",
+          "Questão 886. Qual o verdadeiro sentido da palavra caridade, como a entendia Jesus? Benevolência para com todos, indulgência para as imperfeições dos outros, perdão das ofensas."
         ]
       }
     ]
