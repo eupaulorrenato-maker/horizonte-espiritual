@@ -464,14 +464,44 @@
     return null;
   }
 
+  var SITE_BASE_URL = "https://eupaulorrenato-maker.github.io/horizonte-espiritual/";
+  var DEFAULT_OG_IMAGE = SITE_BASE_URL + "assets/jw/hero-paz-biblia.jpg";
+  var DEFAULT_OG_IMAGE_ALT = "Pintura sacra renascentista das Escrituras Sagradas abertas na luz dourada da manhã no Horizonte Espiritual";
+
+  function setMetaContent(selector, value) {
+    if (typeof document === "undefined" || !value) return;
+    var el = document.querySelector(selector);
+    if (el) {
+      el.setAttribute("content", value);
+    }
+  }
+
+  function applySocialSeoMeta(title, description, imageUrl, imageAlt) {
+    if (typeof document === "undefined") return;
+    if (title) document.title = title;
+    setMetaContent('meta[name="description"]', description);
+    setMetaContent('meta[property="og:title"]', title);
+    setMetaContent('meta[property="og:description"]', description);
+    setMetaContent('meta[property="og:image"]', imageUrl);
+    setMetaContent('meta[property="og:image:alt"]', imageAlt);
+    setMetaContent('meta[name="twitter:title"]', title);
+    setMetaContent('meta[name="twitter:description"]', description);
+    setMetaContent('meta[name="twitter:image"]', imageUrl);
+    setMetaContent('meta[name="twitter:image:alt"]', imageAlt);
+  }
+
+  function updatePrayerSocialMeta(prayer) {
+    if (!prayer) return;
+    var artPath = getSacredArtForPrayer(prayer).replace(/^\/+/, "");
+    var fullTitle = prayer.title + " | Horizonte Espiritual";
+    var desc = prayer.subtitle || prayer.salutation || SECTION_SEO_META.oracoes.description;
+    applySocialSeoMeta(fullTitle, desc, SITE_BASE_URL + artPath, prayer.title);
+  }
+
   function updateSectionSeoState(sectionId, updateHash) {
     var seo = SECTION_SEO_META[sectionId] || SECTION_SEO_META.inicio;
-    if (seo && typeof document !== "undefined") {
-      document.title = seo.title;
-      var metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute("content", seo.description);
-      }
+    if (seo) {
+      applySocialSeoMeta(seo.title, seo.description, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_ALT);
     }
     if (updateHash !== false && typeof window !== "undefined" && window.location) {
       var slug = SECTION_HASHES[sectionId] || sectionId;
@@ -859,13 +889,15 @@
   function getSacredArtForPrayer(prayer) {
     if (prayer && prayer.imagePath) return prayer.imagePath;
     var titleLower = String((prayer && prayer.title) || "").toLowerCase();
-    if (titleLower.indexOf("miguel") !== -1 || titleLower.indexOf("jorge") !== -1) return "assets/sacred/daniel-cova-leoes.jpg";
+    if (titleLower.indexOf("miguel") !== -1) return "assets/prayers/arcanjo-miguel-catolica.jpg";
+    if (titleLower.indexOf("jorge") !== -1) return "assets/sacred/daniel-cova-leoes.jpg";
     if (titleLower.indexOf("salmo") !== -1) return "assets/sacred/davi-salmos-harpa.jpg";
     if (titleLower.indexOf("maria") !== -1 || titleLower.indexOf("senhora") !== -1 || titleLower.indexOf("rainha") !== -1) return "assets/sacred/anunciacao-maria.jpg";
     if (titleLower.indexOf("cura") !== -1 || titleLower.indexOf("pastor") !== -1 || titleLower.indexOf("família") !== -1 || titleLower.indexOf("filhos") !== -1) return "assets/sacred/jesus-bom-pastor.jpg";
     if (titleLower.indexOf("espírito") !== -1 || titleLower.indexOf("misericórdia") !== -1 || titleLower.indexOf("alma") !== -1) return "assets/sacred/pentecostes-cenaculo.jpg";
     if (titleLower.indexOf("ansiedade") !== -1 || titleLower.indexOf("noite") !== -1 || titleLower.indexOf("luto") !== -1) return "assets/sacred/tempestade-acalmada.jpg";
     if (titleLower.indexOf("sabedoria") !== -1 || titleLower.indexOf("armadura") !== -1) return "assets/sacred/moises-monte-sinai.jpg";
+    if (prayer && prayer.category === "espirita") return "assets/traditions/espirita.jpg";
     return prayer && prayer.category === "evangelica" ? "assets/sacred/sermao-montanha-jesus.jpg" : "assets/sacred/anunciacao-maria.jpg";
   }
 
@@ -1684,8 +1716,8 @@
           '<img src="' +
           escapeHtml(imgSrc) +
           '" alt="' +
-          escapeHtml(prayer.categoryLabel) +
-          '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+          escapeHtml(prayer.title) +
+          '" width="1200" height="675" decoding="async" class="w-full h-full object-cover" />' +
           '<div class="absolute inset-0 flex items-end p-5 sm:p-6" style="background: linear-gradient(to top, rgba(20, 34, 61, 0.9) 0%, rgba(20, 34, 61, 0.35) 70%, transparent 100%);">' +
           '<div>' +
           '<span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded text-white mb-2" style="background-color: #4a6da7;">' +
@@ -1741,11 +1773,17 @@
           "</div>" +
           "</article>";
 
+        if (state.activeSection === "oracoes") {
+          updatePrayerSocialMeta(prayer);
+        }
         updateSpeechButtons();
         return;
       }
     }
 
+    if (state.activeSection === "oracoes") {
+      updateSectionSeoState("oracoes", false);
+    }
     singleView.classList.add("hidden");
     dirView.classList.remove("hidden");
 
@@ -1790,7 +1828,7 @@
         escapeHtml(cardImg) +
         '" alt="' +
         escapeHtml(item.title) +
-        '" width="1200" height="670" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
+        '" width="1200" height="675" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
         "</div>" +
         '<div class="p-5 space-y-1.5">' +
         '<span class="jw-kicker">' +
