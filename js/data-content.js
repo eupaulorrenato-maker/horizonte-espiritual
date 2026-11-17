@@ -640,60 +640,60 @@ window.QUIZ_QUESTIONS = [
 window.BLOG_POSTS = [
   {
     id: "serenidade-apos-os-50-anos",
-    category: "Fé & Bem-Estar na Maturidade",
+    category: "ENSINOS BÍBLICOS • PAZ INTERIOR",
     readTime: "4 min de leitura",
     date: "10 de novembro de 2026",
-    imagePath: "assets/sacred/jesus-bom-pastor.jpg",
-    title: "Como cultivar a serenidade após os 50 anos com o auxílio da leitura bíblica e da oração diária",
-    excerpt: "Reservar dez minutos silenciosos pela manhã ou antes de dormir fortalece o coração, reduz a inquietação e renova a esperança em Deus.",
+    imagePath: "assets/jw/hero-paz-biblia.jpg",
+    title: "Como cultivar a serenidade após os 50 anos com a leitura bíblica e a oração diária?",
+    excerpt: "A resposta da Bíblia mostra que reservar dez minutos silenciosos pela manhã ou antes de dormir fortalece o coração, reduz a inquietação e renova a esperança em Deus.",
     content: [
       "A maturidade traz consigo uma riqueza única de experiências familiares, trabalho dedicado e histórias superadas pela graça de Deus. Junto com essa bagagem, é natural que surjam preocupações com os filhos, netos ou com os cuidados da própria saúde.",
-      "Pesquisas em saúde emocional mostram que manter um hábito diário de leitura da Bíblia e oração calma exerce efeito protetor sobre a qualidade do sono e sobre a tranquilidade interior. O segredo não está na quantidade de páginas lidas de uma vez, mas na constância diária.",
-      "Ao abrir um Salmo ou o Evangelho em letras grandes e confortáveis, longe da pressa das notícias agitadas, o coração recebe paz. Respirar devagar, ouvir ou ler a Palavra e agradecer a Deus transforma o clima de toda a casa.",
-      "Experimente escolher um horário fixo para o seu Café Espiritual: logo pela manhã ao passar o café ou meia hora antes de dormir. Esse encontro diário com Deus é um abrigo gratuito ao qual você sempre tem acesso."
+      "Estudos em saúde emocional confirmam o que as Escrituras já ensinavam há séculos: manter um hábito diário de leitura da Bíblia e oração calma exerce efeito protetor sobre a qualidade do sono e sobre a tranquilidade interior. O segredo não está na quantidade de páginas lidas de uma só vez, mas na constância diária.",
+      "Ao abrir um Salmo ou o Evangelho em letras grandes e confortáveis, longe da pressa das notícias agitadas, o coração recebe paz. Respirar devagar, ouvir ou ler a Palavra e agradecer a Deus transforma o ambiente de toda a casa.",
+      "Experimente escolher um horário fixo para examinar as Escrituras: logo pela manhã ao passar o café ou meia hora antes de dormir. Esse encontro diário com Deus é um abrigo seguro ao qual você sempre tem acesso."
     ]
   },
   {
     id: "jornada-21-dias-arcanjo-miguel",
-    category: "Trilhas & Devoção Cristã",
+    category: "ESTUDO E DEVOÇÃO • CONSTÂNCIA",
     readTime: "5 min de leitura",
     date: "08 de novembro de 2026",
-    imagePath: "assets/sacred/daniel-cova-leoes.jpg",
-    title: "Por que fazer uma Trilha de 21 Dias com São Miguel Arcanjo e Orações da Bíblia transforma o hábito de orar",
-    excerpt: "Caminhar um dia por vez fortalece a perseverança espiritual, afasta o desânimo e ensina a consagrar o lar em família.",
+    imagePath: "assets/jw/oracao-fe.jpg",
+    title: "Como criar o hábito de orar todos os dias sem desanimar no meio do caminho?",
+    excerpt: "Caminhar um dia por vez com metas curtas de leitura e oração fortalece a perseverança espiritual, afasta o desânimo e abençoa toda a família.",
     content: [
-      "Muitas vezes começamos o propósito de orar mais todos os dias, mas o cansaço da rotina nos faz esquecer depois de alguns dias. É justamente para ajudar na firmeza diária que existem as Trilhas de 7, 9 e 21 Dias.",
-      "Na tradição cristã, a jornada de 21 dias com São Miguel Arcanjo convida o fiel a reservar poucos minutos diários para ler um versículo da Palavra de Deus, refletir com serenidade e declarar a proteção celeste sobre a família.",
-      "Aqui no portal você encontra o checklist completo do Dia 1 ao Dia 21 na página dedicada a São Miguel Arcanjo, além das trilhas dos Salmos da Vitória, Nossa Senhora Desatadora dos Nós, Família em Deus e Cura Interior, tudo com botão de áudio em voz calma.",
-      "Marcar cada dia concluído cria uma linda rotina de fé e esperança dentro de casa."
+      "Muitas pessoas desejam sincera comunhão com Deus todos os dias, mas o cansaço da rotina faz com que o hábito seja interrompido depois de pouco tempo. É justamente para ajudar na firmeza diária que existem os planos guiados de 7, 9, 21 e 40 dias.",
+      "Na tradição cristã, reservar alguns minutos diários para ler um versículo da Palavra de Deus, meditar com serenidade e apresentar a família em oração cria raízes profundas de confiança espiritual.",
+      "Aqui no portal você encontra o acompanhamento completo dos 40 Dias de Propósitos, das Trilhas de Fé e da jornada de 21 dias, tudo com leitura em áudio em voz calma e letras ajustáveis.",
+      "Marcar cada dia concluído cria uma rotina saudável de fé, consolo e esperança dentro do lar."
     ]
   },
   {
     id: "simbolismo-da-vela-votiva",
-    category: "Vida de Oração & Família",
+    category: "FAMÍLIA E ORAÇÃO • INTERCESSÃO",
     readTime: "4 min de leitura",
     date: "05 de novembro de 2026",
-    imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
-    title: "O significado da luz na oração cristã e o cuidado ao interceder pela família",
-    excerpt: "Acender uma Vela Virtual de 7 dias lembra que Jesus Cristo é a Luz do mundo e mantém viva a intercessão pelos nossos entes queridos.",
+    imagePath: "assets/jw/familia-feliz.jpg",
+    title: "Por que orar pelos familiares e manter viva a intercessão no lar faz tanta diferença?",
+    excerpt: "Apresentar nominalmente os filhos, netos e enfermos a Deus une a família em amor e lembra que Cristo é a verdadeira Luz que guia o nosso caminho.",
     content: [
-      "Desde os primeiros séculos do Cristianismo, a chama acesa no altar ou em casa simboliza Cristo como a Luz que ilumina as trevas e a vigilância constante da nossa oração.",
-      "Muitas pessoas idosas ou que vivem em apartamentos evitam acender velas físicas no quarto por segurança contra incêndios ou sensibilidade respiratória à fumaça.",
-      "A nossa Capela da Vela Virtual de 7 Dias nasceu para unir o simbolismo acolhedor da vigília com total segurança: você escreve o nome do seu familiar ou pedido de cura, acende gratuitamente em tela e pode compartilhar a prece diretamente com filhos e netos pelo WhatsApp."
+      "Desde os tempos bíblicos, a luz simboliza a verdade de Deus que ilumina a escuridão e a vigilância constante da oração feita em favor das pessoas que amamos.",
+      "Muitas pessoas idosas ou que vivem em apartamentos buscam formas seguras e tranquilas de manter um memorial diário de intercessão pelos seus familiares sem riscos domésticos.",
+      "A nossa página de Vela Virtual e Intercessão nasceu para unir o simbolismo acolhedor da vigília de oração com total praticidade: você registra o nome do seu familiar ou pedido de saúde, faz sua prece com calma e pode enviá-la diretamente aos filhos e netos pelo WhatsApp."
     ]
   },
   {
     id: "leitura-contemplativa-noturna",
-    category: "Acessibilidade & Descanso",
+    category: "QUALIDADE DE VIDA • LEITURA BÍBLICA",
     readTime: "3 min de leitura",
     date: "01 de novembro de 2026",
-    imagePath: "assets/sacred/tempestade-acalmada.jpg",
-    title: "Leitura bíblica antes de dormir: como descansar a vista e acalmar o coração",
-    excerpt: "Ajustar o tamanho da fonte e alternar entre o fundo claro e o Modo Noturno torna a leitura da Bíblia e das orações muito mais confortável.",
+    imagePath: "assets/jw/estudo-propositos.jpg",
+    title: "Como fazer uma leitura bíblica tranquila antes de dormir para descansar a mente?",
+    excerpt: "Ajustar o tamanho da letra, ouvir a narração em voz serena e meditar em promessas de paz prepara o coração para uma noite de sono reparador.",
     content: [
-      "Telas com letras pequenas demais cansam rapidamente a visão e geram tensão antes da hora de dormir. Para quem lê a Bíblia ou as orações pelo celular à noite, o conforto visual faz toda a diferença.",
-      "Por isso incluímos no alto de todas as páginas os botões grandes A- e A+ para aumentar as letras do texto, junto com o Modo Noturno suave que protege os olhos no quarto escuro.",
-      "Além disso, toda passagem do dia, capítulo completo da Bíblia e oração possui botão para ouvir em voz calma em português, permitindo fechar os olhos e descansar enquanto escuta a Palavra de Deus."
+      "Telas com letras pequenas demais cansam rapidamente a visão e geram tensão antes da hora de dormir. Para quem lê a Bíblia ou as orações pelo celular ou computador, a clareza visual faz toda a diferença.",
+      "Por isso incluímos no alto de todas as páginas os botões A- e A+ para ampliar as letras do texto, além da opção de alternar entre o fundo claro editorial e o Modo Noturno suave.",
+      "Além disso, toda passagem do dia, capítulo completo da Bíblia, pergunta bíblica respondida e oração possui botão para ouvir em voz calma em português, permitindo descansar os olhos enquanto escuta a Palavra de Deus."
     ]
   }
 ];
@@ -820,5 +820,185 @@ window.SACRED_RENAISSANCE_GALLERY = [
     imagePath: "assets/sacred/pentecostes-cenaculo.jpg",
     summary: "Unidos em oração no cenáculo, os discípulos receberam coragem, paz e força renovada pelo Espírito.",
     targetSection: "trilhas"
+  }
+];
+
+window.JW_PORTAL_DOORS = [
+  {
+    id: "door-perguntas",
+    navTarget: "perguntas-biblicas",
+    kicker: "ENSINOS BÍBLICOS",
+    title: "Respostas da Bíblia para Perguntas da Vida",
+    summary: "Veja o que as Escrituras ensinam de forma simples sobre sofrimento, oração, família, paz no coração e esperança.",
+    ctaLabel: "Ver Perguntas e Respostas",
+    imagePath: "assets/jw/ensinos-perguntas.jpg"
+  },
+  {
+    id: "door-biblia",
+    navTarget: "escrituras",
+    kicker: "BÍBLIA ONLINE COMPLETA",
+    title: "Leia e Ouça a Bíblia Sagrada na Íntegra",
+    summary: "Acesse todos os livros e capítulos da Bíblia Católica (73 livros) e Evangélica (66 livros) com letra ajustável e voz calma.",
+    ctaLabel: "Abrir Bíblia Online",
+    imagePath: "assets/jw/hero-paz-biblia.jpg"
+  },
+  {
+    id: "door-propositos",
+    navTarget: "propositos",
+    kicker: "CURSO E PROPÓSITOS • 40 DIAS",
+    title: "40 Dias de Propósitos com a Palavra de Deus",
+    summary: "Escolha um propósito prático (Paz, Família, Saúde ou Sabedoria) e caminhe um dia por vez com leitura e áudio.",
+    ctaLabel: "Começar os 40 Dias",
+    imagePath: "assets/jw/estudo-propositos.jpg"
+  },
+  {
+    id: "door-cafe",
+    navTarget: "cafe-diario",
+    kicker: "TEXTO DIÁRIO • MANHÃ COM DEUS",
+    title: "Examine a Mensagem Diária de Hoje",
+    summary: "Comece o dia com um versículo explicado de modo claro, reflexão acolhedora e oração narrada em português.",
+    ctaLabel: "Ler Texto de Hoje",
+    imagePath: "assets/jw/consolo-esperanca.jpg"
+  },
+  {
+    id: "door-oracoes",
+    navTarget: "oracoes",
+    kicker: "ORAÇÕES E DEVOÇÃO",
+    title: "44 Orações Fortes para Ouvir e Rezar",
+    summary: "Salmo 91, Salmo 23, São Miguel Arcanjo, proteção da casa, saúde, filhos e netos com leitura em áudio.",
+    ctaLabel: "Abrir Orações",
+    imagePath: "assets/jw/oracao-fe.jpg"
+  },
+  {
+    id: "door-familia",
+    navTarget: "alento",
+    kicker: "PAZ E FAMÍLIA",
+    title: "Consolo para a Família e Momentos Difíceis",
+    summary: "Textos bíblicos selecionados para vencer a ansiedade, o luto, a solidão e fortalecer a união no lar.",
+    ctaLabel: "Receber Consolo",
+    imagePath: "assets/jw/familia-feliz.jpg"
+  }
+];
+
+window.JW_BIBLE_QUESTIONS = [
+  {
+    id: "deus-se-importa",
+    category: "CONSOLO E ESPERANÇA",
+    question: "Deus realmente se importa com o que você está passando?",
+    shortAnswer: "Sim. A Bíblia ensina que Deus conhece cada lágrima, compreende nossas dores mais profundas e convida cada pessoa a lançar sobre Ele todas as suas preocupações.",
+    bibleVerseText: "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós. Perto está o Senhor dos que têm o coração quebrantado.",
+    bibleVerseRef: "1 Pedro 5:7 • Salmo 34:18",
+    imagePath: "assets/jw/consolo-esperanca.jpg",
+    keyPoints: [
+      "Deus conhece nossos sentimentos em detalhes e nunca é indiferente ao sofrimento humano (Salmo 34:18).",
+      "Ele nos convida a entregar cada peso em Suas mãos por meio da oração sincera (1 Pedro 5:7).",
+      "Por meio da Sua Palavra, Deus oferece consolo imediato para o coração cansado e esperança segura para o futuro."
+    ],
+    paragraphs: [
+      "Quando enfrentamos problemas de saúde, perdas na família ou preocupações que parecem não ter fim, é comum surgir a dúvida: será que Deus vê o que estou passando? A resposta da Bíblia é direta e consoladora: Deus não está distante. O Salmo 34:18 afirma que o Senhor está perto dos que têm o coração quebrantado e salva os de espírito oprimido.",
+      "Ao longo das Escrituras, vemos que o Criador observa com ternura aqueles que sofrem em silêncio. Jesus Cristo explicou que até mesmo os pequenos pássaros do céu são lembrados por Deus e garantiu que cada ser humano tem valor imensurável diante do Pai celestial. Nenhuma noite em claro ou lágrima derramada em oração passa despercebida por Ele.",
+      "Saber que Deus realmente se importa muda a maneira como atravessamos os dias difíceis. Em vez de carregar o fardo na solidão, podemos abrir o coração a Ele como um filho conversa com um Pai amoroso, certos de que receberemos força, paz interior e sabedoria para dar um passo de cada vez."
+    ],
+    prayerText: "Senhor Deus de todo o consolo, obrigado porque a Tua Palavra me garante que Tu vês a minha vida e te importas com cada detalhe do meu coração. Entrego hoje em Tuas mãos as minhas preocupações, a minha saúde e a minha família. Sustenta-me com a Tua paz e renova a minha esperança. Amém."
+  },
+  {
+    id: "como-vencer-ansiedade",
+    category: "PAZ NO CORAÇÃO",
+    question: "O que a Bíblia diz sobre como lidar com a ansiedade e a preocupação?",
+    shortAnswer: "A Bíblia aconselha a transformar a preocupação em oração agradecida, viver um dia de cada vez e confiar no cuidado fiel de Deus.",
+    bibleVerseText: "Não estejais inquietos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças. E a paz de Deus guardará os vossos corações e os vossos pensamentos.",
+    bibleVerseRef: "Filipenses 4:6-7 • Mateus 6:34",
+    imagePath: "assets/jw/hero-paz-biblia.jpg",
+    keyPoints: [
+      "Transforme cada pensamento ansioso em um pedido específico a Deus acompanhado de gratidão (Filipenses 4:6-7).",
+      "Concentre suas forças apenas nas responsabilidades de hoje, sem antecipar o sofrimento de amanhã (Mateus 6:34).",
+      "Alimente a mente com leituras bíblicas calmas que fortalecem a fé e protegem o sono."
+    ],
+    paragraphs: [
+      "A ansiedade costuma crescer quando tentamos resolver todos os problemas do futuro de uma só vez. No Sermão da Montanha, em Mateus 6:34, Jesus deu um conselho cheio de sabedoria prática: 'Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal'. Viver um dia por vez alivia imediatamente o peso mental.",
+      "Além disso, o apóstolo Paulo ensina em Filipenses 4:6-7 o caminho bíblico para substituir a aflição pela serenidade: apresentar nossos pedidos a Deus em oração com ação de graças. Quando agradecemos pelas bênçãos que já temos e entregamos a Deus o que foge ao nosso controle, a paz divina atua como uma sentinela guardando nossos pensamentos.",
+      "Outro auxílio precioso das Escrituras é selecionar o que colocamos em nossa mente, especialmente pela manhã e antes de dormir. Reduzir o excesso de notícias alarmantes e ler um Salmo de confiança devolve equilíbrio ao corpo e serenidade ao lar."
+    ],
+    prayerText: "Pai bondoso, Tu conheces os pensamentos que tentam tirar a minha calma hoje. Seguindo a Tua Palavra em Filipenses 4:6-7, coloco diante de Ti cada preocupação minha e agradeço pelo Teu cuidado fiel. Guarda a minha mente e o meu coração na Tua perfeita paz. Amém."
+  },
+  {
+    id: "como-orar-a-deus",
+    category: "ORAÇÃO E FÉ",
+    question: "Como você pode conversar com Deus e ter certeza de que Ele ouve?",
+    shortAnswer: "Deus ouve orações feitas com sinceridade, humildade e fé, usando nossas próprias palavras simples, como quem conversa com um Pai amoroso.",
+    bibleVerseText: "Perto está o Senhor de todos os que o invocam, de todos os que o invocam em verdade. Então me invocareis, e ireis, e orareis a mim, e eu vos ouvirei.",
+    bibleVerseRef: "Salmo 145:18 • Jeremias 29:12",
+    imagePath: "assets/jw/oracao-fe.jpg",
+    keyPoints: [
+      "Fale com sinceridade e de coração aberto; Deus valoriza a verdade interior mais do que palavras difíceis (Salmo 145:18).",
+      "Agradeça pelas bênçãos diárias, peça perdão com humildade e interceda pela sua família (Mateus 6:9-13).",
+      "Persevere com confiança, sabendo que Deus escuta e responde no tempo e do modo mais sábio (Jeremias 29:12)."
+    ],
+    paragraphs: [
+      "Muitas pessoas desejam se aproximar de Deus, mas têm receio de não saber usar palavras bonitas o bastante. A Bíblia ensina exatamente o oposto: na oração modelo do Pai-Nosso, Jesus mostrou que não precisamos de discursos complicados para sermos ouvidos. O Salmo 145:18 garante que o Senhor está perto de todos os que O invocam em verdade, isto é, com sinceridade de coração.",
+      "Você pode conversar com Deus em qualquer lugar e a qualquer hora: ao acordar pela manhã, durante os afazeres de casa, em uma sala de espera ou no silêncio da noite. Conte a Ele o que alegra o seu coração, peça sabedoria para suas decisões, interceda pelo bem-estar dos filhos e netos e peça força para enfrentar as provações.",
+      "Em Jeremias 29:12, Deus promete: 'Orareis a mim, e eu vos ouvirei'. Mesmo quando a resposta não vem no exato minuto em que esperamos, Deus já começa a agir concedendo calma interior, clareza de pensamento e coragem para perseverar no caminho do bem."
+    ],
+    prayerText: "Senhor Deus, Tu que ouves a oração sincera, recebe hoje as palavras simples do meu coração. Obrigado pelo dom da vida, pelo pão de cada dia e pela minha família. Ensina-me a caminhar na Tua presença com humildade, fé e confiança constante. Amém."
+  },
+  {
+    id: "segredo-familia-feliz",
+    category: "VIDA EM FAMÍLIA",
+    question: "Quais princípios da Bíblia ajudam a ter paz e união na família?",
+    shortAnswer: "O amor paciente, o respeito mútuo, a palavra branda e a disposição para perdoar de coração são os alicerces bíblicos de um lar feliz.",
+    bibleVerseText: "Suportando-vos uns aos outros, e perdoando-vos uns aos outros, se alguém tiver queixa contra outro. E, sobre tudo isto, revesti-vos de amor, que é o vínculo da perfeição.",
+    bibleVerseRef: "Colossenses 3:13-14 • Efésios 4:32",
+    imagePath: "assets/jw/familia-feliz.jpg",
+    keyPoints: [
+      "Pratique a escuta paciente e a resposta branda para evitar discussões desnecessárias no lar (Provérbios 15:1).",
+      "Esteja pronto para perdoar falhas do dia a dia, não deixando mágoas acumularem (Colossenses 3:13).",
+      "Reserve momentos regulares para agradecer a Deus juntos e abençoar pais, filhos e netos."
+    ],
+    paragraphs: [
+      "Toda família é formada por pessoas de diferentes idades e temperamentos, por isso é natural que surjam divergências no convívio diário. O Autor da família deixou nas Escrituras conselhos práticos que atravessam gerações. Em Colossenses 3:13-14, a Bíblia recomenda suportar uns aos outros com paciência, perdoar livremente e vestir-se de amor, que é o verdadeiro elo de união.",
+      "Outro princípio valioso está em Provérbios 15:1: 'A resposta branda desvia o furor, mas a palavra dura suscita a ira'. Muitas tensões entre cônjuges, pais, filhos e avós se dissolvem quando escolhemos falar com mansidão e ouvir com atenção antes de reagir. O respeito no falar preserva a dignidade e o carinho dentro de casa.",
+      "Por fim, famílias que reservam alguns minutos para ler um texto bíblico juntas ou orar antes das refeições constroem uma base espiritual sólida. Os filhos e netos guardam para toda a vida o exemplo de paz, fé e gratidão aprendido à mesa da família."
+    ],
+    prayerText: "Deus de amor e paz, abençoa hoje a minha casa e todos os meus familiares. Ensina-nos a falar com mansidão, a perdoar de coração e a cuidar uns dos outros com paciência e carinho. Que o nosso lar seja sempre um abrigo de união sob a Tua bênção. Amém."
+  },
+  {
+    id: "por-que-sofremos",
+    category: "PERGUNTAS DA VIDA",
+    question: "Por que existem tantas dificuldades e onde encontrar consolo verdadeiro?",
+    shortAnswer: "A Bíblia explica que Deus nunca é a causa da maldade; pelo contrário, Ele é o Deus de toda a consolação e promete eliminar para sempre a dor e o sofrimento.",
+    bibleVerseText: "Bendito seja o Deus de toda a consolação, que nos consola em toda a nossa tribulação. E Deus limpará de seus olhos toda a lágrima.",
+    bibleVerseRef: "2 Coríntios 1:3-4 • Apocalipse 21:4",
+    imagePath: "assets/jw/ensinos-perguntas.jpg",
+    keyPoints: [
+      "Deus é justo e amoroso; Ele não causa tragédias nem deseja o sofrimento de ninguém (Tiago 1:13).",
+      "No presente, Ele nos ampara como 'o Deus de toda a consolação' em qualquer provação (2 Coríntios 1:3-4).",
+      "A Bíblia garante a promessa futura de um tempo em que não haverá mais pranto, nem dor (Apocalipse 21:4)."
+    ],
+    paragraphs: [
+      "Diante de uma enfermidade grave ou da perda de alguém querido, muitas pessoas se perguntam se Deus estaria testando a família com sofrimento. A Bíblia esclarece essa dúvida com total transparência em Tiago 1:13: 'Com coisas más Deus não pode ser tentado e ele mesmo a ninguém tenta'. O sofrimento no mundo decorre das escolhas humanas afastadas de Deus, das limitações da vida atual e de imprevistos do tempo.",
+      "Longe de causar a nossa dor, Deus se apresenta em 2 Coríntios 1:3-4 como 'o Pai das misericórdias e o Deus de toda a consolação, que nos consola em toda a nossa tribulação'. Ele usa a leitura das Escrituras, a oração e o apoio amoroso da família e dos irmãos na fé para sustentar quem está passando por dias difíceis.",
+      "Mais do que o amparo para hoje, a Bíblia oferece uma esperança luminosa em Apocalipse 21:4: chegará o tempo estabelecido por Deus em que Ele enxugará dos olhos toda lágrima, e não haverá mais morte, nem pranto, nem clamor, nem dor. Meditar nessa promessa fiel fortalece a nossa alma."
+    ],
+    prayerText: "Pai de misericórdia e Deus de toda a consolação, enxuga hoje as lágrimas de quem sofre e fortalece o nosso coração nas horas difíceis. Obrigado pela certeza de que Tu não nos desamparas e pela esperança viva da Tua Palavra. Amém."
+  },
+  {
+    id: "como-entender-a-biblia",
+    category: "ESTUDO DA BÍBLIA",
+    question: "Como começar a ler a Bíblia de um jeito simples e proveitoso?",
+    shortAnswer: "Comece com leituras curtas diárias nos Salmos e Evangelhos, peça entendimento a Deus em oração e pergunte-se como aplicar o versículo no seu dia.",
+    bibleVerseText: "Lâmpada para os meus pés é tua palavra, e luz para o meu caminho. Porque tudo o que dantes foi escrito, para nosso ensino foi escrito, para que pela paciência e consolação das Escrituras tenhamos esperança.",
+    bibleVerseRef: "Salmo 119:105 • Romanos 15:4",
+    imagePath: "assets/jw/estudo-propositos.jpg",
+    keyPoints: [
+      "Faça uma breve oração antes de abrir a Bíblia, pedindo a Deus sabedoria para compreender o texto.",
+      "Leia trechos curtos todos os dias, começando pelos Salmos, Provérbios e pelos Evangelhos de Jesus.",
+      "Reflita com calma: 'O que este texto me ensina sobre Deus e como posso praticá-lo hoje em casa?'."
+    ],
+    paragraphs: [
+      "A Bíblia Sagrada é uma biblioteca composta por dezenas de livros inspirados, mas você não precisa lê-la apressadamente para tirar proveito dela. O Salmo 119:105 compara a Palavra de Deus a uma lâmpada para os pés: ela ilumina um passo de cada vez. Dez a quinze minutos de leitura tranquila por dia já produzem frutos extraordinários.",
+      "Um ótimo ponto de partida é ler um Salmo pela manhã para fortalecer a oração e um capítulo dos Evangelhos (Mateus, Marcos, Lucas ou João) para conhecer de perto os ensinamentos e o exemplo de Jesus Cristo. Aqui no portal, você também pode seguir o Texto Diário ou o plano guiado de 40 Dias de Propósitos.",
+      "Como destaca Romanos 15:4, tudo o que foi escrito nas Escrituras tem o objetivo de nos dar ensino, paciência, consolação e esperança. Ao terminar a leitura ou a escuta em áudio, escolha uma frase principal para guardar no coração ao longo do dia."
+    ],
+    prayerText: "Senhor Deus, obrigado pelo presente precioso da Tua Palavra escrita. Abre o meu entendimento sempre que eu ler ou ouvir as Escrituras, para que a Tua verdade seja lâmpada para os meus pés e fonte de sabedoria para toda a minha casa. Amém."
   }
 ];

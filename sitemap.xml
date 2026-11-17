@@ -3,9 +3,39 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/jw/hero-paz-biblia.jpg</image:loc>
+      <image:title>A Paz das Escrituras Sagradas (Pintura Sacra Renascentista) - Horizonte Espiritual</image:title>
+      <image:caption>Pintura a óleo renascentista retratando as Escrituras Sagradas abertas na luz dourada da manhã</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/jw/ensinos-perguntas.jpg</image:loc>
+      <image:title>Ensinos Bíblicos e Sabedoria das Escrituras (Pintura Renascentista)</image:title>
+      <image:caption>Pintura sacra renascentista retratando o ensino e a meditação nas Escrituras Sagradas</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/jw/familia-feliz.jpg</image:loc>
+      <image:title>A Família Abençoada em União e Paz (Pintura Sacra Renascentista)</image:title>
+      <image:caption>Pintura a óleo renascentista retratando três gerações da família reunidas na graça de Deus</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/jw/consolo-esperanca.jpg</image:loc>
+      <image:title>Consolo e Esperança Divina (Pintura Sacra Renascentista)</image:title>
+      <image:caption>Pintura sacra renascentista com luz celestial sobre colinas e águas serenas simbolizando a paz de Deus</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/jw/oracao-fe.jpg</image:loc>
+      <image:title>A Oração Fervorosa e a Fé (Pintura Sacra Renascentista)</image:title>
+      <image:caption>Pintura a óleo renascentista em chiaroscuro dourado retratando mãos em prece diante das Escrituras</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/jw/estudo-propositos.jpg</image:loc>
+      <image:title>Estudo das Escrituras e 40 Dias de Propósitos (Pintura Renascentista)</image:title>
+      <image:caption>Pintura sacra renascentista retratando o exame diário dos pergaminhos e livros sagrados</image:caption>
+    </image:image>
     <image:image>
       <image:loc>https://eupaulorrenato-maker.github.io/horizonte-espiritual/assets/traditions/cafe-espiritual.jpg</image:loc>
       <image:title>Café Espiritual e Devocional Diário - Horizonte Espiritual</image:title>

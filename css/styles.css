@@ -1,84 +1,96 @@
-:root {
-  /* Linear Design System Tokens (#010102 Near-Black Canvas + #5e6ad2 Lavender Accent) */
-  --font-display: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
-  --font-sans: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+:root,
+[data-theme="light"] {
+  /* JW.ORG Editorial Design System Tokens (Warm Stone #f7f7f5 + Crisp White #ffffff + JW Blue #4a6da7) */
+  --font-display: 'Noto Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-sans: 'Noto Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-serif-editorial: 'Merriweather', 'Georgia', 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Four-Step Surface Ladder */
-  --bg-page: #010102;
-  --bg-surface: #0f1011;
-  --bg-subtle: #141516;
-  --surface-pearl: #18191a;
-  --surface-4: #191a1b;
-  --bg-accent-soft: #141516;
-  --bg-amber-soft: #141516;
-  --bg-tile-dark: #0f1011;
-  --bg-tile-dark-2: #141516;
-  --bg-chapel: #0f1011;
-  --bg-black: #010102;
+  /* Editorial Surface Ladder (Default JW.ORG Light Theme) */
+  --bg-page: #f7f7f5;
+  --bg-surface: #ffffff;
+  --bg-subtle: #efefec;
+  --surface-pearl: #f9f9f8;
+  --surface-4: #e4e4e0;
+  --bg-accent-soft: #edf2f8;
+  --bg-amber-soft: #f4f6fa;
+  --bg-tile-dark: #1d3f7a;
+  --bg-tile-dark-2: #295296;
+  --bg-chapel: #182848;
+  --bg-black: #14223d;
 
-  /* Ink Scale */
-  --text-main: #f7f8f8;
-  --text-secondary: #d0d6e0;
-  --text-muted: #8a8f98;
-  --text-tertiary: #62666d;
-  --text-on-dark: #f7f8f8;
-  --text-muted-on-dark: #d0d6e0;
+  /* High-Contrast Editorial Ink Scale */
+  --text-main: #222222;
+  --text-secondary: #4a4a4a;
+  --text-muted: #686868;
+  --text-tertiary: #767676;
+  --text-on-dark: #ffffff;
+  --text-muted-on-dark: #dbe5f5;
 
-  /* Hairlines */
-  --border-color: #23252a;
-  --border-strong: #34343a;
-  --border-tertiary: #3e3e44;
-  --border-light: #23252a;
-  --divider-soft: #23252a;
+  /* Borders & Hairlines */
+  --border-color: #d8d8d4;
+  --border-strong: #b8b8b2;
+  --border-tertiary: #9e9e98;
+  --border-light: #e6e6e2;
+  --divider-soft: #e6e6e2;
 
-  /* Single Chromatic Brand Accent: Linear Lavender-Blue */
-  --accent-primary: #5e6ad2;
-  --accent-primary-hover: #828fff;
-  --accent-primary-focus: #5e69d1;
-  --brand-secure: #7a7fad;
-  --accent-blue: #5e6ad2;
-  --accent-blue-dark: #828fff;
-  --accent-wine: #828fff;
-  --accent-wine-hover: #5e6ad2;
-  --accent-amber: #828fff;
-  --accent-green: #27a644;
+  /* JW.ORG Signature Blue & Semantic Accents */
+  --accent-primary: #4a6da7;
+  --accent-primary-hover: #295296;
+  --accent-primary-focus: #1d3f7a;
+  --brand-secure: #4a6da7;
+  --accent-blue: #4a6da7;
+  --accent-blue-dark: #295296;
+  --accent-wine: #295296;
+  --accent-wine-hover: #1d3f7a;
+  --accent-amber: #b36b00;
+  --accent-green: #217a3c;
 
-  --focus-ring: #5e69d1;
-  --error-red: #e5484d;
-  --linear-pixel-edge: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  --focus-ring: #295296;
+  --error-red: #c92a2a;
+  --linear-pixel-edge: none;
   --reader-font-size: 1.25rem;
 }
 
-/* Optional High-Contrast Inverse Reading Sheet for Elderly Readers */
-[data-theme="light"] {
-  --bg-page: #ffffff;
-  --bg-surface: #f5f6f6;
-  --bg-subtle: #f6f7f7;
-  --surface-pearl: #ffffff;
-  --surface-4: #eceeef;
-  --bg-accent-soft: #f5f6f6;
-  --bg-amber-soft: #f5f6f6;
-  --bg-tile-dark: #0f1011;
-  --bg-tile-dark-2: #141516;
-  --bg-chapel: #0f1011;
+/* Optional Night Mode for Elderly Readers ([data-theme="dark"]) */
+[data-theme="dark"] {
+  --bg-page: #141821;
+  --bg-surface: #1e2430;
+  --bg-subtle: #262e3d;
+  --surface-pearl: #222938;
+  --surface-4: #2f384a;
+  --bg-accent-soft: #23314d;
+  --bg-amber-soft: #232b3a;
+  --bg-tile-dark: #1d3f7a;
+  --bg-tile-dark-2: #295296;
+  --bg-chapel: #182848;
+  --bg-black: #0f141d;
 
-  --text-main: #000000;
-  --text-secondary: #2c2e33;
-  --text-muted: #5a5e66;
-  --text-tertiary: #6e727a;
+  --text-main: #f2f4f8;
+  --text-secondary: #cfd6e3;
+  --text-muted: #9aa5b8;
+  --text-tertiary: #7e8b9f;
+  --text-on-dark: #ffffff;
+  --text-muted-on-dark: #cfd6e3;
 
-  --border-color: #d8dbe0;
-  --border-strong: #b9bec7;
-  --border-tertiary: #aeb4be;
-  --border-light: #e2e4e8;
-  --divider-soft: #e2e4e8;
+  --border-color: #323c4e;
+  --border-strong: #455269;
+  --border-tertiary: #566682;
+  --border-light: #2a3342;
+  --divider-soft: #2a3342;
 
-  --accent-blue: #5e6ad2;
-  --accent-wine: #5e6ad2;
-  --accent-wine-hover: #4954ba;
-  --accent-amber: #5e6ad2;
-  --accent-green: #1d8a36;
+  --accent-primary: #6b93d6;
+  --accent-primary-hover: #8ab0f0;
+  --accent-primary-focus: #6b93d6;
+  --brand-secure: #6b93d6;
+  --accent-blue: #6b93d6;
+  --accent-blue-dark: #8ab0f0;
+  --accent-wine: #8ab0f0;
+  --accent-wine-hover: #6b93d6;
+  --accent-amber: #f0b45a;
+  --accent-green: #38b259;
+
+  --focus-ring: #8ab0f0;
   --linear-pixel-edge: none;
 }
 
@@ -100,8 +112,8 @@ body {
   color: var(--text-main);
   font-size: 1.0625rem;
   font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: -0.003em;
+  line-height: 1.55;
+  letter-spacing: -0.002em;
   overflow-x: hidden;
   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
   -webkit-font-smoothing: antialiased;
@@ -113,36 +125,39 @@ body {
   font-family: var(--font-display);
 }
 
-/* Linear Positive-Tracked Eyebrow (0.4px) / Mono utility */
+/* Editorial Eyebrow / Kicker Utility */
 .font-mono-label {
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 700;
   line-height: 1.3;
-  letter-spacing: 0.4px;
-  text-transform: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
 }
 
 .font-code-mono {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0;
 }
 
-/* Linear Negative-Tracked Display Headlines (Weight 600, max 600, never 700+) */
+/* JW.ORG Authoritative Editorial Headlines */
 h1, h2,
 .font-serif-sacred.heading-hero,
 .font-serif-sacred.heading-section {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--text-main);
 }
 
 h3, h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.018em;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: var(--text-main);
 }
 
 .text-body-sacred,
@@ -152,8 +167,8 @@ p.font-serif-sacred.text-body-sacred {
   font-family: var(--font-sans);
   font-size: var(--reader-font-size);
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: -0.005em;
+  line-height: 1.65;
+  letter-spacing: 0;
 }
 
 a[href],
@@ -188,45 +203,135 @@ img, video, iframe {
   display: block;
 }
 
-/* Linear Display Scale: Aggressive negative tracking on Display XL & LG */
+/* JW.ORG Editorial Display Scale */
 .heading-hero {
-  font-size: clamp(2.25rem, 5.4vw, 4.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.037em;
-  font-weight: 600;
+  font-size: clamp(1.85rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 .heading-section {
-  font-size: clamp(1.625rem, 3.4vw, 2.75rem);
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  font-weight: 600;
+  font-size: clamp(1.45rem, 2.8vw, 2.15rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 700;
 }
 
-/* Linear Top Announcement Strip (#0f1011 with #23252a hairline) */
+/* JW.ORG Structural Classes */
+.jw-top-utility,
 .announcement-bar {
-  background-color: #0f1011;
-  color: #f7f8f8;
-  border-bottom: 1px solid #23252a;
-  min-height: 40px;
-  padding: 0.45rem 1rem;
+  background-color: #1d3f7a;
+  color: #ffffff;
+  border-bottom: 1px solid #295296;
+  min-height: 38px;
+  padding: 0.4rem 1rem;
   font-size: 0.8125rem;
-  font-weight: 400;
-  line-height: 1.3;
+  font-weight: 500;
+  line-height: 1.35;
   letter-spacing: 0;
 }
 
-/* Linear Sticky Top Navigation Bar (#010102 canvas, hairline bottom) */
+.jw-header,
 .apple-frosted-header {
-  background-color: rgba(1, 1, 2, 0.88);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .jw-header,
+[data-theme="dark"] .apple-frosted-header {
+  background-color: #1e2430;
   border-bottom: 1px solid var(--border-color);
 }
 
-[data-theme="light"] .apple-frosted-header {
-  background-color: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid var(--border-color);
+.jw-logo-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background-color: #4a6da7;
+  color: #ffffff;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.jw-section-heading {
+  border-left: 4px solid var(--accent-primary);
+  padding-left: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-main);
+}
+
+.jw-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.jw-photo-card {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.14s ease;
+}
+
+.jw-photo-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.jw-photo-card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background-color: #e4e4e0;
+}
+
+.jw-hero-banner {
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.jw-topic-tile {
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  overflow: hidden;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.14s ease;
+}
+
+.jw-topic-tile:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
 }
 
 /* Minimum 48px touch targets preserved for elderly accessibility */
@@ -241,8 +346,9 @@ img, video, iframe {
 /* Subtle Tactile Response */
 button:not(:disabled):active,
 .door-card-btn:active,
-.tradition-card:active {
-  transform: scale(0.985);
+.tradition-card:active,
+.jw-topic-tile:active {
+  transform: scale(0.99);
 }
 
 .btn-primary:not(:disabled):active,
@@ -250,56 +356,57 @@ button:not(:disabled):active,
 .feeling-chip:not(:disabled):active,
 .nav-tab-btn:not(:disabled):active,
 .back-home-btn:not(:disabled):active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
-/* Linear Primary CTA: #5e6ad2 Lavender-Blue, 8px rounded-md (never pill) */
+/* JW.ORG Primary CTA: #4a6da7 Blue (#295296 hover), 4px rectangular radius */
 .btn-primary {
-  background-color: #5e6ad2;
+  background-color: #4a6da7;
   color: #ffffff;
-  border: 1px solid #5e6ad2;
+  border: 1px solid #4a6da7;
   min-height: 46px;
-  padding: 0.625rem 1.125rem;
-  border-radius: 8px;
+  padding: 0.625rem 1.15rem;
+  border-radius: 4px;
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9375rem;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: 0;
   box-shadow: none;
   transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-primary:hover {
-  background-color: #828fff;
-  border-color: #828fff;
+  background-color: #295296;
+  border-color: #295296;
 }
 
 .btn-primary:active {
-  background-color: #5e69d1;
-  border-color: #5e69d1;
+  background-color: #1d3f7a;
+  border-color: #1d3f7a;
 }
 
-/* Linear Secondary Charcoal CTA: Surface 1 + #23252a hairline + Ink + 8px rounded-md */
+/* JW.ORG Secondary Editorial CTA */
 .btn-secondary {
   background-color: var(--bg-surface);
-  color: var(--text-main);
+  color: var(--accent-primary);
   border: 1px solid var(--border-strong);
   min-height: 46px;
-  padding: 0.625rem 1.125rem;
-  border-radius: 8px;
+  padding: 0.625rem 1.15rem;
+  border-radius: 4px;
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9375rem;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: 0;
-  box-shadow: var(--linear-pixel-edge);
-  transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
+  box-shadow: none;
+  transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .btn-secondary:hover {
-  background-color: var(--bg-subtle);
-  border-color: var(--border-tertiary);
+  background-color: var(--bg-accent-soft);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary-hover);
 }
 
 [data-quiz-option].btn-secondary,
@@ -307,148 +414,166 @@ button:not(:disabled):active,
   color: var(--text-main);
   border-color: var(--border-color);
   background-color: var(--bg-surface);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 [data-quiz-option].btn-secondary:hover,
 #full-site-drawer .btn-secondary:hover {
   border-color: var(--accent-primary);
-  background-color: var(--bg-subtle);
+  background-color: var(--bg-accent-soft);
 }
 
-/* Linear Lifted Featured Panel (Surface 2: #141516 with #34343a border + top pixel highlight) */
+/* JW.ORG "Texto Diário / Examine as Escrituras" Featured Deep Blue Band */
 .cohere-dark-band {
-  background-color: var(--bg-subtle);
-  color: var(--text-main);
-  border: 1px solid var(--border-strong);
-  border-radius: 16px;
-  box-shadow: var(--linear-pixel-edge);
+  background-color: #1d3f7a;
+  color: #ffffff;
+  border: 1px solid #295296;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(29, 63, 122, 0.12);
+}
+
+.cohere-dark-band h1,
+.cohere-dark-band h2,
+.cohere-dark-band h3,
+.cohere-dark-band h4,
+.cohere-dark-band p,
+.cohere-dark-band blockquote {
+  color: #ffffff;
+}
+
+.cohere-dark-band .jw-kicker,
+.cohere-dark-band .font-mono-label {
+  color: #cfe0ff;
 }
 
 .cohere-dark-band .btn-primary {
-  background-color: #5e6ad2;
-  color: #ffffff;
-  border-color: #5e6ad2;
+  background-color: #ffffff;
+  color: #1d3f7a;
+  border-color: #ffffff;
+  font-weight: 700;
 }
 
 .cohere-dark-band .btn-primary:hover {
-  background-color: #828fff;
-  border-color: #828fff;
+  background-color: #edf2f8;
+  border-color: #edf2f8;
+  color: #14223d;
 }
 
 .cohere-dark-band .btn-secondary {
-  background-color: var(--surface-pearl);
-  color: var(--text-main);
-  border-color: var(--border-strong);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.38);
 }
 
 .cohere-dark-band .btn-secondary:hover {
-  background-color: var(--surface-4);
-  border-color: var(--border-tertiary);
+  background-color: rgba(255, 255, 255, 0.22);
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
 .cohere-dark-inner {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  color: #ffffff;
 }
 
-/* Linear Feature Cards (Surface 1: #0f1011, 12px radius, #23252a hairline, zero shadow) */
+/* JW.ORG Portal Feature Cards (4px radius, crisp white surface) */
 .door-card-btn {
   background-color: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 4px;
+  padding: 1.25rem;
   min-height: 152px;
   text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
-  box-shadow: var(--linear-pixel-edge);
-  transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease;
+  gap: 0.85rem;
+  box-shadow: none;
+  transition: transform 0.14s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .door-card-btn:hover {
-  border-color: var(--border-strong);
-  background-color: var(--bg-subtle);
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
 }
 
 .door-card-blue {
-  background-color: var(--bg-subtle);
-  border-color: var(--border-strong);
-  border-radius: 12px;
+  background-color: var(--bg-accent-soft);
+  border-color: var(--accent-primary);
+  border-radius: 4px;
 }
 
 .door-card-blue:hover {
-  border-color: var(--accent-primary);
-  background-color: var(--surface-pearl);
+  border-color: var(--accent-primary-hover);
+  background-color: var(--bg-surface);
 }
 
-/* Back-home Linear Button (8px rounded-md) */
+/* Back-home JW Button (4px radius) */
 .back-home-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   min-height: 46px;
   padding: 0.55rem 1.125rem;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
-  color: var(--text-main);
-  font-weight: 500;
+  color: var(--accent-primary);
+  font-weight: 600;
   font-size: 0.9375rem;
-  box-shadow: var(--linear-pixel-edge);
   transition: transform 0.14s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .back-home-btn:hover {
-  background-color: var(--bg-subtle);
+  background-color: var(--bg-accent-soft);
   border-color: var(--accent-primary);
 }
 
-/* Flat Linear Surface 1 & Surface 2 Containers (12px rounded-lg, hairline bordered) */
+/* Editorial Surface Containers (4px radius, crisp borders) */
 .surface-card {
   background-color: var(--bg-surface);
+  color: var(--text-main);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--linear-pixel-edge);
+  border-radius: 4px;
 }
 
 .surface-subtle {
   background-color: var(--bg-subtle);
+  color: var(--text-main);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
-/* Linear Product Screenshot Panel (rounded-xl 16px frame, Surface 1, hairline border) */
+/* Editorial Media Frame (4px rectangular frame) */
 .hero-media-frame {
-  border-radius: 16px;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   color: var(--text-main);
-  box-shadow: var(--linear-pixel-edge);
 }
 
-/* Linear Status Pill Tag (rounded-pill, surface-2 fill, ink-muted text, 1px hairline) */
+/* Editorial Category / Status Badge */
 .coral-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  border: 1px solid var(--border-strong);
-  background-color: var(--bg-subtle);
-  color: var(--text-secondary);
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-accent-soft);
+  color: var(--accent-primary);
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-/* Minimal Hairline Divider Strip */
+/* Hairline Divider Strip */
 .trust-strip {
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
@@ -496,7 +621,7 @@ button:not(:disabled):active,
 .tradition-card {
   min-height: 60px;
   padding: 0.85rem 1rem;
-  border-radius: 12px;
+  border-radius: 4px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   color: var(--text-main);
@@ -508,53 +633,52 @@ button:not(:disabled):active,
 }
 
 .tradition-card:hover {
-  border-color: var(--border-strong);
-  background-color: var(--bg-subtle);
+  border-color: var(--accent-primary);
+  background-color: var(--bg-accent-soft);
 }
 
 .tradition-card[aria-pressed="true"] {
-  border: 1px solid var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(94, 105, 209, 0.35);
-  background-color: var(--bg-subtle);
+  border: 2px solid var(--accent-primary);
+  background-color: var(--bg-accent-soft);
 }
 
-/* Linear Pricing/Filter Tab Pills */
+/* Filter Chips */
 .feeling-chip {
   min-height: 44px;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-page);
-  color: var(--text-muted);
+  padding: 0.5rem 0.95rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0;
   transition: transform 0.14s ease, border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .feeling-chip:hover {
-  border-color: var(--border-strong);
-  color: var(--text-main);
-  background-color: var(--bg-surface);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background-color: var(--bg-accent-soft);
 }
 
 .feeling-chip[aria-pressed="true"] {
-  background-color: var(--bg-subtle);
-  color: var(--text-main);
+  background-color: var(--accent-primary);
+  color: #ffffff;
   border: 1px solid var(--accent-primary);
-  box-shadow: 0 0 0 1px rgba(94, 105, 209, 0.45);
 }
 
-/* Linear Top Nav Links & Active State */
+/* JW.ORG Top Navigation Tabs (Bottom border indicator) */
 .nav-tab-btn {
-  min-height: 40px;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0;
+  border: none;
+  border-bottom: 3px solid transparent;
   background-color: transparent;
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   letter-spacing: 0;
   display: inline-flex;
   align-items: center;
@@ -562,30 +686,31 @@ button:not(:disabled):active,
   gap: 0.35rem;
   white-space: nowrap;
   box-shadow: none;
-  transition: transform 0.14s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .nav-tab-btn:hover {
-  background-color: var(--bg-surface);
-  color: var(--text-main);
-  border-color: var(--border-color);
+  background-color: var(--bg-subtle);
+  color: var(--accent-primary);
+  border-bottom-color: var(--border-strong);
 }
 
 .nav-tab-btn[aria-current="page"] {
-  background-color: var(--bg-subtle);
-  color: var(--text-main);
-  border-color: var(--border-strong);
+  border-bottom-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background-color: var(--bg-accent-soft);
+  font-weight: 700;
 }
 
 .nav-inst-btn {
   min-height: 36px;
   padding: 0.3rem 0.65rem;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid transparent;
   background-color: transparent;
   color: var(--text-muted);
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0;
   display: inline-flex;
   align-items: center;
@@ -595,39 +720,38 @@ button:not(:disabled):active,
 }
 
 .nav-inst-btn:hover {
-  color: var(--text-main);
-  background-color: var(--bg-surface);
+  color: var(--accent-primary);
+  background-color: var(--bg-subtle);
 }
 
 .nav-inst-btn[aria-current="page"] {
-  color: var(--accent-blue-dark);
-  background-color: var(--bg-surface);
+  color: var(--accent-primary);
+  background-color: var(--bg-accent-soft);
   border-color: var(--border-color);
 }
 
-/* Linear Text Inputs (Surface 1 fill, #23252a hairline, 8px rounded-md, focus lavender ring) */
+/* Editorial Text Inputs & Selects (4px radius, crisp border) */
 .input-sacred {
   width: 100%;
   min-height: 48px;
   padding: 0.65rem 0.95rem;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-main);
   font-size: 1rem;
   font-weight: 400;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
   font-family: var(--font-sans);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .input-sacred:focus {
   border-color: var(--accent-primary-focus);
-  outline: 2px solid rgba(94, 105, 209, 0.5);
+  outline: 2px solid rgba(74, 109, 167, 0.35);
   outline-offset: 1px;
 }
 
-/* Linear Changelog-Style Rule Row */
 .ad-sponsor-slot {
   background-color: var(--bg-page);
   border-top: 1px solid var(--border-color);
@@ -670,8 +794,8 @@ button:not(:disabled):active,
 /* Prayer trail day selector buttons and progress bar */
 .progress-track-bar {
   width: 100%;
-  height: 0.5rem;
-  border-radius: 9999px;
+  height: 0.55rem;
+  border-radius: 4px;
   background-color: var(--surface-4);
   border: 1px solid var(--border-color);
   overflow: hidden;
@@ -680,7 +804,7 @@ button:not(:disabled):active,
 .progress-track-fill {
   height: 100%;
   background-color: var(--accent-primary);
-  border-radius: 9999px;
+  border-radius: 3px;
   transition: width 0.25s ease;
 }
 
@@ -688,12 +812,12 @@ button:not(:disabled):active,
   min-height: 46px;
   min-width: 46px;
   padding: 0.4rem 0.6rem;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface);
   color: var(--text-main);
   font-size: 0.9375rem;
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -702,33 +826,29 @@ button:not(:disabled):active,
 }
 
 .day-step-btn:hover {
-  border-color: var(--border-strong);
-  background-color: var(--bg-subtle);
+  border-color: var(--accent-primary);
+  background-color: var(--bg-accent-soft);
 }
 
 .day-step-btn.is-completed {
   border-color: var(--accent-green);
-  background-color: rgba(39, 166, 68, 0.12);
-  color: #4ade80;
-  font-weight: 600;
-}
-
-[data-theme="light"] .day-step-btn.is-completed {
-  color: #166534;
+  background-color: rgba(33, 122, 60, 0.1);
+  color: var(--accent-green);
+  font-weight: 700;
 }
 
 .day-step-btn.is-active {
-  background-color: #5e6ad2;
+  background-color: var(--accent-primary);
   color: #ffffff;
-  border-color: #5e6ad2;
-  font-weight: 600;
+  border-color: var(--accent-primary);
+  font-weight: 700;
 }
 
-/* Linear Tactile Faith Option Cards (Surface 1 + Lavender Active Focus Border) */
+/* JW.ORG Faith Option Selector Cards */
 .faith-choice-card {
-  min-height: 68px;
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
+  min-height: 64px;
+  padding: 0.85rem 1rem;
+  border-radius: 4px;
   border: 1px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-main);
@@ -738,19 +858,18 @@ button:not(:disabled):active,
   justify-content: space-between;
   gap: 0.75rem;
   cursor: pointer;
-  box-shadow: var(--linear-pixel-edge);
-  transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease, transform 0.14s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .faith-choice-card:hover {
-  border-color: var(--border-tertiary);
-  background-color: var(--bg-subtle);
+  border-color: var(--accent-primary);
+  background-color: var(--bg-accent-soft);
 }
 
 .faith-choice-card.is-active {
   border-color: var(--accent-primary);
-  background-color: var(--bg-subtle);
-  box-shadow: 0 0 0 2px rgba(94, 105, 209, 0.45);
+  background-color: var(--bg-accent-soft);
+  box-shadow: 0 0 0 2px rgba(74, 109, 167, 0.3);
 }
 
 /* Visible FAQ Accordion matching Schema FAQPage (SEO + GEO) */
@@ -762,7 +881,7 @@ button:not(:disabled):active,
 .faq-details summary {
   list-style: none;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.0625rem;
   line-height: 1.45;
   color: var(--text-main);
@@ -780,8 +899,8 @@ button:not(:disabled):active,
 .faq-details summary::after {
   content: "+";
   font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--accent-blue-dark);
+  font-weight: 700;
+  color: var(--accent-primary);
   flex-shrink: 0;
 }
 
@@ -796,11 +915,11 @@ button:not(:disabled):active,
   line-height: 1.2;
 }
 
-/* Linear Minimal Canvas Footer (#010102 with #23252a hairline top) */
+/* JW.ORG Editorial Footer */
 .cohere-footer {
-  background-color: var(--bg-page);
-  color: var(--text-muted);
-  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  border-top: 2px solid var(--accent-primary);
 }
 
 .sr-only {

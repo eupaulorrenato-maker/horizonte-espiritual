@@ -1,17 +1,24 @@
-# DESIGN.md - Horizonte Espiritual (Linear Design Architecture)
+# DESIGN.md - Horizonte Espiritual (Arquitetura Editorial Inspirada em JW.ORG)
 
 ## Diretriz Visual
-Sistema visual escuro minimalista inspirado em Linear.app, construído sobre tela quase negra `#010102`, escada de superfícies grafite em 4 degraus (`#0f1011`, `#141516`, `#18191a`, `#191a1b`), texto em alto contraste `#f7f8f8` e acento único em azul-lavanda Linear (`#5e6ad2` / hover `#828fff` / foco `#5e69d1`).
+Sistema visual editorial claro, acolhedor e de alta legibilidade inspirado em **https://www.jw.org/pt/**, construído sobre fundo pedra aquecido (`#f7f7f5`), cartões fotográficos retangulares brancos (`#ffffff`), texto carvão de alto contraste (`#222222`), faixas de destaque em azul profundo (`#1d3f7a`) e azul editorial característico (`#4a6da7` / hover `#295296`).
 
-## Paleta de Tokens
-- **Canvas:** `#010102` (tela base, nunca `#000000` puro).
-- **Superfícies:** `#0f1011` (`surface-1`), `#141516` (`surface-2`), `#18191a` (`surface-3`), `#191a1b` (`surface-4`).
-- **Bordas Hairline:** `#23252a` (`hairline`), `#34343a` (`hairline-strong`), `#3e3e44` (`hairline-tertiary`).
-- **Tipografia / Tinta:** `#f7f8f8` (`ink`), `#d0d6e0` (`ink-muted`), `#8a8f98` (`ink-subtle`), `#62666d` (`ink-tertiary`).
-- **Acento Único:** `#5e6ad2` (`primary`), `#828fff` (`hover`), `#5e69d1` (`focus`) e `#27a644` (`semantic-success`).
+## Paleta de Tokens (`:root` Padrão Claro + `[data-theme="dark"]` Modo Noturno)
+- **Canvas Principal (`--bg-page`):** `#f7f7f5` (pedra clara aquecida para leitura confortável sem ofuscamento).
+- **Superfícies (`--bg-surface` / `--bg-subtle`):** `#ffffff` (cartões e folhas de leitura), `#efefec` (faixas secundárias e estados de foco/hover), `#edf2f8` (`--bg-accent-soft`, realce azul suave).
+- **Faixas Editoriais Escuras (`--bg-tile-dark`):** `#1d3f7a` (barra superior utilitária e faixa "Examine as Escrituras Hoje / Texto Diário") com borda `#295296`.
+- **Tipografia / Tinta (`--text-main`):** `#222222` (tinta principal de alto contraste), `#4a4a4a` (secundário), `#686868` (apoio).
+- **Acento Editorial JW (`--accent-primary`):** `#4a6da7` (primário), `#295296` (hover/foco), `#217a3c` (sucesso/conclusão) e `#b36b00` (destaque âmbar).
+- **Modo Noturno Opcional (`[data-theme="dark"]`):** `#141821` (fundo), `#1e2430` (cartões), `#f2f4f8` (texto) e `#6b93d6` (azul luminoso).
 
-## Tipografia e Geometria
-- **Família:** `Inter` (`500`, `600`, `400`) com fallback `SF Pro Display / Text / system-ui`, combinada com `JetBrains Mono` para indicadores técnicos e contadores.
-- **Rastreamento:** Tracking negativo em títulos (`-0.037em` no herói, `-0.03em` em seções) e positivo (`+0.4px`) em sobrancelhas (eyebrows).
-- **Arredondamento:** Botões e campos de texto com `8px` (`rounded-md`), cartões com `12px` (`rounded-lg`), painéis de arte e mídia com `16px` (`rounded-xl`) e apenas etiquetas/filtros em formato pílula.
-- **Acessibilidade 50+:** Áreas de toque de pelo menos `46px - 48px`, ajuste de fonte `A- / A+` (`18px - 28px`), leitura contínua em voz calma PT-BR e modo opcional claro de leitura (`data-theme="light"`).
+## Tipografia, Geometria e Componentes (`css/styles.css`)
+- **Hierarquia Orientada a Perguntas e Assuntos:**
+  - `.jw-kicker`: categoria em caixa alta (`0.75rem`, `font-weight: 700`, `letter-spacing: 0.05em`, cor `--accent-primary`).
+  - `.jw-section-heading`: cabeçalho de seção com barra vertical esquerda de `4px solid var(--accent-primary)` e `padding-left: 0.75rem`.
+- **Cartões Fotográficos Retangulares (`4px`):**
+  - `.jw-photo-card` e `.jw-topic-tile`: superfície `#ffffff`, borda `1px solid #d8d8d4`, `border-radius: 4px`, imagem `16:9` (`.jw-photo-card-img`) e elevação sutil no hover.
+  - `.jw-hero-banner`: vitrine principal em duas colunas com fotografia editorial e configuração rápida de leitura.
+- **Cabeçalho e Navegação:**
+  - `.jw-top-utility`: faixa superior `#1d3f7a` com acesso direto ao Texto Diário.
+  - `.jw-header` e `.jw-logo-box`: cabeçalho fixo branco com selo quadrado `44x44px` em `#4a6da7` e abas `.nav-tab-btn` com indicador inferior de `3px`.
+- **Acessibilidade 50+:** Áreas de toque mínimas de `46px - 48px`, controle de corpo de texto `A- / A+`, narração em voz calma PT-BR e alternância simples entre Modo Claro (padrão) e Modo Noturno.

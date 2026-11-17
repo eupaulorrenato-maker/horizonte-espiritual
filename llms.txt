@@ -1,6 +1,6 @@
 # Horizonte Espiritual
 
-> Portal cristão brasileiro 100% gratuito, sem login e projetado especialmente para idosos, famílias, católicos e evangélicos. Oferece devocional diário, Café Espiritual, 40 Dias de Propósitos com Deus, Oração de São Miguel Arcanjo (21 dias), mais de 40 orações fortes com leitura em voz calma (PT-BR), Vela Virtual de 7 dias, Bíblia Online completa na íntegra e quadros de arte sacra renascentista.
+> Portal bíblico e cristão brasileiro 100% gratuito, sem login e estruturado com clareza editorial (inspirado na arquitetura limpa de leitura bíblica do JW.ORG), projetado especialmente para idosos, famílias, católicos e evangélicos. Oferece Perguntas Bíblicas Respondidas, Texto Diário (Café Espiritual), 40 Dias de Propósitos com Deus, Oração de São Miguel Arcanjo (21 dias), mais de 40 orações fortes com leitura em voz calma (PT-BR), Vela Virtual de 7 dias, Bíblia Online completa na íntegra e quadros de arte sacra renascentista.
 
 - URL Oficial: https://eupaulorrenato-maker.github.io/horizonte-espiritual/
 - Idioma: pt-BR (Português do Brasil)
@@ -9,8 +9,9 @@
 
 ## Principais Seções e Links Diretos
 
-- [Início e Escolha de Fé (Católica ou Evangélica)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#inicio): Escolha em 1 clique entre Fé Católica ou Fé Evangélica, receba uma passagem bíblica personalizada para o estado de espírito do dia e ative o recebimento gratuito no WhatsApp.
-- [Café Espiritual do Dia](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#cafe-diario): Devocional matinal com 31 mensagens bíblicas diárias, reflexão simples, oração guiada e narração em voz calma.
+- [Início e Escolha de Fé (Católica ou Evangélica)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#inicio): Escolha em 1 clique entre Fé Católica ou Fé Evangélica, explore cartões de arte sacra renascentista por assunto, receba uma passagem bíblica personalizada para o estado de espírito do dia e ative o recebimento gratuito no WhatsApp.
+- [Perguntas Bíblicas Respondidas](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#perguntas-biblicas): Respostas diretas e acolhedoras da Bíblia Sagrada sobre sofrimento, ansiedade, oração, paz na família e como entender as Escrituras, com pontos principais, versículos em destaque, pinturas sacras renascentistas e leitura em áudio.
+- [Texto Diário • Café Espiritual do Dia](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#cafe-diario): Devocional matinal com 31 mensagens bíblicas diárias, reflexão simples, oração guiada e narração em voz calma.
 - [40 Dias de Propósitos com Deus](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#40-dias): 4 trilhas completas de 40 dias cada (160 leituras bíblicas ao todo): Vida em Deus, Família Abençoada, Saúde e Cura e Sabedoria e Fé, com progresso salvo no navegador.
 - [São Miguel Arcanjo (21 Dias)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#sao-miguel): Página dedicada com oração tradicional católica, lista interativa do Dia 1 ao Dia 21, áudio completo e acompanhamento de progresso.
 - [Trilhas de Oração (7 a 21 Dias)](https://eupaulorrenato-maker.github.io/horizonte-espiritual/#trilhas): 8 trilhas devocionais organizadas por dias (incluindo Salmos, Nossa Senhora Desatadora dos Nós, Família, Cura, Provérbios, Consolo e Gratidão).
@@ -22,6 +23,7 @@
 
 ## Diferenciais de Acessibilidade e Experiência
 
-- Botões grandes (mínimo de 48px), letras ajustáveis entre 16px e 30px (botões A- / A+) e Modo Noturno de alto contraste.
-- Leitura em áudio PT-BR integrada via Web Speech API em todas as mensagens, orações, artigos e capítulos completos da Bíblia.
-- 10 pinturas sacras renascentistas retratando épocas bíblicas da Criação até Pentecostes.
+- Tema claro editorial padrão de alta legibilidade (`#f7f7f5` / `#ffffff` / `#4a6da7`) com Modo Noturno opcional para leitura confortável à noite.
+- Botões grandes (mínimo de 46px a 48px), letras ajustáveis entre 18px e 28px (botões A- / A+) e cartões visuais clicáveis por assunto.
+- Leitura em áudio PT-BR integrada via Web Speech API em todas as perguntas bíblicas, mensagens, orações, artigos e capítulos completos da Bíblia.
+- 16 pinturas sacras em estilo renascentista (`assets/jw/*.jpg` e `assets/sacred/*.jpg`) criadas exclusivamente para ilustrar os temas e épocas bíblicas da Criação até Pentecostes.

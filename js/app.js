@@ -19,8 +19,11 @@
     selectedTraditionId: "catolica",
     selectedFeeling: "ansiedade",
     rememberTradition: true,
-    theme: "dark",
+    theme: "light",
     readerFontSizePx: 20,
+
+    // Perguntas Bíblicas (JW.ORG Q&A)
+    activeBibleQuestionId: null,
 
     // Orações Fortes (Paginated directory + dedicated single-prayer page)
     prayerCategory: "todas",
@@ -105,9 +108,9 @@
   }
 
   function applyTheme(theme) {
-    state.theme = theme === "light" ? "light" : "dark";
-    if (state.theme === "light") {
-      document.documentElement.setAttribute("data-theme", "light");
+    state.theme = theme === "dark" ? "dark" : "light";
+    if (state.theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
@@ -115,11 +118,11 @@
 
     var labelEls = document.querySelectorAll("[data-theme-label]");
     for (var i = 0; i < labelEls.length; i++) {
-      labelEls[i].textContent = state.theme === "light" ? "Modo Linear" : "Modo Claro";
+      labelEls[i].textContent = state.theme === "dark" ? "Modo Claro" : "Modo Noturno";
     }
     var btnEls = document.querySelectorAll("[data-action='toggle-theme']");
     for (var j = 0; j < btnEls.length; j++) {
-      btnEls[j].setAttribute("aria-pressed", state.theme === "light" ? "true" : "false");
+      btnEls[j].setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
     }
   }
 
@@ -343,9 +346,10 @@
   }
 
   var SECTION_LABELS = {
-    inicio: "Tela Inicial",
+    inicio: "Página Inicial",
+    "perguntas-biblicas": "Perguntas Bíblicas Respondidas",
     vertente: "Fé & Mensagem",
-    "cafe-diario": "Café com Deus (Mensagem da Manhã)",
+    "cafe-diario": "Texto Diário (Café com Deus)",
     propositos: "40 Dias de Propósitos",
     "arcanjo-miguel": "São Miguel Arcanjo (21 Dias)",
     trilhas: "Trilhas de Oração",
@@ -355,7 +359,7 @@
     escrituras: "Bíblia Online Completa",
     alento: "Palavras para Momentos Difíceis",
     quiz: "Perguntas sobre a Bíblia",
-    blog: "Blog e Artigos",
+    blog: "Artigos e Reflexões",
     "quem-somos": "Quem Somos",
     privacidade: "Política de Privacidade",
     apoio: "Apoio e Doação PIX"
@@ -363,6 +367,7 @@
 
   var SECTION_HASHES = {
     inicio: "inicio",
+    "perguntas-biblicas": "perguntas-biblicas",
     vertente: "espaco-da-fe",
     "cafe-diario": "cafe-diario",
     propositos: "40-dias",
@@ -382,8 +387,12 @@
 
   var SECTION_SEO_META = {
     inicio: {
-      title: "Horizonte Espiritual | Café com Deus, 40 Dias de Propósitos e Bíblia Online",
-      description: "Portal cristão gratuito e fácil para idosos e famílias: escolha Fé Católica ou Evangélica, faça os 40 Dias de Propósitos, reze São Miguel Arcanjo (21 dias), leia a Bíblia Online completa e ouça tudo em voz calma."
+      title: "Horizonte Espiritual | Perguntas Bíblicas, Texto Diário, 40 Dias e Bíblia Online",
+      description: "Portal bíblico gratuito em português com letras grandes e leitura em áudio: Perguntas Bíblicas Respondidas, Texto Diário (Café com Deus), 40 Dias de Propósitos, São Miguel Arcanjo e Bíblia Online completa."
+    },
+    "perguntas-biblicas": {
+      title: "Perguntas Bíblicas Respondidas com Áudio | Horizonte Espiritual",
+      description: "Veja respostas claras da Bíblia Sagrada para dúvidas sobre sofrimento, ansiedade, oração, paz na família e como entender as Escrituras."
     },
     "cafe-diario": {
       title: "Café Espiritual de Hoje com Áudio | Horizonte Espiritual",
@@ -495,7 +504,11 @@
     }
 
     if (sectionId === "inicio") {
+      renderHomeVisualDoors();
+      renderHomeQuestionsPreview();
       renderHomeRetentionWidgets();
+    } else if (sectionId === "perguntas-biblicas") {
+      renderBibleQuestionsView();
     } else if (sectionId === "cafe-diario") {
       renderCafeDiario();
     } else if (sectionId === "propositos") {
@@ -830,6 +843,288 @@
     return prayer && prayer.category === "evangelica" ? "assets/sacred/sermao-montanha-jesus.jpg" : "assets/sacred/anunciacao-maria.jpg";
   }
 
+  function renderHomeVisualDoors() {
+    var grid = document.getElementById("home-visual-doors-grid");
+    if (!grid) return;
+    var doors = window.JW_PORTAL_DOORS || [];
+    if (doors.length === 0) return;
+
+    var html = "";
+    for (var i = 0; i < doors.length; i++) {
+      var d = doors[i];
+      html +=
+        '<article class="jw-photo-card cursor-pointer" data-nav-target="' +
+        escapeHtml(d.navTarget) +
+        '">' +
+        "<div>" +
+        '<img src="' +
+        escapeHtml(d.imagePath) +
+        '" alt="' +
+        escapeHtml(d.title) +
+        '" width="1200" height="675" loading="lazy" decoding="async" class="jw-photo-card-img" />' +
+        '<div class="p-5 space-y-2">' +
+        '<span class="jw-kicker">' +
+        escapeHtml(d.kicker) +
+        "</span>" +
+        '<h3 class="font-display text-xl font-bold leading-snug" style="color: var(--text-main);">' +
+        escapeHtml(d.title) +
+        "</h3>" +
+        '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
+        escapeHtml(d.summary) +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        '<div class="px-5 pb-5 pt-2">' +
+        '<button type="button" class="btn-secondary w-full justify-center text-sm" data-nav-target="' +
+        escapeHtml(d.navTarget) +
+        '">' +
+        escapeHtml(d.ctaLabel || "Abrir Seção") +
+        " →</button>" +
+        "</div>" +
+        "</article>";
+    }
+    grid.innerHTML = html;
+  }
+
+  function renderHomeQuestionsPreview() {
+    var grid = document.getElementById("home-questions-preview-grid");
+    if (!grid) return;
+    var questions = (window.JW_BIBLE_QUESTIONS || []).slice(0, 3);
+    if (questions.length === 0) return;
+
+    var html = "";
+    for (var i = 0; i < questions.length; i++) {
+      var q = questions[i];
+      html +=
+        '<article class="jw-photo-card">' +
+        "<div>" +
+        '<button type="button" class="block w-full text-left" data-open-bible-question="' +
+        escapeHtml(q.id) +
+        '">' +
+        '<img src="' +
+        escapeHtml(q.imagePath) +
+        '" alt="' +
+        escapeHtml(q.question) +
+        '" width="1200" height="675" loading="lazy" decoding="async" class="jw-photo-card-img" />' +
+        "</button>" +
+        '<div class="p-5 space-y-2">' +
+        '<span class="jw-kicker">' +
+        escapeHtml((q.category || "PERGUNTA BÍBLICA") + " • " + (q.bibleVerseRef || "Escrituras")) +
+        "</span>" +
+        '<h3 class="font-display text-xl font-bold leading-snug" style="color: var(--text-main);">' +
+        '<button type="button" class="text-left hover:underline" data-open-bible-question="' +
+        escapeHtml(q.id) +
+        '">' +
+        escapeHtml(q.question) +
+        "</button>" +
+        "</h3>" +
+        '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
+        escapeHtml(q.shortAnswer) +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        '<div class="px-5 pb-5 pt-2 flex flex-wrap gap-2">' +
+        '<button type="button" class="btn-secondary text-sm flex-1 justify-center" data-open-bible-question="' +
+        escapeHtml(q.id) +
+        '">Ler Resposta →</button>' +
+        '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="bible-q-' +
+        escapeHtml(q.id) +
+        '" data-speak-bible-question="' +
+        escapeHtml(q.id) +
+        '" data-default-label="Ouvir" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        "</button>" +
+        "</div>" +
+        "</article>";
+    }
+    grid.innerHTML = html;
+    updateSpeechButtons();
+  }
+
+  function renderBibleQuestionsView() {
+    var grid = document.getElementById("bible-questions-grid");
+    var reader = document.getElementById("bible-question-reader");
+    if (!grid || !reader) return;
+
+    var questions = window.JW_BIBLE_QUESTIONS || [];
+
+    var cardsHtml = "";
+    for (var i = 0; i < questions.length; i++) {
+      var q = questions[i];
+      cardsHtml +=
+        '<article class="jw-photo-card">' +
+        "<div>" +
+        '<button type="button" class="block w-full text-left" data-open-bible-question="' +
+        escapeHtml(q.id) +
+        '">' +
+        '<img src="' +
+        escapeHtml(q.imagePath) +
+        '" alt="' +
+        escapeHtml(q.question) +
+        '" width="1200" height="675" loading="lazy" decoding="async" class="jw-photo-card-img" />' +
+        "</button>" +
+        '<div class="p-5 space-y-2">' +
+        '<span class="jw-kicker">' +
+        escapeHtml((q.category || "ENSINO BÍBLICO") + " • " + (q.bibleVerseRef || "Bíblia Sagrada")) +
+        "</span>" +
+        '<h3 class="font-display text-xl font-bold leading-snug" style="color: var(--text-main);">' +
+        '<button type="button" class="text-left hover:underline" data-open-bible-question="' +
+        escapeHtml(q.id) +
+        '">' +
+        escapeHtml(q.question) +
+        "</button>" +
+        "</h3>" +
+        '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
+        escapeHtml(q.shortAnswer) +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        '<div class="px-5 pb-5 pt-2 flex flex-wrap gap-2">' +
+        '<button type="button" class="btn-secondary text-sm flex-1 justify-center" data-open-bible-question="' +
+        escapeHtml(q.id) +
+        '">Ler Resposta Completa →</button>' +
+        '<button type="button" class="btn-primary text-sm px-4 inline-flex items-center gap-1.5" data-speech-id="bible-q-' +
+        escapeHtml(q.id) +
+        '" data-speak-bible-question="' +
+        escapeHtml(q.id) +
+        '" data-default-label="Ouvir" aria-pressed="false">' +
+        '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir</span>' +
+        "</button>" +
+        "</div>" +
+        "</article>";
+    }
+    grid.innerHTML = cardsHtml;
+
+    if (state.activeBibleQuestionId) {
+      var activeQ = null;
+      var activeIdx = -1;
+      for (var k = 0; k < questions.length; k++) {
+        if (questions[k].id === state.activeBibleQuestionId) {
+          activeQ = questions[k];
+          activeIdx = k;
+          break;
+        }
+      }
+      if (activeQ) {
+        var nextQ = questions[(activeIdx + 1) % questions.length];
+        var keyPointsHtml = "";
+        var kpList = activeQ.keyPoints || [];
+        for (var kp = 0; kp < kpList.length; kp++) {
+          keyPointsHtml +=
+            '<li class="flex items-start gap-2.5 text-base leading-relaxed" style="color: var(--text-main);">' +
+            '<span class="font-bold shrink-0" style="color: var(--accent-primary);">✓</span>' +
+            "<span>" +
+            escapeHtml(kpList[kp]) +
+            "</span>" +
+            "</li>";
+        }
+
+        var paragraphsHtml = "";
+        var pList = activeQ.paragraphs || [];
+        for (var p = 0; p < pList.length; p++) {
+          paragraphsHtml +=
+            '<p class="mb-4 font-serif-sacred text-body-sacred leading-relaxed" style="color: var(--text-main);">' +
+            escapeHtml(pList[p]) +
+            "</p>";
+        }
+
+        grid.classList.add("hidden");
+        reader.classList.remove("hidden");
+        reader.innerHTML =
+          '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
+          '<div class="relative h-60 sm:h-80 w-full" style="background-color: var(--bg-tile-dark);">' +
+          '<img src="' +
+          escapeHtml(activeQ.imagePath) +
+          '" alt="' +
+          escapeHtml(activeQ.question) +
+          '" width="1200" height="675" decoding="async" class="w-full h-full object-cover" />' +
+          "</div>" +
+          '<div class="p-6 sm:p-10 space-y-6">' +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4" data-action="close-bible-question">' +
+          "← Voltar para Todas as Perguntas" +
+          "</button>" +
+          '<div class="flex flex-wrap gap-2">' +
+          '<button type="button" class="btn-primary text-sm py-2 px-4 inline-flex items-center gap-2" data-speech-id="bible-q-' +
+          escapeHtml(activeQ.id) +
+          '" data-speak-bible-question="' +
+          escapeHtml(activeQ.id) +
+          '" data-default-label="Ouvir Resposta em Áudio" aria-pressed="false">' +
+          '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir Resposta em Áudio</span>' +
+          "</button>" +
+          '<button type="button" class="btn-secondary text-sm py-2 px-4 inline-flex items-center gap-2" data-share-bible-question="' +
+          escapeHtml(activeQ.id) +
+          '">' +
+          '<span aria-hidden="true">📲</span> Enviar no WhatsApp' +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          "<div>" +
+          '<span class="jw-kicker">' +
+          escapeHtml(activeQ.category || "RESPOSTA DA BÍBLIA") +
+          "</span>" +
+          '<h3 class="font-display font-bold text-2xl sm:text-3xl leading-tight mt-1" style="color: var(--text-main);">' +
+          escapeHtml(activeQ.question) +
+          "</h3>" +
+          "</div>" +
+          '<div class="p-5 rounded border-l-4" style="background-color: var(--bg-accent-soft); border-color: var(--accent-primary);">' +
+          '<span class="jw-kicker">A RESPOSTA DA BÍBLIA</span>' +
+          '<p class="text-base sm:text-lg font-medium leading-relaxed" style="color: var(--text-main);">' +
+          escapeHtml(activeQ.shortAnswer) +
+          "</p>" +
+          "</div>" +
+          '<div class="p-6 rounded border text-center" style="background-color: var(--bg-amber-soft); border-color: var(--border-strong);">' +
+          '<blockquote class="font-serif-sacred text-body-sacred font-semibold mb-2" style="color: var(--text-main);">“' +
+          escapeHtml(activeQ.bibleVerseText) +
+          "”</blockquote>" +
+          '<p class="font-mono-label font-bold" style="color: var(--accent-primary);">' +
+          escapeHtml(activeQ.bibleVerseRef) +
+          "</p>" +
+          "</div>" +
+          (keyPointsHtml
+            ? '<div class="p-5 rounded border space-y-2.5" style="background-color: var(--bg-subtle); border-color: var(--border-color);">' +
+              '<span class="jw-kicker">O QUE AS ESCRITURAS ENSINAM (PONTOS PRINCIPAIS)</span>' +
+              '<ul class="space-y-2 list-none p-0 m-0">' +
+              keyPointsHtml +
+              "</ul>" +
+              "</div>"
+            : "") +
+          '<div class="pt-2">' +
+          paragraphsHtml +
+          "</div>" +
+          (activeQ.prayerText
+            ? '<div class="p-5 rounded border-l-4 space-y-2" style="background-color: var(--bg-accent-soft); border-color: var(--accent-primary);">' +
+              '<span class="jw-kicker">🙏 ORAÇÃO DE CONFIANÇA BASEADA NESTE ENSINO</span>' +
+              '<p class="font-serif-sacred text-body-sacred italic leading-relaxed" style="color: var(--text-main);">' +
+              escapeHtml(activeQ.prayerText) +
+              "</p>" +
+              "</div>"
+            : "") +
+          '<div class="flex flex-wrap items-center justify-between gap-3 pt-5 border-t" style="border-color: var(--border-color);">' +
+          '<button type="button" class="btn-secondary text-sm" data-action="close-bible-question">' +
+          "← Voltar para Todas as Perguntas" +
+          "</button>" +
+          (nextQ
+            ? '<button type="button" class="btn-primary text-sm" data-open-bible-question="' +
+              escapeHtml(nextQ.id) +
+              '">Próxima Pergunta: ' +
+              escapeHtml(nextQ.question) +
+              " →</button>"
+            : "") +
+          "</div>" +
+          "</div>" +
+          "</article>";
+        updateSpeechButtons();
+        return;
+      }
+    }
+
+    reader.classList.add("hidden");
+    reader.innerHTML = "";
+    grid.classList.remove("hidden");
+    updateSpeechButtons();
+  }
+
   function renderHomeSacredGallery() {
     var grid = document.getElementById("home-sacred-gallery-grid");
     if (!grid) return;
@@ -838,23 +1133,23 @@
     for (var i = 0; i < items.length; i++) {
       var art = items[i];
       html +=
-        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
+        '<article class="jw-photo-card">' +
         "<div>" +
-        '<div class="relative h-48 w-full overflow-hidden bg-[#0f1011]">' +
+        '<div class="relative overflow-hidden" style="background-color: var(--bg-tile-dark);">' +
         '<img src="' +
         escapeHtml(art.imagePath) +
         '" alt="' +
         escapeHtml(art.title) +
-        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
-        '<span class="absolute top-3 left-3 font-mono-label px-2.5 py-1 rounded-full bg-[#141516] text-[#f7f8f8] border border-[#34343a]">' +
+        '" width="1200" height="670" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
+        '<span class="absolute top-3 left-3 font-mono-label px-2.5 py-1 rounded text-white" style="background-color: rgba(29, 63, 122, 0.92);">' +
         escapeHtml(art.scriptureRef) +
         "</span>" +
         "</div>" +
         '<div class="p-5 space-y-2">' +
-        '<span class="font-mono-label block" style="color: var(--accent-blue);">' +
+        '<span class="jw-kicker">' +
         escapeHtml(art.era) +
         "</span>" +
-        '<h3 class="font-display text-xl leading-snug" style="color: var(--text-main);">' +
+        '<h3 class="font-display text-xl font-bold leading-snug" style="color: var(--text-main);">' +
         escapeHtml(art.title) +
         "</h3>" +
         '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
@@ -959,15 +1254,15 @@
     if (bannerEl) {
       var artInfo = getSacredArtForBibleBook(activeBook.bookTitle);
       bannerEl.innerHTML =
-        '<div class="relative h-48 sm:h-60 w-full bg-[#0f1011]">' +
+        '<div class="relative h-48 sm:h-60 w-full" style="background-color: var(--bg-tile-dark);">' +
         '<img src="' +
         escapeHtml(artInfo.imagePath) +
         '" alt="' +
         escapeHtml(artInfo.caption) +
         '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
-        '<div class="absolute inset-x-0 bottom-0 px-4 py-2.5 text-white" style="background: rgba(1, 1, 2, 0.72);">' +
-        '<span class="font-mono-label text-[#828fff] block">Arte Sacra Renascentista</span>' +
-        '<p class="text-sm font-medium text-[#f7f8f8]">' +
+        '<div class="absolute inset-x-0 bottom-0 px-4 py-2.5 text-white" style="background: rgba(20, 34, 61, 0.85);">' +
+        '<span class="text-xs font-bold uppercase tracking-wider text-white/85 block">Arte Sacra Renascentista</span>' +
+        '<p class="text-sm font-medium text-white">' +
         escapeHtml(artInfo.caption) +
         "</p>" +
         "</div>" +
@@ -1086,15 +1381,15 @@
 
         singleView.innerHTML =
           '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
-          '<div class="relative h-48 sm:h-64 w-full bg-[#0f1011]">' +
+          '<div class="relative h-48 sm:h-64 w-full" style="background-color: var(--bg-tile-dark);">' +
           '<img src="' +
           escapeHtml(imgSrc) +
           '" alt="' +
           escapeHtml(prayer.categoryLabel) +
-          '" width="1200" height="670" decoding="async" class="w-full h-full object-cover opacity-90" />' +
-          '<div class="absolute inset-0 flex items-end p-5 sm:p-6" style="background: rgba(1, 1, 2, 0.6);">' +
+          '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
+          '<div class="absolute inset-0 flex items-end p-5 sm:p-6" style="background: linear-gradient(to top, rgba(20, 34, 61, 0.9) 0%, rgba(20, 34, 61, 0.35) 70%, transparent 100%);">' +
           '<div>' +
-          '<span class="font-mono-label inline-block px-3 py-1 rounded-full bg-[#141516] text-[#f7f8f8] border border-[#34343a] mb-2">' +
+          '<span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded text-white mb-2" style="background-color: #4a6da7;">' +
           escapeHtml(prayer.categoryLabel) +
           "</span>" +
           '<h3 class="font-serif-sacred font-semibold text-2xl sm:text-3xl text-white leading-tight">' +
@@ -1113,12 +1408,12 @@
           '<p class="text-base mb-5" style="color: var(--text-secondary);">' +
           escapeHtml(prayer.subtitle) +
           "</p>" +
-          '<div class="font-serif-sacred text-body-sacred p-6 sm:p-8 rounded-2xl mb-6" style="background-color: var(--bg-amber-soft); color: var(--text-main); border: 1px solid var(--border-strong);">' +
+          '<div class="font-serif-sacred text-body-sacred p-6 sm:p-8 rounded mb-6" style="background-color: var(--bg-amber-soft); color: var(--text-main); border: 1px solid var(--border-strong);">' +
           bodyHtml +
           "</div>" +
           (prayer.specialSection === "arcanjo-miguel"
-            ? '<div class="p-4 rounded-xl mb-6 flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-accent-soft); border: 1px solid var(--accent-wine);">' +
-              '<span class="text-sm font-semibold" style="color: var(--accent-wine);">⚔️ Quer fazer a caminhada de 21 dias desta oração?</span>' +
+            ? '<div class="p-4 rounded mb-6 flex flex-wrap items-center justify-between gap-3" style="background-color: var(--bg-accent-soft); border: 1px solid var(--accent-primary);">' +
+              '<span class="text-sm font-semibold" style="color: var(--accent-primary);">⚔️ Quer fazer a caminhada de 21 dias desta oração?</span>' +
               '<button type="button" class="btn-primary text-sm" data-action="open-miguel-21dias">Abrir Página Especial (21 Dias) →</button>' +
               "</div>"
             : "") +
@@ -1189,28 +1484,28 @@
       var item = pageItems[j];
       var cardImg = getSacredArtForPrayer(item);
       html +=
-        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
+        '<article class="jw-photo-card">' +
         "<div>" +
-        '<div class="relative h-40 w-full overflow-hidden bg-[#0f1011]">' +
+        '<div class="relative overflow-hidden" style="background-color: var(--bg-tile-dark);">' +
         '<img src="' +
         escapeHtml(cardImg) +
         '" alt="' +
         escapeHtml(item.title) +
-        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
-        '<span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#141516] text-[#f7f8f8] border border-[#34343a]">' +
+        '" width="1200" height="670" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
+        "</div>" +
+        '<div class="p-5 space-y-1.5">' +
+        '<span class="jw-kicker">' +
         escapeHtml(item.categoryLabel) +
         "</span>" +
-        "</div>" +
-        '<div class="p-5">' +
-        '<h3 class="font-serif-sacred font-bold text-lg mb-1" style="color: var(--text-main);">' +
+        '<h3 class="font-serif-sacred font-bold text-lg leading-snug" style="color: var(--text-main);">' +
         escapeHtml(item.title) +
         "</h3>" +
-        '<p class="text-sm" style="color: var(--text-secondary);">' +
+        '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
         escapeHtml(item.subtitle) +
         "</p>" +
         "</div>" +
         "</div>" +
-        '<div class="flex flex-wrap gap-2 px-5 pb-5">' +
+        '<div class="flex flex-wrap gap-2 px-5 pb-5 pt-2">' +
         '<button type="button" class="btn-secondary flex-1 justify-center text-sm" data-open-prayer="' +
         escapeHtml(item.id) +
         '">Abrir Oração →</button>' +
@@ -1715,7 +2010,7 @@
         readerEl.innerHTML =
           '<article class="surface-card overflow-hidden max-w-3xl mx-auto">' +
           (activePost.imagePath
-            ? '<div class="relative h-56 sm:h-72 w-full bg-[#0f1011]">' +
+            ? '<div class="relative h-56 sm:h-72 w-full" style="background-color: var(--bg-tile-dark);">' +
               '<img src="' +
               escapeHtml(activePost.imagePath) +
               '" alt="' +
@@ -1734,7 +2029,7 @@
           '<span aria-hidden="true">🔊</span> <span data-speech-label>Ouvir artigo completo</span>' +
           "</button>" +
           "</div>" +
-          '<span class="coral-badge mb-2">' +
+          '<span class="jw-kicker">' +
           escapeHtml(activePost.category) +
           "</span>" +
           '<h3 class="font-serif-sacred font-bold text-2xl sm:text-3xl mb-2">' +
@@ -1764,20 +2059,20 @@
     for (var j = 0; j < posts.length; j++) {
       var post = posts[j];
       cardsHtml +=
-        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
+        '<article class="jw-photo-card">' +
         "<div>" +
         (post.imagePath
-          ? '<div class="h-44 w-full overflow-hidden bg-[#0f1011]">' +
+          ? '<div class="overflow-hidden" style="background-color: var(--bg-tile-dark);">' +
             '<img src="' +
             escapeHtml(post.imagePath) +
             '" alt="' +
             escapeHtml(post.title) +
-            '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
+            '" width="1200" height="670" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
             "</div>"
           : "") +
         '<div class="p-6 pb-2">' +
-        '<div class="flex items-center justify-between gap-2 mb-3">' +
-        '<span class="coral-badge">' +
+        '<div class="flex items-center justify-between gap-2 mb-2">' +
+        '<span class="jw-kicker m-0">' +
         escapeHtml(post.category) +
         "</span>" +
         '<span class="font-mono-label" style="color: var(--text-muted);">' +
@@ -2412,14 +2707,14 @@
 
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
-      '<div class="relative h-56 sm:h-72 w-full bg-[#0f1011]">' +
-      '<img src="assets/traditions/cafe-espiritual.jpg" alt="Xícara de café pela manhã ao lado das escrituras sagradas" width="1200" height="902" decoding="async" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(1, 1, 2, 0.58);">' +
-      '<span class="font-mono-label text-[#828fff] mb-1">' +
+      '<div class="relative h-56 sm:h-72 w-full" style="background-color: var(--bg-tile-dark);">' +
+      '<img src="assets/jw/hero-paz-biblia.jpg" onerror="this.src=\'assets/traditions/cafe-espiritual.jpg\'" alt="Escrituras Sagradas abertas na luz da manhã" width="1200" height="675" decoding="async" class="w-full h-full object-cover" />' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: linear-gradient(to top, rgba(20, 34, 61, 0.9) 0%, rgba(20, 34, 61, 0.35) 70%, transparent 100%);">' +
+      '<span class="text-xs font-bold uppercase tracking-wider text-white/90 mb-1">' +
       escapeHtml(formatTodayPtBr()) +
-      " • Devocional Diário" +
+      " • Examine as Escrituras Hoje" +
       "</span>" +
-      '<h2 id="cafe-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">☕ Café Espiritual do Dia</h2>' +
+      '<h2 id="cafe-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">☕ Texto Diário (Café Espiritual)</h2>' +
       '<p class="text-sm sm:text-base text-white/90 mt-1">' +
       escapeHtml(tradition ? tradition.greeting : "Paz e bem para a sua manhã!") +
       "</p>" +
@@ -2730,14 +3025,14 @@
 
     container.innerHTML =
       '<article class="surface-card overflow-hidden max-w-4xl mx-auto">' +
-      '<div class="relative h-64 sm:h-80 w-full bg-[#0f1011]">' +
+      '<div class="relative h-64 sm:h-80 w-full" style="background-color: var(--bg-tile-dark);">' +
       '<img src="' +
       escapeHtml(data.imagePath) +
       '" onerror="this.src=\'' +
       escapeHtml(data.fallbackImagePath) +
       '\'" alt="São Miguel Arcanjo" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: rgba(1, 1, 2, 0.58);">' +
-      '<span class="font-mono-label text-[#828fff] mb-1">' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white" style="background: linear-gradient(to top, rgba(20, 34, 61, 0.9) 0%, rgba(20, 34, 61, 0.35) 70%, transparent 100%);">' +
+      '<span class="text-xs font-bold uppercase tracking-wider text-white/90 mb-1">' +
       escapeHtml(data.imageCaption) +
       "</span>" +
       '<h2 id="miguel-main-heading" class="font-serif-sacred font-semibold text-2xl sm:text-4xl text-white">⚔️ ' +
@@ -2781,7 +3076,7 @@
           '<div class="space-y-6 max-w-3xl mx-auto">' +
           '<div class="surface-card overflow-hidden">' +
           (activeTrack.imagePath
-            ? '<div class="relative h-52 sm:h-64 w-full bg-[#0f1011]">' +
+            ? '<div class="relative h-52 sm:h-64 w-full" style="background-color: var(--bg-tile-dark);">' +
               '<img src="' +
               escapeHtml(activeTrack.imagePath) +
               '" alt="' +
@@ -2792,7 +3087,7 @@
           '<div class="p-6 sm:p-8">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b" style="border-color: var(--border-color);">' +
           '<button type="button" class="btn-secondary text-sm" data-action="back-to-trilhas-list">← Ver Todas as Trilhas</button>' +
-          '<span class="px-3 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-subtle); color: var(--accent-wine);">' +
+          '<span class="jw-kicker m-0">' +
           escapeHtml(activeTrack.badge) +
           "</span>" +
           "</div>" +
@@ -2828,20 +3123,20 @@
       var nextD = getNextPendingDay(tr);
 
       cardsHtml +=
-        '<article class="surface-card overflow-hidden flex flex-col justify-between">' +
+        '<article class="jw-photo-card">' +
         "<div>" +
         (tr.imagePath
-          ? '<div class="h-44 w-full overflow-hidden bg-[#0f1011]">' +
+          ? '<div class="overflow-hidden" style="background-color: var(--bg-tile-dark);">' +
             '<img src="' +
             escapeHtml(tr.imagePath) +
             '" alt="' +
             escapeHtml(tr.title) +
-            '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
+            '" width="1200" height="670" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
             "</div>"
           : "") +
         '<div class="p-6 pb-2">' +
         '<div class="flex flex-wrap items-center justify-between gap-2 mb-2">' +
-        '<span class="inline-block px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-accent-soft); color: var(--accent-wine);">' +
+        '<span class="jw-kicker m-0">' +
         escapeHtml(tr.badge) +
         "</span>" +
         '<span class="text-xs font-bold" style="color: var(--text-muted);">' +
@@ -2853,7 +3148,7 @@
         '<h3 class="font-serif-sacred font-bold text-xl mb-1" style="color: var(--text-main);">' +
         escapeHtml(tr.title) +
         "</h3>" +
-        '<p class="text-xs font-semibold mb-2" style="color: var(--accent-amber);">' +
+        '<p class="text-xs font-semibold mb-2" style="color: var(--accent-primary);">' +
         escapeHtml(tr.traditionLabel) +
         "</p>" +
         '<p class="text-sm mb-4" style="color: var(--text-secondary);">' +
@@ -2925,29 +3220,29 @@
       var prDone = getTrackCompletedDays(pr.id);
       var isSelected = pr.id === active.id;
       choiceCardsHtml +=
-        '<button type="button" class="surface-card overflow-hidden text-left flex flex-col justify-between transition ' +
-        (isSelected ? "ring-2 ring-[#5e6ad2] border-[#5e6ad2]" : "") +
+        '<button type="button" class="jw-photo-card text-left transition ' +
+        (isSelected ? "ring-2 ring-[#4a6da7] border-[#4a6da7]" : "") +
         '" data-select-purpose="' +
         escapeHtml(pr.id) +
         '" aria-pressed="' +
         (isSelected ? "true" : "false") +
         '">' +
         "<div>" +
-        '<div class="relative h-36 w-full overflow-hidden bg-[#0f1011]">' +
+        '<div class="relative overflow-hidden" style="background-color: var(--bg-tile-dark);">' +
         '<img src="' +
         escapeHtml(pr.imagePath) +
         '" alt="' +
         escapeHtml(pr.title) +
-        '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" loading="lazy" />' +
-        '<span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#141516] text-[#f7f8f8] border border-[#34343a]">' +
+        '" width="1200" height="670" decoding="async" class="jw-photo-card-img" loading="lazy" />' +
+        '<span class="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: rgba(29, 63, 122, 0.92);">' +
         prDone.length +
         "/40 dias</span>" +
         "</div>" +
         '<div class="p-4 space-y-1.5">' +
-        '<span class="font-mono-label block" style="color: var(--accent-blue);">' +
-        (isSelected ? "✓ Propósito Escolhido" : "Toque para Escolher") +
+        '<span class="jw-kicker">' +
+        (isSelected ? "✓ PROPÓSITO ESCOLHIDO" : "TOQUE PARA ESCOLHER") +
         "</span>" +
-        '<h3 class="font-display text-lg leading-snug" style="color: var(--text-main);">' +
+        '<h3 class="font-display text-lg font-bold leading-snug" style="color: var(--text-main);">' +
         escapeHtml(pr.shortTitle) +
         "</h3>" +
         '<p class="text-sm leading-relaxed" style="color: var(--text-secondary);">' +
@@ -2978,12 +3273,12 @@
 
     container.innerHTML =
       '<div class="space-y-6 max-w-4xl mx-auto">' +
-      '<div class="surface-card p-6 sm:p-8 text-center space-y-3">' +
-      '<span class="coral-badge">Caminhada Bíblica • 40 Dias de Propósitos</span>' +
-      '<h2 id="propositos-main-heading" class="font-display heading-section" style="color: var(--text-main);">' +
+      '<div class="surface-card p-6 sm:p-8 space-y-3">' +
+      '<span class="jw-kicker">CAMINHADA BÍBLICA • 40 DIAS DE PROPÓSITOS</span>' +
+      '<h2 id="propositos-main-heading" class="jw-section-heading font-display heading-section" style="color: var(--text-main);">' +
       "40 Dias de Propósitos com Deus" +
       "</h2>" +
-      '<p class="text-base max-w-2xl mx-auto" style="color: var(--text-secondary);">' +
+      '<p class="text-base max-w-2xl" style="color: var(--text-secondary);">' +
       "Passo 1: escolha abaixo qual propósito de vida você deseja consagrar pelos próximos 40 dias. Passo 2: leia ou ouça a mensagem da Bíblia de cada dia e marque como concluída." +
       "</p>" +
       '<div class="pt-1">' +
@@ -2996,14 +3291,14 @@
       choiceCardsHtml +
       "</div>" +
       '<article class="surface-card overflow-hidden">' +
-      '<div class="relative h-52 sm:h-64 w-full bg-[#0f1011]">' +
+      '<div class="relative h-52 sm:h-64 w-full" style="background-color: var(--bg-tile-dark);">' +
       '<img src="' +
       escapeHtml(active.imagePath) +
       '" alt="' +
       escapeHtml(active.imageCaption || active.title) +
       '" width="1200" height="670" decoding="async" class="w-full h-full object-cover" />' +
-      '<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-7 text-white" style="background: rgba(1, 1, 2, 0.58);">' +
-      '<span class="font-mono-label text-[#828fff] mb-1">' +
+      '<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-7 text-white" style="background: linear-gradient(to top, rgba(20, 34, 61, 0.9) 0%, rgba(20, 34, 61, 0.35) 70%, transparent 100%);">' +
+      '<span class="text-xs font-bold uppercase tracking-wider text-white/90 mb-1">' +
       escapeHtml(dayObj.phase) +
       "</span>" +
       '<h3 class="font-display text-2xl sm:text-3xl text-white">' +
@@ -3247,10 +3542,83 @@
         return;
       }
 
+      var openBibleQBtn = target.closest("[data-open-bible-question]");
+      if (openBibleQBtn) {
+        event.preventDefault();
+        state.activeBibleQuestionId = openBibleQBtn.getAttribute("data-open-bible-question");
+        stopSpeech();
+        if (state.activeSection !== "perguntas-biblicas") {
+          navigateToSection("perguntas-biblicas", true);
+        } else {
+          renderBibleQuestionsView();
+          var qTop = document.getElementById("main-content");
+          if (qTop) qTop.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
+
+      var speakBibleQBtn = target.closest("[data-speak-bible-question]");
+      if (speakBibleQBtn) {
+        event.preventDefault();
+        var bqId = speakBibleQBtn.getAttribute("data-speak-bible-question");
+        var bqList = window.JW_BIBLE_QUESTIONS || [];
+        for (var bqi = 0; bqi < bqList.length; bqi++) {
+          if (bqList[bqi].id === bqId) {
+            var bq = bqList[bqi];
+            speakText(
+              "bible-q-" + bqId,
+              bq.question +
+                ". Resposta da Bíblia: " +
+                bq.shortAnswer +
+                ". Escritura em " +
+                bq.bibleVerseRef +
+                ": " +
+                bq.bibleVerseText +
+                ". Pontos principais: " +
+                (bq.keyPoints || []).join(". ") +
+                ". " +
+                (bq.paragraphs || []).join(" ") +
+                (bq.prayerText ? ". Oração: " + bq.prayerText : "")
+            );
+            break;
+          }
+        }
+        return;
+      }
+
+      var shareBibleQBtn = target.closest("[data-share-bible-question]");
+      if (shareBibleQBtn) {
+        event.preventDefault();
+        var sbqId = shareBibleQBtn.getAttribute("data-share-bible-question");
+        var sbqList = window.JW_BIBLE_QUESTIONS || [];
+        for (var sbqi = 0; sbqi < sbqList.length; sbqi++) {
+          if (sbqList[sbqi].id === sbqId) {
+            var sbq = sbqList[sbqi];
+            shareViaWhatsApp(
+              "📖 *Pergunta Bíblica Respondida*\n\n*" +
+                sbq.question +
+                "*\n\n" +
+                sbq.shortAnswer +
+                "\n\n“" +
+                sbq.bibleVerseText +
+                "” (" +
+                sbq.bibleVerseRef +
+                ")\n\nHorizonte Espiritual (Acesso 100% Gratuito)"
+            );
+            break;
+          }
+        }
+        return;
+      }
+
       var navBtn = target.closest("[data-nav-target]");
       if (navBtn) {
         event.preventDefault();
-        navigateToSection(navBtn.getAttribute("data-nav-target"), true);
+        var targetSec = navBtn.getAttribute("data-nav-target");
+        if (targetSec === "perguntas-biblicas") {
+          state.activeBibleQuestionId = null;
+        }
+        navigateToSection(targetSec, true);
         return;
       }
 
@@ -3922,6 +4290,15 @@
       } else if (action === "close-blog-post") {
         state.activeBlogPostId = null;
         renderBlogList();
+      } else if (action === "close-bible-question") {
+        state.activeBibleQuestionId = null;
+        stopSpeech();
+        renderBibleQuestionsView();
+      } else if (action === "speak-questions-guide") {
+        speakText(
+          "questions-guide",
+          "Perguntas Bíblicas Respondidas. A Bíblia Sagrada oferece respostas claras, sábias e consoladoras para as maiores dúvidas da vida, como sofrimento, ansiedade, oração, paz na família e como entender as Escrituras. Toque em qualquer pergunta para abrir a explicação completa ou toque em Ouvir para escutar em voz calma."
+        );
       } else if (action === "copy-pix-key") {
         copyPixKey();
       } else if (action === "open-miguel-21dias") {
@@ -4210,6 +4587,9 @@
       if (event.key === "Escape") {
         if (state.drawerMenuOpen) {
           toggleDrawerMenu(false);
+        } else if (state.activeBibleQuestionId) {
+          state.activeBibleQuestionId = null;
+          renderBibleQuestionsView();
         } else if (state.activePrayerId) {
           state.activePrayerId = null;
           renderPrayersView();
@@ -4223,10 +4603,10 @@
 
   function bootstrap() {
     var savedTheme = safeStorageGet(STORAGE_KEYS.theme);
-    if (savedTheme === "light") {
-      applyTheme("light");
-    } else {
+    if (savedTheme === "dark") {
       applyTheme("dark");
+    } else {
+      applyTheme("light");
     }
 
     var savedFont = safeStorageGet(STORAGE_KEYS.fontSize);
@@ -4263,6 +4643,9 @@
     }
 
     renderDailyPanel();
+    renderHomeVisualDoors();
+    renderHomeQuestionsPreview();
+    renderBibleQuestionsView();
     renderHomeSacredGallery();
     renderHomeRetentionWidgets();
     renderCafeDiario();
