@@ -890,7 +890,7 @@
     if (prayer && prayer.imagePath) return prayer.imagePath;
     var titleLower = String((prayer && prayer.title) || "").toLowerCase();
     if (titleLower.indexOf("miguel") !== -1) return "assets/prayers/arcanjo-miguel-catolica.jpg";
-    if (titleLower.indexOf("jorge") !== -1) return "assets/sacred/daniel-cova-leoes.jpg";
+    if (titleLower.indexOf("jorge") !== -1) return "assets/prayers/sao-jorge-protecao-caminhos.jpg";
     if (titleLower.indexOf("salmo") !== -1) return "assets/sacred/davi-salmos-harpa.jpg";
     if (titleLower.indexOf("maria") !== -1 || titleLower.indexOf("senhora") !== -1 || titleLower.indexOf("rainha") !== -1) return "assets/sacred/anunciacao-maria.jpg";
     if (titleLower.indexOf("cura") !== -1 || titleLower.indexOf("pastor") !== -1 || titleLower.indexOf("família") !== -1 || titleLower.indexOf("filhos") !== -1) return "assets/sacred/jesus-bom-pastor.jpg";
